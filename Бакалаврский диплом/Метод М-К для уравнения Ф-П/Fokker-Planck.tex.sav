@@ -1,0 +1,61 @@
+\documentclass [14pt,a4paper,twoside]{article}
+\special{papersize=210mm,297mm}
+\RequirePackage[cp1251]{inputenc}
+\RequirePackage[english,russian]{babel}
+\usepackage[14pt]{extsizes}
+%\usepackage[dvips,colorlinks,breaklinks=true,
+%linkcolor=blue,citecolor=blue]{hyperref}
+\usepackage[pdftex,colorlinks,
+linkcolor=blue,citecolor=blue]{hyperref}
+\def\baselinestretch{1.05}
+\parskip=1ex
+
+%%%%%%%%%%%%%%%% Символы, графика %%%%%%%%%%%%%%%%%
+
+\usepackage[T2A]{fontenc}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{enumitem}
+\usepackage{wrapfig}
+\usepackage{euscript}
+\usepackage{indentfirst}
+\usepackage{color}
+\usepackage[pdftex]{graphics}
+%\usepackage[dvips]{graphics}
+%\DeclareGraphicsRule{.eps}{eps}{.eps}{}
+\usepackage{pgfplots}
+\usepackage{calc}
+
+%%%%%%%%%%%%%%% Разметка страницы %%%%%%%%%%%%%%%%%
+
+\usepackage{indentfirst}
+\topmargin=-1.45cm %отступ сверху
+\oddsidemargin=0cm %отступ слева (нечетные страницы)
+\evensidemargin=0cm %(четные страницы)
+\textwidth=16cm %ширина текста
+\textheight=24cm
+\tolerance=800
+
+
+
+\begin{document}
+
+Уравнение Фоккера-Планка для плотности функции распределения вероятностей $f = f(t,x)$ с постоянными коэффициентом переноса $k$ и коэффициентом диффузии $D$ имеет вид
+\begin{equation}\label{}
+\frac{\partial{f}}{\partial{t}}\,=\, -k\,\frac{\partial{f}}{\partial{x}}+ D\,\frac{\partial^2{f}}{\partial{x}^2}.
+\nonumber
+\end{equation}
+Преобразованием переменных
+\begin{equation}\label{}
+\frac{\partial{f}}{\partial{t}}\,=\, -k\,\frac{\partial{f}}{\partial{x}}+ D\,\frac{\partial^2{f}}{\partial{x}^2},
+\nonumber
+\end{equation}
+
+\begin{thebibliography}{19}
+
+\bibitem{Tichonov}
+Тихонов А.Н., Самарский А.А. \textit{Уравнения математической физики}// Изд-во МГУ, 6-е изд., 1999.
+
+\end{thebibliography}
+
+
+\end{document}

@@ -1,0 +1,151 @@
+\documentclass[a4paper]{report}
+
+\def\baselinestretch{1.1}
+\usepackage[14pt]{extsizes}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{indentfirst}
+\usepackage{mathrsfs}
+
+%%%%%%%%%%%%%%%%% Символы, графика %%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[T2A]{fontenc}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\newcommand\dsone{\mathds{H}}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage[pdftex,colorlinks,linkcolor=blue,citecolor=blue]{hyperref}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{array}
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
+
+%%%%%%%%% Разметка страницы %%%%%%%%%
+
+\bibliographystyle{babel}
+\renewcommand{\thetable}{\arabic{table}}
+\usepackage{indentfirst}
+\topmargin=-1.5cm %отступ сверху
+\oddsidemargin=0.4cm %отступ слева (нечетные страницы)
+\evensidemargin=0.4cm %(четные страницы)
+\textwidth=16cm %ширина текста
+\textheight=24cm
+\tolerance=800
+\parskip=1ex
+
+\pagestyle{plain}
+
+\usepackage{listings}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstset{
+    extendedchars=\true,
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=3pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=1,
+    basicstyle=\fontsize{10}{12}\selectfont\ttfamily
+}
+
+\begin{document}
+
+\begin{titlepage}
+    \begin{center}
+        Министерство науки и высшего образования РФ\\
+        ФГБОУ ВО «Тверской государственный университет»\\
+        Математический факультет\\
+        Направление 02.04.01 Математика и компьютерные науки\\
+        Профиль <<Математическое и компьютерное моделирование>>
+    \end{center}
+
+    \vspace{2.5cm}
+    \begin{center}
+
+        {ВЫПУСКНАЯ КВАЛИФИКАЦИОННАЯ РАБОТА }
+
+
+        \vspace{1.0cm}
+        \large{Вычисление операторных экспонент в базисе Паули}
+
+
+        \vspace{1.5cm}
+    \end{center}
+
+
+
+    \begin{flushright}
+        \begin{minipage}{80mm}
+            Автор:\\
+            Алешин Дмитрий Алексеевич
+
+            \vspace{1.0cm}
+            Научный руководитель:\\
+            д. ф.-м. н. Цирулёв А.Н.
+
+        \end{minipage}
+    \end{flushright}
+
+
+    \vspace{1.6cm}
+    \noindent Допущен к защите:\\
+    Руководитель ООП:\\[1cm]
+    \underline{\qquad \qquad \qquad \qquad \qquad }
+    В.П. Цветков \\
+    \vspace{2.3cm}
+
+
+
+    \begin{center}
+        Тверь 2025
+    \end{center}
+
+    \date{}
+\end{titlepage}
+
+\setcounter{page}{2}
+
+\tableofcontents
+\newpage
+
+\chapter*{Введение}
+
+\chapter{Вариационные квантовые алгоритмы: общая схема}
+
+\section{Базис Паули}
+
+\section{Целевая функция и анзац}
+
+\section{Общая схема алгоритма}
+
+\section{Оптимизация}
+
+\chapter{Вариационный квантовый алгоритм на основе метода отжига}
+
+\section{Метод отжига}
+
+\section{Алгоритм}
+
+\section{Сравнительные результаты тестирования}
+
+\chapter*{Заключение}
+
+\chapter*{Список литературы}
+
+\chapter*{Приложение {\huge C{$\#$}}}
+
+\end{document}

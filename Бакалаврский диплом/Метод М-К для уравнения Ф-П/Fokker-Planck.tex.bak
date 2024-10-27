@@ -1,0 +1,92 @@
+\documentclass [14pt,a4paper,twoside]{article}
+\special{papersize=210mm,297mm}
+\RequirePackage[cp1251]{inputenc}
+\RequirePackage[english,russian]{babel}
+\usepackage[14pt]{extsizes}
+%\usepackage[dvips,colorlinks,breaklinks=true,
+%linkcolor=blue,citecolor=blue]{hyperref}
+\usepackage[pdftex,colorlinks,
+linkcolor=blue,citecolor=blue]{hyperref}
+\def\baselinestretch{1.05}
+\parskip=1ex
+
+%%%%%%%%%%%%%%%% Символы, графика %%%%%%%%%%%%%%%%%
+
+\usepackage[T2A]{fontenc}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{enumitem}
+\usepackage{wrapfig}
+\usepackage{euscript}
+\usepackage{indentfirst}
+\usepackage{color}
+\usepackage[pdftex]{graphics}
+%\usepackage[dvips]{graphics}
+%\DeclareGraphicsRule{.eps}{eps}{.eps}{}
+\usepackage{pgfplots}
+\usepackage{calc}
+
+%%%%%%%%%%%%%%% Разметка страницы %%%%%%%%%%%%%%%%%
+
+\usepackage{indentfirst}
+\topmargin=-1.45cm %отступ сверху
+\oddsidemargin=0cm %отступ слева (нечетные страницы)
+\evensidemargin=0cm %(четные страницы)
+\textwidth=16cm %ширина текста
+\textheight=24cm
+\tolerance=800
+
+
+
+\begin{document}
+
+Уравнение Фоккера-Планка для плотности функции распределения вероятностей $f = f(t,x)$ с постоянными коэффициентом переноса $k$ и коэффициентом диффузии $D$ имеет вид
+\begin{equation}\label{FP}
+\frac{\partial{f}}{\partial{t}}\,=\, -k\,\frac{\partial{f}}{\partial{x}}+ D\,\frac{\partial^2{f}}{\partial{x}^2}.
+\end{equation}
+Преобразованием переменных
+\begin{equation}\label{}
+t= \frac{D}{k^2}\tilde{t},\qquad x= \frac{D}{k}\tilde{x}
+\nonumber
+\end{equation}
+уравнение~(\ref{FP}) приводится к стандартной форме
+\begin{equation}\label{FP1}
+\frac{\partial{\tilde{f}}}{\partial{\tilde{t}}}\,=\, -\,\frac{\partial{\tilde{f}}}{\partial{\tilde{x}}}+ \frac{\partial^2{\tilde{f}}}{\partial{\tilde{x}}^2},\qquad \tilde{f}(\tilde{t},\tilde{x})= f(t(\tilde{t}),x(\tilde{x})).
+\end{equation}
+Фундаментальное решение для~(\ref{FP1}), т.\,е. решение начально-краевой задачи с условиями
+\begin{equation}\label{}
+\tilde{f}(0,\tilde{x})= \delta(\tilde{x}),\qquad \tilde{f}(\tilde{t},-\infty)= 0,\qquad \tilde{f}(\tilde{t},+\infty)= 0,
+\nonumber
+\end{equation}
+дается формулой~\cite{Tichonov}
+\begin{equation}\label{}
+\tilde{f}(\tilde{t},\tilde{x})\,=\, \frac{1}{\sqrt{4\pi\tilde{t}}}\, \exp\left\{-\frac{(x-t)^2}{4t}\right\}.
+\nonumber
+\end{equation}
+После перехода к исходным переменным, решение уравнения~(\ref{FP}) с начально-краевыми условиями
+\begin{equation}\label{}
+f(0,x)= \delta(x),\qquad f(t,-\infty)= 0,\qquad f(t,+\infty)= 0,
+\nonumber
+\end{equation}
+примет вид
+\begin{equation}\label{SFP}
+f(t,x)\,=\, \frac{1}{\sqrt{4\pi{}Dt}}\, \exp\left\{-\frac{(x-kt)^2}{4Dt}\right\}.
+\end{equation}
+Прямым интегрированием можно проверить, что условие нормировки
+\begin{equation}\label{}
+\int\limits_{-\infty}^{+\infty}f(t,x)= 1
+\nonumber
+\end{equation}
+выполнено.
+
+
+
+
+\begin{thebibliography}{19}
+
+\bibitem{Tichonov}
+Тихонов А.Н., Самарский А.А. \textit{Уравнения математической физики}// Изд-во МГУ, 6-е изд., 1999.
+
+\end{thebibliography}
+
+
+\end{document} 
