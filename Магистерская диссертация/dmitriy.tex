@@ -22,7 +22,7 @@
 
 %%%%%%%%% Разметка страницы %%%%%%%%%
 
-\bibliographystyle{babel}
+\bibliographystyle{plain}  % Change this to your preferred style
 \renewcommand{\thetable}{\arabic{table}}
 \usepackage{indentfirst}
 \topmargin=-1.5cm %отступ сверху
@@ -43,7 +43,7 @@
 \definecolor{backcolour}{rgb}{0.95,0.95,0.92}
 
 \lstset{
-    extendedchars=\true,
+    extendedchars=true,  % Corrected this line
     backgroundcolor=\color{backcolour},
     commentstyle=\color{codegreen},
     keywordstyle=\color{magenta},
@@ -75,18 +75,13 @@
 
     \vspace{2.5cm}
     \begin{center}
-
         {ВЫПУСКНАЯ КВАЛИФИКАЦИОННАЯ РАБОТА }
 
-
         \vspace{1.0cm}
-        \large{Вычисление операторных экспонент в базисе Паули}
-
+        \large{Вариационный квантовый алгоритм с оптимизацией методом отжига}
 
         \vspace{1.5cm}
     \end{center}
-
-
 
     \begin{flushright}
         \begin{minipage}{80mm}
@@ -96,25 +91,20 @@
             \vspace{1.0cm}
             Научный руководитель:\\
             д. ф.-м. н. Цирулёв А.Н.
-
         \end{minipage}
     \end{flushright}
-
 
     \vspace{1.6cm}
     \noindent Допущен к защите:\\
     Руководитель ООП:\\[1cm]
     \underline{\qquad \qquad \qquad \qquad \qquad }
     В.П. Цветков \\
+
     \vspace{2.3cm}
-
-
-
+    \vspace{-0.7cm}
     \begin{center}
-        Тверь 2025
+        Тверь, 2025
     \end{center}
-
-    \date{}
 \end{titlepage}
 
 \setcounter{page}{2}
