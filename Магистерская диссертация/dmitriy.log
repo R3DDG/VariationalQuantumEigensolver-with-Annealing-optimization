@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2024.10.27)  29 OCT 2024 23:11
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2024.10.27)  30 OCT 2024 16:10
 entering extended mode
-**E:/Files/masters_thesis/Магистерская*диссертация/dmitr
-iy.tex
+**C:/tversu/masters_thesis/Магистерская*диссертация/dmit
+riy.tex
 
-("E:/Files/masters_thesis/Магистерская диссертация/dmitr
-iy.tex"
+("C:/tversu/masters_thesis/Магистерская диссертация/dmit
+riy.tex"
 LaTeX2e <2011/06/27>
 Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
 abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
@@ -16,9 +16,9 @@ german-x-2013-05-26, nynorsk, oriya, panjabi, pinyin, polish, portuguese, roman
 ian, russian, sanskrit, serbian, slovak, slovenian, spanish, swedish, swissgerm
 an, tamil, telugu, turkish, turkmen, ukenglish, ukrainian, uppersorbian, usengl
 ishmax, welsh, loaded.
-(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\base\report.cls
+(E:\Full_TeX\texmf\tex\latex\base\report.cls
 Document Class: report 2007/10/19 v1.4h Standard LaTeX document class
-(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\base\size10.clo
+(E:\Full_TeX\texmf\tex\latex\base\size10.clo
 File: size10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 )
 \c@part=\count79
@@ -34,29 +34,29 @@ File: size10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 \belowcaptionskip=\skip42
 \bibindent=\dimen102
 )
-(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\extsizes\extsizes.sty
+(E:\Full_TeX\texmf\tex\latex\extsizes\extsizes.sty
 Package: extsizes 1996/10/08 v1.0 Non Standard LaTeX Package
 
 
 Package ExtSizes Warning: It is better to use one of the extsizes classes,
  if you can.
 
-(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\extsizes\size14.clo
+(E:\Full_TeX\texmf\tex\latex\extsizes\size14.clo
 File: size14.clo 1999/11/11 v1.4a NON-Standard LaTeX file (size option)
 ))
-(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\base\inputenc.sty
+(E:\Full_TeX\texmf\tex\latex\base\inputenc.sty
 Package: inputenc 2008/03/30 v1.1d Input encoding file
 \inpenc@prehook=\toks14
 \inpenc@posthook=\toks15
 
-(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\base\utf8.def
+(E:\Full_TeX\texmf\tex\latex\base\utf8.def
 File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
 Now handling font encoding OML ...
 ... no UTF-8 mapping file for font encoding OML
 Now handling font encoding T1 ...
 ... processing UTF-8 mapping file for font encoding T1
 
-(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\base\t1enc.dfu
+(E:\Full_TeX\texmf\tex\latex\base\t1enc.dfu
 File: t1enc.dfu 2008/04/05 v1.1m UTF-8 support for inputenc
    defining Unicode char U+00A1 (decimal 161)
    defining Unicode char U+00A3 (decimal 163)
@@ -206,7 +206,7 @@ File: t1enc.dfu 2008/04/05 v1.1m UTF-8 support for inputenc
 Now handling font encoding OT1 ...
 ... processing UTF-8 mapping file for font encoding OT1
 
-(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\base\ot1enc.dfu
+(E:\Full_TeX\texmf\tex\latex\base\ot1enc.dfu
 File: ot1enc.dfu 2008/04/05 v1.1m UTF-8 support for inputenc
    defining Unicode char U+00A1 (decimal 161)
    defining Unicode char U+00A3 (decimal 163)
@@ -237,7 +237,7 @@ File: ot1enc.dfu 2008/04/05 v1.1m UTF-8 support for inputenc
 Now handling font encoding OMS ...
 ... processing UTF-8 mapping file for font encoding OMS
 
-(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\base\omsenc.dfu
+(E:\Full_TeX\texmf\tex\latex\base\omsenc.dfu
 File: omsenc.dfu 2008/04/05 v1.1m UTF-8 support for inputenc
    defining Unicode char U+00A7 (decimal 167)
    defining Unicode char U+00B6 (decimal 182)
@@ -261,29 +261,29 @@ Now handling font encoding U ...
    defining Unicode char U+2122 (decimal 8482)
    defining Unicode char U+2423 (decimal 9251)
 ))
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\babel\babel.sty
+(E:\Full_TeX\texmf\tex\generic\babel\babel.sty
 Package: babel 2008/07/08 v3.8m The Babel package
 
 *************************************
 * Local config file bblopts.cfg used
 *
-(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\00miktex\bblopts.cfg
+(E:\Full_TeX\texmf\tex\latex\00miktex\bblopts.cfg
 File: bblopts.cfg 2006/07/31 v1.0 MiKTeX 'babel' configuration
 )
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\babel\russianb.ldf
+(E:\Full_TeX\texmf\tex\generic\babel\russianb.ldf
 Language: russianb 2008/03/21 v1.1r Russian support from the babel system
 
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\babel\babel.def
+(E:\Full_TeX\texmf\tex\generic\babel\babel.def
 File: babel.def 2008/07/08 v3.8m Babel common definitions
 \babel@savecnt=\count88
 \U@D=\dimen103
 )
-(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\cyrillic\t2aenc.def
+(E:\Full_TeX\texmf\tex\latex\cyrillic\t2aenc.def
 File: t2aenc.def 2005/09/27 v1.0i Cyrillic encoding definition file
 Now handling font encoding T2A ...
 ... processing UTF-8 mapping file for font encoding T2A
 
-(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\base\t2aenc.dfu
+(E:\Full_TeX\texmf\tex\latex\base\t2aenc.dfu
 File: t2aenc.dfu 2008/04/05 v1.1m UTF-8 support for inputenc
    defining Unicode char U+00A4 (decimal 164)
    defining Unicode char U+00A7 (decimal 167)
@@ -474,44 +474,44 @@ File: t2aenc.dfu 2008/04/05 v1.1m UTF-8 support for inputenc
 ))
 Package babel Info: Making " an active character on input line 199.
 ))
-(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\tools\indentfirst.sty
+(E:\Full_TeX\texmf\tex\latex\tools\indentfirst.sty
 Package: indentfirst 1995/11/23 v1.03 Indent first paragraph (DPC)
 )
-(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\jknappen\mathrsfs.sty
+(E:\Full_TeX\texmf\tex\latex\jknappen\mathrsfs.sty
 Package: mathrsfs 1996/01/01 Math RSFS package v1.0 (jk)
 \symrsfs=\mathgroup4
 )
-(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\base\fontenc.sty
+(E:\Full_TeX\texmf\tex\latex\base\fontenc.sty
 Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
 
-(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\cyrillic\t2aenc.def
+(E:\Full_TeX\texmf\tex\latex\cyrillic\t2aenc.def
 File: t2aenc.def 2005/09/27 v1.0i Cyrillic encoding definition file
 LaTeX Font Info:    Redeclaring font encoding T2A on input line 38.
 )
 LaTeX Font Info:    Try loading font information for T2A+cmr on input line 100.
 
 
-(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\cyrillic\t2acmr.fd
+(E:\Full_TeX\texmf\tex\latex\cyrillic\t2acmr.fd
 File: t2acmr.fd 2001/08/11 v1.0a Computer Modern Cyrillic font definitions
 ))
-(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\amsmath\amsmath.sty
+(E:\Full_TeX\texmf\tex\latex\amsmath\amsmath.sty
 Package: amsmath 2013/01/14 v2.14 AMS math features
 \@mathmargin=\skip43
 
 For additional information on amsmath, use the `?' option.
-(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\amsmath\amstext.sty
+(E:\Full_TeX\texmf\tex\latex\amsmath\amstext.sty
 Package: amstext 2000/06/29 v2.01
 
-(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\amsmath\amsgen.sty
+(E:\Full_TeX\texmf\tex\latex\amsmath\amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0
 \@emptytoks=\toks16
 \ex@=\dimen104
 ))
-(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\amsmath\amsbsy.sty
+(E:\Full_TeX\texmf\tex\latex\amsmath\amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d
 \pmbraise@=\dimen105
 )
-(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\amsmath\amsopn.sty
+(E:\Full_TeX\texmf\tex\latex\amsmath\amsopn.sty
 Package: amsopn 1999/12/14 v2.01 operator names
 )
 \inf@bad=\count89
@@ -552,17 +552,17 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 567.
 LaTeX Info: Redefining \[ on input line 2665.
 LaTeX Info: Redefining \] on input line 2666.
 )
-(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\amsfonts\amssymb.sty
+(E:\Full_TeX\texmf\tex\latex\amsfonts\amssymb.sty
 Package: amssymb 2013/01/14 v3.01 AMS font symbols
 
-(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\amsfonts\amsfonts.sty
+(E:\Full_TeX\texmf\tex\latex\amsfonts\amsfonts.sty
 Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 \symAMSa=\mathgroup5
 \symAMSb=\mathgroup6
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
 ))
-(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\amscls\amsthm.sty
+(E:\Full_TeX\texmf\tex\latex\amscls\amsthm.sty
 Package: amsthm 2004/08/06 v2.20
 \thm@style=\toks21
 \thm@bodyfont=\toks22
@@ -574,31 +574,31 @@ Package: amsthm 2004/08/06 v2.20
 \thm@headsep=\skip48
 \dth@everypar=\toks26
 )
-(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\graphics\graphicx.sty
+(E:\Full_TeX\texmf\tex\latex\graphics\graphicx.sty
 Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
 
-(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\graphics\keyval.sty
+(E:\Full_TeX\texmf\tex\latex\graphics\keyval.sty
 Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
 \KV@toks@=\toks27
 )
-(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\graphics\graphics.sty
+(E:\Full_TeX\texmf\tex\latex\graphics\graphics.sty
 Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
 
-(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\graphics\trig.sty
+(E:\Full_TeX\texmf\tex\latex\graphics\trig.sty
 Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
 )
-(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\00miktex\graphics.cfg
+(E:\Full_TeX\texmf\tex\latex\00miktex\graphics.cfg
 File: graphics.cfg 2007/01/18 v1.5 graphics configuration of teTeX/TeXLive
 )
 Package graphics Info: Driver file: pdftex.def on input line 91.
 
-(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\pdftex-def\pdftex.def
+(E:\Full_TeX\texmf\tex\latex\pdftex-def\pdftex.def
 File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
 
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\oberdiek\infwarerr.sty
+(E:\Full_TeX\texmf\tex\generic\oberdiek\infwarerr.sty
 Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
 )
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\oberdiek\ltxcmds.sty
+(E:\Full_TeX\texmf\tex\generic\oberdiek\ltxcmds.sty
 Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
 )
 \Gread@gobject=\count101
@@ -606,22 +606,22 @@ Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
 \Gin@req@height=\dimen113
 \Gin@req@width=\dimen114
 )
-(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\graphics\color.sty
+(E:\Full_TeX\texmf\tex\latex\graphics\color.sty
 Package: color 2005/11/14 v1.0j Standard LaTeX Color (DPC)
 
-(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\00miktex\color.cfg
+(E:\Full_TeX\texmf\tex\latex\00miktex\color.cfg
 File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
 )
 Package color Info: Driver file: pdftex.def on input line 130.
 )
-(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\hyperref\hyperref.sty
+(E:\Full_TeX\texmf\tex\latex\hyperref\hyperref.sty
 Package: hyperref 2012/11/06 v6.83m Hypertext links for LaTeX
 
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\oberdiek\hobsub-hyperref.sty
+(E:\Full_TeX\texmf\tex\generic\oberdiek\hobsub-hyperref.sty
 Package: hobsub-hyperref 2012/04/25 v1.12 Bundle oberdiek, subset hyperref (HO)
 
 
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\oberdiek\hobsub-generic.sty
+(E:\Full_TeX\texmf\tex\generic\oberdiek\hobsub-generic.sty
 Package: hobsub-generic 2012/04/25 v1.12 Bundle oberdiek, subset generic (HO)
 Package: hobsub 2012/04/25 v1.12 Construct package bundles (HO)
 Package hobsub Info: Skipping package `infwarerr' (already loaded).
@@ -662,20 +662,20 @@ Package: atbegshi 2011/10/05 v1.16 At begin shipout hook (HO)
 Package: refcount 2011/10/16 v3.4 Data extraction from label references (HO)
 Package: hycolor 2011/01/30 v1.7 Color options for hyperref/bookmark (HO)
 )
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\ifxetex\ifxetex.sty
+(E:\Full_TeX\texmf\tex\generic\ifxetex\ifxetex.sty
 Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 )
-(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\oberdiek\auxhook.sty
+(E:\Full_TeX\texmf\tex\latex\oberdiek\auxhook.sty
 Package: auxhook 2011/03/04 v1.3 Hooks for auxiliary files (HO)
 )
-(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\oberdiek\kvoptions.sty
+(E:\Full_TeX\texmf\tex\latex\oberdiek\kvoptions.sty
 Package: kvoptions 2011/06/30 v3.11 Key value format for package options (HO)
 )
 \@linkdim=\dimen115
 \Hy@linkcounter=\count102
 \Hy@pagecounter=\count103
 
-(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\hyperref\pd1enc.def
+(E:\Full_TeX\texmf\tex\latex\hyperref\pd1enc.def
 File: pd1enc.def 2012/11/06 v6.83m Hyperref: PDFDocEncoding definition (HO)
 Now handling font encoding PD1 ...
 ... no UTF-8 mapping file for font encoding PD1
@@ -683,12 +683,12 @@ Now handling font encoding PD1 ...
 \Hy@SavedSpaceFactor=\count104
 Package hyperref Info: Option `unicode' set `true' on input line 3411.
 
-(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\hyperref\puenc.def
+(E:\Full_TeX\texmf\tex\latex\hyperref\puenc.def
 File: puenc.def 2012/11/06 v6.83m Hyperref: PDF Unicode definition (HO)
 Now handling font encoding PU ...
 ... no UTF-8 mapping file for font encoding PU
 )
-(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\00miktex\hyperref.cfg
+(E:\Full_TeX\texmf\tex\latex\00miktex\hyperref.cfg
 File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
 )
 Package hyperref Info: Option `colorlinks' set `true' on input line 4319.
@@ -701,7 +701,7 @@ Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4688.
 \c@Hy@tempcnt=\count105
 
-(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\url\url.sty
+(E:\Full_TeX\texmf\tex\latex\url\url.sty
 \Urlmuskip=\muskip11
 Package: url 2006/04/12  ver 3.3  Verb mode for urls, etc.
 )
@@ -726,50 +726,49 @@ LaTeX Info: Redefining \pageref on input line 6369.
 
 Package hyperref Message: Driver: hpdftex.
 
-(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\hyperref\hpdftex.def
+(E:\Full_TeX\texmf\tex\latex\hyperref\hpdftex.def
 File: hpdftex.def 2012/11/06 v6.83m Hyperref driver for pdfTeX
 \Fld@listcount=\count110
 \c@bookmark@seq@number=\count111
 
-(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\oberdiek\rerunfilecheck.sty
+(E:\Full_TeX\texmf\tex\latex\oberdiek\rerunfilecheck.sty
 Package: rerunfilecheck 2011/04/15 v1.7 Rerun checks for auxiliary files (HO)
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 82.
 )
 \Hy@SectionHShift=\skip49
 )
-(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\pgfplots\pgfplots.sty
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\pgfplots.revision.tex)
+(E:\Full_TeX\texmf\tex\latex\pgfplots\pgfplots.sty
+(E:\Full_TeX\texmf\tex\generic\pgfplots\pgfplots.revision.tex)
 Package: pgfplots 2013/10/03 v1.9 Data Visualization (1.9)
 
-(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\pgf\frontendlayer\tikz.sty
-(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\pgf\basiclayer\pgf.sty
-(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\pgf\utilities\pgfrcs.sty
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\utilities\pgfutil-common.tex
+(E:\Full_TeX\texmf\tex\latex\pgf\frontendlayer\tikz.sty
+(E:\Full_TeX\texmf\tex\latex\pgf\basiclayer\pgf.sty
+(E:\Full_TeX\texmf\tex\latex\pgf\utilities\pgfrcs.sty
+(E:\Full_TeX\texmf\tex\generic\pgf\utilities\pgfutil-common.tex
 \pgfutil@everybye=\toks28
 )
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\utilities\pgfutil-latex.def
+(E:\Full_TeX\texmf\tex\generic\pgf\utilities\pgfutil-latex.def
 \pgfutil@abb=\box28
 
-(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\ms\everyshi.sty
+(E:\Full_TeX\texmf\tex\latex\ms\everyshi.sty
 Package: everyshi 2001/05/15 v3.00 EveryShipout Package (MS)
 ))
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\utilities\pgfrcs.code.tex
+(E:\Full_TeX\texmf\tex\generic\pgf\utilities\pgfrcs.code.tex
 Package: pgfrcs 2010/10/25 v2.10 (rcs-revision 1.24)
 ))
 Package: pgf 2008/01/15 v2.10 (rcs-revision 1.12)
 
-(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\pgf\basiclayer\pgfcore.sty
-(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\pgf\systemlayer\pgfsys.sty
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\systemlayer\pgfsys.code.tex
+(E:\Full_TeX\texmf\tex\latex\pgf\basiclayer\pgfcore.sty
+(E:\Full_TeX\texmf\tex\latex\pgf\systemlayer\pgfsys.sty
+(E:\Full_TeX\texmf\tex\generic\pgf\systemlayer\pgfsys.code.tex
 Package: pgfsys 2010/06/30 v2.10 (rcs-revision 1.37)
 
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\utilities\pgfkeys.code.tex
+(E:\Full_TeX\texmf\tex\generic\pgf\utilities\pgfkeys.code.tex
 \pgfkeys@pathtoks=\toks29
 \pgfkeys@temptoks=\toks30
 
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\utilities\pgfkeysfiltered.code.
-tex
+(E:\Full_TeX\texmf\tex\generic\pgf\utilities\pgfkeysfiltered.code.tex
 \pgfkeys@tmptoks=\toks31
 ))
 \pgf@x=\dimen119
@@ -786,31 +785,30 @@ tex
 \c@pgf@countb=\count113
 \c@pgf@countc=\count114
 \c@pgf@countd=\count115
- (E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\systemlayer\pgf.cfg
+
+(E:\Full_TeX\texmf\tex\generic\pgf\systemlayer\pgf.cfg
 File: pgf.cfg 2008/05/14  (rcs-revision 1.7)
 )
 Package pgfsys Info: Driver file for pgf: pgfsys-pdftex.def on input line 900.
 
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\systemlayer\pgfsys-pdftex.def
+(E:\Full_TeX\texmf\tex\generic\pgf\systemlayer\pgfsys-pdftex.def
 File: pgfsys-pdftex.def 2009/05/22  (rcs-revision 1.26)
 
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\systemlayer\pgfsys-common-pdf.d
-ef
+(E:\Full_TeX\texmf\tex\generic\pgf\systemlayer\pgfsys-common-pdf.def
 File: pgfsys-common-pdf.def 2008/05/19  (rcs-revision 1.10)
 )))
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\systemlayer\pgfsyssoftpath.code
-.tex
+(E:\Full_TeX\texmf\tex\generic\pgf\systemlayer\pgfsyssoftpath.code.tex
 File: pgfsyssoftpath.code.tex 2008/07/18  (rcs-revision 1.7)
 \pgfsyssoftpath@smallbuffer@items=\count116
 \pgfsyssoftpath@bigbuffer@items=\count117
 )
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\systemlayer\pgfsysprotocol.code
-.tex
+(E:\Full_TeX\texmf\tex\generic\pgf\systemlayer\pgfsysprotocol.code.tex
 File: pgfsysprotocol.code.tex 2006/10/16  (rcs-revision 1.4)
-)) (E:\Soft\FullTex\Full_TeX\texmf\tex\latex\xcolor\xcolor.sty
+))
+(E:\Full_TeX\texmf\tex\latex\xcolor\xcolor.sty
 Package: xcolor 2007/01/21 v2.11 LaTeX color extensions (UK)
 
-(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\00miktex\color.cfg
+(E:\Full_TeX\texmf\tex\latex\00miktex\color.cfg
 File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
 )
 Package xcolor Info: Driver file: pdftex.def on input line 225.
@@ -825,13 +823,13 @@ Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1358.
 Package xcolor Info: Model `Gray' substituted by `gray' on input line 1359.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1360.
 )
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\basiclayer\pgfcore.code.tex
+(E:\Full_TeX\texmf\tex\generic\pgf\basiclayer\pgfcore.code.tex
 Package: pgfcore 2010/04/11 v2.10 (rcs-revision 1.7)
 
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\math\pgfmath.code.tex
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\math\pgfmathcalc.code.tex
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\math\pgfmathutil.code.tex)
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\math\pgfmathparser.code.tex
+(E:\Full_TeX\texmf\tex\generic\pgf\math\pgfmath.code.tex
+(E:\Full_TeX\texmf\tex\generic\pgf\math\pgfmathcalc.code.tex
+(E:\Full_TeX\texmf\tex\generic\pgf\math\pgfmathutil.code.tex)
+(E:\Full_TeX\texmf\tex\generic\pgf\math\pgfmathparser.code.tex
 \pgfmath@dimen=\dimen127
 \pgfmath@count=\count118
 \pgfmath@box=\box29
@@ -839,26 +837,18 @@ Package: pgfcore 2010/04/11 v2.10 (rcs-revision 1.7)
 \pgfmath@stack@operand=\toks33
 \pgfmath@stack@operation=\toks34
 )
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\math\pgfmathfunctions.code.tex
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\math\pgfmathfunctions.basic.cod
-e.tex)
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\math\pgfmathfunctions.trigonome
-tric.code.tex)
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\math\pgfmathfunctions.random.co
-de.tex)
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\math\pgfmathfunctions.compariso
-n.code.tex)
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\math\pgfmathfunctions.base.code
-.tex)
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\math\pgfmathfunctions.round.cod
-e.tex)
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\math\pgfmathfunctions.misc.code
-.tex)))
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\math\pgfmathfloat.code.tex
+(E:\Full_TeX\texmf\tex\generic\pgf\math\pgfmathfunctions.code.tex
+(E:\Full_TeX\texmf\tex\generic\pgf\math\pgfmathfunctions.basic.code.tex)
+(E:\Full_TeX\texmf\tex\generic\pgf\math\pgfmathfunctions.trigonometric.code.tex
+) (E:\Full_TeX\texmf\tex\generic\pgf\math\pgfmathfunctions.random.code.tex)
+(E:\Full_TeX\texmf\tex\generic\pgf\math\pgfmathfunctions.comparison.code.tex)
+(E:\Full_TeX\texmf\tex\generic\pgf\math\pgfmathfunctions.base.code.tex)
+(E:\Full_TeX\texmf\tex\generic\pgf\math\pgfmathfunctions.round.code.tex)
+(E:\Full_TeX\texmf\tex\generic\pgf\math\pgfmathfunctions.misc.code.tex)))
+(E:\Full_TeX\texmf\tex\generic\pgf\math\pgfmathfloat.code.tex
 \c@pgfmathroundto@lastzeros=\count119
 ))
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\basiclayer\pgfcorepoints.code.t
-ex
+(E:\Full_TeX\texmf\tex\generic\pgf\basiclayer\pgfcorepoints.code.tex
 File: pgfcorepoints.code.tex 2010/04/09  (rcs-revision 1.20)
 \pgf@picminx=\dimen128
 \pgf@picmaxx=\dimen129
@@ -875,114 +865,95 @@ File: pgfcorepoints.code.tex 2010/04/09  (rcs-revision 1.20)
 \pgf@zx=\dimen140
 \pgf@zy=\dimen141
 )
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\basiclayer\pgfcorepathconstruct
-.code.tex
+(E:\Full_TeX\texmf\tex\generic\pgf\basiclayer\pgfcorepathconstruct.code.tex
 File: pgfcorepathconstruct.code.tex 2010/08/03  (rcs-revision 1.24)
 \pgf@path@lastx=\dimen142
 \pgf@path@lasty=\dimen143
 )
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\basiclayer\pgfcorepathusage.cod
-e.tex
+(E:\Full_TeX\texmf\tex\generic\pgf\basiclayer\pgfcorepathusage.code.tex
 File: pgfcorepathusage.code.tex 2008/04/22  (rcs-revision 1.12)
 \pgf@shorten@end@additional=\dimen144
 \pgf@shorten@start@additional=\dimen145
 )
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\basiclayer\pgfcorescopes.code.t
-ex
+(E:\Full_TeX\texmf\tex\generic\pgf\basiclayer\pgfcorescopes.code.tex
 File: pgfcorescopes.code.tex 2010/09/08  (rcs-revision 1.34)
 \pgfpic=\box30
 \pgf@hbox=\box31
 \pgf@layerbox@main=\box32
 \pgf@picture@serial@count=\count120
 )
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\basiclayer\pgfcoregraphicstate.
-code.tex
+(E:\Full_TeX\texmf\tex\generic\pgf\basiclayer\pgfcoregraphicstate.code.tex
 File: pgfcoregraphicstate.code.tex 2008/04/22  (rcs-revision 1.9)
 \pgflinewidth=\dimen146
 )
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\basiclayer\pgfcoretransformatio
-ns.code.tex
+(E:\Full_TeX\texmf\tex\generic\pgf\basiclayer\pgfcoretransformations.code.tex
 File: pgfcoretransformations.code.tex 2009/06/10  (rcs-revision 1.11)
 \pgf@pt@x=\dimen147
 \pgf@pt@y=\dimen148
 \pgf@pt@temp=\dimen149
 )
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\basiclayer\pgfcorequick.code.te
-x
+(E:\Full_TeX\texmf\tex\generic\pgf\basiclayer\pgfcorequick.code.tex
 File: pgfcorequick.code.tex 2008/10/09  (rcs-revision 1.3)
 )
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\basiclayer\pgfcoreobjects.code.
-tex
+(E:\Full_TeX\texmf\tex\generic\pgf\basiclayer\pgfcoreobjects.code.tex
 File: pgfcoreobjects.code.tex 2006/10/11  (rcs-revision 1.2)
 )
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\basiclayer\pgfcorepathprocessin
-g.code.tex
+(E:\Full_TeX\texmf\tex\generic\pgf\basiclayer\pgfcorepathprocessing.code.tex
 File: pgfcorepathprocessing.code.tex 2008/10/09  (rcs-revision 1.8)
 )
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\basiclayer\pgfcorearrows.code.t
-ex
+(E:\Full_TeX\texmf\tex\generic\pgf\basiclayer\pgfcorearrows.code.tex
 File: pgfcorearrows.code.tex 2008/04/23  (rcs-revision 1.11)
 )
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\basiclayer\pgfcoreshade.code.te
-x
+(E:\Full_TeX\texmf\tex\generic\pgf\basiclayer\pgfcoreshade.code.tex
 File: pgfcoreshade.code.tex 2008/11/23  (rcs-revision 1.13)
 \pgf@max=\dimen150
 \pgf@sys@shading@range@num=\count121
 )
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\basiclayer\pgfcoreimage.code.te
-x
+(E:\Full_TeX\texmf\tex\generic\pgf\basiclayer\pgfcoreimage.code.tex
 File: pgfcoreimage.code.tex 2010/03/25  (rcs-revision 1.16)
 
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\basiclayer\pgfcoreexternal.code
-.tex
+(E:\Full_TeX\texmf\tex\generic\pgf\basiclayer\pgfcoreexternal.code.tex
 File: pgfcoreexternal.code.tex 2010/09/01  (rcs-revision 1.17)
 \pgfexternal@startupbox=\box33
 ))
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\basiclayer\pgfcorelayers.code.t
-ex
+(E:\Full_TeX\texmf\tex\generic\pgf\basiclayer\pgfcorelayers.code.tex
 File: pgfcorelayers.code.tex 2010/08/27  (rcs-revision 1.2)
 )
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\basiclayer\pgfcoretransparency.
-code.tex
+(E:\Full_TeX\texmf\tex\generic\pgf\basiclayer\pgfcoretransparency.code.tex
 File: pgfcoretransparency.code.tex 2008/01/17  (rcs-revision 1.2)
 )
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\basiclayer\pgfcorepatterns.code
-.tex
+(E:\Full_TeX\texmf\tex\generic\pgf\basiclayer\pgfcorepatterns.code.tex
 File: pgfcorepatterns.code.tex 2009/07/02  (rcs-revision 1.3)
 )))
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\modules\pgfmoduleshapes.code.te
-x
+(E:\Full_TeX\texmf\tex\generic\pgf\modules\pgfmoduleshapes.code.tex
 File: pgfmoduleshapes.code.tex 2010/09/09  (rcs-revision 1.13)
 \pgfnodeparttextbox=\box34
 )
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\modules\pgfmoduleplot.code.tex
+(E:\Full_TeX\texmf\tex\generic\pgf\modules\pgfmoduleplot.code.tex
 File: pgfmoduleplot.code.tex 2010/10/22  (rcs-revision 1.8)
 )
-(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\pgf\compatibility\pgfcomp-version-0-6
-5.sty
+(E:\Full_TeX\texmf\tex\latex\pgf\compatibility\pgfcomp-version-0-65.sty
 Package: pgfcomp-version-0-65 2007/07/03 v2.10 (rcs-revision 1.7)
 \pgf@nodesepstart=\dimen151
 \pgf@nodesepend=\dimen152
 )
-(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\pgf\compatibility\pgfcomp-version-1-1
-8.sty
+(E:\Full_TeX\texmf\tex\latex\pgf\compatibility\pgfcomp-version-1-18.sty
 Package: pgfcomp-version-1-18 2007/07/23 v2.10 (rcs-revision 1.1)
-)) (E:\Soft\FullTex\Full_TeX\texmf\tex\latex\pgf\utilities\pgffor.sty
-(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\pgf\utilities\pgfkeys.sty
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\utilities\pgfkeys.code.tex))
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\utilities\pgffor.code.tex
+))
+(E:\Full_TeX\texmf\tex\latex\pgf\utilities\pgffor.sty
+(E:\Full_TeX\texmf\tex\latex\pgf\utilities\pgfkeys.sty
+(E:\Full_TeX\texmf\tex\generic\pgf\utilities\pgfkeys.code.tex))
+(E:\Full_TeX\texmf\tex\generic\pgf\utilities\pgffor.code.tex
 Package: pgffor 2010/03/23 v2.10 (rcs-revision 1.18)
 \pgffor@iter=\dimen153
 \pgffor@skip=\dimen154
 \pgffor@stack=\toks35
 \pgffor@toks=\toks36
 ))
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\frontendlayer\tikz\tikz.code.te
-x
+(E:\Full_TeX\texmf\tex\generic\pgf\frontendlayer\tikz\tikz.code.tex
 Package: tikz 2010/10/13 v2.10 (rcs-revision 1.76)
 
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\libraries\pgflibraryplothandler
-s.code.tex
+(E:\Full_TeX\texmf\tex\generic\pgf\libraries\pgflibraryplothandlers.code.tex
 File: pgflibraryplothandlers.code.tex 2010/05/31 v2.10 (rcs-revision 1.15)
 \pgf@plot@mark@count=\count122
 \pgfplotmarksize=\dimen155
@@ -1000,8 +971,7 @@ File: pgflibraryplothandlers.code.tex 2010/05/31 v2.10 (rcs-revision 1.15)
 \tikznumberofcurrentchild=\count125
 \tikz@fig@count=\count126
 
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\modules\pgfmodulematrix.code.te
-x
+(E:\Full_TeX\texmf\tex\generic\pgf\modules\pgfmodulematrix.code.tex
 File: pgfmodulematrix.code.tex 2010/08/24  (rcs-revision 1.4)
 \pgfmatrixcurrentrow=\count127
 \pgfmatrixcurrentcolumn=\count128
@@ -1009,12 +979,11 @@ File: pgfmodulematrix.code.tex 2010/08/24  (rcs-revision 1.4)
 )
 \tikz@expandcount=\count130
 
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\frontendlayer\tikz\libraries\ti
-kzlibrarytopaths.code.tex
+(E:\Full_TeX\texmf\tex\generic\pgf\frontendlayer\tikz\libraries\tikzlibrarytopa
+ths.code.tex
 File: tikzlibrarytopaths.code.tex 2008/06/17 v2.10 (rcs-revision 1.2)
-)))
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\pgfplots.code.tex
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\pgfplotscore.code.tex
+))) (E:\Full_TeX\texmf\tex\generic\pgfplots\pgfplots.code.tex
+(E:\Full_TeX\texmf\tex\generic\pgfplots\pgfplotscore.code.tex
 \t@pgfplots@toka=\toks37
 \t@pgfplots@tokb=\toks38
 \t@pgfplots@tokc=\toks39
@@ -1022,103 +991,84 @@ File: tikzlibrarytopaths.code.tex 2008/06/17 v2.10 (rcs-revision 1.2)
 \c@pgfplots@coordindex=\count131
 \c@pgfplots@scanlineindex=\count132
 
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\sys\pgfplotssysgeneric.cod
-e.tex))
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\libs\pgfplotslibrary.code.
-tex)
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\oldpgfcompatib\pgfplotsold
-pgfsupp_loader.code.tex
+(E:\Full_TeX\texmf\tex\generic\pgfplots\sys\pgfplotssysgeneric.code.tex))
+(E:\Full_TeX\texmf\tex\generic\pgfplots\libs\pgfplotslibrary.code.tex)
+(E:\Full_TeX\texmf\tex\generic\pgfplots\oldpgfcompatib\pgfplotsoldpgfsupp_loade
+r.code.tex
 Package pgfplots: loading complementary code for your PGF version...
 
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\oldpgfcompatib\pgfplotsold
-pgfsupp_misc.code.tex)
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\oldpgfcompatib\pgfplotsold
-pgfsupp_pgfkeys.code.tex
+(E:\Full_TeX\texmf\tex\generic\pgfplots\oldpgfcompatib\pgfplotsoldpgfsupp_misc.
+code.tex)
+(E:\Full_TeX\texmf\tex\generic\pgfplots\oldpgfcompatib\pgfplotsoldpgfsupp_pgfke
+ys.code.tex
 \pgfkeys@pathtoks=\toks40
 \pgfkeys@temptoks=\toks41
 
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\oldpgfcompatib\pgfplotsold
-pgfsupp_pgfkeysfiltered.code.tex
+(E:\Full_TeX\texmf\tex\generic\pgfplots\oldpgfcompatib\pgfplotsoldpgfsupp_pgfke
+ysfiltered.code.tex
 \pgfkeys@tmptoks=\toks42
 ))
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\oldpgfcompatib\pgfplotsold
-pgfsupp_pgfmathfloat.code.tex
+(E:\Full_TeX\texmf\tex\generic\pgfplots\oldpgfcompatib\pgfplotsoldpgfsupp_pgfma
+thfloat.code.tex
 \c@pgfmathroundto@lastzeros=\count133
 )
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\oldpgfcompatib\pgfplotsold
-pgfsupp_pgflibraryplothandlers.code.tex
+(E:\Full_TeX\texmf\tex\generic\pgfplots\oldpgfcompatib\pgfplotsoldpgfsupp_pgfli
+braryplothandlers.code.tex
 File: pgflibraryplothandlers.code.tex 2012/09/11 v2.10 (rcs-revision 1.17)
 \pgf@plot@mark@count=\count134
 \pgfplotmarksize=\dimen163
 )
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\oldpgfcompatib\pgfplotsold
-pgfsupp_pgflibraryfpu.code.tex)
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\oldpgfcompatib\pgfplotsold
-pgfsupp_pgfcorescopes.code.tex
+(E:\Full_TeX\texmf\tex\generic\pgfplots\oldpgfcompatib\pgfplotsoldpgfsupp_pgfli
+braryfpu.code.tex)
+(E:\Full_TeX\texmf\tex\generic\pgfplots\oldpgfcompatib\pgfplotsoldpgfsupp_pgfco
+rescopes.code.tex
 File: pgfcorescopes.code.tex 2012/11/30  (rcs-revision 1.38)
 \pgfpic=\box37
 \pgf@hbox=\box38
 \pgf@layerbox@main=\box39
 \pgf@picture@serial@count=\count135
 )
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\oldpgfcompatib\pgfplotsold
-pgfsupp_pgfcorelayers.code.tex
+(E:\Full_TeX\texmf\tex\generic\pgfplots\oldpgfcompatib\pgfplotsoldpgfsupp_pgfco
+relayers.code.tex
 File: pgfcorelayers.code.tex 2012/11/07  (rcs-revision 1.5)
 ))
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\util\pgfplotsutil.code.tex
-
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\liststructure\pgfplotslist
-structure.code.tex)
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\liststructure\pgfplotslist
-structureext.code.tex)
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\liststructure\pgfplotsarra
-y.code.tex
+(E:\Full_TeX\texmf\tex\generic\pgfplots\util\pgfplotsutil.code.tex
+(E:\Full_TeX\texmf\tex\generic\pgfplots\liststructure\pgfplotsliststructure.cod
+e.tex)
+(E:\Full_TeX\texmf\tex\generic\pgfplots\liststructure\pgfplotsliststructureext.
+code.tex)
+(E:\Full_TeX\texmf\tex\generic\pgfplots\liststructure\pgfplotsarray.code.tex
 \c@pgfplotsarray@tmp=\count136
 )
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\liststructure\pgfplotsmatr
-ix.code.tex)
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\numtable\pgfplotstableshar
-ed.code.tex
+(E:\Full_TeX\texmf\tex\generic\pgfplots\liststructure\pgfplotsmatrix.code.tex)
+(E:\Full_TeX\texmf\tex\generic\pgfplots\numtable\pgfplotstableshared.code.tex
 \c@pgfplotstable@counta=\count137
 \t@pgfplotstable@a=\toks43
 )
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\liststructure\pgfplotsdequ
-e.code.tex)
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\util\pgfplotsbinary.code.t
-ex
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\util\pgfplotsbinary.data.c
-ode.tex))
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\util\pgfplotsutil.verb.cod
-e.tex)
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\libs\pgflibrarypgfplots.su
-rfshading.code.tex
+(E:\Full_TeX\texmf\tex\generic\pgfplots\liststructure\pgfplotsdeque.code.tex)
+(E:\Full_TeX\texmf\tex\generic\pgfplots\util\pgfplotsbinary.code.tex
+(E:\Full_TeX\texmf\tex\generic\pgfplots\util\pgfplotsbinary.data.code.tex))
+(E:\Full_TeX\texmf\tex\generic\pgfplots\util\pgfplotsutil.verb.code.tex)
+(E:\Full_TeX\texmf\tex\generic\pgfplots\libs\pgflibrarypgfplots.surfshading.cod
+e.tex
 \c@pgfplotslibrarysurf@no=\count138
 
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\sys\pgflibrarypgfplots.sur
-fshading.pgfsys-pdftex.def)))
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\util\pgfplotscolormap.code
-.tex
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\util\pgfplotscolor.code.te
-x))
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\pgfplotsstackedplots.code.
-tex)
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\pgfplotsplothandlers.code.
-tex
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\pgfplotsmeshplothandler.co
-de.tex))
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\pgfplots.scaling.code.tex)
-
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\pgfplotscoordprocessing.co
-de.tex)
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\pgfplots.errorbars.code.te
-x)
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\pgfplots.markers.code.tex)
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\pgfplotsticks.code.tex)
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\pgfplots.paths.code.tex)
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\frontendlayer\tikz\libraries\ti
-kzlibrarydecorations.code.tex
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\modules\pgfmoduledecorations.co
-de.tex
+(E:\Full_TeX\texmf\tex\generic\pgfplots\sys\pgflibrarypgfplots.surfshading.pgfs
+ys-pdftex.def)))
+(E:\Full_TeX\texmf\tex\generic\pgfplots\util\pgfplotscolormap.code.tex
+(E:\Full_TeX\texmf\tex\generic\pgfplots\util\pgfplotscolor.code.tex))
+(E:\Full_TeX\texmf\tex\generic\pgfplots\pgfplotsstackedplots.code.tex)
+(E:\Full_TeX\texmf\tex\generic\pgfplots\pgfplotsplothandlers.code.tex
+(E:\Full_TeX\texmf\tex\generic\pgfplots\pgfplotsmeshplothandler.code.tex))
+(E:\Full_TeX\texmf\tex\generic\pgfplots\pgfplots.scaling.code.tex)
+(E:\Full_TeX\texmf\tex\generic\pgfplots\pgfplotscoordprocessing.code.tex)
+(E:\Full_TeX\texmf\tex\generic\pgfplots\pgfplots.errorbars.code.tex)
+(E:\Full_TeX\texmf\tex\generic\pgfplots\pgfplots.markers.code.tex)
+(E:\Full_TeX\texmf\tex\generic\pgfplots\pgfplotsticks.code.tex)
+(E:\Full_TeX\texmf\tex\generic\pgfplots\pgfplots.paths.code.tex)
+(E:\Full_TeX\texmf\tex\generic\pgf\frontendlayer\tikz\libraries\tikzlibrarydeco
+rations.code.tex
+(E:\Full_TeX\texmf\tex\generic\pgf\modules\pgfmoduledecorations.code.tex
 \pgfdecoratedcompleteddistance=\dimen164
 \pgfdecoratedremainingdistance=\dimen165
 \pgfdecoratedinputsegmentcompleteddistance=\dimen166
@@ -1130,14 +1080,14 @@ de.tex
 )
 \tikz@lib@dec@box=\box40
 )
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\frontendlayer\tikz\libraries\ti
-kzlibrarydecorations.pathmorphing.code.tex
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\libraries\decorations\pgflibrar
-ydecorations.pathmorphing.code.tex))
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\frontendlayer\tikz\libraries\ti
-kzlibrarydecorations.pathreplacing.code.tex
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\libraries\decorations\pgflibrar
-ydecorations.pathreplacing.code.tex))
+(E:\Full_TeX\texmf\tex\generic\pgf\frontendlayer\tikz\libraries\tikzlibrarydeco
+rations.pathmorphing.code.tex
+(E:\Full_TeX\texmf\tex\generic\pgf\libraries\decorations\pgflibrarydecorations.
+pathmorphing.code.tex))
+(E:\Full_TeX\texmf\tex\generic\pgf\frontendlayer\tikz\libraries\tikzlibrarydeco
+rations.pathreplacing.code.tex
+(E:\Full_TeX\texmf\tex\generic\pgf\libraries\decorations\pgflibrarydecorations.
+pathreplacing.code.tex))
 \pgfplots@numplots=\count140
 \pgfplots@xmin@reg=\dimen171
 \pgfplots@xmax@reg=\dimen172
@@ -1146,14 +1096,14 @@ ydecorations.pathreplacing.code.tex))
 \pgfplots@zmin@reg=\dimen175
 \pgfplots@zmax@reg=\dimen176
 )
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\frontendlayer\tikz\libraries\ti
-kzlibraryplotmarks.code.tex
+(E:\Full_TeX\texmf\tex\generic\pgf\frontendlayer\tikz\libraries\tikzlibraryplot
+marks.code.tex
 File: tikzlibraryplotmarks.code.tex 2008/01/09 v2.10 (rcs-revision 1.1)
 
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\libraries\pgflibraryplotmarks.c
-ode.tex
+(E:\Full_TeX\texmf\tex\generic\pgf\libraries\pgflibraryplotmarks.code.tex
 File: pgflibraryplotmarks.code.tex 2010/10/15 v2.10 (rcs-revision 1.12)
-))) (E:\Soft\FullTex\Full_TeX\texmf\tex\latex\tools\array.sty
+)))
+(E:\Full_TeX\texmf\tex\latex\tools\array.sty
 Package: array 2008/09/09 v2.4c Tabular extension package (FMi)
 \col@sep=\dimen177
 \extrarowheight=\dimen178
@@ -1161,7 +1111,7 @@ Package: array 2008/09/09 v2.4c Tabular extension package (FMi)
 \extratabsurround=\skip50
 \backup@length=\skip51
 )
-(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\listings\listings.sty
+(E:\Full_TeX\texmf\tex\latex\listings\listings.sty
 \lst@mode=\count141
 \lst@gtempboxa=\box41
 \lst@token=\toks45
@@ -1175,22 +1125,22 @@ Package: array 2008/09/09 v2.4c Tabular extension package (FMi)
 \lst@lineno=\count146
 \lst@maxwidth=\dimen182
 
-(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\listings\lstpatch.sty
+(E:\Full_TeX\texmf\tex\latex\listings\lstpatch.sty
 File: lstpatch.sty 2024/09/23 1.10c (Carsten Heinz)
 )
-(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\listings\lstmisc.sty
+(E:\Full_TeX\texmf\tex\latex\listings\lstmisc.sty
 File: lstmisc.sty 2024/09/23 1.10c (Carsten Heinz)
 \c@lstnumber=\count147
 \lst@skipnumbers=\count148
 \lst@framebox=\box42
 )
-(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\listings\listings.cfg
+(E:\Full_TeX\texmf\tex\latex\listings\listings.cfg
 File: listings.cfg 2024/09/23 1.10c listings configuration
 ))
 Package: listings 2024/09/23 1.10c (Carsten Heinz)
 
-("E:\Files\masters_thesis\Магистерская диссертация\dmitr
-iy.aux")
+("C:\tversu\masters_thesis\Магистерская диссертация\dmit
+riy.aux")
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 65.
 LaTeX Font Info:    ... okay on input line 65.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 65.
@@ -1209,7 +1159,7 @@ LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 65.
 LaTeX Font Info:    ... okay on input line 65.
 LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 65.
 LaTeX Font Info:    ... okay on input line 65.
- (E:\Soft\FullTex\Full_TeX\texmf\tex\context\base\supp-pdf.mkii
+ (E:\Full_TeX\texmf\tex\context\base\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count149
 \scratchdimen=\dimen183
@@ -1225,10 +1175,10 @@ LaTeX Font Info:    ... okay on input line 65.
 )
 \AtBeginShipoutBox=\box44
 Package hyperref Info: Link coloring ON on input line 65.
- (E:\Soft\FullTex\Full_TeX\texmf\tex\latex\hyperref\nameref.sty
+ (E:\Full_TeX\texmf\tex\latex\hyperref\nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\oberdiek\gettitlestring.sty
+(E:\Full_TeX\texmf\tex\generic\oberdiek\gettitlestring.sty
 Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
 \c@section@level=\count155
@@ -1237,10 +1187,10 @@ LaTeX Info: Redefining \ref on input line 65.
 LaTeX Info: Redefining \pageref on input line 65.
 LaTeX Info: Redefining \nameref on input line 65.
 
-("E:\Files\masters_thesis\Магистерская диссертация\dmitr
-iy.out")
-("E:\Files\masters_thesis\Магистерская диссертация\dmitr
-iy.out")
+("C:\tversu\masters_thesis\Магистерская диссертация\dmit
+riy.out")
+("C:\tversu\masters_thesis\Магистерская диссертация\dmit
+riy.out")
 \@outlinefile=\write4
  ABD: EveryShipout initializing macros
 
@@ -1251,17 +1201,17 @@ our preamble.
 
 \c@lstlisting=\count156
 LaTeX Font Info:    Try loading font information for U+rsfs on input line 94.
-(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\jknappen\ursfs.fd
+(E:\Full_TeX\texmf\tex\latex\jknappen\ursfs.fd
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 )
 LaTeX Font Info:    Try loading font information for U+msa on input line 94.
 
-(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\amsfonts\umsa.fd
+(E:\Full_TeX\texmf\tex\latex\amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
 LaTeX Font Info:    Try loading font information for U+msb on input line 94.
 
-(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\amsfonts\umsb.fd
+(E:\Full_TeX\texmf\tex\latex\amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 Underfull \hbox (badness 10000) in paragraph at lines 98--102
@@ -1270,9 +1220,9 @@ Underfull \hbox (badness 10000) in paragraph at lines 98--102
 
 [1
 
-{E:/Soft/FullTex/Full_TeX/texmf/pdftex/config/pdftex.map}]
-("E:\Files\masters_thesis\Магистерская диссертация\dmitr
-iy.toc")
+{E:/Full_TeX/texmf/pdftex/config/pdftex.map}]
+("C:\tversu\masters_thesis\Магистерская диссертация\dmit
+riy.toc")
 \tf@toc=\write5
  [2
 
@@ -1332,8 +1282,8 @@ Package atveryend Info: Empty hook `BeforeClearDocument' on input line 141.
 ]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 141.
 
-("E:\Files\masters_thesis\Магистерская диссертация\dmitr
-iy.aux")
+("C:\tversu\masters_thesis\Магистерская диссертация\dmit
+riy.aux")
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 141.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 141.
 Package rerunfilecheck Info: File `dmitriy.out' has not changed.
@@ -1346,22 +1296,21 @@ LaTeX Font Warning: Size substitutions with differences
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 141.
  ) 
 Here is how much of TeX's memory you used:
- 27303 strings out of 493921
- 562589 string characters out of 3146111
+ 27306 strings out of 493921
+ 557820 string characters out of 3146111
  701578 words of memory out of 3000000
  30094 multiletter control sequences out of 15000+200000
  18102 words of font info for 54 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
- 63i,5n,74p,836b,609s stack positions out of 5000i,500n,10000p,200000b,50000s
-{E:/Soft/FullTex/Full_TeX/texmf/fonts/enc/dvips/cm-super/cm-super-t2a.enc}<E:
-/Soft/FullTex/Full_TeX/texmf/fonts/type1/public/amsfonts/cm/cmr17.pfb><E:/Soft/
-FullTex/Full_TeX/texmf/fonts/type1/public/cm-super/sfbx1440.pfb><E:/Soft/FullTe
-x/Full_TeX/texmf/fonts/type1/public/cm-super/sfbx2074.pfb><E:/Soft/FullTex/Full
-_TeX/texmf/fonts/type1/public/cm-super/sfbx2986.pfb><E:/Soft/FullTex/Full_TeX/t
-exmf/fonts/type1/public/cm-super/sfbx3583.pfb><E:/Soft/FullTex/Full_TeX/texmf/f
-onts/type1/public/cm-super/sfrm1440.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/t
-ype1/public/cm-super/sfrm1728.pfb>
-Output written on dmitriy.pdf (8 pages, 113998 bytes).
+ 63i,5n,74p,837b,609s stack positions out of 5000i,500n,10000p,200000b,50000s
+{E:/Full_TeX/texmf/fonts/enc/dvips/cm-super/cm-super-t2a.enc}<E:/Full_TeX/tex
+mf/fonts/type1/public/amsfonts/cm/cmr17.pfb><E:/Full_TeX/texmf/fonts/type1/publ
+ic/cm-super/sfbx1440.pfb><E:/Full_TeX/texmf/fonts/type1/public/cm-super/sfbx207
+4.pfb><E:/Full_TeX/texmf/fonts/type1/public/cm-super/sfbx2986.pfb><E:/Full_TeX/
+texmf/fonts/type1/public/cm-super/sfbx3583.pfb><E:/Full_TeX/texmf/fonts/type1/p
+ublic/cm-super/sfrm1440.pfb><E:/Full_TeX/texmf/fonts/type1/public/cm-super/sfrm
+1728.pfb>
+Output written on dmitriy.pdf (8 pages, 112583 bytes).
 PDF statistics:
  129 PDF objects out of 1000 (max. 8388607)
  23 named destinations out of 1000 (max. 500000)
