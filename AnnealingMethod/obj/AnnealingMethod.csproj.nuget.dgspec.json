@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Files\\masters_thesis\\AnnealingMethod\\AnnealingMethod.csproj": {}
+    "C:\\tversu\\masters_thesis\\AnnealingMethod\\AnnealingMethod.csproj": {}
   },
   "projects": {
-    "E:\\Files\\masters_thesis\\AnnealingMethod\\AnnealingMethod.csproj": {
+    "C:\\tversu\\masters_thesis\\AnnealingMethod\\AnnealingMethod.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Files\\masters_thesis\\AnnealingMethod\\AnnealingMethod.csproj",
+        "projectUniqueName": "C:\\tversu\\masters_thesis\\AnnealingMethod\\AnnealingMethod.csproj",
         "projectName": "AnnealingMethod",
-        "projectPath": "E:\\Files\\masters_thesis\\AnnealingMethod\\AnnealingMethod.csproj",
-        "packagesPath": "C:\\Users\\Дмитрий\\.nuget\\packages\\",
-        "outputPath": "E:\\Files\\masters_thesis\\AnnealingMethod\\obj\\",
+        "projectPath": "C:\\tversu\\masters_thesis\\AnnealingMethod\\AnnealingMethod.csproj",
+        "packagesPath": "C:\\Users\\Дмитрий Алешин\\.nuget\\packages\\",
+        "outputPath": "C:\\tversu\\masters_thesis\\AnnealingMethod\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Дмитрий\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Дмитрий Алешин\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
