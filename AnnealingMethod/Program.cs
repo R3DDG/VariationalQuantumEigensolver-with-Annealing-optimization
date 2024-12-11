@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 
 class Program
 {
@@ -9,21 +11,33 @@ class Program
 
 		List<Term> hamiltonianTerms = new List<Term>();
 
-		Console.WriteLine("Введите количество слагаемых в гамильтониане:");
-		string? ts = Console.ReadLine() ?? "3";
-		int termsCount = int.Parse(ts);
+		// Путь к файлу
+		string filePath = "input.txt";
+
+		// Чтение данных из файла
+		string[] lines = File.ReadAllLines(filePath);
+		int termsCount = lines.Length;
 
 		for (int i = 0; i < termsCount; i++)
 		{
-			Console.WriteLine($"Введите коэффициент для слагаемого {i + 1}:");
-			string? c = Console.ReadLine() ?? "0";
-			int coefficient = int.Parse(c);
+			string line = lines[i];
+			string[] parts = line.Split(' ');
 
-			Console.WriteLine($"Введите индекс оператора Паули для слагаемого {i + 1}:");
-			string? ind = Console.ReadLine() ?? "0";
-			int index = int.Parse(ind);
+			if (parts.Length != 3)
+			{
+				Console.WriteLine("Неверный формат строки: " + line);
+				continue;
+			}
 
-			hamiltonianTerms.Add(new Term(coefficient, index));
+			double realPart = double.Parse(parts[0], CultureInfo.InvariantCulture);
+			double imaginaryPart = double.Parse(parts[1], CultureInfo.InvariantCulture);
+			int index = int.Parse(parts[2]);
+
+			ComplexNumber coefficient = new ComplexNumber(realPart, imaginaryPart);
+			if (coefficient.Real != 0 || coefficient.Imaginary != 0)
+			{
+				hamiltonianTerms.Add(new Term(coefficient, index));
+			}
 		}
 
 		string hamiltonianString = "H = ";
@@ -38,16 +52,32 @@ class Program
 			}
 		}
 
+		// Вывод введенного гамильтониана
 		Console.WriteLine($"Введенный гамильтониан: {hamiltonianString}");
+
+		// Пустая строка
+		Console.WriteLine();
+
+		// Вывод термов гамильтониана
+		PrintHamiltonianTerms(hamiltonianTerms);
+	}
+
+	static void PrintHamiltonianTerms(List<Term> terms)
+	{
+		Console.WriteLine("Термы гамильтониана:");
+		foreach (var term in terms)
+		{
+			Console.WriteLine($"Коэффициент - {term.Coefficient}, индекс - {term.Index}");
+		}
 	}
 }
 
 class Term
 {
-	public int Coefficient { get; }
+	public ComplexNumber Coefficient { get; }
 	public int Index { get; }
 
-	public Term(int coefficient, int index)
+	public Term(ComplexNumber coefficient, int index)
 	{
 		Coefficient = coefficient;
 		Index = index;
@@ -55,6 +85,41 @@ class Term
 
 	public override string ToString()
 	{
-		return Coefficient != 1 ? $"{Coefficient}*σ_{Index}" : $"σ_{Index}";
+		return Coefficient.ToString() + $"*σ_{Index}";
+	}
+}
+
+public class ComplexNumber
+{
+	public double Real { get; }
+	public double Imaginary { get; }
+
+	public ComplexNumber(double real, double imaginary)
+	{
+		Real = real;
+		Imaginary = imaginary;
+	}
+
+	public override string ToString()
+	{
+		string realPart = Real != 0 ? Real.ToString() : "";
+
+		string imaginaryPart = Imaginary switch
+		{
+			0 => "",
+			1 => "i",
+			-1 => "-i",
+			_ => $"{Imaginary}i"
+		};
+
+		if (string.IsNullOrEmpty(realPart))
+			return imaginaryPart;
+
+		if (string.IsNullOrEmpty(imaginaryPart))
+			return realPart;
+
+		return Imaginary > 0
+			? $"{realPart} + {imaginaryPart}"
+			: $"{realPart} - {imaginaryPart.Substring(1)}";
 	}
 }
