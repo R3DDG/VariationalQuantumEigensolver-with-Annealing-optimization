@@ -1,0 +1,807 @@
+%# Nikonov-Tsirulev                                %###
+%# Formalism of the Pauli basis ...                %###
+%######################################################
+\documentclass[12pt,a4paper,twoside]{article}      %###
+\usepackage[english]{babel}                        %###
+\usepackage[cp1251]{inputenc}                      %###
+%\usepackage{mmgart-dvips}                         %###
+\usepackage{mmgart-pdftex}                         %###
+%######################################################
+
+\usepackage{mathtools,amsthm,varwidth}
+\usepackage{algorithmicx}
+\usepackage{algorithm}
+\usepackage{algcompatible}
+\usepackage{algpseudocode}
+
+
+\newcommand{\ket}[1] {{\ensuremath{\left|#1\right\rangle}}}
+\newcommand{\bra}[1] {{\ensuremath{\left\langle#1\right|}}}
+\newcommand{\ketbra}[2]{{\ensuremath {\left|#1\right\rangle\!\;\!\!\left\langle#2\right|}}}
+\newcommand{\braket}[2]{{\ensuremath {\left\langle#1\left|\!\right.#2\right\rangle}}}
+
+\parskip=1ex
+
+\renewcommand{\appendixname}{{}}\appendixname
+
+
+\begin{document}
+
+%################ Do not change this block ############
+%## 1st page, volume-issue numbers, range of pages ####
+\setcounter{page}{1}                               %###
+\thispagestyle{empty}                              %###
+\begin{heading}                                    %###
+{Volume\;8,\, N{o}\;3,\, pp.\,1 -- 14\, (2020)}     %###
+{\href{https://doi.org/10.26456/mmg/2020-831}      %###
+{\textcolor{blue}{doi:10.26456/mmg/2020-831}}}     %###
+\end{heading}                                      %###
+%######################################################
+
+
+%######################### STEP 1 #####################
+%####################### Type a title #################
+\begin{Title}
+%Representation of quantum circuits in the Pauli basis
+Pauli basis formalism in quantum computations
+\end{Title}
+%######################################################
+
+%######################### STEP 2 #####################
+%##### Insert authors' names, addresses and e-mails ###
+\begin{center}
+\Author{a}{V.\,V. Nikonov}
+\and
+\Author{b}{A.\,N. Tsirulev}
+\end{center}
+
+%===================== Addresses
+
+\begin{flushleft}
+
+\Address{}{Faculty of Mathematics,
+Tver State University,
+Sadovyi per. 35, Tver, Russia}
+
+%===================== e-mails
+
+\Email{$^a$\,nikonov.vv@tversu.ru\;
+$^b$\,tsirulev.an@tversu.ru}
+\end{flushleft}
+%######################################################
+
+
+%####################### STEP 3 #######################
+%# Insert the first author's name and a short title ###
+\Headers{V.\,V. Nikonov and A.\,N. Tsirulev}
+{Pauli basis formalism in quantum computations}
+%######################################################
+
+
+%########### Do not change this block ################
+\begin{flushleft}                                 %###
+\small\it                                         %###
+Received 1 December 2020, in final form           %###
+28 December.\ Published 30 December 2020.                %###
+\end{flushleft}                                   %###
+%#####################################################
+
+
+%####################### STEP 4 #######################
+%# Insert thanks if needed, otherwise delete this block
+%\Thanks{This work is supported by ... }
+%######################################################
+
+
+%############# Do not change this block ###############
+%######################################################
+\Thanks{\mbox{}\\
+\copyright\,The author(s) 2020.
+\ Published by Tver State University, Tver, Russia}
+\renewcommand{\thefootnote}{\arabic{footnote}}
+\setcounter{footnote}{0}
+%######################################################
+
+
+%####################  STEP 5 #########################
+%Type abstract (up to 200 words), keywords and MSC/PACS
+
+\Abstract{This article deals with quantum computations in the Pauli basis whose elements are usually identified with the Pauli strings. This approach allows us to represent quantum states, observables, and unitary operators in the unified form of linear combination of Pauli strings, so that all operations can be reduced to the string compositions. Nevertheless a formal justification of the Pauli basis for quantum computations should be based on the strong results of complex linear algebra and the theory of Hilbert spaces. We briefly review the main features of Pauli strings for quantum states and unitary operators, and also the key operations with them, including an algorithm for string compositions and a transformation algorithm from the standard basis to the Pauli basis.}
+
+\Keywords{quantum computations, Pauli basis}
+
+\MSC{81P16, 81P68}
+
+%81P65 Quantum gates
+%81P68 Quantum computation
+%############################################
+%\PACS{}
+
+%######################################################
+
+
+%######### Do not change this block #######
+%##########################################
+\newpage                               %###
+\renewcommand{\baselinestretch}{1.1}   %###
+%##########################################
+
+
+
+%###################### STEP 6 ########################
+%######## Type the actual text of your article ########
+
+\vspace{-1ex}
+\section{Introduction}\vspace{-1ex}
+
+The theory of quantum computing remains in the field of great attention over the past two decades. Various types and subtypes of quantum computations are adapted for different technologies and hardware architectures, but their mathematical structures are constructed using the same basic notions of Hilbert space, quantum observable, unitary operator, and quantum state. In this article, we consider interacting composite quantum system consisting of $n$ identical two-level subsystems (qubits), so that the dimension of the corresponding Hilbert space is $2^n$. A pure state quantum computation with a number of gates that polynomially depends on the number of qubits can be efficiently simulated classically. Since a universal quantum computer demonstrating quantum supremacy should have a large number of qubits, say $n\geq1000$, the number of basis states is $2^n>10^{300}$. Quantum computers with small number of qubits $(n\sim100)$ that will be available in the near term have to employed together with a classical computer. In both cases  multiqubit quantum computations are very sensitive to the choice of a computational basis~\cite{Dirkse2020,Hamamura2020,Crawford2021}.
+
+There are two general possibilities for choosing a basis, and which one is more efficient depends on both a given algorithm and a particular type of quantum computer. First, we can use a standard orthonormal basis in the based Hilbert space and then construct a suitable basis in the algebra of linear  operators. However, this approach turns out to be inconvenient and unnatural in the consideration of problems related to mixed states, graph states~\cite{Klobus2019}, error corrections~\cite{Crawford2021,OConnor2013, Riofrio2017}, tensor networks~\cite{Jahromi2019, Tsirulev2020, Potashov2018} and more generally, to all issues where measurements are not projective~\cite{Bravyi2004, Danos2006, Danos2007}. The second possibility deals directly with a basis in the operator algebra, and in this case the basis elements usually cannot be separated into the tensor product of some ket and bra vectors; the Pauli basis is considered to be the best choice because it is Hermitian, orthonormal (with respect to the Hilbert-Schmidt inner product), and makes up an orthonormal basis in the Lie algebra of the corresponding unitary group. The Clifford group, which has numerous applications in quantum computations, is most simply described in terms of the Pauli basis~\cite{Bravyi2004, Bravyi2020}.
+
+The main purpose of this article is to give a systematic algebraic overview of multiqubit systems in the Pauli basis. The article is organized as follows. Section~\ref{sec2} contains some necessary mathematical preliminaries. In Section~\ref{sec3} we give a short description of quantum states for a $n$-qubit quantum system in the Pauli basis.  Section~\ref{sec4} is devoted to studying some computational properties of Pauli strings. In Section~\ref{sec5} we consider a computational algorithms intended for transition from the standard basis to the Pauli basis.
+
+Throughout this article, we use the natural units with $\hbar=c=1$. For the sake of readability, some notations have been made context sensitive: lowercase Latin letters in binary strings (e.g., in symbols of bra and ket) take the values 0 and 1, while in Pauli strings and indices they run from 0 to 3.
+
+%Sec.~\ref{sec4} presents an illustrative example of modelling the Greenberger-Horne-Zeilinger (GHZ) state for a quantum system of three qubits.
+
+
+
+%\begin{algorithm}
+%    \begin{algorithmic}%[1]
+%        \caption{CDS with betweenness centrality} \label{algorithm: cds bw}
+%        \REQUIRE A connected graph $G(V, E)$
+%        \State $d \gets \{v : bw(v)\}, v \in V$, sort by BW on ascending order
+%        \State $V' \gets \emptyset$, connected dominating sets
+%        \FORALL{$v$ : $bw(v), v \notin V'$}
+%            \IF{$bw(v) = 0$ OR $G(V-\{v\})$ is connected}
+%                \State $V' \gets V' \cup MAX-BW(N(v))$
+%            \ELSE
+%                \State $V' \gets V' \cup \{v\}$
+%            \ENDIF
+%            \State $V \gets V-\{v\}$
+%        \ENDFOR
+%    \end{algorithmic}
+%\end{algorithm}
+
+
+\section{Main features of the Pauli basis}
+\label{sec2}
+
+We will consider a quantum system of $n$ distinguishable qubits, where a qubit is associated with a two-dimensional Hilbert space $\mathcal{H}$ and its dual (Hermitian adjoint) space $\mathcal{H}^\dag$. Let $\mathcal{H}_n= \mathcal{H}^{\otimes n}$ and $\mathcal{H}_n^\dag= \big(\mathcal{H}^\dag\big){}^{\otimes n}$ be the Hilbert space of the system and its dual, respectively, and let $L(\mathcal{H}_n)=\mathcal{H}_n\otimes\mathcal{H}_n^\dag$ be the space of linear operators acting on $\mathcal{H}$ and $\mathcal{H}^\dag$ by the left and right contractions respectively. Then
+\begin{equation}\label{}
+\dim_{\:\!\mathbb{C}}\!\mathcal{H}_n= \dim_{\:\!\mathbb{C}}\!\mathcal{H}^\dag_n= 2^n, \quad \dim_{\:\!\mathbb{C}}\!L(\mathcal{H}_n)= 2^{2n}.
+\nonumber
+\end{equation}
+We will also assume that the space $L(\mathcal{H}_n)$ is equipped with the Hilbert-Schmidt inner product,
+\begin{equation}\label{inner}
+\langle\hat{A},\hat{B}\rangle= \mathrm{tr}\:\!(\hat{A}^\dag\hat{B}),\quad \hat{A}, \hat{B}\in L(\mathcal{H}_n),
+\end{equation}
+which is the natural extension of the inner product in $\mathcal{H}_n$. The real linear space of Hermitian operators is denoted below as $H(\mathcal{H}_n)$.
+
+Let $\{\ket{0},\ket{1}\}$ be an orthonormal basis in some one-qubit space $\mathcal{H}$. The unit matrix and the Pauli matrices,
+\begin{equation}\label{}
+\sigma_0=\left(\!
+\begin{array}{cc}
+ 1 & 0 \\[2pt] 0 & 1
+\end{array}\!\right), \quad
+\sigma_1=\left(\!
+\begin{array}{cc}
+ 0 & 1 \\[2pt] 1 & 0
+\end{array}\!\right), \quad
+\sigma_2=\left(\!\!
+\begin{array}{cc}
+ 0 & \!-i \\[2pt] i\, & \,0
+\end{array}\!\right), \quad
+\sigma_3=\left(\!
+\begin{array}{cc}
+ 1 & 0 \\[2pt] 0 & -1\,
+\end{array}\!\!\right),
+\nonumber
+\end{equation}
+define the four Pauli operators
+\begin{equation}\label{}
+\hat{\sigma}_{0}=\ketbra{0}{0}+\ketbra{1}{1},
+\qquad\;\;\:
+\hat{\sigma}_{1}=\ketbra{0}{1}+\ketbra{1}{0},
+\nonumber
+\end{equation}
+\begin{equation}\label{}
+\hat{\sigma}_{2}=-i\ketbra{0}{1}+i\ketbra{1}{0},\quad \hat{\sigma}_{3}=\ketbra{0}{0}-\ketbra{1}{1},
+\nonumber
+\end{equation}
+which are Hermitian and unitary at the same time, and which form a basis in $L(\mathcal{H})$. The inverse transformation is given by
+\begin{equation}\label{}
+\ketbra00=\frac{\hat{\sigma}_0+ \hat{\sigma}_3}{2}, \quad
+\ketbra01=\frac{\hat{\sigma}_1+ i\hat{\sigma}_2}{2}, \quad
+\ketbra10=\frac{\hat{\sigma}_1- i\hat{\sigma}_2}{2}, \quad
+\ketbra11=\frac{\hat{\sigma}_0- \hat{\sigma}_3}{2}.
+\nonumber
+\end{equation}
+Recall that for $k,l,m\in\{1,2,3\}$\; we have\; $\mathrm{tr}\,\hat{\sigma}_{k}= 0,\;\;
+\hat{\sigma}_{k}^2= \hat{\sigma}_{0}$,\; and
+\begin{equation}\label{sigma} \hat{\sigma}_{k}\hat{\sigma}_{l}= - \hat{\sigma}_{l}\hat{\sigma}_{k}, \quad \hat{\sigma}_{k }\hat{\sigma}_{l}= i\,\mathrm{sign}(\pi)\hat{\sigma}_{m},\;\, (klm)=\pi(123),
+\end{equation}
+where $\pi(123)$ is a permutation of $\{1,2,3\}$.
+
+There is a \textit{standard}\footnote{We do not use the usual term "computational" because it can lead to confusion. The Pauli basis and the standard basis are computational in the same sense.} binary basis in $\mathcal{H}_n$ generated by the orthonormal bases $\{\ket{0},\ket{1}\}$ in the corresponding one-qubit spaces. Mathematically, the position in the tensor product distinguishes qubits from each other. Therefore, for a fixed $n$, it is convenient to write an element of this basis and the corresponding element of the dual basis in the form
+\begin{equation}\label{}
+\ket{k}= \ket{k_1\ldots{}k_n}= \ket{k_1}\otimes\ldots\otimes\ket{k_n},
+\quad
+\bra{k}= \bra{k_1\ldots{}k_n}= \bra{k_1}\otimes\ldots\otimes\bra{k_n},
+\nonumber
+\end{equation}
+regarding the strings $k_1\ldots{}k_n$  ($k_1,\ldots{},k_n\in\{0,1\}$) as a binary number and denoting it by its decimal representation $k$. For example, $\ket{101}=\ket{5}$ and $\ket{00110}=\ket{6}$
+
+In the standard basis,
+\begin{equation}\label{}
+\ket{u}= \sum\limits_{k=0}^{2^n-1}u_k\ket{k}, \quad
+\hat{A}= \sum\limits_{k,l=0}^{2^n-1}a_{kl}\ketbra{k}{l},
+\nonumber
+\end{equation}
+where $\ket{u}\in\mathcal{H}_n$ and $\hat{A}\in L(\mathcal{H}_n)$.
+
+The \textit{Pauli basis} $P(\mathcal{H}_n)$ in $L(\mathcal{H}_n)$ is defined by
+\begin{equation}\label{basis} \big\{\hat{\sigma}_{k_1\ldots{}k_n} \big\}_{k_1,\ldots,k_n\,\in\, \{0,1,2,3\}},
+\qquad
+\hat{\sigma}_{k_1\ldots{}k_n}= \hat{\sigma}_{k_1}\otimes\ldots\otimes\hat{\sigma}_{k_n},
+\end{equation}
+where $\hat{\sigma}_{0\ldots0}$ is the identity operator. It is obvious that the $P(\mathcal{H}_n)$ consists of $4^{n}$ elements. We will use compact notations like
+\begin{equation}\label{}
+\hat{\sigma}_K= \hat{\sigma}_{k_1\ldots{}k_n},
+\nonumber
+\end{equation}
+denoting the \textit{Pauli string} $k_1\ldots{}k_n$, where $k_1,\ldots,k_n\in\{0,1,2,3\}$, by the corresponding capital letter $K$. In doing so, we will often consider $K$ as a number, that is, as the decimal representation of the string; it is clear that $0\leqslant{K}\leqslant4^n-1$. Note that the Pauli string $K$ and the element $\hat{\sigma}_K$ of the Pauli basis are completely determined by each other and, consequently, can be identified. For example, elements of the standard basis are expressed in terms of the Pauli basis in Appendix A1 on page~\pageref{A1}.
+
+It is useful to compare $P(\mathcal{H}_n)$ with the standard basis. We have
+\begin{equation}\label{basis-prop}
+\hat{\sigma}_{k_1\ldots{}k_n} \hat{\sigma}_{k_1\ldots{}k_n}= \hat{\sigma}_{0\ldots0},\quad \mathrm{tr}\,\hat{\sigma}_{0\ldots{}0}= 2^n,
+\quad
+\mathrm{tr}\,\hat{\sigma}_{k_1\ldots{}k_n} \big|_{{k_1\ldots{}k_n}\neq0\ldots{}0}= 0.
+\end{equation}
+The Pauli basis is Hermitian, unitary, and orthogonal with respect to the inner product~(\ref{inner}). Note that the operator $\ketbra kl$ of the standard basis is not unitary, and it is not Hermitian if $k\neq{}l$. The standard basis does not contain the identity operator which has the form
+\begin{equation}\label{}
+\sum\limits^{2^n\!-1}_{\,k=0}\ketbra{k}{k}
+\nonumber
+\end{equation}
+in that basis. In the Pauli basis, any operator $\hat{U}$ from the unitary group $U(\mathcal{H}_n)$ (that is, $\hat{U}^\dag\hat{U}=\hat{\sigma}_{0\ldots0}$) has an expansion of the form
+\begin{equation}\label{}
+\hat{U}=\sum\limits_{i_1,\ldots,i_n\in\{0,1,2,3\}} U_{i_1\ldots{}i_n} \hat{\sigma}_{i_1\ldots{}i_n},
+\quad
+\hat{U}^\dag= \sum\limits_{i_1,\ldots,i_n\in\{0,1,2,3\}} \overline{U}_{i_1\ldots{}i_n} \hat{\sigma}_{i_1\ldots{}i_n},
+\nonumber
+\end{equation}
+where
+\begin{equation}\label{}
+\sum\limits_{i_1,\ldots,i_n\in\{0,1,2,3\}}\! \overline{U}_{i_1\ldots{}i_n}U_{i_1\ldots{}i_n}=1,
+\quad
+\sum\limits_ {{i_1,\ldots,i_n,}\,
+{j_1,\ldots,j_n\in\{0,1,2,3\}} \atop {(i_1,\ldots,i_n)\neq(j_1,\ldots,j_n)}}\!
+\overline{U}_{i_1\ldots{}i_n} U_{j_1\ldots{}j_n}=0.
+\nonumber
+\end{equation}
+Note that the letter condition can be obviously decomposed into $2^{2n-1}\big(2^n-1\big)$ independent conditions.
+
+
+
+\section{Quantum states in the Pauli basis}
+\label{sec3}
+
+A quantum state (a density operator) is a Hermitian, positive semidefinite (or positive\footnote{For our purpose in this article, we do not need to distinguish between positive semidefinite and positive definite operators.}, in short) operator of the form
+\begin{equation}\label{rho}
+\hat{\rho}= \frac{1}{\,2^n} \sum\limits_{\,k_1,\:\!\ldots\:\!,\:\!k_n\,\in\, \{0,1,2,3\}} a_{k_1\ldots{}k_n} \hat{\sigma}_{k_1\ldots{}k_n}
+\equiv \frac{1}{\,2^n}
+\sum\limits_{K=0}^{4^n-1} a_{K} \hat{\sigma}_{K},
+%\nonumber
+\end{equation}
+where $a_{k_1\ldots{}k_n}\in\mathbb{R}$ and
+\begin{equation}\label{a}
+a_{0\:\!\ldots\:\!0}=1\,, \quad |a_{k_1\ldots{}k_n}|\leqslant1, \quad \sum\limits_{\,k_1,\:\!\ldots\:\!,\:\!k_n\,\in\, \{0,1,2,3\}} (a_{k_1\ldots{}k_n})^2\leqslant 2^n.
+\end{equation}
+The conditions~(\ref{a}) guarantee that\, $\hat{\rho}^\dag=\hat{\rho}$,\, $\mathrm{tr}\:\!\hat{\rho}=1$,\, and\, $\mathrm{tr}\:\!\hat{\rho}^2\leqslant1$. For quantum computation, it is important that all coefficients in the state~(\ref{rho}) are real and each of them, except $a_{0\:\!\ldots\:\!0}$, is exactly the result of a local measurement with one of the basis operators~(\ref{basis}), $a_K\equiv{}a_{k_1\ldots{}k_n}= \mathrm{tr}\:\! \big(\hat{\rho}\hat{\sigma}_{k_1\ldots{}k_n}\big)$. All the quantum (pure and mixed) states constitute a convex set (closed manifold, since it is the preimage of 1 under the map $\mathrm{tr}: H(\mathcal{H}_n)\rightarrow\mathbb{R}$) of real dimension $4^n-1$ in the real linear manifold $\mathcal{S}_n\subset \mathrm{Span}\{P(\mathcal{H}_n)\}= H(\mathcal{H}_n)$, while the pure states are placed on the boundary of $\mathcal{S}_n$ and make up a real submanifold of dimension $2^{n+1}-2$.
+
+Each element of $P(\mathcal{H}_n)$ is idempotent ($\hat{\sigma}_K\hat{\sigma}_K=\hat{\sigma}_{0\ldots0}$), so that the operators
+\begin{equation}\label{P-pm-K}
+\hat{P}^{\pm}_{K}= \frac{\hat{\sigma}_{0\ldots0}\pm\hat{\sigma}_K}{2}
+\nonumber
+\end{equation}
+are projectors. Thus,  the observable $\hat{\sigma}_K= \hat{P}^+-\hat{P}^-$ $\hat{\sigma}_K$ is naturally reduced to projective measurements. Using the operators $\hat{P}^{\pm}_{K}$, we can now prove the following practically important proposition which seems to have not been considered in, at least, the current literature.
+
+{\proposition
+The condition $|a_{k_1\ldots{}k_n}|\leqslant1$ in} (\ref{a}) {\it follows from the positive definiteness of the density operator}~(\ref{rho}) {\it and the first condition in}~(\ref{a}).
+
+Note that Hermitian projectors $\hat{P}^{\pm}_{K}= \hat{P}^{\pm}_{K}\hat{P}^{\pm}_{K}= \big(\hat{P}^{\pm}_{K}\big)^{\!\dag}\hat{P}^{\pm}_{K}$ are positive operators because of the obvious inequalities
+\begin{equation}\label{}
+\bra{u}\hat{P}^{\pm}_{K}\,\ket{u}= \bra{u}\big(\hat{P}^{\pm}_{K}\big)^{\!\dag} \hat{P}^{\pm}_{K}\,\ket{u}\geqslant0. \nonumber
+\end{equation}
+In general a Hermitian operator $\hat{A}\in L(\mathcal{H}_n)$ is positive if and only if there exists some operator $\hat{B}\in L(\mathcal{H}_n)$ such that $\hat{A}=\hat{B}\hat{B}^\dag$; moreover, $\hat{B}$ can be chosen to be Hermitian~\cite{Bengtsson2006}. It in turn implies that ($\hat{A}$ and $\hat{\rho}$ are positive)
+\begin{equation}\label{}
+\mathrm{tr}\big(\hat{A}\hat{\rho}\big)= \mathrm{tr}\big(\hat{B}\hat{B}^\dag\hat{\rho}\big)= \mathrm{tr}\big(\hat{B}^\dag\hat{\rho}\hat{B}\big) \geqslant0, \nonumber
+\end{equation}
+since $\hat{B}^\dag\hat{\rho}\hat{B}$ is obviously positive. Thus,
+\begin{equation}\label{Prho}
+\mathrm{tr}\big(\hat{P}^{\pm}_{K}\hat{\rho}\big)= \frac{1\pm{}a_K}{2}\geqslant0,
+\end{equation}
+so that $-1\leqslant{}a_K\leqslant1$. The proof is complete.\;$\square$
+
+As an example, we write down one of the practically useful states in the standard basis and in the Pauli basis, namely, the three-qubit Greenberger-Horne-Zeilinger state. Using the operator $CNOT$ and the Hadamard operator~$\hat{U}_2^+$, which are defined by relations~(\ref{CNOT}) and~(\ref{Had}) in Appendix A2, we can write the unitary transformation of the initial state $\ket{000}$ to the $\mathrm{GHZ}_3$ state in the form
+\begin{equation}\label{}
+\hat{U}_{\mathrm{GHZ}_3}= \big(\hat{\sigma}_{0}\otimes{}CNOT\big)\!\circ\! \big(CNOT\otimes\hat{\sigma}_{0}\big)\!\circ\! \big(\hat{U}_2^+\otimes\hat{\sigma}_{00}\big),
+\nonumber
+\end{equation}
+from which it is easy to find
+\begin{multline}\label{}
+\hat{\rho}_{\vphantom{\hat{A}}\mathrm{GHZ}_3}= \
+=\frac{1}{2}\big(\ketbra{000}{000}+ \ketbra{000}{111}+ \ketbra{111}{000}+ \ketbra{111}{111}\big)\\
+={\frac{1}{8}} \big(\hat{\sigma}_{000} + \hat{\sigma}_{111} - \hat{\sigma}_{122} - \hat{\sigma}_{212} - \hat{\sigma}_{221} + \hat{\sigma}_{033} + \hat{\sigma}_{303} + \hat{\sigma}_{330}\big).
+\nonumber
+\end{multline}
+
+
+
+\section{Operations with Pauli strings}
+\label{sec4}
+
+We will need a few facts and definitions related to the  Pauli basis and to the set of $n$-length Pauli strings,
+\begin{equation}\label{}
+\mathrm{Str}_n= \{K=k_1\ldots{}k_n\}_{k_1,\ldots,k_n\,\in\, \{0,1,2,3\}}.
+\nonumber
+\end{equation}
+First, let us consider the set $\mathbb{F}_4=\{0,1,2,3\}$ as the Klein four-group with the multiplication rules
+\begin{equation}\label{}
+0\!\ast{}\!k=k,\;\;\;k\!\ast{}\!k=0,\;\;\;k\! \ast{}\!l=m,
+\nonumber
+\end{equation}
+where $k,l,m\in\{1,2,3\}$ and $klm$ is any permutation of $123$. Second, let the function $s:\mathbb{F}_4\times\mathbb{F}_4\rightarrow\{1,i,-i\}$ be defined by its values
+\begin{eqnarray}\label{}
+&&s(0,0)=s(0,k)=s(k,0)=s(k,k)=1,\vphantom{\int} \;\;\; k=1,2,3,
+\nonumber \\
+&&s(1,2)=s(2,3)=s(3,1)=i,\quad s(2,1)=s(3,2)=s(1,3)=-i.
+\nonumber
+\end{eqnarray}
+Further, let the function $S:\mathrm{Str}_n\times\mathrm{Str}_n\rightarrow \{1,-1,i,-i\}$, $(K,L)\mapsto{}S_{K\!L}$, be defined as the product
+\begin{equation}\label{}
+S_{K\!L}=s(k_1,l_1)s(k_2,l_2)\ldots{}s(k_n,l_n), \quad K=k_1k_2\ldots{}k_n,\;\; L=l_1l_2\ldots{}l_n.
+\nonumber
+\end{equation}
+The function $S$ is symmetric or antisymmetric depending on the number of pairs $(k_r,l_r)$ ($r$ is a position in the strings $K$ and $L$) such that $k_r,l_r\in\{1,2,3\}$ and $k_r\neq{}l_r$, and also depending on the relative ordering in them. Let $w_{K\!L}^+$ and $w_{K\!L}^-$ be the numbers of pairs of the forms $(1,2),(2,3),(3,1)$ and of the forms $(2,1),(3,2),(1,3)$ respectively, and let $w_{K\!L}=w_{K\!L}^++w_{K\!L}^-$. Then
+\begin{equation}\label{SKL}
+S_{K\!L}= (i)^{\!w_{K\!L}}(-1)^{\!w^-_{K\!L}},
+\;\;
+S_{(K\!L)}= \frac{S_{K\!L}}{2}\big(1+(\!-1)^{\!w_{K\!L}}\big),
+\;\;
+S_{[K\!L]}= \frac{S_{K\!L}}{2}\big(1-(\!-1)^{\!w_{K\!L}}\big),
+\end{equation}
+where round and square brackets denote symmetrization and antisymmetrization, respectively. The values of $S_{K\!L}$, $S_{(K\!L)}$, and $S_{[K\!L]}$ are given in Table~\ref{table1}.
+
+\begin{table}[h!]
+\centerline
+{\small   \begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+\hline $w_{K\!L}\:\mathrm{mod\,4} \vphantom{\underbrace{\widetilde{A}}}$
+& \;\;\,\,0\,\;\; & \;\;\,\,2\,\;\; & \;\;\,\,0\,\;\; & \;\;\,\,2\,\;\; & \;\;\,\,1\,\;\; & \;\;\,\,3\,\;\; & \;\;\,\,1\,\;\; & \;\;\,\,3\,\;\; \\
+\hline $w_{K\!L}^-\:\mathrm{mod\,2} \vphantom{\underbrace{\widetilde{A}}}$
+& \,\,0\, & \,\,1\, & \,\,1\, & \,\,0\, & \,\,0\, & \,\,1\, & \,\,1\, & \,\,0\, \\
+\hline
+\hline $S_{K\!L}\vphantom{\underbrace{\widetilde{A}}}$
+& \,1 & \,1 & $-1$ & $-1$ & \,$i$ & \,$i$ & $-i$ & $-i$ \\
+\hline $\;\:S_{(K\!L)}\vphantom{\underbrace{\widetilde{A}}}$
+& \,1 & \,1 & $-1$ & $-1$& \,0 & \,0 & \,0 & \,0  \\
+\hline $\;\:S_{[K\!L]}\vphantom{\underbrace{\widetilde{A}}}$
+&\,0 & \,0 & \,0 & \,0  & \,$i$ & \,$i$ & $-i$ & $-i$  \\
+\hline
+\end{tabular}
+}\caption{The factors before $\hat{\sigma}_M$ in~(\ref{S-KL}) for $\hat{\sigma}_K\hat{\sigma}_L$, $\{\hat{\sigma}_K,\hat{\sigma}_L\}$, and $[i\hat{\sigma}_K,i\hat{\sigma}_L]$.}\label{table1}
+\end{table}
+
+Now the composition of two Pauli basis elements and their anticommutator and commutator can be written in the form of compact expressions that are convenient for classical computer programming:
+\begin{equation}\label{S-KL}
+\hat{\sigma}_K\hat{\sigma}_L= S_{K\!L}\hat{\sigma}_M,
+\quad
+\{\hat{\sigma}_K,\hat{\sigma}_L\}= S_{(K\!L)}\hat{\sigma}_M,
+\quad
+[i\hat{\sigma}_K,i\hat{\sigma}_L]= -S_{[K\!L]}\hat{\sigma}_M,
+\end{equation}
+where
+\begin{equation}\label{SM}
+\hat{\sigma}_M=\hat{\sigma}_{m_1\ldots{}m_n}, \quad m_1=k_1\!\ast{}\!l_1,\,\ldots\,,m_n=k_n\!\ast{}\!l_n.
+\end{equation}
+Note that two Pauli strings of length $n$ can commute, even if they have different nonzero entries in some the same locations. For example, the three operators $\hat{\sigma}_{11}$, $\hat{\sigma}_{22}$, and $\hat{\sigma}_{33}$ mutually commute. It is also easy to see that the unitary transition matrix, transforming the standard basis $\big\{\ketbra{i_1\ldots{}i_n}{j_1\ldots{}j_n}\big\}$ into the Pauli basis, consists of only the elements $0$, $\pm1$, and $\pm{i}$. In particular,
+\begin{equation}\label{}
+\ketbra{00\ldots{}0}{00\ldots{}0}\rightarrow \frac{1}{\,2^n} \sum\limits_{i_1,\ldots,i_n\in\{0,3\}} \hat{\sigma}_{i_1\ldots\:\!i_n}.
+\nonumber
+\end{equation}
+More generally, the standard orthogonal projectors can be expressed as
+\begin{equation}\label{}
+\ketbra{i_1\!\ldots{}i_n}{i_1\!\ldots{}i_n} _{\:\!\vphantom{\int}i_1,\ldots{},i_n\in\{0,1\}}= \frac{1}{\,2^n} \sum\limits_{k_1,\ldots,k_n\in\{0,3\}}\! \chi^{i_1}_{k_1}\cdots \chi^{i_n}_{k_n}\, \hat{\sigma}_{k_1\ldots\:\!k_n},
+\nonumber
+\end{equation}
+where
+\begin{equation}\label{}
+\chi^0_0= \chi^0_3= \chi^1_0= 1, \quad \chi^1_3= -1.
+\nonumber
+\end{equation}
+Some important operators in the Pauli basis are written in Appendix A2 on page~\pageref{A2}.
+
+The expressions~(\ref{S-KL}) show, first, that the set $\{i\hat{\sigma}_K\}_{K=0}^{4^n-1}$ makes up an orthonormal basis in $\mathfrak{su}(n)$. And, second, the set
+\begin{equation}\label{}
+\widetilde{P}(\mathcal{H}_n)= \big\{\epsilon\hat{\sigma}_K \,|\,  K\in\mathrm{Str}_n,\; \epsilon\in\{\pm1,\,\pm{}i\}\big\},
+\nonumber
+\end{equation}
+which consists of $4^{n+1}$ elements, is a group; it is called the ($n$-qubit) Pauli group. The normalizer of the Pauli group,
+\begin{equation}\label{}
+\mathcal{C}(\mathcal{H}_n)= \big\{\hat{U}\in U(\mathcal{H}_n)\;|\; \hat{U}\hat{\sigma}_K\hat{U}^\dag\in \widetilde{P}(\mathcal{H}_n),\: \hat{\sigma}_K\in\widetilde{P}(\mathcal{H}_n)\big\},
+\nonumber
+\end{equation}
+is called the Clifford group. We have from \ref{sigma}, \ref{basis-prop}, and \ref{SM} the following proposition:
+
+{\proposition
+The mutual unitary transformations of the Pauli basis operators obey the relations $\hat{\sigma}_{i_1\ldots\:\!i_n} \hat{\sigma}_{k_1\ldots\:\!k_n} \hat{\sigma}_{i_1\ldots\:\!i_n}=\pm \hat{\sigma}_{i_1\ldots\:\!i_n}$, where the plus sign takes place if and only if the number of triples $(i_mk_mi_m)_{m\in\{1,\ldots,n\}}$, satisfying the conditions $i_m\neq{}k_m$, $i_m\neq{}0$, and $k_m\neq0$, is even.}\label{p2}
+
+
+
+
+\section{Algorithms for transition to the Pauli basis}
+\label{sec5}
+
+In a standard basis and in the Pauli basis, we can express an operator $\hat{A}\in L(\mathcal{H}_n)$ (for example, a unitary transformation, an observable, or a density operator) as
+\begin{multline}\label{}
+\hat{A}=
+\sum\limits_{i_0,\ldots,i_{n-1}, j_0,\ldots,j_{n-1}\in\{0,1\}}  a_{i_{n-1}\ldots{}i_0j_{n-1}\ldots{}j_0} \ketbra{i_{n-1}\!\ldots{}i_0}{j_{n-1}\!\ldots{}j_0}
+\qquad\qquad\quad\\
+=\frac{1}{2^n} \sum\limits_{i_0,\ldots,i_{n-1}\in\{0,1,2,3\}} s_{i_{n-1}\ldots{}i_0} \hat{\sigma}_{i_{n-1}\ldots{}i_0},
+\nonumber
+\end{multline}
+or, in short,
+\begin{equation}\label{SI}
+\hat{A}\;=\;
+\sum\limits_{i=0}^{2^n-1}\sum\limits_{j=0}^{2^n-1}  a_{ij}\ketbra{i}{j}\;=\;
+\frac{1}{2^n} \sum\limits_{I=0}^{4^n-1} S_{I} \hat{\sigma}_{I}.
+\end{equation}
+
+Thus, we deal with the problem of calculating the coefficients $S_I$ when the coefficients $a_i$ are given; such an algorithm have recently been proposed~\cite{Gunlycke2020}. Our approach is based on the following observation: all coefficients $a_{ij}$ with binary strings $i=i_{n-1}\ldots{}i_0$ and $j=j_{n-1}\ldots{}j_0$, which have the same sum
+\begin{equation}\label{}
+k\,=\,(k_{n-1}\ldots{}k_0)_2\,= \, (i_{n-1}\ldots{}i_0)_2 \oplus(j_{n-1}\ldots{}j_0)_2\,, \nonumber
+\end{equation}
+give nonzero contributions only to the terms of the form $S^{(i\oplus{}j)}_{l} \hat{\sigma}_{l}$, where $l$ is a binary string $l_{n-1}\ldots{}i_0$, $0 \leqslant l \leqslant 2^n-1$, and the operators $\hat{\sigma}_{l}$ must be recalculated to the form~(\ref{SI}). It is straightforward (but cumbersome) to prove that the strings $I=I(k,l)=\big[I^{(k)}_0,\ldots,I^{(k)}_{2^n-1}\big]_4, \;k=i\oplus{}j,\,$ in $\hat{\sigma}_{I}$ are determined by
+\begin{equation}\label{I-kl}
+I=\bar{l}\wedge{}k+ 2\big(l\wedge{}k\big)+ 3\big(l\wedge{}\bar{k}\big),
+\end{equation}
+where a bar above a letter denotes the inversion $0\leftrightarrow1$ for each digit of the corresponding binary string, and $\wedge$ denotes the logical operation $OR$. On the right hand side in~(\ref{I-kl}), we  consider the resulting binary strings as base-4 numbers. For given binary strings $i$ and $j$, the pseudocode of this procedure is written in Algorithm~\ref{Alg}.
+
+For example, summands
+\begin{eqnarray}\label{}
+a_{010,001}\ketbra{010}{001}&\!\!\!=\!\!\!& \frac{a_{21}}{2^3}\big( \hat{\sigma}_{011}+ i\hat{\sigma}_{012}- i\hat{\sigma}_{021}+ \hat{\sigma}_{022}+ \hat{\sigma}_{311}+ i\hat{\sigma}_{312}- i\hat{\sigma}_{321}+
+\hat{\sigma}_{322} \big),\vphantom{\int\limits_a}
+\nonumber\\
+a_{001,010}\ketbra{001}{010}&\!\!\!=\!\!\!& \frac{a_{12}}{2^3}\big( \hat{\sigma}_{011}- i\hat{\sigma}_{012}+ i\hat{\sigma}_{021}+ \hat{\sigma}_{022}+ \hat{\sigma}_{311}- i\hat{\sigma}_{312}+ i\hat{\sigma}_{321}+
+\hat{\sigma}_{322} \big),\vphantom{\int\limits_a}
+\nonumber\\
+a_{101,110}\ketbra{101}{110}&\!\!\!=\!\!\!& \frac{a_{56}}{2^3}\big( \hat{\sigma}_{011}- i\hat{\sigma}_{012}+ i\hat{\sigma}_{021}+ \hat{\sigma}_{022}- \hat{\sigma}_{311}+ i\hat{\sigma}_{312}- i\hat{\sigma}_{321}-
+\hat{\sigma}_{322} \big),\vphantom{\int\limits_a}
+\nonumber\\
+a_{111,100}\ketbra{111}{100}&\!\!\!=\!\!\!& \frac{a_{74}}{2^3}\big( \hat{\sigma}_{011}- i\hat{\sigma}_{012}- i\hat{\sigma}_{021}- \hat{\sigma}_{022}- \hat{\sigma}_{311}+ i\hat{\sigma}_{312}+ i\hat{\sigma}_{321}+
+\hat{\sigma}_{322} \big)\vphantom{\int}
+\nonumber
+\end{eqnarray}
+will contribute to the linear combination of $\hat{\sigma}_{011},\, \hat{\sigma}_{012},\, \hat{\sigma}_{021},\, \hat{\sigma}_{022},\, \hat{\sigma}_{311},\, \hat{\sigma}_{312},\, \hat{\sigma}_{321},$ and $\hat{\sigma}_{322}$ with
+
+\begin{equation}\label{}
+k= 010\oplus001= 001\oplus010= 101\oplus110= 111\oplus100=\mathbf{011}.\nonumber
+\end{equation}
+
+\vspace{1ex}\noindent
+The elements of the Pauli basis emerging in~(\ref{I-kl}) from these summands are shown in Table~\ref{table1}. For example, if $l=5=(101)_2$, then, in accordance with~(\ref{I-kl}),
+
+\begin{multline}\label{}
+I^{(3)}[5]= \big[(010)_2\wedge(011)_2\big]_4+ 2\big[(101)_2\wedge(011)_2\big]_4+ 3\big[(101)_2\wedge(100)_2\big]_4\\
+=\big[010\big]_4+ 2\big[001\big]_4+ 3\big[100\big]_4= 312.\quad
+\nonumber
+\end{multline}
+
+\vspace{1ex}\noindent
+Next, as an example, the summand $a_{101,110}\ketbra{101}{110}=a_{56}\ketbra{5}{6}$ contributes $ia_{56}/2^3$ in $S^{(3)}[5]$, since there are the triples $(l_0i_0j_0)=(110)_2$, $(l_1i_1j_1)=(001)_2$, and $(l_2i_2j_2)=(111)_2$ in~Algorithm~\ref{Alg}\! (lines 17 -- 26); therefore, $sign=1$, $c=1$.
+
+\vspace{2ex}
+\begin{table}[H]
+\centerline
+{\small   \begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+\hline $l \vphantom{\underbrace{\widetilde{A}}}$
+& \;\;\,\,0\,\;\; & \;\;\,\,1\,\;\; & \;\;\,\,2\,\;\; & \;\;\,\,3\,\;\; & \;\;\,\,4\,\;\; & \;\;\,\,5\,\;\; & \;\;\,\,6\,\;\; & \;\;\,\,7\,\;\; \\
+\hline $l_2l_1l_0 \vphantom{\underbrace{\widetilde{A}}}$
+& \,\,000\, & \,\,001\, & \,\,010\, & \,\,011\, & \,\,100\, & \,\,101\, & \,\,110\, & \,\,111\, \\
+\hline $k_2k_1k_0 \vphantom{\underbrace{\widetilde{A}}}$
+& \,\,011\, & \,\,011\, & \,\,011\, & \,\,011\, & \,\,011\, & \,\,011\, & \,\,011\, & \,\,011\, \\
+\hline $\bar{l}\wedge{}k \vphantom{\underbrace{\widetilde{A^2}}}$
+& \,\,011\, & \,\,010\, & \,\,001\, & \,\,000\, & \,\,011\, & \,\,010\, & \,\,001\, & \,\,000\, \\
+\hline $l\wedge{}k \vphantom{\underbrace{\widetilde{A^2}}}$
+& \,\,000\, & \,\,001 \, & \,\,010\, & \,\,011\, & \,\,000\, & \,\,001\, & \,\,010\, & \,\,011\, \\
+\hline $l\wedge{}\bar{k} \vphantom{\underbrace{\widetilde{A^2}}}$
+& \,\,000\, & \,\,000 \, & \,\,000\, & \,\,000\, & \,\,100\, & \,\,100\, & \,\,100\, & \,\,100\, \\
+\hline $\hat{\sigma}_{I}\vphantom{\underbrace{\widetilde{A}}}$
+& $\,\hat{\sigma}_{011}$ & $\,\hat{\sigma}_{012}$ & $\,\hat{\sigma}_{021}$ & $\,\hat{\sigma}_{022}$ & $\,\hat{\sigma}_{311}$ & $\,\hat{\sigma}_{312}$ & $\,\hat{\sigma}_{321}$ & $\,\hat{\sigma}_{322}$ \\
+\hline
+\end{tabular}
+}\caption{The elements of the Pauli basis emerging for $k=011$.}
+\label{table1}
+\end{table}
+
+\newpage
+\begin{algorithm}[H]
+	\caption{\;Transformation to the Pauli basis.}
+	\label{Alg}
+\begin{algorithmic}[1]
+\vspace{1ex}
+\State \textbf{Input} the number of qubits $n$
+\State \textbf{Input} strings $i=i_{n-1}\ldots{}i_0$ and $j=j_{n-1}\ldots{}j_0$,\; $i_s,j_s\in\{0,1\}$
+\State \textbf{Input} a complex number $a_{ij}$ --- the factor in $a_{ij}\ketbra{i}{j}$
+
+\State \textit{//Make up the row number} $k=i\oplus{}j$
+\State 	\textbf{Initialize} string $k=\mathrm{null}$
+	
+\For{$i_s = i_0,\dots,i_{n-1}$}
+    \For{$j_s = j_0,\dots,j_{n-1}$}	
+
+        \quad\:$k_s=i_s\oplus{}j_s$
+    \EndFor
+\EndFor
+
+\State 	Convert $(k_{n-1}\ldots{}k_0)_{2}$ to int $(k)_{10}$
+
+\State \textit{//For the number} $k$, \textit{fill in two rows}
+\State 	\textbf{Initialize} $S^{(k)}$ by zero $2^n$-length complex-data-type vector
+\State 	\textbf{Initialize} $I^{(k)}$ by null $2^n$-length string-data-type vector
+\State 	\textbf{Initialize} int $cntr$ and $sign\in\{1,\,-1,\,i,\,-i\}$ by arbitrary values
+
+
+\For{$l=0$ \textbf{to} $2^n-1$}
+    \State Convert $(l)_{10}$ to $(l_{n-1}\ldots{}l_0)_{2}$
+    \State $cntr=0$\; and\; $sign=1$
+    \For{$l_s = l_0,\dots,l_{n-1}$}
+        \If{$l_s==1$}
+            \State \textbf{if} {$(i_s,j_s)==(1,1)$} \textbf{then} {$sign = - sign$}
+            \State \textbf{if} {$(i_s,j_s)==(0,1)$}
+            \textbf{then} {$cntr = cntr+1$}
+            \State \textbf{if} {$(i_s,j_s)==(1,0)$}
+            \textbf{then} {$sign = - sign$, \: $cntr = cntr+1$}
+        \EndIf
+    \EndFor
+    \State $I^{(k)}[l]=\bar{l}\wedge{}k+ 2\big(l\wedge{}k\big)+ 3\big(l\wedge{}\bar{k}\big)$
+    \State int $c = cntr\, (mod 4)$,\; $S^{(k)}[l]\,+\!=i^c\cdot{}sign\cdot{}a_{ij}$
+\EndFor
+
+\State \textbf{Return} the rows $S^{(k)}$ and $I^{(k)}$.
+\end{algorithmic}
+\end{algorithm}
+
+
+
+\section{Conclusion}
+
+
+In this article, we have described a base technique for working with the Pauli basis. It is shown that this technique can make more convenient and algorithmic some manipulations with mathematical expressions related to quantum circuits with large number of qubits. We have presented a new efficient algorithm with a polynomial complexity for transition from the standard basis to the Pauli basis.
+
+
+
+%###################### STEP 7 ########################
+%##### Type acknowledgements or delete this block #####
+%\Acknowledgements{}
+%#######################################################
+
+
+%####################### STEP 8 ########################
+% Verify once more whether the references are correct
+
+\begin{thebibliography}{999}
+
+
+\bibitem{Dirkse2020}
+B. Dirkse, M. Pompili, R. Hanson, M. Walter, S. Wehner \textit{Witnessing Entanglement in Experiments with Arbitrary Noise} Quantum Science and Technology
+\textbf{5}, 035007, 2020
+(\href{http://arxiv.org/abs/1909.09119}{arXiv:1909.09119})
+
+\bibitem{Hamamura2020}
+I. Hamamura and T. Imamichi \textit{Efficient evaluation of quantum observables using entangled measurements} npj Quantum Information \textbf{6}, 56, 2020
+(\href{http://arxiv.org/abs/1909.09119}{arXiv:1909.09119})
+
+\bibitem{Crawford2021}
+O. Crawford, B. van Straaten, D. Wang, T. Parks, E. Campbell, S. Brierley \textit{Efficient quantum measurement of Pauli operators in the presence of finite sampling error} Quantum \textbf{5}, 385--404, 2021
+(\href{http://arxiv.org/abs/1908.06942}{arXiv:1908.06942})
+
+\bibitem{Klobus2019}
+W. Klobus et al. \textit{Higher dimensional entanglement without correlations.} Eur. Phys. J. D \textbf{73}, 29, 2019
+(\href{https://arxiv.org/abs/1808.10201}{arXiv:1808.10201})
+
+\bibitem{OConnor2013}
+T.J. O'Connor, Y. Yu, B. Helou, R. Laflamme \textit{The robustness of magic state distillation against errors in Clifford gates} Quantum Information \& Computation \textbf{13}, 361--378, 2013
+(\href{http://arxiv.org/abs/1205.6715}{arXiv:1205.6715})
+
+\bibitem{Riofrio2017}
+C.A. Riofrio, D. Gross, S.T. Flammia, T. Monz, D. Nigg, R. Blatt, J. Eisert \textit{Experimental quantum compressed sensing for a seven-qubit system} Nature Comm. \textbf{8}, 15305, 2017
+(\href{http://arxiv.org/abs/1608.02263}{arXiv:1608.02263})
+
+\bibitem{Jahromi2019}
+S.S.~Jahromi, R.~Orus \textit{A universal tensor network algorithm for any infinite lattice}
+Phys.~Rev.~D \textbf{99}, 195105, 2019
+(\href{http://arxiv.org/abs/1808.00680}{arXiv:1808.00680})
+
+\bibitem{Tsirulev2020}
+A.N.~Tsirulev \textit{A geometric view on quantum tensor networks} Europ. Phys. J. Web of Conferences \textbf{226}, No~4, 2020\\ (\url{https://doi.org/10.1051/epjconf/202022602022})
+
+\bibitem{Potashov2018}
+I.M.~Potashov, A.N.~Tsirulev \textit{Computational Algorithm for Covariant Series Expansions in General Relativity}  Europ. Phys. J. Web of Conferences~\textbf{173}, 03021, 2018
+(\url{https://doi.org/10.1051/epjconf/201817303021})
+
+\bibitem{Bravyi2004}
+S. Bravyi and A. Kitaev \textit{Universal quantum computation with ideal Clifford gates  and noisy ancillas} Phys. Rev. A \textbf{71}, 022316, 2005\\ (\href{https://arxiv.org/abs/quant-ph/0403025} {arXiv:quant-ph/0403025})
+
+\bibitem{Danos2006}
+V. Danos and E. Kashefi \textit{Determinism in the one-way model} Phys. Rev. A. \textbf{74}, 052310, 2006 (\href{https://arxiv.org/abs/quant-ph/0506062} {arXiv:quant-ph/0506062})
+
+\bibitem{Danos2007}
+V. Danos and E. Kashefi \textit{Pauli measurements are universal} Electronic Notes in Theoretical Computer Science \textbf{170}, 95--100, 2007\\
+(\url{https://doi.org/10.1016/j.entcs.2006.12.013})
+
+\bibitem{Gunlycke2020}
+D.~Gunlycke, M.C. Palenik, and S.A. Fischer
+\textit{Efficient algorithm for generating Pauli coordinates for an arbitrary linear operator} 2020
+(\href{http://arxiv.org/abs/2011.08942}{arXiv:2011.08942})
+
+\bibitem{Bravyi2020}
+S. Bravyi and D. Maslov \textit{Hadamard-free circuits expose the structure of the Clifford group.} 2020 (\href{https://arxiv.org/abs/2003.09412} {arXiv: 2003.09412})
+
+\bibitem{Bengtsson2006}
+I.~Bengtsson, K.~Zyczkowski
+\textit{Geometry of Quantum States: An Introduction to Quantum Entanglement.} Cambridge University Press, Cambridge, 2006
+
+\bibitem{Shende2004}
+V.V. Shende, I.L. Markov, and S.S. Bullock \textit{Minimal universal twoqubit controlled-NOT-based circuits} Phys. Rev. A, \textbf{69}, 062321, 2004\\
+(\href{https://arxiv.org/abs/quant-ph/0308033} {arXiv:quant-ph/0308033})
+
+\end{thebibliography}
+
+
+
+\vspace{3ex}
+
+\noindent
+{\Large\bf{\textcolor{blue}{Appendix}}}
+
+
+\vspace{2ex}
+
+
+\newcounter{A}
+\setcounter{A}{1}
+
+\noindent
+{\large\bf{\textcolor{blue}{A\arabic{A}. The  Pauli basis for $n=2$}}}\vspace{2ex}
+
+\noindent
+For reference, we give here expressions of the elements of the standard basis in $\mathcal{H}_2$ in terms of the elements of the Pauli basis. Recall that such expressions in $\mathcal{H}_1$ have the form
+\begin{equation}\label{}
+\ketbra00=\frac{\hat{\sigma}_0+ \hat{\sigma}_3}{2}\,, \quad
+\ketbra01=\frac{\hat{\sigma}_1+ i\hat{\sigma}_2}{2}\,, \quad
+\ketbra10=\frac{\hat{\sigma}_1- i\hat{\sigma}_2}{2}\,, \quad
+\ketbra11=\frac{\hat{\sigma}_0- \hat{\sigma}_3}{2}\,.
+\nonumber
+\end{equation}
+$$\underline{\hspace{6cm}}$$\vspace{0.2ex}
+%##############    |ij><00|    ###############
+\begin{equation}\label{}
+\ketbra{00}{00}= \frac{\hat{\sigma}_{00}+ \hat{\sigma}_{03}+ \hat{\sigma}_{30}+ \hat{\sigma}_{33}}{4}\,,
+\qquad
+\ketbra{01}{00}= \frac{\hat{\sigma}_{01}- i\hat{\sigma}_{02}+ \hat{\sigma}_{31}- i\hat{\sigma}_{32}}{4}\,,
+\nonumber
+\end{equation}
+\begin{equation}\label{}
+\ketbra{10}{00}= \frac{\hat{\sigma}_{10}+ \hat{\sigma}_{13}- i\hat{\sigma}_{20}- i\hat{\sigma}_{23}}{4}\,,
+\qquad
+\ketbra{11}{00}= \frac{\hat{\sigma}_{11}- i\hat{\sigma}_{12}- i\hat{\sigma}_{21}- \hat{\sigma}_{22}}{4}\,,
+\nonumber
+\end{equation}
+$$\underline{\hspace{6cm}}$$\label{A1}\vspace{0.2ex}
+%##############    |ij><01|    ###############
+\begin{equation}\label{}
+\ketbra{00}{01}= \frac{\hat{\sigma}_{01}+ i\hat{\sigma}_{02}+ \hat{\sigma}_{31}+ i\hat{\sigma}_{32}}{4}\,,
+\qquad
+\ketbra{01}{01}= \frac{\hat{\sigma}_{00}- \hat{\sigma}_{03}+ \hat{\sigma}_{30}- \hat{\sigma}_{33}}{4}\,,
+\nonumber
+\end{equation}
+\begin{equation}\label{}
+\ketbra{10}{01}= \frac{\hat{\sigma}_{11}+ i\hat{\sigma}_{12}- i\hat{\sigma}_{21}+ \hat{\sigma}_{22}}{4}\,,
+\qquad
+\ketbra{11}{01}= \frac{\hat{\sigma}_{10}- \hat{\sigma}_{13}- i\hat{\sigma}_{20}+ i\hat{\sigma}_{23}}{4}\,,
+\nonumber
+\end{equation}
+$$\underline{\hspace{6cm}}$$\vspace{0.2ex}
+%##############    |ij><10|    ###############
+\begin{equation}\label{}
+\ketbra{00}{10}= \frac{\hat{\sigma}_{10}+ \hat{\sigma}_{13}+ i\hat{\sigma}_{20}+ i\hat{\sigma}_{23}}{4}\,,
+\qquad
+\ketbra{01}{10}= \frac{\hat{\sigma}_{11}- i\hat{\sigma}_{12}+ i\hat{\sigma}_{21}+ \hat{\sigma}_{22}}{4}\,,
+\nonumber
+\end{equation}
+\begin{equation}\label{}
+\ketbra{10}{10}= \frac{\hat{\sigma}_{00}+ \hat{\sigma}_{03}- \hat{\sigma}_{30}- \hat{\sigma}_{33}}{4}\,,
+\qquad
+\ketbra{11}{10}= \frac{\hat{\sigma}_{01}- i\hat{\sigma}_{02}- \hat{\sigma}_{31}+ i\hat{\sigma}_{32}}{4}\,,
+\nonumber
+\end{equation}
+$$\underline{\hspace{6cm}}$$\vspace{0.2ex}
+%##############    |ij><11|    ###############
+\begin{equation}\label{}
+\ketbra{00}{11}= \frac{\hat{\sigma}_{11}+ i\hat{\sigma}_{12}+ i\hat{\sigma}_{21}- \hat{\sigma}_{22}}{4}\,,
+\qquad
+\ketbra{01}{11}= \frac{\hat{\sigma}_{10}- \hat{\sigma}_{13}+ i\hat{\sigma}_{20}- i\hat{\sigma}_{23}}{4}\,,
+\nonumber
+\end{equation}
+\begin{equation}\label{}
+\ketbra{10}{11}= \frac{\hat{\sigma}_{01}+ i\hat{\sigma}_{02}- \hat{\sigma}_{31}- i\hat{\sigma}_{32}}{4}\,,
+\qquad
+\ketbra{11}{11}= \frac{\hat{\sigma}_{00}- \hat{\sigma}_{03}- \hat{\sigma}_{30}+ \hat{\sigma}_{33}}{4}\,.
+\nonumber
+\end{equation}
+
+\addtocounter{A}{1}
+
+\vspace{3ex}
+\noindent
+{\large\bf{\textcolor{blue}{A\arabic{A}.\;\;Some unitary operators in the Pauli basis}}}
+\vspace{2ex}
+
+\noindent The controlled-NOT operator:
+\begin{equation}\label{CNOT}
+CNOT= \frac{\hat{\sigma}_{00}+ \hat{\sigma}_{01}+ \hat{\sigma}_{30}- \hat{\sigma}_{31}}{2}=
+\ketbra{00}{00}+ \ketbra{01}{01}+ \ketbra{10}{11}+ \ketbra{11}{10},
+\end{equation}
+\noindent The controlled-phase operator:
+\begin{equation}\label{}
+CZ= \frac{\hat{\sigma}_{00}+ \hat{\sigma}_{03}+ \hat{\sigma}_{30}- \hat{\sigma}_{33}}{2}=
+\ketbra{00}{00}+ \ketbra{01}{01}+ \ketbra{10}{10}- \ketbra{11}{11}.\,
+\nonumber
+\end{equation}
+
+\noindent
+It is well known that $CNOT$ and $CZ$ belong to the Clifford group $\mathcal{C}(\mathcal{H}_2)$. It is also known some sets of generators and canonical forms for operators of the group $\mathcal{C}(\mathcal{H}_n)$ (see, e.g.,~\cite{Bravyi2020}), but the number of elements in these groups grows exponentially (in fact, slightly faster) with the growth of $n$: for example, $\mathcal{C}(\mathcal{H}_1)$ is of order 24, and $\mathcal{C}(\mathcal{H}_2)$ is of order 11520. Therefore, there is the problem of finding a practically suitable~\cite{Shende2004} set of unitary operators for building the Clifford groups and the corresponding stabilizer formalism. Here we introduce the one-qubit Hadamard operator $\hat{U}_{2}^+$, and pseudo-Hadamard operators $\hat{U}_{2}^-$, $\hat{U}_{1}^\pm$ and $\hat{U}_{3}^\pm$, obeying the relations $\big(\hat{U}_{1}^\pm\big)^2= \big(\hat{U}_{2}^\pm\big)^2= \big(\hat{U}_{3}^\pm\big)^2= \hat{\sigma}_{0}$. They are unitary and Hermitian, and are defined by
+\begin{equation}\label{}
+\hat{U}_1^\pm= \frac{\hat{\sigma}_{2}\pm\hat{\sigma}_{3}}{\sqrt{2}}=
+\frac{1}{\sqrt{2}}\big(\pm\ketbra{0}{0}- i\ketbra{0}{1}+ i\ketbra{1}{0}\mp \ketbra{1}{1}\big),
+\nonumber
+\end{equation}
+\begin{equation}\label{Had}
+\hat{U}_2^\pm= \frac{\hat{\sigma}_{1}\pm\hat{\sigma}_{3}}{\sqrt{2}}=
+\frac{1}{\sqrt{2}}\big(\pm\ketbra{0}{0}+ \ketbra{0}{1}+ \ketbra{1}{0}\mp \ketbra{1}{1}\big),\;\;
+\end{equation}
+\begin{equation}\label{}
+\hat{U}_3^\pm= \frac{\hat{\sigma}_{1}\pm\hat{\sigma}_{2}}{\sqrt{2}}=
+\mathrm{e}^{\mp{}i\pi/4}\ketbra{0}{1}\pm \mathrm{e}^{\pm{}i\pi/4}\ketbra{1}{0}. \qquad\qquad\qquad\;\,
+\nonumber
+\end{equation}
+They can be used for constructing unitary transformations $\hat{\sigma}_{i}\leftrightarrow\pm\hat{\sigma}_{j}\;\, (i\neq{}j)$ and $\hat{\sigma}_{i}\rightarrow-\hat{\sigma}_{i}\;\, (i=1,2,3)$:
+\begin{equation}\label{}
+\hat{U}_k^\pm\:\!\hat{\sigma}_{i}\hat{U}_k^\pm= \pm\hat{\sigma}_{j},\quad \hat{U}_k^\pm\:\!\hat{\sigma}_{k}\hat{U}_k^\pm= -\hat{\sigma}_{k},\quad i\neq{j}\neq{k},\;\, i,j,k\in\{1,2,3\},
+\nonumber
+\end{equation}
+or, in more detail,
+\begin{eqnarray}\label{}
+\hat{U}_1^\pm\:\!\hat{\sigma}_{2}\hat{U}_1^\pm &\!\!=\!\!& \pm\hat{\sigma}_{3},\quad \hat{U}_1^\pm\:\!\hat{\sigma}_{3}\hat{U}_1^\pm\,=\, \pm\hat{\sigma}_{2}, \quad \hat{U}_1^\pm\:\!\hat{\sigma}_{1}\hat{U}_1^\pm\,=\, -\hat{\sigma}_{1}, \vphantom{\int}
+\nonumber\\
+\hat{U}_2^\pm\:\!\hat{\sigma}_{1}\hat{U}_2^\pm &\!\!=\!\!& \pm\hat{\sigma}_{3},\quad \hat{U}_2^\pm\:\!\hat{\sigma}_{3}\hat{U}_2^\pm\,=\, \pm\hat{\sigma}_{1}, \quad \hat{U}_2^\pm\:\!\hat{\sigma}_{2}\hat{U}_2^\pm\,=\, -\hat{\sigma}_{2}, \vphantom{\int}
+\nonumber\\
+\hat{U}_3^\pm\:\!\hat{\sigma}_{1}\hat{U}_3^\pm
+&\!\!=\!\!& \pm\hat{\sigma}_{2},\quad \hat{U}_3^\pm\:\!\hat{\sigma}_{2}\hat{U}_3^\pm\,=\, \pm\hat{\sigma}_{1}, \quad \hat{U}_3^\pm\:\!\hat{\sigma}_{3}\hat{U}_3^\pm\,=\, -\hat{\sigma}_{3}. \vphantom{\int}
+\nonumber
+\end{eqnarray}
+\label{A2}\noindent
+Further, for the sake of uniformity, we denote $\hat{\sigma}_{0}$ by $\hat{U}_0$. Thus, for example, we can choose the full set of generators for $\mathcal{C}(\mathcal{H}_1)$ in the form ($\hat{U}_{i}\equiv\hat{U}_{i}^+,\, i=1,2,3$)
+\begin{equation}\label{}
+\big\{ \hat{U}_0,\, \hat{U}_{1},\, \hat{U}_{2}, \,\hat{U}_{3} \big\}.
+\nonumber
+\end{equation}
+In the general case of $\widetilde{P}(\mathcal{H}_n)$, a a full set of generators for the group $\mathcal{C}(\mathcal{H}_n)$ constitute operators of the form
+\begin{equation}\label{}
+\big\{\hat{U}_{i_1\ldots{}i_n}\;=\; \hat{U}_{i_1}\otimes\cdots \otimes \hat{U}_{i_n}\big\}_{i_1,\ldots,i_n\in\{0,1,2,3\}}.
+\nonumber
+\end{equation}
+
+
+\end{document}
