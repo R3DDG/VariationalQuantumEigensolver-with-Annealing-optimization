@@ -11,16 +11,17 @@ class Program
 
 		List<Term> hamiltonianTerms = new List<Term>();
 
-		// Путь к файлу
-		string filePath = "input.txt";
+		// Путь к файлам
+		string hamiltonianFilePath = "hamiltonian_operators.txt";
+		string coefficientsFilePath = "coefficients.txt";
 
-		// Чтение данных из файла
-		string[] lines = File.ReadAllLines(filePath);
-		int termsCount = lines.Length;
+		// Чтение данных из файла гамильтониана
+		string[] hamiltonianLines = File.ReadAllLines(hamiltonianFilePath);
+		int termsCount = hamiltonianLines.Length;
 
 		for (int i = 0; i < termsCount; i++)
 		{
-			string line = lines[i];
+			string line = hamiltonianLines[i];
 			string[] parts = line.Split(' ');
 
 			if (parts.Length != 3)
@@ -60,6 +61,26 @@ class Program
 
 		// Вывод термов гамильтониана
 		PrintHamiltonianTerms(hamiltonianTerms);
+
+		// Генерация случайных чисел
+		Console.WriteLine("\nСлучайные числа θ_i:");
+		double[] theta = GenerateRandomTheta(5); // Например, 5 случайных чисел
+		foreach (var t in theta)
+		{
+			Console.WriteLine(t.ToString(CultureInfo.InvariantCulture));
+		}
+
+		// Чтение коэффициентов из файла
+		double[] coefficients = ReadCoefficientsFromFile(coefficientsFilePath);
+		if (coefficients.Length != theta.Length)
+		{
+			Console.WriteLine("Ошибка: количество коэффициентов не совпадает с количеством переменных θ.");
+			return;
+		}
+
+		// Вычисление целевой функции
+		double functionValue = ComputeObjectiveFunction(theta, coefficients);
+		Console.WriteLine($"\nЗначение целевой функции: {functionValue.ToString(CultureInfo.InvariantCulture)}");
 	}
 
 	static void PrintHamiltonianTerms(List<Term> terms)
@@ -69,6 +90,38 @@ class Program
 		{
 			Console.WriteLine($"Коэффициент - {term.Coefficient}, индекс - {term.Index}");
 		}
+	}
+
+	static double[] GenerateRandomTheta(int m)
+	{
+		Random random = new Random();
+		double[] theta = new double[m];
+		for (int i = 0; i < m; i++)
+		{
+			theta[i] = random.NextDouble(); // Генерация случайного числа от 0 до 1
+		}
+		return theta;
+	}
+
+	static double[] ReadCoefficientsFromFile(string filePath)
+	{
+		string[] coefficientLines = File.ReadAllLines(filePath);
+		double[] coefficients = new double[coefficientLines.Length];
+		for (int i = 0; i < coefficientLines.Length; i++)
+		{
+			coefficients[i] = double.Parse(coefficientLines[i], CultureInfo.InvariantCulture);
+		}
+		return coefficients;
+	}
+
+	static double ComputeObjectiveFunction(double[] theta, double[] coefficients)
+	{
+		double sum = 0;
+		for (int i = 0; i < theta.Length; i++)
+		{
+			sum += theta[i] * coefficients[i];
+		}
+		return sum; // Простая линейная комбинация
 	}
 }
 
@@ -102,14 +155,14 @@ public class ComplexNumber
 
 	public override string ToString()
 	{
-		string realPart = Real != 0 ? Real.ToString() : "";
+		string realPart = Real != 0 ? Real.ToString(CultureInfo.InvariantCulture) : "";
 
 		string imaginaryPart = Imaginary switch
 		{
 			0 => "",
 			1 => "i",
 			-1 => "-i",
-			_ => $"{Imaginary}i"
+			_ => $"{Imaginary.ToString(CultureInfo.InvariantCulture)}i"
 		};
 
 		if (string.IsNullOrEmpty(realPart))

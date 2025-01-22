@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AnnealingMethod")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d33bf3c014cf6d43a68226a4d9c3687df74ec417")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+eece7991099eb980361b8b81d97c8c95d0d5a7fb")]
 [assembly: System.Reflection.AssemblyProductAttribute("AnnealingMethod")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AnnealingMethod")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
