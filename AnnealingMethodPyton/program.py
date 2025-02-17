@@ -3,13 +3,13 @@ import numpy as np  # Для работы с комплексными числа
 from pathlib import Path  # Для работы с файловой системой
 import random  # Для генерации случайных чисел
 import os  # Для работы с путями и директориями
-import sys # Для работы с системными параметрами и настройки стандартного ввода/вывода
-import io # Для работы с потоками ввода/вывода и настройки кодировки
+import sys  # Для работы с системными параметрами и настройки стандартного ввода/вывода
+import io  # Для работы с потоками ввода/вывода и настройки кодировки
 from rich.console import Console  # Для красивого вывода в консоль
 from rich.table import Table  # Для создания таблиц
 from rich.panel import Panel  # Для панелей с текстом
 from rich import box  # Для стилизации таблиц
-from sympy import symbols # Для работы с математическими символами
+from sympy import symbols  # Для работы с математическими символами
 
 # Устанавливаем кодировку для стандартного вывода
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
@@ -18,7 +18,6 @@ sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8')
 # Инициализация консоли для использования rich
 console = Console(force_terminal=True, color_system="truecolor")
 
-# Функция для генерации случайных чисел theta
 def generate_random_theta(m):
     """
     Генерирует список из m случайных чисел в диапазоне [0, 1).
@@ -28,22 +27,22 @@ def generate_random_theta(m):
     """
     return [random.random() for _ in range(m)]
 
-# Функция для чтения коэффициентов из файла
 def read_coefficients_from_file(file_path):
     """
     Читает коэффициенты из файла и возвращает их в виде списка чисел.
 
     :param file_path: Путь к файлу с коэффициентами.
     :return: Список коэффициентов.
+    :raises FileNotFoundError: Если файл не найден.
     """
-    with open(file_path, 'r') as file:
-        return [float(line.strip()) for line in file]
+    if not file_path.exists():
+        raise FileNotFoundError(f"Файл {file_path} не найден.")
+    return [float(line.strip()) for line in file_path.read_text().splitlines()]
 
-# Функция для форматирования числа с удалением лишних нулей
 def format_number(num):
     """
     Форматирует число, убирая лишние нули после запятой, если число целое.
-    
+
     :param num: Число для форматирования.
     :return: Строковое представление числа.
     """
@@ -54,7 +53,6 @@ def format_number(num):
             return f"{num:.4f}".rstrip('0').rstrip('.')  # Убираем лишние нули
     return str(num)
 
-# Обновляем функцию format_complex_number
 def format_complex_number(c):
     """
     Преобразует комплексное число в строку в удобочитаемом формате.
@@ -73,7 +71,7 @@ def format_complex_number(c):
             imag_part = "-i"
         else:
             imag_part = f"{format_number(c.imag)}i"
-    
+
     # Формируем итоговую строку
     if not real_part and not imag_part:
         return "0"  # Если обе части нулевые
@@ -84,13 +82,12 @@ def format_complex_number(c):
     else:
         return f"{imag_part}+{real_part}" if c.imag > 0 else f"{imag_part[1:]}-{real_part}"  # Общий случай
 
-# Основная программа
 def main():
     """
     Основная функция программы.
     """
 
-    # Меняем рабочую директорию на ту, где находится программа
+    # Меняем рабочую директорию на ту, где находится программа для правильного чтения файлов
     os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
     # Определяем символы
@@ -103,22 +100,26 @@ def main():
 
     # Чтение данных из файла гамильтониана
     hamiltonian_terms = []  # Список для хранения термов гамильтониана
-    with open(hamiltonian_file_path, 'r') as file:
-        for line in file:
-            parts = line.strip().split()  # Разбиваем строку на части
-            if len(parts) != 3:
-                console.print(f"[red]Неверный формат строки: {line}[/red]")
-                continue  # Пропускаем строки с неправильным форматом
-            
-            # Извлекаем действительную и мнимую части, а также индекс
-            real_part = float(parts[0])
-            imag_part = float(parts[1])
-            index = int(parts[2])
-            
-            # Создаем комплексное число с использованием numpy
-            coefficient = np.complex128(real_part + imag_part * 1j)
-            if coefficient != 0:  # Если коэффициент не нулевой, добавляем в список
-                hamiltonian_terms.append((coefficient, index))
+    try:
+        with open(hamiltonian_file_path, 'r') as file:
+            for line in file:
+                parts = line.strip().split()  # Разбиваем строку на части
+                if len(parts) != 3:
+                    console.print(f"[red]Неверный формат строки: {line}[/red]")
+                    continue  # Пропускаем строки с неправильным форматом
+
+                # Извлекаем действительную и мнимую части, а также индекс
+                real_part = float(parts[0])
+                imag_part = float(parts[1])
+                index = int(parts[2])
+
+                # Создаем комплексное число с использованием numpy
+                coefficient = np.complex128(real_part + imag_part * 1j)
+                if coefficient != 0:  # Если коэффициент не нулевой, добавляем в список
+                    hamiltonian_terms.append((coefficient, index))
+    except FileNotFoundError:
+        console.print(f"[red]Файл {hamiltonian_file_path} не найден.[/red]")
+        return
 
     # Формирование строки гамильтониана
     hamiltonian_str = "H = " + " + ".join([f"{format_complex_number(c)}*{sigma}_{i}" for c, i in hamiltonian_terms])
@@ -135,16 +136,20 @@ def main():
     # Генерация случайных чисел theta
     theta = generate_random_theta(5)  # Генерируем 5 случайных чисел
 
-    # Обновляем вывод случайных чисел theta
+    # Вывод случайных чисел theta
     console.print(Panel("[bold]Случайные числа θ_i:[/bold]", title="Генерация θ", border_style="blue"))
     for i, t in enumerate(theta, start=1):
         console.print(f"{thetaSymbol}_{i}: [bold]{format_number(t)}[/bold]")  # Используем функцию format_number
 
     # Чтение коэффициентов из файла
-    coefficients = read_coefficients_from_file(coefficients_file_path)
-    if len(coefficients) != len(theta):
-        console.print("[red]Ошибка: количество коэффициентов не совпадает с количеством переменных θ.[/red]")
-        return  # Завершаем программу, если количество не совпадает
+    try:
+        coefficients = read_coefficients_from_file(coefficients_file_path)
+        if len(coefficients) != len(theta):
+            console.print("[red]Ошибка: количество коэффициентов не совпадает с количеством переменных θ.[/red]")
+            return  # Завершаем программу, если количество не совпадает
+    except FileNotFoundError as e:
+        console.print(f"[red]{e}[/red]")
+        return
 
 
 # Точка входа в программу
