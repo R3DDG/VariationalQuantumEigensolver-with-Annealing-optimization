@@ -3,14 +3,20 @@ import numpy as np  # Для работы с комплексными числа
 from pathlib import Path  # Для работы с файловой системой
 import random  # Для генерации случайных чисел
 import os  # Для работы с путями и директориями
+import sys # Для работы с системными параметрами и настройки стандартного ввода/вывода
+import io # Для работы с потоками ввода/вывода и настройки кодировки
 from rich.console import Console  # Для красивого вывода в консоль
 from rich.table import Table  # Для создания таблиц
 from rich.panel import Panel  # Для панелей с текстом
 from rich import box  # Для стилизации таблиц
 from sympy import symbols # Для работы с математическими символами
 
+# Устанавливаем кодировку для стандартного вывода
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8')
+
 # Инициализация консоли для использования rich
-console = Console()
+console = Console(force_terminal=True, color_system="truecolor")
 
 # Функция для генерации случайных чисел theta
 def generate_random_theta(m):
