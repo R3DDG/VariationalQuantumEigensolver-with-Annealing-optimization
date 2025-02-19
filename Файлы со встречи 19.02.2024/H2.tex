@@ -1,0 +1,125 @@
+\documentclass [12pt,a4paper]{article}
+\special{papersize=210mm,297mm}
+\usepackage[cp1251]{inputenc}
+\usepackage[english,russian]{babel}
+%\usepackage[14pt]{extsizes}
+%\usepackage[dvips,colorlinks,breaklinks=true,
+%linkcolor=blue,citecolor=blue]{hyperref}
+\usepackage[pdftex,colorlinks,linkcolor=blue,
+citecolor=blue]{hyperref}
+\def\baselinestretch{1.05}
+\tolerance=800
+
+%%%%%%%% Символы, графика %%%%%%%%%%
+
+\usepackage[T2A]{fontenc}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{bm}
+\usepackage{enumitem}
+\usepackage{wrapfig}
+\usepackage{caption}
+\usepackage{subfigure}
+\usepackage[matrix,arrow,curve]{xy}
+\usepackage{euscript}
+\usepackage{indentfirst}
+\usepackage{color}
+\usepackage[pdftex]{graphicx}
+%\usepackage[dvips]{graphics}
+%\DeclareGraphicsRule{.eps}{eps}{.eps}{}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{varwidth}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{algcompatible}
+
+\input{Qcircuit1}
+
+
+%%%%%%%%% Разметка страницы %%%%%%%%%
+
+\usepackage{indentfirst}
+\topmargin=-1.45cm %отступ сверху
+\oddsidemargin=0.4cm %отступ слева (нечетные страницы)
+\evensidemargin=0.4cm %(четные страницы)
+\textwidth=15.6cm %ширина текста
+\textheight=24cm
+\tolerance=1400
+\parskip=0.8ex
+
+
+%\newtheorem{proposition}{\sf Proposition}
+\newtheorem{proposition}{\sf\noindent {Предложение}}
+
+\newcommand{\ket}[1] {\!\!\;\ensuremath{\left|#1\right\rangle}}
+\newcommand{\bra}[1] {\!\!\:\ensuremath{\left\langle#1\right|\!\!\:}}
+
+\newcommand{\ketbra}[2]{\!\!\:\ensuremath {\left|#1\right\rangle\!\:\!\!\left\langle#2\right|}}
+\newcommand{\braket}[2]{\ensuremath {\!\!\:\left\langle#1\!\!\: \left|\!\!\!\;\right.#2\right\rangle\!\!\;}}
+
+\renewcommand{\thesection}
+{\textcolor{magenta}{\arabic{section}}}
+
+\renewcommand{\thesubsection}{\textcolor{violet} {\bf\arabic{section}.\arabic{subsection}}}
+
+\renewcommand{\thesubsubsection}{\textcolor{blue} {\arabic{section}.\arabic{subsection}.\arabic{subsubsection} }}
+
+%\newcounter{Point}[subsection]
+%\newcommand{\point}[1]{\addtocounter{Point}{1}
+%{\vspace{2ex} \bf\arabic{Point}.\,}{\bf#1.} }
+
+
+\begin{document}
+
+
+\section{\textcolor{magenta}{Молекула водорода}}
+
+\noindent
+
+Гамильтониан
+\begin{multline}\label{Ham-H2}
+\hat{H}_{H_2} = -0.042\hat{\sigma}_{0000}+ 0.178(\hat{\sigma}_{3000}+ \hat{\sigma}_{0300})- 0.243(\hat{\sigma}_{0030}+ \hat{\sigma}_{0003})
+\\+
+0.171\hat{\sigma}_{3300}+ 0.123(\hat{\sigma}_{3030}+ \hat{\sigma}_{0303})+
+0.168(\hat{\sigma}_{3003}+ \hat{\sigma}_{0330})+ 0.176\hat{\sigma}_{0033}\quad\;\;
+\\+
+0.045(\hat{\sigma}_{3113}- \hat{\sigma}_{3311}- \hat{\sigma}_{1133} + \hat{\sigma}_{1331}).\quad
+\end{multline}
+
+
+Гамильтониан для обучения
+\begin{equation*}\label{}
+\hat{H}= h_1\hat{\sigma}_{0123}+ h_2\hat{\sigma}_{0213}+ h_3\hat{\sigma}_{0330}+ h_4\hat{\sigma}_{1023}
++h_5\hat{\sigma}_{1100}+ h_6\hat{\sigma}_{1230}+ h_7\hat{\sigma}_{1313},
+\end{equation*}
+
+
+\begin{equation*}
+%\left[
+\begin{array}{|r|r|r|r|r|r|r|r|}
+\hline
+\hat{\sigma}_{0000}& \hat{\sigma}_{0123}& \hat{\sigma}_{0213}& \hat{\sigma}_{0330}& \hat{\sigma}_{1023}& \hat{\sigma}_{1100}& \hat{\sigma}_{1230}& \hat{\sigma}_{1313} \vphantom{\overbrace{AA}\underbrace{AA}}\\
+\hline\vphantom{\overbrace{AA}\underbrace{AA}}
+\hat{\sigma}_{0123}& \hat{\sigma}_{0000}& \hat{\sigma}_{0330}& \hat{\sigma}_{0213}& \hat{\sigma}_{1100}& \hat{\sigma}_{1023}&  -\hat{\sigma}_{1313}& -\hat{\sigma}_{1230}\\
+\hline\vphantom{\overbrace{AA}\underbrace{AA}}
+\hat{\sigma}_{0213}& \hat{\sigma}_{0330}& \hat{\sigma}_{0000}& \hat{\sigma}_{0123}& \textcolor{red}{i\hat{\sigma}_{1230}}& \textcolor{red}{-i\hat{\sigma}_{1313}}& \textcolor{red}{-i\hat{\sigma}_{1023}}& \textcolor{red}{i\hat{\sigma}_{1100}}\\
+\hline\vphantom{\overbrace{AA}\underbrace{AA}}
+\hat{\sigma}_{0330}& \hat{\sigma}_{0213}& \hat{\sigma}_{0123}& \hat{\sigma}_{0000}& \textcolor{red}{-i\hat{\sigma}_{1313}}& \textcolor{red}{i\hat{\sigma}_{1230}}& \textcolor{red}{-i\hat{\sigma}_{1100}}& \textcolor{red}{i\hat{\sigma}_{1023}}\\
+\hline\vphantom{\overbrace{AA}\underbrace{AA}}
+\hat{\sigma}_{1023}& \hat{\sigma}_{1100}& \textcolor{red}{-i\hat{\sigma}_{1230}}& \textcolor{red}{i\hat{\sigma}_{1313}}& \hat{\sigma}_{0000}& \hat{\sigma}_{0123}& \textcolor{red}{i\hat{\sigma}_{0213}}& \textcolor{red}{-i\hat{\sigma}_{0330}}\\
+\hline\vphantom{\overbrace{AA}\underbrace{AA}}
+\hat{\sigma}_{1100}& \hat{\sigma}_{1023}& \textcolor{red}{i\hat{\sigma}_{1313}}& \textcolor{red}{-i\hat{\sigma}_{1230}}& \hat{\sigma}_{0123}& \hat{\sigma}_{0000}& \textcolor{red}{i\hat{\sigma}_{0330}}& \textcolor{red}{-i\hat{\sigma}_{0213}}\\
+\hline\vphantom{\overbrace{AA}\underbrace{AA}}
+\hat{\sigma}_{1230}& -\hat{\sigma}_{1313}& \textcolor{red}{i\hat{\sigma}_{1023}}& \textcolor{red}{i\hat{\sigma}_{1100}}& \textcolor{red}{-i\hat{\sigma}_{0213}}& \textcolor{red}{-i\hat{\sigma}_{0330}}& \hat{\sigma}_{0000}& -\hat{\sigma}_{0123}\\
+\hline\vphantom{\overbrace{AA}\underbrace{AA}}
+\hat{\sigma}_{1313}& -\hat{\sigma}_{1230}& \textcolor{red}{-i\hat{\sigma}_{1100}}& \textcolor{red}{-i\hat{\sigma}_{1023}}& \textcolor{red}{i\hat{\sigma}_{0330}}& \textcolor{red}{i\hat{\sigma}_{0213}}&  -\hat{\sigma}_{0123}& \hat{\sigma}_{0000}\\
+\hline
+\end{array}
+%\right]\!.
+\end{equation*}
+
+
+
+
+\end{document}
+
