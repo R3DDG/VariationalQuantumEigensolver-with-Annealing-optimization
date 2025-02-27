@@ -162,23 +162,26 @@ def main():
 
     # Формирование строки гамильтониана
     hamiltonian_str = "H = " + " + ".join([f"{format_complex_number(c)}*{sigma}_{i}" for c, i in hamiltonian_terms])
-    console.print(Panel(f"[bold]Введенный гамильтониан:[/bold]\n{hamiltonian_str}", title="Гамильтониан", border_style="green"))
+    console.print(Panel(f"{hamiltonian_str}", title="[bold]Введенный гамильтониан[/bold]", border_style="green"))
 
     # Вывод термов гамильтониана в виде таблицы
-    table = Table(title="Термы гамильтониана", box=box.ROUNDED, border_style="yellow")
-    table.add_column("Коэффициент", justify="center", style="cyan")
+    table = Table(box=box.ROUNDED, border_style="yellow")
+    table.add_column("Коэффициент", justify="default", style="cyan")
     table.add_column("Индекс", justify="center", style="magenta")
     for c, i in hamiltonian_terms:
         table.add_row(format_complex_number(c), str(i))
-    console.print(table)
+    console.print(Panel(table, title="Термы гамильтониана", border_style="purple"))
 
     # Генерация случайных чисел theta
     theta = generate_random_theta(5)  # Генерируем 5 случайных чисел
 
     # Вывод случайных чисел theta
-    console.print(Panel("[bold]Случайные числа θ_i:[/bold]", title="Генерация θ", border_style="blue"))
+    table_theta = Table(box=box.ROUNDED, border_style="yellow")
+    table_theta.add_column("Номер θ_i", justify="default", style="cyan")
+    table_theta.add_column("Значение θ_i", justify="center", style="magenta")
     for i, t in enumerate(theta, start=1):
-        console.print(f"{thetaSymbol}_{i}: [bold]{format_number(t)}[/bold]")
+        table_theta.add_row(str(i), format_number(t))
+    console.print(Panel(table_theta, title="Случайные числа θ_i", border_style="green"))
 
     # Чтение коэффициентов из файла
     try:
@@ -208,14 +211,14 @@ def main():
             results.append((s1, s2, h, p))
 
     # Вывод результатов композиции операторов Паули
-    table_pauli = Table(title="Композиции операторов Паули", box=box.ROUNDED, border_style="blue")
+    table_pauli = Table(box=box.ROUNDED, border_style="yellow")
     table_pauli.add_column("Оператор 1", justify="center", style="cyan")
     table_pauli.add_column("Оператор 2", justify="center", style="magenta")
     table_pauli.add_column("Коэффициент", justify="center", style="green")
-    table_pauli.add_column("Результат", justify="center", style="yellow")
+    table_pauli.add_column("Результат", justify="center", style="red")
     for s1, s2, h, p in results:
         table_pauli.add_row(str(s1), str(s2), str(h), str(p))
-    console.print(table_pauli)
+    console.print(Panel(table_pauli, title="Композиции операторов Паули", border_style="purple"))
 
 # Точка входа в программу
 if __name__ == "__main__":
