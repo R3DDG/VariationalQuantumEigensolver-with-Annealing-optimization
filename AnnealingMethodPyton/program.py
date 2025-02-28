@@ -177,8 +177,8 @@ def main():
 
     # Вывод случайных чисел theta
     table_theta = Table(box=box.ROUNDED, border_style="yellow")
-    table_theta.add_column("Номер θ_i", justify="default", style="cyan")
-    table_theta.add_column("Значение θ_i", justify="center", style="magenta")
+    table_theta.add_column(f"Номер {thetaSymbol}_i", justify="default", style="cyan")
+    table_theta.add_column(f"Значение {thetaSymbol}_i", justify="center", style="magenta")
     for i, t in enumerate(theta, start=1):
         table_theta.add_row(str(i), format_number(t))
     console.print(Panel(table_theta, title="Случайные числа θ_i", border_style="green"))
@@ -197,7 +197,7 @@ def main():
     try:
         pauli_operators = read_hamiltonian_operators(hamiltonian_file_path)
         if not pauli_operators:
-            console.print("[red]Файл hamiltonian_operators.txt не содержит операторов Паули.[/red]")
+            console.print("[red]Файл 'hamiltonian_operators.txt' не содержит операторов Паули.[/red]")
             return
     except FileNotFoundError as e:
         console.print(f"[red]{e}[/red]")
@@ -217,7 +217,7 @@ def main():
     table_pauli.add_column("Коэффициент", justify="center", style="green")
     table_pauli.add_column("Результат", justify="center", style="red")
     for s1, s2, h, p in results:
-        table_pauli.add_row(str(s1), str(s2), str(h), str(p))
+        table_pauli.add_row(str(s1), str(s2), str(h).lower(), str(p))
     console.print(Panel(table_pauli, title="Композиции операторов Паули", border_style="purple"))
 
 # Точка входа в программу
