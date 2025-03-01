@@ -41,11 +41,6 @@ def read_file_lines(file_path, ignore_comments=True):
     with open(file_path, 'r') as file:
         return [line.strip() for line in file if not (ignore_comments and line.strip().startswith('#'))]
 
-def read_coefficients_from_file(file_path):
-    """Читает коэффициенты из файла и возвращает их в виде списка чисел."""
-    lines = read_file_lines(file_path)
-    return [float(line) for line in lines]
-
 def format_number(num):
     """
     Форматирует число, убирая лишние нули после запятой, если число целое.
@@ -136,7 +131,7 @@ def read_hamiltonian_data(file_path):
 
 def create_table(columns, data, title, border_style="yellow"):
     """Создает таблицу с заданными колонками и данными."""
-    table = Table(box=box.ROUNDED, border_style=border_style)
+    table = Table(box=box.ROUNDED, border_style="yellow")
     for col in columns:
         table.add_column(col["name"], justify=col.get("justify", "default"), style=col.get("style", ""))
     for row in data:
@@ -149,7 +144,6 @@ def main():
 
     # Пути к файлам
     hamiltonian_file_path = Path("params/hamiltonian_operators.txt")
-    coefficients_file_path = Path("params/coefficients.txt")
 
     # Чтение данных из файла гамильтониана
     try:
@@ -176,16 +170,6 @@ def main():
         [{"name": "Номер θ_i", "style": "cyan"}, {"name": "Значение θ_i", "style": "magenta", "justify": "center"}],
         table_theta_data, "Случайные числа θ_i", "green"
     ))
-
-    # Чтение коэффициентов из файла
-    try:
-        coefficients = read_coefficients_from_file(coefficients_file_path)
-        if len(coefficients) != len(theta):
-            console.print("[red]Ошибка: количество коэффициентов не совпадает с количеством переменных θ.[/red]")
-            return
-    except FileNotFoundError as e:
-        console.print(f"[red]{e}[/red]")
-        return
 
     # Проверка наличия операторов Паули
     if not pauli_operators:
