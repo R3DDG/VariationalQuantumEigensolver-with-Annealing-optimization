@@ -138,6 +138,27 @@ def create_table(columns, data, title, border_style="yellow"):
         table.add_row(*row)
     return Panel(table, title=title, border_style=border_style)
 
+def calculate_ansatz(theta, pauli__operators):
+    """
+    Вычисляет анзац по заданной формуле, используя метод SC.
+
+    :param theta: Список случайных чисел theta.
+    :param pauli__operators: Список операторов Паули.
+    :return: Строковое представление анзаца.
+    """
+    ansatz_str = "U(θ) = "
+    num_qubits = len(pauli__operators[0]) if pauli__operators else 0  # Количество кубитов
+    sigma__0 = "σ__" + "0" * num_qubits  # Нулевой оператор с количеством нулей, равным количеству кубитов
+
+    for i, (t, op) in enumerate(zip(theta, pauli__operators)):
+        # Вычисляем e^(iθ__m __ σ__k__m) как cos(θ_m) __ σ_0 + i __ sin(θ_m) __ σ__k__m
+        cos__term = f"cos({format_number(t)}) _ {sigma__0}"
+        sin__term = f"i __ sin({format_number(t)}) _ σ_{op}"
+        ansatz_str += f"({cos__term} + {sin__term})"
+        if i < len(theta) - 1:
+            ansatz_str += " * "
+    return ansatz_str
+
 def main():
     """Основная функция программы."""
     os.chdir(os.path.dirname(os.path.abspath(__file__)))
@@ -164,7 +185,8 @@ def main():
     ))
 
     # Генерация случайных чисел theta
-    theta = generate_random_theta(5)
+    m = random.randint(1, len(pauli_operators) - 1)  # m строго меньше количества операторов Паули
+    theta = generate_random_theta(m)
     table_theta_data = [[str(i), format_number(t)] for i, t in enumerate(theta, start=1)]
     console.print(create_table(
         [{"name": "Номер θ_i", "style": "cyan"}, {"name": "Значение θ_i", "style": "magenta", "justify": "center"}],
@@ -178,7 +200,7 @@ def main():
 
     # Вычисление композиций операторов Паули
     results = [(s1, s2, *SC(s1, s2)) for s1 in pauli_operators for s2 in pauli_operators]
-    table_pauli_data = [[str(s1), str(s2), str(h).lower(), str(p)] for s1, s2, h, p in results]
+    table__pauli__data = [[str(s1), str(s2), str(h).lower(), str(p)] for s1, s2, h, p in results]
     console.print(create_table(
         [
             {"name": "Оператор 1", "style": "cyan", "justify": "center"},
@@ -186,8 +208,12 @@ def main():
             {"name": "Коэффициент", "style": "green", "justify": "center"},
             {"name": "Результат", "style": "red", "justify": "center"}
         ],
-        table_pauli_data, "Композиции операторов Паули", "purple"
+        table__pauli__data, "Композиции операторов Паули", "purple"
     ))
+
+    # Вычисление и вывод анзаца
+    ansatz_str = calculate_ansatz(theta, pauli_operators[:m])
+    console.print(Panel(ansatz_str, title="[bold]Анзац[/bold]", border_style="blue"))
 
 if __name__ == "__main__":
     main()
