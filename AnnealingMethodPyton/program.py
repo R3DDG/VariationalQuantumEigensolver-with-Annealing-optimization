@@ -8,7 +8,7 @@ from rich.console import Console  # Для красивого вывода в к
 from rich.table import Table  # Для создания таблиц
 from rich.panel import Panel  # Для панелей с текстом
 from rich import box  # Для стилизации таблиц
-from sympy import symbols, I  # Для работы с математическими символами и мнимой единицей
+from sympy import Mul, I, re, im  # Для работы с математическими символами и мнимой единицей
 
 # Устанавливаем кодировку для стандартного вывода
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
@@ -54,15 +54,27 @@ def format_number(num):
 
 def format_complex_number(c):
     """
-    Преобразует комплексное число в строку в удобочитаемом формате.
+    Преобразует комплексное число или символьное выражение в строку в удобочитаемом формате.
 
-    :param c: Комплексное число (тип numpy.complex128).
+    :param c: Комплексное число или символьное выражение.
     :return: Строковое представление комплексного числа.
     """
-    real_part = format_number(c.real) if c.real != 0 else ""
-    imag_part = ""
-    if c.imag != 0:
-        imag_part = "i" if c.imag == 1 else "-i" if c.imag == -1 else f"{format_number(c.imag)}i"
+    if isinstance(c, (int, float, complex)):
+        # Обработка численных значений
+        real_part = format_number(c.real) if c.real != 0 else ""
+        imag_part = ""
+        if c.imag != 0:
+            imag_part = "i" if c.imag == 1 else "-i" if c.imag == -1 else f"{format_number(c.imag)}i"
+    elif isinstance(c, Mul):
+        # Обработка символьных выражений
+        real_part = format_number(float(re(c))) if re(c) != 0 else ""
+        imag_part = ""
+        if im(c) != 0:
+            imag_part = "i" if im(c) == 1 else "-i" if im(c) == -1 else f"{format_number(float(im(c)))}i"
+    else:
+        # Обработка других типов
+        real_part = str(c)
+        imag_part = ""
 
     if not real_part and not imag_part:
         return "0"
@@ -71,7 +83,12 @@ def format_complex_number(c):
     elif not imag_part:
         return real_part
     else:
-        return f"{imag_part}+{real_part}" if c.imag > 0 else f"{imag_part[1:]}-{real_part}"
+        # Убираем лишний знак, если мнимая часть уже содержит знак
+        if imag_part.startswith("-"):
+            return f"{imag_part}{real_part}"
+        else:
+            return f"{imag_part}+{real_part}"
+
 
 def Pij(i, j):
     """
@@ -138,26 +155,54 @@ def create_table(columns, data, title, border_style="yellow"):
         table.add_row(*row)
     return Panel(table, title=title, border_style=border_style)
 
-def calculate_ansatz(theta, pauli__operators):
+def calculate_ansatz(theta, pauli_operators):
     """
-    Вычисляет анзац по заданной формуле, используя метод SC.
+    Вычисляет анзац по заданной формуле, перемножая скобки и упрощая результат.
 
     :param theta: Список случайных чисел theta.
-    :param pauli__operators: Список операторов Паули.
-    :return: Строковое представление анзаца.
+    :param pauli_operators: Список операторов Паули (списки индексов).
+    :return: Символьное представление анзаца и его численное значение.
     """
-    ansatz_str = "U(θ) = "
-    num_qubits = len(pauli__operators[0]) if pauli__operators else 0  # Количество кубитов
-    sigma__0 = "σ__" + "0" * num_qubits  # Нулевой оператор с количеством нулей, равным количеству кубитов
+    # Инициализация результата как словаря {оператор: коэффициент}
+    result = {tuple([0] * len(pauli_operators[0])): 1.0}  # Начинаем с единичного оператора (σ_000...)
 
-    for i, (t, op) in enumerate(zip(theta, pauli__operators)):
-        # Вычисляем e^(iθ__m __ σ__k__m) как cos(θ_m) __ σ_0 + i __ sin(θ_m) __ σ__k__m
-        cos__term = f"cos({format_number(t)}) _ {sigma__0}"
-        sin__term = f"i __ sin({format_number(t)}) _ σ_{op}"
-        ansatz_str += f"({cos__term} + {sin__term})"
-        if i < len(theta) - 1:
-            ansatz_str += " * "
-    return ansatz_str
+    # Перемножаем все члены анзаца
+    for t, op in zip(theta, pauli_operators):
+        # Коэффициенты для текущего члена
+        cos_t = np.cos(t)
+        sin_t = np.sin(t)
+
+        # Текущий оператор и его коэффициент
+        current_ops = [tuple(op)]  # Список операторов
+        current_coeffs = [cos_t + 1j * sin_t]  # Список коэффициентов
+
+        # Перемножаем с предыдущими результатами
+        new_ops = []
+        new_coeffs = []
+        for existing_op, existing_coeff in result.items():
+            for current_op, current_coeff in zip(current_ops, current_coeffs):
+                # Вычисляем произведение операторов и коэффициентов
+                h, p = SC(list(existing_op), list(current_op))
+                new_op = tuple(p)
+                new_coeff = existing_coeff * current_coeff * h
+
+                # Добавляем в новый результат
+                if new_op in new_ops:
+                    new_coeffs[new_ops.index(new_op)] += new_coeff
+                else:
+                    new_ops.append(new_op)
+                    new_coeffs.append(new_coeff)
+
+        # Обновляем результат
+        result = dict(zip(new_ops, new_coeffs))
+
+    # Формируем символьное представление анзаца
+    ansatz_symbolic = "U(θ) = " + " * ".join([f"e^(iθ_{i+1}σ_{''.join(map(str, op))})" for i, op in enumerate(pauli_operators)])
+
+    # Формируем численное значение анзаца
+    ansatz_numeric = "U = " + " + ".join([f"{format_complex_number(c)}*σ_{''.join(map(str, op))}" for op, c in result.items()])
+
+    return ansatz_symbolic, ansatz_numeric
 
 def main():
     """Основная функция программы."""
@@ -200,7 +245,7 @@ def main():
 
     # Вычисление композиций операторов Паули
     results = [(s1, s2, *SC(s1, s2)) for s1 in pauli_operators for s2 in pauli_operators]
-    table__pauli__data = [[str(s1), str(s2), str(h).lower(), str(p)] for s1, s2, h, p in results]
+    table_pauli_data = [[str(s1), str(s2), str(h).lower(), str(p)] for s1, s2, h, p in results]
     console.print(create_table(
         [
             {"name": "Оператор 1", "style": "cyan", "justify": "center"},
@@ -208,12 +253,13 @@ def main():
             {"name": "Коэффициент", "style": "green", "justify": "center"},
             {"name": "Результат", "style": "red", "justify": "center"}
         ],
-        table__pauli__data, "Композиции операторов Паули", "purple"
+        table_pauli_data, "Композиции операторов Паули", "purple"
     ))
 
     # Вычисление и вывод анзаца
-    ansatz_str = calculate_ansatz(theta, pauli_operators[:m])
-    console.print(Panel(ansatz_str, title="[bold]Анзац[/bold]", border_style="blue"))
+    ansatz_symbolic, ansatz_numeric = calculate_ansatz(theta, pauli_operators[:m])
+    console.print(Panel(ansatz_symbolic, title="[bold]Символьное представление анзаца[/bold]", border_style="blue"))
+    console.print(Panel(ansatz_numeric, title="[bold]Численное значение анзаца[/bold]", border_style="blue"))
 
 if __name__ == "__main__":
     main()
