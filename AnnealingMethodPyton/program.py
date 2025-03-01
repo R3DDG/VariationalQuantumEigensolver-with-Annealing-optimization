@@ -1,4 +1,3 @@
-# Импортируем необходимые библиотеки
 import numpy as np  # Для работы с комплексными числами и математическими операциями
 from pathlib import Path  # Для работы с файловой системой
 import random  # Для генерации случайных чисел
@@ -27,17 +26,25 @@ def generate_random_theta(m):
     """
     return [random.random() for _ in range(m)]
 
-def read_coefficients_from_file(file_path):
+def read_file_lines(file_path, ignore_comments=True):
     """
-    Читает коэффициенты из файла и возвращает их в виде списка чисел.
+    Читает строки из файла, игнорируя комментарии (строки, начинающиеся с '#').
 
-    :param file_path: Путь к файлу с коэффициентами.
-    :return: Список коэффициентов.
+    :param file_path: Путь к файлу.
+    :param ignore_comments: Игнорировать строки, начинающиеся с '#'.
+    :return: Список строк.
     :raises FileNotFoundError: Если файл не найден.
     """
+    file_path = Path(file_path) if not isinstance(file_path, Path) else file_path
     if not file_path.exists():
         raise FileNotFoundError(f"Файл {file_path} не найден.")
-    return [float(line.strip()) for line in file_path.read_text().splitlines()]
+    with open(file_path, 'r') as file:
+        return [line.strip() for line in file if not (ignore_comments and line.strip().startswith('#'))]
+
+def read_coefficients_from_file(file_path):
+    """Читает коэффициенты из файла и возвращает их в виде списка чисел."""
+    lines = read_file_lines(file_path)
+    return [float(line) for line in lines]
 
 def format_number(num):
     """
@@ -79,14 +86,7 @@ def Pij(i, j):
     :param j: Индекс второго оператора Паули.
     :return: Коэффициент и индекс результирующего оператора.
     """
-    pauli_map = {
-        (1, 2): (I, 3),
-        (2, 1): (-I, 3),
-        (3, 1): (I, 2),
-        (1, 3): (-I, 2),
-        (2, 3): (I, 1),
-        (3, 2): (-I, 1)
-    }
+    pauli_map = {(1, 2): (I, 3), (2, 1): (-I, 3), (3, 1): (I, 2), (1, 3): (-I, 2), (2, 3): (I, 1), (3, 2): (-I, 1)}
     if i == j:
         return 1, 0
     elif i == 0:
@@ -111,77 +111,71 @@ def SC(s1, s2):
         p.append(p_i)
     return h, p
 
-def read_hamiltonian_operators(file_path):
+def read_hamiltonian_data(file_path):
     """
-    Чтение операторов Паули из файла hamiltonian_operators.txt.
+    Читает данные из файла hamiltonian_operators.txt и возвращает два списка:
+    1. Список термов гамильтониана (коэффициент, индекс).
+    2. Список операторов Паули.
 
     :param file_path: Путь к файлу.
-    :return: Список операторов Паули.
+    :return: (hamiltonian_terms, pauli_operators)
+    :raises FileNotFoundError: Если файл не найден.
     """
-    if not file_path.exists():
-        raise FileNotFoundError(f"Файл {file_path} не найден.")
-    operators = []
-    with open(file_path, 'r') as file:
-        for line in file:
-            parts = line.strip().split()
-            if len(parts) != 3:
-                continue  # Пропускаем строки с неправильным форматом
-            operators.append([int(c) for c in parts[2]])
-    return operators
+    lines = read_file_lines(file_path, ignore_comments=False)
+    hamiltonian_terms = []
+    pauli_operators = []
+    for line in lines:
+        parts = line.strip().split()
+        if len(parts) == 3:
+            real_part, imag_part, index = float(parts[0]), float(parts[1]), int(parts[2])
+            coefficient = np.complex128(real_part + imag_part * 1j)
+            if coefficient != 0:
+                hamiltonian_terms.append((coefficient, index))
+            pauli_operators.append([int(c) for c in parts[2]])
+    return hamiltonian_terms, pauli_operators
+
+def create_table(columns, data, title, border_style="yellow"):
+    """Создает таблицу с заданными колонками и данными."""
+    table = Table(box=box.ROUNDED, border_style=border_style)
+    for col in columns:
+        table.add_column(col["name"], justify=col.get("justify", "default"), style=col.get("style", ""))
+    for row in data:
+        table.add_row(*row)
+    return Panel(table, title=title, border_style=border_style)
 
 def main():
-    """
-    Основная функция программы.
-    """
+    """Основная функция программы."""
     os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
-    # Определяем символы
-    sigma = symbols('σ')
-    thetaSymbol = symbols('θ')
-
     # Пути к файлам
-    hamiltonian_file_path = Path("params/hamiltonian_operators.txt")  # Файл с термами гамильтониана
-    coefficients_file_path = Path("params/coefficients.txt")  # Файл с коэффициентами
+    hamiltonian_file_path = Path("params/hamiltonian_operators.txt")
+    coefficients_file_path = Path("params/coefficients.txt")
 
     # Чтение данных из файла гамильтониана
-    hamiltonian_terms = []  # Список для хранения термов гамильтониана
     try:
-        with open(hamiltonian_file_path, 'r') as file:
-            for line in file:
-                parts = line.strip().split()
-                if len(parts) != 3:
-                    console.print(f"[red]Неверный формат строки: {line}[/red]")
-                    continue
-                real_part, imag_part, index = float(parts[0]), float(parts[1]), int(parts[2])
-                coefficient = np.complex128(real_part + imag_part * 1j)
-                if coefficient != 0:
-                    hamiltonian_terms.append((coefficient, index))
+        hamiltonian_terms, pauli_operators = read_hamiltonian_data(hamiltonian_file_path)
     except FileNotFoundError:
         console.print(f"[red]Файл {hamiltonian_file_path} не найден.[/red]")
         return
 
     # Формирование строки гамильтониана
-    hamiltonian_str = "H = " + " + ".join([f"{format_complex_number(c)}*{sigma}_{i}" for c, i in hamiltonian_terms])
-    console.print(Panel(f"{hamiltonian_str}", title="[bold]Введенный гамильтониан[/bold]", border_style="green"))
+    hamiltonian_str = "H = " + " + ".join([f"{format_complex_number(c)}*σ_{i}" for c, i in hamiltonian_terms])
+    console.print(Panel(hamiltonian_str, title="[bold]Введенный гамильтониан[/bold]", border_style="green"))
 
     # Вывод термов гамильтониана в виде таблицы
-    table = Table(box=box.ROUNDED, border_style="yellow")
-    table.add_column("Коэффициент", justify="default", style="cyan")
-    table.add_column("Индекс", justify="center", style="magenta")
-    for c, i in hamiltonian_terms:
-        table.add_row(format_complex_number(c), str(i))
-    console.print(Panel(table, title="Термы гамильтониана", border_style="purple"))
+    table_data = [[format_complex_number(c), str(i)] for c, i in hamiltonian_terms]
+    console.print(create_table(
+        [{"name": "Коэффициент", "style": "cyan"}, {"name": "Индекс", "style": "magenta", "justify": "center"}],
+        table_data, "Термы гамильтониана", "purple"
+    ))
 
     # Генерация случайных чисел theta
-    theta = generate_random_theta(5)  # Генерируем 5 случайных чисел
-
-    # Вывод случайных чисел theta
-    table_theta = Table(box=box.ROUNDED, border_style="yellow")
-    table_theta.add_column(f"Номер {thetaSymbol}_i", justify="default", style="cyan")
-    table_theta.add_column(f"Значение {thetaSymbol}_i", justify="center", style="magenta")
-    for i, t in enumerate(theta, start=1):
-        table_theta.add_row(str(i), format_number(t))
-    console.print(Panel(table_theta, title="Случайные числа θ_i", border_style="green"))
+    theta = generate_random_theta(5)
+    table_theta_data = [[str(i), format_number(t)] for i, t in enumerate(theta, start=1)]
+    console.print(create_table(
+        [{"name": "Номер θ_i", "style": "cyan"}, {"name": "Значение θ_i", "style": "magenta", "justify": "center"}],
+        table_theta_data, "Случайные числа θ_i", "green"
+    ))
 
     # Чтение коэффициентов из файла
     try:
@@ -193,33 +187,23 @@ def main():
         console.print(f"[red]{e}[/red]")
         return
 
-    # Чтение операторов Паули из файла hamiltonian_operators.txt
-    try:
-        pauli_operators = read_hamiltonian_operators(hamiltonian_file_path)
-        if not pauli_operators:
-            console.print("[red]Файл 'hamiltonian_operators.txt' не содержит операторов Паули.[/red]")
-            return
-    except FileNotFoundError as e:
-        console.print(f"[red]{e}[/red]")
+    # Проверка наличия операторов Паули
+    if not pauli_operators:
+        console.print("[red]Файл 'hamiltonian_operators.txt' не содержит операторов Паули.[/red]")
         return
 
     # Вычисление композиций операторов Паули
-    results = []
-    for i, s1 in enumerate(pauli_operators):
-        for j, s2 in enumerate(pauli_operators):
-            h, p = SC(s1, s2)
-            results.append((s1, s2, h, p))
+    results = [(s1, s2, *SC(s1, s2)) for s1 in pauli_operators for s2 in pauli_operators]
+    table_pauli_data = [[str(s1), str(s2), str(h).lower(), str(p)] for s1, s2, h, p in results]
+    console.print(create_table(
+        [
+            {"name": "Оператор 1", "style": "cyan", "justify": "center"},
+            {"name": "Оператор 2", "style": "magenta", "justify": "center"},
+            {"name": "Коэффициент", "style": "green", "justify": "center"},
+            {"name": "Результат", "style": "red", "justify": "center"}
+        ],
+        table_pauli_data, "Композиции операторов Паули", "purple"
+    ))
 
-    # Вывод результатов композиции операторов Паули
-    table_pauli = Table(box=box.ROUNDED, border_style="yellow")
-    table_pauli.add_column("Оператор 1", justify="center", style="cyan")
-    table_pauli.add_column("Оператор 2", justify="center", style="magenta")
-    table_pauli.add_column("Коэффициент", justify="center", style="green")
-    table_pauli.add_column("Результат", justify="center", style="red")
-    for s1, s2, h, p in results:
-        table_pauli.add_row(str(s1), str(s2), str(h).lower(), str(p))
-    console.print(Panel(table_pauli, title="Композиции операторов Паули", border_style="purple"))
-
-# Точка входа в программу
 if __name__ == "__main__":
     main()
