@@ -109,8 +109,8 @@ def SC(s1, s2):
 def read_hamiltonian_data(file_path):
     """
     Читает данные из файла hamiltonian_operators.txt и возвращает два списка:
-    1. Список термов гамильтониана (коэффициент, индекс).
-    2. Список операторов Паули.
+    - Список термов гамильтониана (коэффициент, индекс).
+    - Список операторов Паули.
 
     :param file_path: Путь к файлу.
     :return: (hamiltonian_terms, pauli_operators)
