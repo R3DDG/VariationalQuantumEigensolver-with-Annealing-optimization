@@ -87,8 +87,7 @@ def format_complex_number(c):
         if imag_part.startswith("-"):
             return f"{imag_part}{real_part}"
         else:
-            return f"{imag_part}+{real_part}"
-
+            return f"{real_part}+{imag_part}"
 
 def Pij(i, j):
     """
@@ -196,10 +195,10 @@ def calculate_ansatz(theta, pauli_operators):
         # Обновляем результат
         result = dict(zip(new_ops, new_coeffs))
 
-    # Формируем символьное представление анзаца
+    # Формируем U(θ)
     ansatz_symbolic = "U(θ) = " + " * ".join([f"e^(iθ_{i+1}σ_{''.join(map(str, op))})" for i, op in enumerate(pauli_operators)])
 
-    # Формируем численное значение анзаца
+    # Формируем U
     ansatz_numeric = "U = " + " + ".join([f"{format_complex_number(c)}*σ_{''.join(map(str, op))}" for op, c in result.items()])
 
     return ansatz_symbolic, ansatz_numeric
@@ -258,8 +257,8 @@ def main():
 
     # Вычисление и вывод анзаца
     ansatz_symbolic, ansatz_numeric = calculate_ansatz(theta, pauli_operators[:m])
-    console.print(Panel(ansatz_symbolic, title="[bold]Символьное представление анзаца[/bold]", border_style="blue"))
-    console.print(Panel(ansatz_numeric, title="[bold]Численное значение анзаца[/bold]", border_style="blue"))
+    console.print(Panel(ansatz_symbolic, title="[bold]U(θ)[/bold]", border_style="green"))
+    console.print(Panel(ansatz_numeric, title="[bold]U[/bold]", border_style="purple"))
 
 if __name__ == "__main__":
     main()
