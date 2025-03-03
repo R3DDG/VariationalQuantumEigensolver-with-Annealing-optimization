@@ -60,34 +60,18 @@ def format_complex_number(c: int | float | complex | Mul) -> str:
     :return: Строковое представление комплексного числа.
     """
     if isinstance(c, (int, float, complex)):
-        # Обработка численных значений
         real_part = format_number(c.real) if c.real != 0 else ""
-        imag_part = ""
-        if c.imag != 0:
-            imag_part = "i" if c.imag == 1 else "-i" if c.imag == -1 else f"{format_number(c.imag)}i"
+        imag_part = format_number(c.imag) + "i" if c.imag != 0 else ""
     elif isinstance(c, Mul):
-        # Обработка символьных выражений
         real_part = format_number(float(re(c))) if re(c) != 0 else ""
-        imag_part = ""
-        if im(c) != 0:
-            imag_part = "i" if im(c) == 1 else "-i" if im(c) == -1 else f"{format_number(float(im(c)))}i"
+        imag_part = format_number(float(im(c))) + "i" if im(c) != 0 else ""
     else:
-        # Обработка других типов
         real_part = str(c)
         imag_part = ""
 
     if not real_part and not imag_part:
         return "0"
-    elif not real_part:
-        return imag_part
-    elif not imag_part:
-        return real_part
-    else:
-        # Убираем лишний знак, если мнимая часть уже содержит знак
-        if imag_part.startswith("-"):
-            return f"{imag_part}{real_part}"
-        else:
-            return f"{real_part}+{imag_part}"
+    return f"{real_part}{('+' if imag_part and imag_part[0] != '-' else '')}{imag_part}"
 
 def Pij(i: int, j: int) -> tuple[int | complex, int]:
     """
@@ -184,40 +168,27 @@ def calculate_ansatz(theta: list[float], pauli_operators: list[list[int]]) -> tu
 
     # Перемножаем все члены анзаца
     for t, op in zip(theta, pauli_operators):
-        # Коэффициенты для текущего члена
         cos_t = np.cos(t)
         sin_t = np.sin(t)
-
-        # Текущий оператор и его коэффициент
-        current_ops = [tuple(op)]  # Список операторов
-        current_coeffs = [cos_t + 1j * sin_t]  # Список коэффициентов
-
-        # Перемножаем с предыдущими результатами
-        new_ops = []
-        new_coeffs = []
-        for existing_op, existing_coeff in result.items():
-            for current_op, current_coeff in zip(current_ops, current_coeffs):
-                # Вычисляем произведение операторов и коэффициентов
-                h, p = SC(list(existing_op), list(current_op))
-                new_op = tuple(p)
-                new_coeff = existing_coeff * current_coeff * h
-
-                # Добавляем в новый результат
-                if new_op in new_ops:
-                    new_coeffs[new_ops.index(new_op)] += new_coeff
-                else:
-                    new_ops.append(new_op)
-                    new_coeffs.append(new_coeff)
+        current_op = tuple(op)
+        current_coeff = cos_t + 1j * sin_t
 
         # Обновляем результат
-        result = dict(zip(new_ops, new_coeffs))
+        new_result = {}
+        for existing_op, existing_coeff in result.items():
+            h, p = SC(list(existing_op), list(current_op))
+            new_op = tuple(p)
+            new_coeff = existing_coeff * current_coeff * h
+            if new_op in new_result:
+                new_result[new_op] += new_coeff
+            else:
+                new_result[new_op] = new_coeff
+        result = new_result
 
-    # Формируем U(θ)
+    # Формируем U(θ) и U
     ansatz_symbolic = "U(θ) = " + " * ".join(
         [f"e^(iθ_{i+1}σ_{''.join(map(str, op))})" for i, op in enumerate(pauli_operators)]
     )
-
-    # Формируем U
     ansatz_numeric = "U = " + " + ".join(
         [f"{format_complex_number(c)}*σ_{''.join(map(str, op))}" for op, c in result.items()]
     )
@@ -237,7 +208,7 @@ def main() -> None:
     except FileNotFoundError:
         console.print(f"[red]Файл {hamiltonian_file_path} не найден.[/red]")
         return
-    
+
     # Формирование строки гамильтониана
     hamiltonian_str = "H = " + " + ".join([f"{format_complex_number(c)}*σ_{i}" for c, i in hamiltonian_terms])
     console.print(Panel(hamiltonian_str, title="[bold]Введенный гамильтониан[/bold]", border_style="green"))
@@ -255,6 +226,7 @@ def main() -> None:
             "purple",
         )
     )
+
     # Генерация случайных чисел theta
     m = random.randint(1, len(pauli_operators) - 1)  # m строго меньше количества операторов Паули
     theta = generate_random_theta(m)
@@ -270,6 +242,7 @@ def main() -> None:
             "green",
         )
     )
+
     # Проверка наличия операторов Паули
     if not pauli_operators:
         console.print("[red]Файл 'hamiltonian_operators.txt' не содержит операторов Паули.[/red]")
