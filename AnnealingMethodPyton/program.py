@@ -17,7 +17,7 @@ sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8')
 # Инициализация консоли для использования rich
 console = Console(force_terminal=True, color_system="truecolor")
 
-def generate_random_theta(m):
+def generate_random_theta(m: int) -> list[float]:
     """
     Генерирует список из m случайных чисел в диапазоне [0, 1).
 
@@ -26,7 +26,7 @@ def generate_random_theta(m):
     """
     return [random.random() for _ in range(m)]
 
-def read_file_lines(file_path, ignore_comments=True):
+def read_file_lines(file_path: str | Path, ignore_comments: bool = True) -> list[str]:
     """
     Читает строки из файла, игнорируя комментарии (строки, начинающиеся с '#').
 
@@ -41,7 +41,7 @@ def read_file_lines(file_path, ignore_comments=True):
     with open(file_path, 'r') as file:
         return [line.strip() for line in file if not (ignore_comments and line.strip().startswith('#'))]
 
-def format_number(num):
+def format_number(num: int | float) -> str:
     """
     Форматирует число, убирая лишние нули после запятой, если число целое.
 
@@ -52,7 +52,7 @@ def format_number(num):
         return str(int(num)) if num == int(num) else f"{num:.4f}".rstrip('0').rstrip('.')
     return str(num)
 
-def format_complex_number(c):
+def format_complex_number(c: int | float | complex | Mul) -> str:
     """
     Преобразует комплексное число или символьное выражение в строку в удобочитаемом формате.
 
@@ -89,7 +89,7 @@ def format_complex_number(c):
         else:
             return f"{real_part}+{imag_part}"
 
-def Pij(i, j):
+def Pij(i: int, j: int) -> tuple[int | complex, int]:
     """
     Произведение базисных однокубитных операторов Паули.
 
@@ -97,7 +97,14 @@ def Pij(i, j):
     :param j: Индекс второго оператора Паули.
     :return: Коэффициент и индекс результирующего оператора.
     """
-    pauli_map = {(1, 2): (I, 3), (2, 1): (-I, 3), (3, 1): (I, 2), (1, 3): (-I, 2), (2, 3): (I, 1), (3, 2): (-I, 1)}
+    pauli_map = {
+        (1, 2): (I, 3),
+        (2, 1): (-I, 3),
+        (3, 1): (I, 2),
+        (1, 3): (-I, 2),
+        (2, 3): (I, 1),
+        (3, 2): (-I, 1),
+    }
     if i == j:
         return 1, 0
     elif i == 0:
@@ -106,7 +113,7 @@ def Pij(i, j):
         return 1, i
     return pauli_map.get((i, j), (1, 0))
 
-def SC(s1, s2):
+def SC(s1: list[int], s2: list[int]) -> tuple[int | complex, list[int]]:
     """
     Композиция базисных операторов Паули.
 
@@ -122,7 +129,7 @@ def SC(s1, s2):
         p.append(p_i)
     return h, p
 
-def read_hamiltonian_data(file_path):
+def read_hamiltonian_data(file_path: str | Path) -> tuple[list[tuple[complex, int]], list[list[int]]]:
     """
     Читает данные из файла hamiltonian_operators.txt и возвращает два списка:
     - Список термов гамильтониана (коэффициент, индекс).
@@ -145,8 +152,18 @@ def read_hamiltonian_data(file_path):
             pauli_operators.append([int(c) for c in parts[2]])
     return hamiltonian_terms, pauli_operators
 
-def create_table(columns, data, title, border_style="yellow"):
-    """Создает таблицу с заданными колонками и данными."""
+def create_table(
+    columns: list[dict[str, str]], data: list[list[str]], title: str, border_style: str = "yellow"
+) -> Panel:
+    """
+    Создает таблицу с заданными колонками и данными.
+
+    :param columns: Список словарей с описанием колонок.
+    :param data: Данные для таблицы.
+    :param title: Заголовок таблицы.
+    :param border_style: Стиль границы таблицы.
+    :return: Панель с таблицей.
+    """
     table = Table(box=box.ROUNDED, border_style="yellow")
     for col in columns:
         table.add_column(col["name"], justify=col.get("justify", "default"), style=col.get("style", ""))
@@ -154,7 +171,7 @@ def create_table(columns, data, title, border_style="yellow"):
         table.add_row(*row)
     return Panel(table, title=title, border_style=border_style)
 
-def calculate_ansatz(theta, pauli_operators):
+def calculate_ansatz(theta: list[float], pauli_operators: list[list[int]]) -> tuple[str, str]:
     """
     Вычисляет анзац по заданной формуле, перемножая скобки и упрощая результат.
 
@@ -196,14 +213,18 @@ def calculate_ansatz(theta, pauli_operators):
         result = dict(zip(new_ops, new_coeffs))
 
     # Формируем U(θ)
-    ansatz_symbolic = "U(θ) = " + " * ".join([f"e^(iθ_{i+1}σ_{''.join(map(str, op))})" for i, op in enumerate(pauli_operators)])
+    ansatz_symbolic = "U(θ) = " + " * ".join(
+        [f"e^(iθ_{i+1}σ_{''.join(map(str, op))})" for i, op in enumerate(pauli_operators)]
+    )
 
     # Формируем U
-    ansatz_numeric = "U = " + " + ".join([f"{format_complex_number(c)}*σ_{''.join(map(str, op))}" for op, c in result.items()])
+    ansatz_numeric = "U = " + " + ".join(
+        [f"{format_complex_number(c)}*σ_{''.join(map(str, op))}" for op, c in result.items()]
+    )
 
     return ansatz_symbolic, ansatz_numeric
 
-def main():
+def main() -> None:
     """Основная функция программы."""
     os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
@@ -216,27 +237,39 @@ def main():
     except FileNotFoundError:
         console.print(f"[red]Файл {hamiltonian_file_path} не найден.[/red]")
         return
-
+    
     # Формирование строки гамильтониана
     hamiltonian_str = "H = " + " + ".join([f"{format_complex_number(c)}*σ_{i}" for c, i in hamiltonian_terms])
     console.print(Panel(hamiltonian_str, title="[bold]Введенный гамильтониан[/bold]", border_style="green"))
 
     # Вывод термов гамильтониана в виде таблицы
     table_data = [[format_complex_number(c), str(i)] for c, i in hamiltonian_terms]
-    console.print(create_table(
-        [{"name": "Коэффициент", "style": "cyan"}, {"name": "Индекс", "style": "magenta", "justify": "center"}],
-        table_data, "Термы гамильтониана", "purple"
-    ))
-
+    console.print(
+        create_table(
+            [
+                {"name": "Коэффициент", "style": "cyan"},
+                {"name": "Индекс", "style": "magenta", "justify": "center"},
+            ],
+            table_data,
+            "Термы гамильтониана",
+            "purple",
+        )
+    )
     # Генерация случайных чисел theta
     m = random.randint(1, len(pauli_operators) - 1)  # m строго меньше количества операторов Паули
     theta = generate_random_theta(m)
     table_theta_data = [[str(i), format_number(t)] for i, t in enumerate(theta, start=1)]
-    console.print(create_table(
-        [{"name": "Номер θ_i", "style": "cyan"}, {"name": "Значение θ_i", "style": "magenta", "justify": "center"}],
-        table_theta_data, "Случайные числа θ_i", "green"
-    ))
-
+    console.print(
+        create_table(
+            [
+                {"name": "Номер θ_i", "style": "cyan"},
+                {"name": "Значение θ_i", "style": "magenta", "justify": "center"},
+            ],
+            table_theta_data,
+            "Случайные числа θ_i",
+            "green",
+        )
+    )
     # Проверка наличия операторов Паули
     if not pauli_operators:
         console.print("[red]Файл 'hamiltonian_operators.txt' не содержит операторов Паули.[/red]")
@@ -245,15 +278,19 @@ def main():
     # Вычисление композиций операторов Паули
     results = [(s1, s2, *SC(s1, s2)) for s1 in pauli_operators for s2 in pauli_operators]
     table_pauli_data = [[str(s1), str(s2), str(h).lower(), str(p)] for s1, s2, h, p in results]
-    console.print(create_table(
-        [
-            {"name": "Оператор 1", "style": "cyan", "justify": "center"},
-            {"name": "Оператор 2", "style": "magenta", "justify": "center"},
-            {"name": "Коэффициент", "style": "green", "justify": "center"},
-            {"name": "Результат", "style": "red", "justify": "center"}
-        ],
-        table_pauli_data, "Композиции операторов Паули", "purple"
-    ))
+    console.print(
+        create_table(
+            [
+                {"name": "Оператор 1", "style": "cyan", "justify": "center"},
+                {"name": "Оператор 2", "style": "magenta", "justify": "center"},
+                {"name": "Коэффициент", "style": "green", "justify": "center"},
+                {"name": "Результат", "style": "red", "justify": "center"},
+            ],
+            table_pauli_data,
+            "Композиции операторов Паули",
+            "purple",
+        )
+    )
 
     # Вычисление и вывод анзаца
     ansatz_symbolic, ansatz_numeric = calculate_ansatz(theta, pauli_operators[:m])
