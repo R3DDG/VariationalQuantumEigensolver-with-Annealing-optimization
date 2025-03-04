@@ -129,7 +129,7 @@ def read_hamiltonian_data(file_path: str | Path) -> tuple[list[tuple[complex, in
     for line in lines:
         parts = line.strip().split()
         if len(parts) == 3:
-            real_part, imag_part, index = float(parts[0]), float(parts[1]), int(parts[2])
+            real_part, imag_part, index = float(parts[0]), float(parts[1]), str(parts[2])
             coefficient = np.complex128(real_part + imag_part * 1j)
             if coefficient != 0:
                 hamiltonian_terms.append((coefficient, index))
