@@ -14,8 +14,21 @@ from sympy import Mul, I, re, im  # Для работы с математиче�
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8')
 
+# Путь к файлу для вывода результата
+outputFilePath = "output.log"
+
 # Инициализация консоли для использования rich
-console = Console(force_terminal=True, color_system="truecolor")
+console = Console(force_terminal=True, color_system = "truecolor", record = True)
+
+def console_and_print(message) -> None: 
+    """
+    Выводит результат выполнения программы в файл и консоль
+
+    :param message: Сообщение для вывода
+    """
+    console.print(message)
+    with open(outputFilePath, "a", encoding = "utf-8") as file:
+        file.write(console.export_text() + "\n")
 
 def generate_random_theta(m: int) -> list[float]:
     """
@@ -116,25 +129,25 @@ def SC(s1: list[int], s2: list[int]) -> tuple[int | complex, list[int]]:
 def read_hamiltonian_data(file_path: str | Path) -> tuple[list[tuple[complex, int]], list[list[int]]]:
     """
     Читает данные из файла hamiltonian_operators.txt и возвращает два списка:
-    - Список термов гамильтониана (коэффициент, индекс).
-    - Список операторов Паули.
+    - Список операторов Паули в виде коэффициента оператора и строки Паули.
+    - Список строк операторов Паули.
 
     :param file_path: Путь к файлу.
-    :return: (hamiltonian_terms, pauli_operators)
+    :return: (pauli_operators, pauli_strings)
     :raises FileNotFoundError: Если файл не найден.
     """
     lines = read_file_lines(file_path, ignore_comments=False)
-    hamiltonian_terms = []
     pauli_operators = []
+    pauli_strings = []
     for line in lines:
         parts = line.strip().split()
         if len(parts) == 3:
             real_part, imag_part, index = float(parts[0]), float(parts[1]), str(parts[2])
             coefficient = np.complex128(real_part + imag_part * 1j)
             if coefficient != 0:
-                hamiltonian_terms.append((coefficient, index))
-            pauli_operators.append([int(c) for c in parts[2]])
-    return hamiltonian_terms, pauli_operators
+                pauli_operators.append((coefficient, index))
+            pauli_strings.append([int(c) for c in parts[2]])
+    return pauli_operators, pauli_strings
 
 def create_table(
     columns: list[dict[str, str]], data: list[list[str]], title: str, border_style: str = "yellow"
@@ -195,34 +208,53 @@ def calculate_ansatz(theta: list[float], pauli_operators: list[list[int]]) -> tu
 
     return ansatz_symbolic, ansatz_numeric
 
+def get_operator_for_console(c, i):
+    """
+    Функция создана для 'красивого' вывода оператора Паули в консоль.
+    Избегает ситуаций, когда у нас выводится конструкция вида '1*σ'
+    
+    :param c: Коэффициент оператора Паули.
+    :param i: Строка оператора Паули.
+    :return: Отформатированную строку.
+    """
+    if (c == 1):
+        return f"σ_{i}"
+    else: 
+        return f"{format_complex_number(c)}*σ_{i}"
+
 def main() -> None:
     """Основная функция программы."""
     os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
     # Пути к файлам
     hamiltonian_file_path = Path("params/hamiltonian_operators.txt")
+    output_file_path = Path("output.log")
+
+    # Очистка файла перед началом записи
+    if output_file_path.exists():
+        output_file_path.unlink()
 
     # Чтение данных из файла гамильтониана
     try:
-        hamiltonian_terms, pauli_operators = read_hamiltonian_data(hamiltonian_file_path)
+        pauli_operators, pauli_strings = read_hamiltonian_data(hamiltonian_file_path)
     except FileNotFoundError:
-        console.print(f"[red]Файл {hamiltonian_file_path} не найден.[/red]")
+        console_and_print(f"[red]Файл {hamiltonian_file_path} не найден.[/red]")
         return
 
     # Формирование строки гамильтониана
-    hamiltonian_str = "H = " + " + ".join([f"{format_complex_number(c)}*σ_{i}" for c, i in hamiltonian_terms])
-    console.print(Panel(hamiltonian_str, title="[bold]Введенный гамильтониан[/bold]", border_style="green"))
+    hamiltonian_str = "H = " + " + ".join([get_operator_for_console(c, i) for c, i in pauli_operators])
+    console_and_print(Panel(hamiltonian_str, title="[bold]Введенный гамильтониан[/bold]", border_style="green"))
 
-    # Вывод термов гамильтониана в виде таблицы
-    table_data = [[format_complex_number(c), str(i)] for c, i in hamiltonian_terms]
-    console.print(
+    # Вывод операторов Паули, полученных из гамильтониана, в виде таблицы
+    table_data = [[format_complex_number(c), str(i)] for c, i in pauli_operators]
+    console_and_print(
         create_table(
             [
                 {"name": "Коэффициент", "style": "cyan"},
                 {"name": "Индекс", "style": "magenta", "justify": "center"},
             ],
             table_data,
-            "Термы гамильтониана",
+            "Операторы Паули",
             "purple",
         )
     )
@@ -231,7 +263,7 @@ def main() -> None:
     m = random.randint(1, len(pauli_operators) - 1)  # m строго меньше количества операторов Паули
     theta = generate_random_theta(m)
     table_theta_data = [[str(i), format_number(t)] for i, t in enumerate(theta, start=1)]
-    console.print(
+    console_and_print(
         create_table(
             [
                 {"name": "Номер θ_i", "style": "cyan"},
@@ -245,13 +277,13 @@ def main() -> None:
 
     # Проверка наличия операторов Паули
     if not pauli_operators:
-        console.print("[red]Файл 'hamiltonian_operators.txt' не содержит операторов Паули.[/red]")
+        console_and_print("[red]Файл 'hamiltonian_operators.txt' не содержит операторов Паули.[/red]")
         return
 
     # Вычисление композиций операторов Паули
-    results = [(s1, s2, *SC(s1, s2)) for s1 in pauli_operators for s2 in pauli_operators]
+    results = [(s1, s2, *SC(s1, s2)) for s1 in pauli_strings for s2 in pauli_strings]
     table_pauli_data = [[str(s1), str(s2), str(h).lower(), str(p)] for s1, s2, h, p in results]
-    console.print(
+    console_and_print(
         create_table(
             [
                 {"name": "Оператор 1", "style": "cyan", "justify": "center"},
@@ -267,8 +299,8 @@ def main() -> None:
 
     # Вычисление и вывод анзаца
     ansatz_symbolic, ansatz_numeric = calculate_ansatz(theta, pauli_operators[:m])
-    console.print(Panel(ansatz_symbolic, title="[bold]U(θ)[/bold]", border_style="green"))
-    console.print(Panel(ansatz_numeric, title="[bold]U[/bold]", border_style="purple"))
+    console_and_print(Panel(ansatz_symbolic, title="[bold]U(θ)[/bold]", border_style="green"))
+    console_and_print(Panel(ansatz_numeric, title="[bold]U[/bold]", border_style="purple"))
 
 if __name__ == "__main__":
     main()
