@@ -1,8 +1,7 @@
-from pathlib import Path  # Для работы с файловой системой
 import numpy as np  # Для работы с комплексными числами и математическими операциями
 from .read_file_lines import read_file_lines
 
-def read_hamiltonian_data(file_path: str | Path) -> tuple[list[tuple[complex, int]], list[list[int]]]:
+def read_hamiltonian_data(file_path):
     """
     Читает данные из файла hamiltonian_operators.txt и возвращает два списка:
     - Список операторов Паули в виде коэффициента оператора и строки Паули.
@@ -18,7 +17,11 @@ def read_hamiltonian_data(file_path: str | Path) -> tuple[list[tuple[complex, in
     for line in lines:
         parts = line.strip().split()
         if len(parts) == 3:
-            real_part, imag_part, index = float(parts[0]), float(parts[1]), str(parts[2])
+            real_part, imag_part, index = (
+                float(parts[0]),
+                float(parts[1]),
+                str(parts[2]),
+            )
             coefficient = np.complex128(real_part + imag_part * 1j)
             if coefficient != 0:
                 pauli_operators.append((coefficient, index))

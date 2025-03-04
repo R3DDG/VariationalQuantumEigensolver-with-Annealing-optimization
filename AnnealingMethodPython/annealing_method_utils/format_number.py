@@ -1,4 +1,4 @@
-def format_number(num: int | float) -> str:
+def format_number(num):
     """
     Форматирует число, убирая лишние нули после запятой, если число целое.
 
@@ -6,5 +6,7 @@ def format_number(num: int | float) -> str:
     :return: Строковое представление числа.
     """
     if isinstance(num, (int, float)):
-        return str(int(num)) if num == int(num) else f"{num:.4f}".rstrip('0').rstrip('.')
+        return (
+            str(int(num)) if num == int(num) else f"{num:.4f}".rstrip("0").rstrip(".")
+        )
     return str(num)

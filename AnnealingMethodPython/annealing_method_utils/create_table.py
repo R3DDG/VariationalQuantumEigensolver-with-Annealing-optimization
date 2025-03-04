@@ -2,9 +2,7 @@ from rich.table import Table  # Для создания таблиц
 from rich.panel import Panel  # Для панелей с текстом
 from rich import box  # Для стилизации таблиц
 
-def create_table(
-    columns: list[dict[str, str]], data: list[list[str]], title: str, border_style: str = "yellow"
-) -> Panel:
+def create_table(columns, data, title, border_style="yellow"):
     """
     Создает таблицу с заданными колонками и данными.
 
@@ -16,7 +14,11 @@ def create_table(
     """
     table = Table(box=box.ROUNDED, border_style="yellow")
     for col in columns:
-        table.add_column(col["name"], justify=col.get("justify", "default"), style=col.get("style", ""))
+        table.add_column(
+            col["name"],
+            justify=col.get("justify", "default"),
+            style=col.get("style", ""),
+        )
     for row in data:
         table.add_row(*row)
     return Panel(table, title=title, border_style=border_style)

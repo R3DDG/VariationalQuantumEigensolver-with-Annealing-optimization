@@ -1,7 +1,7 @@
-from sympy import Mul, re, im # Для работы с математическими символами
+from sympy import Mul, re, im  # Для работы с математическими символами
 from .format_number import format_number
 
-def format_complex_number(c: int | float | complex | Mul) -> str:
+def format_complex_number(c):
     """
     Преобразует комплексное число или символьное выражение в строку в удобочитаемом формате.
 
