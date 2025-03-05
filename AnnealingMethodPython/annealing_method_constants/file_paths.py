@@ -1,4 +1,4 @@
 from pathlib import Path  # Для работы с файловой системой
 
-hamiltonian_file_path = Path("params/hamiltonian_operators.txt")
-output_file_path = Path("output.log")
+HAMILTONIAN_FILE_PATH = Path("../params/hamiltonian_operators.txt")
+OUTPUT_FILE_PATH = Path("../output.log")
