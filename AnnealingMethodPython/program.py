@@ -26,14 +26,14 @@ sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding="utf-8")
 
 def generate_random_theta(m):
     """
-    Генерирует список из m случайных чисел в диапазоне [0, 1).
+    Генерирует массив из m случайных чисел в диапазоне [0, 1).
 
     :param m: Количество случайных чисел.
-    :return: Список случайных чисел.
+    :return: Массив случайных чисел.
     """
     return np.random.rand(m).astype(np.float64)
 
-def Pij(i, j) :
+def Pij(i, j):
     """
     Произведение базисных однокубитных операторов Паули.
 
@@ -75,31 +75,46 @@ def SC(s1, s2):
 
 def calculate_ansatz(theta, pauli_operators):
     """
-    Вычисляет анзац по заданной формуле, перемножая скобки и упрощая результат.
+    Вычисляет анзац как произведение экспонент операторов Паули, учитывая разложение каждого множителя.
 
-    :param theta: Список случайных чисел theta.
+    :param theta: Массив случайных чисел theta.
     :param pauli_operators: Список операторов Паули (списки индексов).
     :return: Символьное представление анзаца и его численное значение.
     """
-    # Инициализация результата как словаря {оператор: коэффициент}
+    # Инициализация результата: начинаем с единичного оператора (все нули) и коэффициента 1.0
     result = {tuple([0] * len(pauli_operators[0])): 1.0}
-    # Перемножаем все члены анзаца
+    
     for t, op in zip(theta, pauli_operators):
         cos_t = np.cos(t)
         sin_t = np.sin(t)
-        current_op = tuple(op)
-        current_coeff = cos_t + 1j * sin_t
-
-        # Обновляем результат
+        
+        # Создаем два слагаемых: I (нулевой оператор) и sigma_k с коэффициентами
+        identity_term = (cos_t, tuple([0] * len(op)))
+        pauli_term = (1j * sin_t, tuple(op))
+        
         new_result = {}
+        # Обрабатываем каждое существующее слагаемое в результате
         for existing_op, existing_coeff in result.items():
-            h, p = SC(list(existing_op), list(current_op))
-            new_op = tuple(p)
-            new_coeff = existing_coeff * current_coeff * h
-            if new_op in new_result:
-                new_result[new_op] += new_coeff
+            # Умножаем на первое слагаемое (I)
+            coeff_i, op_i = identity_term
+            h_i, p_i = SC(list(existing_op), list(op_i))
+            total_coeff_i = existing_coeff * coeff_i * h_i
+            new_op_i = tuple(p_i)
+            if new_op_i in new_result:
+                new_result[new_op_i] += total_coeff_i
             else:
-                new_result[new_op] = new_coeff
+                new_result[new_op_i] = total_coeff_i
+            
+            # Умножаем на второе слагаемое (sigma_k)
+            coeff_p, op_p = pauli_term
+            h_p, p_p = SC(list(existing_op), list(op_p))
+            total_coeff_p = existing_coeff * coeff_p * h_p
+            new_op_p = tuple(p_p)
+            if new_op_p in new_result:
+                new_result[new_op_p] += total_coeff_p
+            else:
+                new_result[new_op_p] = total_coeff_p
+        
         result = new_result
 
     # Формируем U(θ) и U
