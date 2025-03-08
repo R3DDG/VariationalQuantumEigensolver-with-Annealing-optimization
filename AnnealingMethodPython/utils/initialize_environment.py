@@ -1,7 +1,8 @@
 import os  # Для работы с путями и директориями
 from rich.console import Console  # Для красивого вывода в консоль
 from pathlib import Path
-from annealing_method_constants.file_paths import OUTPUT_FILE_PATH
+from constants.file_paths import OUTPUT_FILE_PATH
+
 
 def initialize_environment() -> Console:
     """Инициализирует окружение и возвращает консольный объект."""

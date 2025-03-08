@@ -1,5 +1,6 @@
 from .format_complex_number import format_complex_number
 
+
 def format_ansatz(
     pauli_operators: list[list[int]], result: dict[tuple, complex]
 ) -> tuple[str, str]:

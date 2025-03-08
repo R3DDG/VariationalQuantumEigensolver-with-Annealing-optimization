@@ -1,6 +1,7 @@
 import numpy as np  # Для работы с комплексными числами и математическими операциями
 from .read_file_lines import read_file_lines
 
+
 def read_hamiltonian_data(file_path):
     """
     Читает данные из файла hamiltonian_operators.txt и возвращает два списка:

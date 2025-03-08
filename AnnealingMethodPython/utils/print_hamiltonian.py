@@ -1,5 +1,5 @@
-from rich.console import Console  # Для красивого вывода в консоль
-from rich.panel import Panel  # Для панелей с текстом
+from rich.console import Console
+from rich.panel import Panel
 from typing import Tuple, List
 from .get_operator_for_console import get_operator_for_console
 from .console_and_print import console_and_print

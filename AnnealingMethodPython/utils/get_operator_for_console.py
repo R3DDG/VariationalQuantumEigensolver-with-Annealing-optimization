@@ -1,5 +1,6 @@
 from .format_complex_number import format_complex_number
 
+
 def get_operator_for_console(c, i):
     """
     Функция создана для 'красивого' вывода оператора Паули в консоль.

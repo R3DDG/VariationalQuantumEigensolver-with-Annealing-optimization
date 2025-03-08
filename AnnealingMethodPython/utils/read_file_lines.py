@@ -1,5 +1,6 @@
 from pathlib import Path
 
+
 def read_file_lines(file_path, ignore_comments):
     """
     Читает строки из файла, игнорируя комментарии (строки, начинающиеся с '#').

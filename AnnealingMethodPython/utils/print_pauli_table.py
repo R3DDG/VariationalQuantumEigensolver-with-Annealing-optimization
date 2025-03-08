@@ -4,6 +4,7 @@ from .format_complex_number import format_complex_number
 from .console_and_print import console_and_print
 from .create_table import create_table
 
+
 def print_pauli_table(
     console: Console, pauli_operators: List[Tuple[complex, List[int]]]
 ) -> None:

@@ -2,6 +2,7 @@ from rich.table import Table  # Для создания таблиц
 from rich.panel import Panel  # Для панелей с текстом
 from rich import box  # Для стилизации таблиц
 
+
 def create_table(columns, data, title, border_style="yellow"):
     """
     Создает таблицу с заданными колонками и данными.

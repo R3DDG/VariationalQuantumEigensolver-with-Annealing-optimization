@@ -1,5 +1,6 @@
 from rich.console import Console
-from annealing_method_constants.file_paths import OUTPUT_FILE_PATH
+from constants.file_paths import OUTPUT_FILE_PATH
+
 
 def console_and_print(console: Console, message):
     """

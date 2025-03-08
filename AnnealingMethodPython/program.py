@@ -6,26 +6,28 @@ from rich.panel import Panel  # Для панелей с текстом
 from typing import Tuple, List, Dict
 
 # Импорт самописных util функций
-from annealing_method_utils.console_and_print import console_and_print
-from annealing_method_utils.print_pauli_table import print_pauli_table
-from annealing_method_utils.read_hamiltonian_data import read_hamiltonian_data
-from annealing_method_utils.print_hamiltonian import print_hamiltonian
-from annealing_method_utils.format_ansatz import format_ansatz
-from annealing_method_utils.initialize_environment import initialize_environment
-from annealing_method_utils.print_theta_table import print_theta_table
-from annealing_method_utils.print_composition_table import print_composition_table
+from utils.console_and_print import console_and_print
+from utils.print_pauli_table import print_pauli_table
+from utils.read_hamiltonian_data import read_hamiltonian_data
+from utils.print_hamiltonian import print_hamiltonian
+from utils.format_ansatz import format_ansatz
+from utils.initialize_environment import initialize_environment
+from utils.print_theta_table import print_theta_table
+from utils.print_composition_table import print_composition_table
 
 # Импорт констант
-from annealing_method_constants.file_paths import HAMILTONIAN_FILE_PATH
-from annealing_method_constants.pauli import PAULI_MAP
+from constants.file_paths import HAMILTONIAN_FILE_PATH
+from constants.pauli import PAULI_MAP
 
 # Устанавливаем кодировку для стандартного вывода
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
 sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding="utf-8")
 
+
 def generate_random_theta(m: int) -> np.ndarray:
     """Генерирует массив из m случайных чисел в диапазоне [0, 1)."""
     return np.random.rand(m).astype(np.float64)
+
 
 def multiply_pauli(i: int, j: int) -> Tuple[complex, int]:
     """
@@ -42,6 +44,7 @@ def multiply_pauli(i: int, j: int) -> Tuple[complex, int]:
         return (1, i)
     return PAULI_MAP.get((i, j), (1, 0))
 
+
 def pauli_compose(s1: List[int], s2: List[int]) -> Tuple[complex, List[int]]:
     """
     Вычисляет композицию двух операторов Паули.
@@ -56,6 +59,7 @@ def pauli_compose(s1: List[int], s2: List[int]) -> Tuple[complex, List[int]]:
         coefficient *= coeff
         result.append(idx)
     return coefficient, result
+
 
 def calculate_ansatz(
     theta: np.ndarray, pauli_operators: List[Tuple[complex, List[int]]]
@@ -92,6 +96,7 @@ def calculate_ansatz(
 
     return format_ansatz(pauli_operators, result)
 
+
 def main():
     """Основная логика программы."""
     console = initialize_environment()
@@ -122,6 +127,7 @@ def main():
     console_and_print(
         console, Panel(ansatz_numeric, title="[bold]U[/bold]", border_style="purple")
     )
+
 
 if __name__ == "__main__":
     main()

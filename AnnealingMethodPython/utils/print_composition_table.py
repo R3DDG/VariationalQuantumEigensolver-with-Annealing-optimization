@@ -4,6 +4,7 @@ from .console_and_print import console_and_print
 from .create_table import create_table
 from .format_complex_number import format_complex_number
 
+
 def print_composition_table(
     console: Console,
     pauli_compose: Callable[[List[int], List[int]], Tuple[complex, List[int]]],
