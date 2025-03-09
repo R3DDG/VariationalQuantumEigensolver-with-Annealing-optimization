@@ -1,7 +1,8 @@
 from .format_complex_number import format_complex_number
+from typing import Union
 
 
-def get_operator_for_console(c, i):
+def get_operator_for_console(c: Union[complex, float, int], i: str) -> str:
     """
     Функция создана для 'красивого' вывода оператора Паули в консоль.
     Избегает ситуаций, когда у нас выводится конструкция вида '1*σ'

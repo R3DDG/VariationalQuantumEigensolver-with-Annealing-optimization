@@ -63,29 +63,41 @@ def pauli_compose(s1: List[int], s2: List[int]) -> Tuple[complex, List[int]]:
 
 def calculate_ansatz(
     theta: np.ndarray, pauli_operators: List[Tuple[complex, List[int]]]
-) -> Tuple[str, str]:
+) -> Tuple[Dict[Tuple[int, ...], complex], str, str]:
     """
-    Вычисляет анзац как произведение экспонент операторов Паули.
+    Вычисляет анзац в виде произведения экспонент операторов Паули.
 
-    Возвращает:
-        Tuple[str, str]: (символьное представление, численное представление)
+    Args:
+        theta (np.ndarray): Массив параметров [θ₁, θ₂, ..., θₘ]
+        pauli_operators (List[Tuple[complex, List[int]]]): Список операторов вида (коэффициент, [индексы Паули])
+
+    Returns:
+        Tuple:
+            - Словарь {оператор: коэффициент}
+            - Символьное представление анзаца
+            - Численное представление анзаца
     """
+    # Каждый оператор Паули представляется как exp(iθ(coefficient * σ))
+    # Раскладываем экспоненту по формуле Эйлера:
+    # e^{iθσ} = cos(θ)I + i sin(θ)σ
+    # Инициализация единичным оператором
     operator_length = len(pauli_operators[0][1])
     result = {tuple([0] * operator_length): 1.0}
 
+    # Последовательно применяем каждый оператор из списка
     for t, (coeff, op) in zip(theta, pauli_operators):
         cos_t = np.cos(t)
         sin_t = np.sin(t)
 
         new_result: Dict[Tuple[int, ...], complex] = {}
 
+        # Обработка всех существующих операторов в анзаце
         for existing_op, existing_coeff in result.items():
-            # Обработка единичного оператора (cos(t)*I)
+            # Слагаемое с cos(θ)*I
             identity_coeff = existing_coeff * cos_t
-            new_op = tuple(existing_op)
-            new_result[new_op] = new_result.get(new_op, 0) + identity_coeff
+            new_result[existing_op] = new_result.get(existing_op, 0) + identity_coeff
 
-            # Обработка оператора Паули (1j*sin(t)*sigma)
+            # Слагаемое с i*sin(θ)*σ
             pauli_coeff = existing_coeff * 1j * sin_t * coeff
             compose_coeff, compose_op = pauli_compose(list(existing_op), op)
             final_coeff = pauli_coeff * compose_coeff
@@ -93,13 +105,80 @@ def calculate_ansatz(
             new_result[final_op] = new_result.get(final_op, 0) + final_coeff
 
         result = new_result
+        symbolic_str, numeric_str = format_ansatz(pauli_operators, result)
+    return result, symbolic_str, numeric_str
 
-    return format_ansatz(pauli_operators, result)
+
+def compute_uhu(
+    u_dict: Dict[Tuple[int, ...], complex], h_terms: List[Tuple[complex, List[int]]]
+) -> Dict[Tuple[int, ...], complex]:
+    """
+    Вычисляет оператор U† H U.
+
+    Args:
+        u_dict (Dict): Анзац U в виде {оператор: коэффициент}
+        h_terms (List): Гамильтониан H как список термов (коэффициент, оператор)
+
+    Returns:
+        Dict: Результат U†HU в виде {оператор: коэффициент}
+    """
+    # Алгоритм вычисления U†HU:
+    # 1. Для каждого терма H: coeff_h * op_h
+    # 2. Умножаем слева на U† (сопряжение коэффициентов)
+    # 3. Умножаем справа на U
+    # 4. Суммируем все вклады
+    uhu_dict: Dict[Tuple[int, ...], complex] = {}
+
+    # Проходим по всем термам гамильтониана
+    for coeff_h, op_h in h_terms:
+        # U† H часть
+        for j_op, j_coeff in u_dict.items():
+            conjugated_j_coeff = np.conj(j_coeff)  # Сопряжение для U†
+            c1, op_uh = pauli_compose(list(j_op), op_h)
+
+            # (U† H) U часть
+            for k_op, k_coeff in u_dict.items():
+                c2, op_uhu = pauli_compose(op_uh, list(k_op))
+                total_coeff = conjugated_j_coeff * k_coeff * coeff_h * c1 * c2
+                op_tuple = tuple(op_uhu)
+                uhu_dict[op_tuple] = uhu_dict.get(op_tuple, 0) + total_coeff
+
+    return uhu_dict
+
+
+def calculate_expectation(uhu_dict: Dict[Tuple[int, ...], complex]) -> float:
+    """
+    Вычисляет ⟨0|U†HU|0⟩ для состояния |0...0⟩.
+
+    Args:
+        uhu_dict (Dict): Результат U†HU от compute_uhu
+
+    Returns:
+        float: Ожидаемое значение
+    """
+    # Состояние |0...0⟩ коллапсирует все недиагональные операторы
+    # к нулю, поэтому учитываем только диагональные компоненты (I и Z)
+    expectation = 0.0
+    for op, coeff in uhu_dict.items():
+        # Фильтрация операторов с только I (0) и Z (3)
+        if all(p in {0, 3} for p in op):
+            expectation += coeff.real  # Мнимая часть автоматически обнуляется
+    return expectation
+
+
+def test_pauli_multipliation():
+    """Тесты для проверки умножения операторов Паули"""
+    coeff, idx = multiply_pauli(1, 2)
+    assert np.isclose(coeff, 1j) and idx == 3, "Ошибка в умножении X*Y"
+
+    coeff, op = pauli_compose([1], [2])
+    assert np.isclose(coeff, 1j) and op == [3], "Ошибка в композиции X*Y"
 
 
 def main():
     """Основная логика программы."""
     console = initialize_environment()
+    test_pauli_multipliation()
 
     try:
         pauli_operators, pauli_strings = read_hamiltonian_data(HAMILTONIAN_FILE_PATH)
@@ -111,21 +190,35 @@ def main():
         console_and_print(console, "[red]Нет операторов Паули для обработки[/red]")
         return
 
+    if len(pauli_operators) < 2:
+        console_and_print(console, "[red]Нужно минимум 2 оператора Паули[/red]")
+        return
+
     print_hamiltonian(console, pauli_operators)
     print_pauli_table(console, pauli_operators)
     print_composition_table(console, pauli_compose, pauli_strings)
 
-    m = random.randint(1, len(pauli_operators) - 1)
+    m = random.randint(1, len(pauli_operators) - 1)  # m строго < len(operators)
     theta = generate_random_theta(m)
     print_theta_table(console, theta)
 
-    ansatz_symbolic, ansatz_numeric = calculate_ansatz(theta, pauli_operators[:m])
+    ansatz_dict, ansatz_symbolic, ansatz_numeric = calculate_ansatz(
+        theta, pauli_operators[:m]
+    )
 
     console_and_print(
         console, Panel(ansatz_symbolic, title="[bold]U(θ)[/bold]", border_style="green")
     )
     console_and_print(
         console, Panel(ansatz_numeric, title="[bold]U[/bold]", border_style="purple")
+    )
+
+    # Вычисление ⟨U|H|U⟩
+    uhu_dict = compute_uhu(ansatz_dict, pauli_operators)
+    expectation = calculate_expectation(uhu_dict)
+    console_and_print(
+        console,
+        Panel(f"⟨U|H|U⟩ = {expectation:.4f}", title="⟨U|H|U⟩", border_style="green"),
     )
 
 

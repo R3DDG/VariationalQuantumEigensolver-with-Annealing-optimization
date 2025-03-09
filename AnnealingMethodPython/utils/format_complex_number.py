@@ -38,9 +38,9 @@ def format_complex_number(c) -> str:
     result = parts[0]
     for part in parts[1:]:
         if part.startswith("-"):
-            result += f" - {part[1:]}"
+            result += f"-{part[1:]}"
         else:
-            result += f" + {part}"
+            result += f"+{part}"
 
     # Фикс артефактов форматирования
     return result.replace("+ -", "- ").replace("1i", "i").replace(".0i", "i")

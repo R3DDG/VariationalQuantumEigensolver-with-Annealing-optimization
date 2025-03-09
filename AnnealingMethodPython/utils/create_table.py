@@ -1,18 +1,15 @@
-from rich.table import Table  # Для создания таблиц
-from rich.panel import Panel  # Для панелей с текстом
-from rich import box  # Для стилизации таблиц
+from rich.table import Table
+from rich.panel import Panel
+from rich import box
+from typing import List, Dict, Any
 
 
-def create_table(columns, data, title, border_style="yellow"):
-    """
-    Создает таблицу с заданными колонками и данными.
-
-    :param columns: Список словарей с описанием колонок.
-    :param data: Данные для таблицы.
-    :param title: Заголовок таблицы.
-    :param border_style: Стиль границы таблицы.
-    :return: Панель с таблицей.
-    """
+def create_table(
+    columns: List[Dict[str, str]],
+    data: List[List[Any]],
+    title: str,
+    border_style: str = "yellow",
+) -> Panel:
     table = Table(box=box.ROUNDED, border_style="yellow")
     for col in columns:
         table.add_column(

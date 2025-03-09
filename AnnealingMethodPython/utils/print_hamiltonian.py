@@ -4,6 +4,7 @@ from typing import Tuple, List
 from .get_operator_for_console import get_operator_for_console
 from .console_and_print import console_and_print
 
+
 def print_hamiltonian(
     console: Console, pauli_operators: List[Tuple[complex, List[int]]]
 ) -> None:
