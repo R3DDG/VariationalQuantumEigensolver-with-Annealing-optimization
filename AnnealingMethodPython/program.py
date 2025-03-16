@@ -1,6 +1,4 @@
-# program.py
 import numpy as np
-import random
 import sys
 import io
 from rich.progress import Progress, BarColumn, TextColumn, SpinnerColumn
@@ -27,9 +25,11 @@ from constants.pauli import PAULI_MAP
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
 sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding="utf-8")
 
+
 def generate_random_theta(m: int) -> np.ndarray:
     """Генерирует массив из m случайных чисел в диапазоне [0, 1)."""
     return np.random.rand(m).astype(np.float64)
+
 
 def multiply_pauli(i: int, j: int) -> Tuple[complex, int]:
     """
@@ -44,6 +44,7 @@ def multiply_pauli(i: int, j: int) -> Tuple[complex, int]:
         return (1, i)
     return PAULI_MAP.get((i, j), (1, 0))
 
+
 def pauli_compose(s1: List[int], s2: List[int]) -> Tuple[complex, List[int]]:
     """
     Вычисляет композицию двух операторов Паули.
@@ -57,7 +58,10 @@ def pauli_compose(s1: List[int], s2: List[int]) -> Tuple[complex, List[int]]:
         result.append(idx)
     return coefficient, result
 
-def calculate_ansatz(theta: np.ndarray, pauli_operators: List[Tuple[complex, List[int]]]) -> Tuple[Dict[Tuple[int, ...], complex], str, str]:
+
+def calculate_ansatz(
+    theta: np.ndarray, pauli_operators: List[Tuple[complex, List[int]]]
+) -> Tuple[Dict[Tuple[int, ...], complex], str, str]:
     """
     Вычисляет анзац в виде произведения экспонент операторов Паули.
     Возвращает: (словарь операторов, символьное представление, численное представление)
@@ -83,11 +87,14 @@ def calculate_ansatz(theta: np.ndarray, pauli_operators: List[Tuple[complex, Lis
             new_result[final_op] = new_result.get(final_op, 0) + final_coeff
 
         result = new_result
-    
+
     symbolic_str, numeric_str = format_ansatz(pauli_operators, result)
     return result, symbolic_str, numeric_str
 
-def compute_uhu(u_dict: Dict[Tuple[int, ...], complex], h_terms: List[Tuple[complex, List[int]]]) -> Dict[Tuple[int, ...], complex]:
+
+def compute_uhu(
+    u_dict: Dict[Tuple[int, ...], complex], h_terms: List[Tuple[complex, List[int]]]
+) -> Dict[Tuple[int, ...], complex]:
     """
     Вычисляет оператор U† H U.
     Возвращает: словарь {оператор: коэффициент}
@@ -107,6 +114,7 @@ def compute_uhu(u_dict: Dict[Tuple[int, ...], complex], h_terms: List[Tuple[comp
 
     return uhu_dict
 
+
 def calculate_expectation(uhu_dict: Dict[Tuple[int, ...], complex]) -> float:
     """
     Вычисляет ⟨0|U†HU|0⟩ для состояния |0...0⟩.
@@ -118,10 +126,14 @@ def calculate_expectation(uhu_dict: Dict[Tuple[int, ...], complex]) -> float:
             expectation += coeff.real
     return expectation
 
-def generate_neighbor_theta(current_theta: np.ndarray, step_size: float = 0.1) -> np.ndarray:
+
+def generate_neighbor_theta(
+    current_theta: np.ndarray, step_size: float = 0.1
+) -> np.ndarray:
     """Генерирует соседнее решение, добавляя случайное изменение к текущему theta."""
     perturbation = np.random.normal(scale=step_size, size=current_theta.shape)
     return np.clip(current_theta + perturbation, 0.0, 1.0)
+
 
 def simulated_annealing(
     initial_theta: np.ndarray,
@@ -130,31 +142,33 @@ def simulated_annealing(
     cooling_rate: float = 0.95,
     min_temp: float = 1e-3,
     num_iterations_per_temp: int = 100,
-    step_size: float = 0.1
+    step_size: float = 0.1,
 ) -> tuple:
-    """Реализует алгоритм имитации отжига с упрощённым индикатором прогресса."""
+    """Реализует алгоритм имитации отжига."""
     current_theta = initial_theta.copy()
     best_theta = current_theta.copy()
-    best_energy = float('inf')
+    best_energy = float("inf")
     total_iterations = 0
     final_temp = initial_temp
-    
+
     progress = Progress(
         SpinnerColumn(),
         TextColumn("[progress.description]{task.description}"),
         BarColumn(bar_width=None),
-        console=Console(force_terminal=True, color_system="truecolor", record=True)
+        console=Console(force_terminal=True, color_system="truecolor", record=True),
     )
 
     with progress:
         task = progress.add_task("[cyan]Оптимизация...", total=None)
         temp = initial_temp
-        
+
         while temp > min_temp:
             for _ in range(num_iterations_per_temp):
                 total_iterations += 1
                 neighbor_theta = generate_neighbor_theta(current_theta, step_size)
-                ansatz_dict, _, _ = calculate_ansatz(neighbor_theta, pauli_operators[:len(neighbor_theta)])
+                ansatz_dict, _, _ = calculate_ansatz(
+                    neighbor_theta, pauli_operators[: len(neighbor_theta)]
+                )
                 uhu_dict = compute_uhu(ansatz_dict, pauli_operators)
                 current_energy = calculate_expectation(uhu_dict)
 
@@ -163,32 +177,41 @@ def simulated_annealing(
                     best_energy = current_energy
                     final_temp = temp  # Сохраняем температуру, при которой найдено лучшее решение
 
-                progress.update(task, advance=1/num_iterations_per_temp)
-            
+                progress.update(task, advance=1 / num_iterations_per_temp)
+
             temp *= cooling_rate
 
     return best_theta, (total_iterations, final_temp, best_energy)
 
+
 def main():
-    """Основная логика программы с последовательным перебором m."""
+    """Основная логика программы."""
     console = initialize_environment()
-    
+
     try:
         pauli_operators, pauli_strings = read_hamiltonian_data(HAMILTONIAN_FILE_PATH)
-        
+
         print_hamiltonian(console, pauli_operators)
         print_pauli_table(console, pauli_operators)
         print_composition_table(console, pauli_compose, pauli_strings)
 
     except FileNotFoundError:
-        console_and_print(console, Panel(f"[red]Файл {HAMILTONIAN_FILE_PATH} не найден[/red]", border_style="red"))
+        console_and_print(
+            console,
+            Panel(
+                f"[red]Файл {HAMILTONIAN_FILE_PATH} не найден[/red]", border_style="red"
+            ),
+        )
         return
 
     if len(pauli_operators) < 2:
-        console_and_print(console, Panel("[red]Требуется минимум 2 оператора Паули[/red]", border_style="red"))
+        console_and_print(
+            console,
+            Panel("[red]Требуется минимум 2 оператора Паули[/red]", border_style="red"),
+        )
         return
-    
-    best_energy = float('inf')
+
+    best_energy = float("inf")
     best_result = None
 
     # Собираем все результаты для анализа
@@ -196,7 +219,7 @@ def main():
 
     for m in range(2, len(pauli_operators) + 1):
         initial_theta = generate_random_theta(m)
-        
+
         optimized_theta, (iterations, temp, energy) = simulated_annealing(
             initial_theta=initial_theta,
             pauli_operators=pauli_operators,
@@ -204,16 +227,18 @@ def main():
             cooling_rate=0.95,
             min_temp=1e-3,
             num_iterations_per_temp=100,
-            step_size=0.1
+            step_size=0.1,
         )
-        
-        all_results.append({
-            "m": m,
-            "theta": optimized_theta,
-            "iterations": iterations,
-            "temp": temp,
-            "energy": energy
-        })
+
+        all_results.append(
+            {
+                "m": m,
+                "theta": optimized_theta,
+                "iterations": iterations,
+                "temp": temp,
+                "energy": energy,
+            }
+        )
 
         # Обновляем лучший результат
         if energy < best_energy:
@@ -226,39 +251,47 @@ def main():
             {"name": "Количество параметров (m)", "style": "cyan"},
             {"name": "Итерация", "style": "magenta"},
             {"name": "Финальная температура", "style": "green"},
-            {"name": "Энергия (⟨0|U†HU|0⟩ для состояния |0...0⟩)", "style": "yellow"}
+            {"name": "Энергия (⟨0|U†HU|0⟩ для состояния |0...0⟩)", "style": "yellow"},
         ],
-        data=[[
-            str(best_result["m"]),
-            str(best_result["iterations"]),
-            f"{best_result['temp']:.2f}",
-            f"{best_result['energy']:.6f}"
-        ]],
+        data=[
+            [
+                str(best_result["m"]),
+                str(best_result["iterations"]),
+                f"{best_result['temp']:.2f}",
+                f"{best_result['energy']:.6f}",
+            ]
+        ],
         title="Лучший результат оптимизации",
-        border_style="green"
+        border_style="green",
     )
 
-    # Выводим информацию  
+    # Выводим информацию
     print_theta_table(console, best_result["theta"])
-    
+
     _, ansatz_symbolic, ansatz_numeric = calculate_ansatz(
-        best_result["theta"], 
-        pauli_operators[:best_result["m"]]
+        best_result["theta"], pauli_operators[: best_result["m"]]
     )
-    
-    console_and_print(console, Panel(
-        ansatz_symbolic,
-        title="[bold]Символьное представление анзаца[/]",
-        border_style="green"
-    ))
-    
-    console_and_print(console, Panel(
-        ansatz_numeric,
-        title="[bold]Численное представление анзаца[/]",
-        border_style="purple"
-    ))
-    
-    console_and_print(console, results_table)  
+
+    console_and_print(
+        console,
+        Panel(
+            ansatz_symbolic,
+            title="[bold]Символьное представление анзаца[/]",
+            border_style="green",
+        ),
+    )
+
+    console_and_print(
+        console,
+        Panel(
+            ansatz_numeric,
+            title="[bold]Численное представление анзаца[/]",
+            border_style="purple",
+        ),
+    )
+
+    console_and_print(console, results_table)
+
 
 if __name__ == "__main__":
     main()
