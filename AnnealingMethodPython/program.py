@@ -187,6 +187,15 @@ def simulated_annealing(
 def main():
     """Основная логика программы."""
     console = initialize_environment()
+    
+        # Явная проверка существования файла
+    if not HAMILTONIAN_FILE_PATH.exists():
+        msg = (
+            f"Файл [bold]{HAMILTONIAN_FILE_PATH}[/] не найден!\n"
+            "Убедитесь, что рядом с EXE есть папка [bold]params[/] с файлом [bold]hamiltonian_operators.txt[/]."
+        )
+        console_and_print(console, Panel(msg, border_style="red"))
+        return
 
     try:
         pauli_operators, pauli_strings = read_hamiltonian_data(HAMILTONIAN_FILE_PATH)
