@@ -148,7 +148,6 @@ def simulated_annealing(
     current_theta = initial_theta.copy()
     best_theta = current_theta.copy()
     best_energy = float("inf")
-    total_iterations = 0  # Счётчик полных итераций
     final_temp = initial_temp
 
     # Рассчитываем общее количество температурных шагов
@@ -169,7 +168,6 @@ def simulated_annealing(
 
         while temp > min_temp:
             for _ in range(num_iterations_per_temp):
-                total_iterations += 1  # Каждая внутренняя итерация - полный шаг
                 neighbor_theta = generate_neighbor_theta(current_theta, step_size)
                 ansatz_dict, _, _ = calculate_ansatz(
                     neighbor_theta, pauli_operators[: len(neighbor_theta)]
@@ -187,7 +185,7 @@ def simulated_annealing(
 
             temp *= cooling_rate
 
-    return best_theta, (total_iterations, final_temp, best_energy)
+    return best_theta, (final_temp, best_energy)
 
 
 def main():
@@ -235,7 +233,7 @@ def main():
     for m in range(2, len(pauli_operators) + 1):
         initial_theta = generate_random_theta(m)
 
-        optimized_theta, (iterations, temp, energy) = simulated_annealing(
+        optimized_theta, (temp, energy) = simulated_annealing(
             initial_theta=initial_theta,
             pauli_operators=pauli_operators,
             initial_temp=100.0,
@@ -249,7 +247,6 @@ def main():
             {
                 "m": m,
                 "theta": optimized_theta,
-                "iterations": iterations,
                 "temp": temp,
                 "energy": energy,
             }
@@ -264,14 +261,12 @@ def main():
     results_table = create_table(
         columns=[
             {"name": "Количество параметров (m)", "style": "cyan"},
-            {"name": "Итерация", "style": "magenta"},
             {"name": "Финальная температура", "style": "green"},
             {"name": "Энергия (⟨0|U†HU|0⟩ для состояния |0...0⟩)", "style": "yellow"},
         ],
         data=[
             [
                 str(best_result["m"]),
-                str(best_result["iterations"]),
                 f"{best_result['temp']:.2f}",
                 f"{best_result['energy']:.6f}",
             ]
