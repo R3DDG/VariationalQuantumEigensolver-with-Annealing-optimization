@@ -301,6 +301,8 @@ def main():
     )
 
     console_and_print(console, results_table)
+    
+    input('text')
 
 
 if __name__ == "__main__":
