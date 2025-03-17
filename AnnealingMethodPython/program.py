@@ -148,23 +148,28 @@ def simulated_annealing(
     current_theta = initial_theta.copy()
     best_theta = current_theta.copy()
     best_energy = float("inf")
-    total_iterations = 0
+    total_iterations = 0  # Счётчик полных итераций
     final_temp = initial_temp
+
+    # Рассчитываем общее количество температурных шагов
+    temp_steps = int(np.log(min_temp / initial_temp) / np.log(cooling_rate))
+    total_steps = temp_steps * num_iterations_per_temp
 
     progress = Progress(
         SpinnerColumn(),
         TextColumn("[progress.description]{task.description}"),
         BarColumn(bar_width=None),
+        TextColumn("[progress.percentage]{task.percentage:>3.0f}%"),
         console=Console(force_terminal=True, color_system="truecolor", record=True),
     )
 
     with progress:
-        task = progress.add_task("[cyan]Оптимизация...", total=None)
+        task = progress.add_task("[cyan]Оптимизация...", total=total_steps)
         temp = initial_temp
 
         while temp > min_temp:
             for _ in range(num_iterations_per_temp):
-                total_iterations += 1
+                total_iterations += 1  # Каждая внутренняя итерация - полный шаг
                 neighbor_theta = generate_neighbor_theta(current_theta, step_size)
                 ansatz_dict, _, _ = calculate_ansatz(
                     neighbor_theta, pauli_operators[: len(neighbor_theta)]
@@ -175,9 +180,10 @@ def simulated_annealing(
                 if current_energy < best_energy:
                     best_theta = neighbor_theta.copy()
                     best_energy = current_energy
-                    final_temp = temp  # Сохраняем температуру, при которой найдено лучшее решение
+                    final_temp = temp
 
-                progress.update(task, advance=1 / num_iterations_per_temp)
+                # Обновляем прогресс на 1 полный шаг
+                progress.update(task, advance=1)
 
             temp *= cooling_rate
 
