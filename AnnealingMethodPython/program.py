@@ -13,7 +13,6 @@ from utils.print_hamiltonian import print_hamiltonian
 from utils.print_composition_table import print_composition_table
 from utils.format_ansatz import format_ansatz
 from utils.initialize_environment import initialize_environment
-from utils.create_table import create_table
 
 # Импорт констант
 from constants.file_paths import HAMILTONIAN_FILE_PATH
@@ -146,12 +145,10 @@ def simulated_annealing(
     num_iterations_per_temp: int = 500,
     step_size: float = 0.5,
 ) -> tuple:
-    """Реализует алгоритм имитации отжига."""
+    """Реализует алгоритм имитации отжига с термализацией."""
     current_theta = initial_theta.copy()
     best_theta = current_theta.copy()
     best_energy = float("inf")
-    
-    # Инициализация генератора случайных чисел
     rng = np.random.default_rng()
     
     with Progress(
@@ -160,7 +157,7 @@ def simulated_annealing(
         BarColumn(bar_width=None),
         TextColumn("[progress.percentage]{task.percentage:>3.0f}%"),
     ) as progress:
-        task = progress.add_task("[cyan]Оптимизация...", total=100)
+        task = progress.add_task("[cyan]Отжиг...", total=100)
         
         temp = initial_temp
         iteration = 0
@@ -171,7 +168,7 @@ def simulated_annealing(
                 perturbation = rng.normal(0, step_size*(temp/initial_temp), size=current_theta.shape)
                 neighbor_theta = (current_theta + perturbation) % (2*np.pi)
                 
-                # Вычисление энергии
+                # Вычисление энергии нового состояния
                 ansatz_dict, _, _ = calculate_ansatz(neighbor_theta, pauli_operators)
                 uhu_dict = compute_uhu(ansatz_dict, pauli_operators)
                 current_energy = calculate_expectation(uhu_dict)
@@ -198,7 +195,7 @@ def main():
     """Основная логика программы."""
     console = initialize_environment()
     
-        # Явная проверка существования файла
+    # Явная проверка существования файла
     if not HAMILTONIAN_FILE_PATH.exists():
         msg = (
             f"Файл [bold]{HAMILTONIAN_FILE_PATH}[/] не найден!\n"
