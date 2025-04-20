@@ -18,13 +18,14 @@ def read_hamiltonian_data(file_path):
     for line in lines:
         parts = line.strip().split()
         if len(parts) == 3:
-            real_part, imag_part, index = (
+            real_part, imag_part, index_str = (
                 float(parts[0]),
                 float(parts[1]),
                 str(parts[2]),
             )
             coefficient = np.complex128(real_part + imag_part * 1j)
+            index_list = [int(c) for c in index_str]  
             if coefficient != 0:
-                pauli_operators.append((coefficient, index))
-            pauli_strings.append([int(c) for c in parts[2]])
+                pauli_operators.append((coefficient, index_list))
+            pauli_strings.append(index_list)
     return pauli_operators, pauli_strings

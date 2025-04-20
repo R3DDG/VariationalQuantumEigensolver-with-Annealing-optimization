@@ -10,7 +10,7 @@ def print_hamiltonian(
 ) -> None:
     """Выводит представление гамильтониана в консоль."""
     hamiltonian_str = "H = " + " + ".join(
-        [get_operator_for_console(c, i) for c, i in pauli_operators]
+        [get_operator_for_console(c, ''.join(map(str, i))) for c, i in pauli_operators]
     )
     console_and_print(
         console,

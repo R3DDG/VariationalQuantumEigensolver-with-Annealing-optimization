@@ -2,7 +2,6 @@ import numpy as np
 import sys
 import io
 from rich.progress import Progress, BarColumn, TextColumn, SpinnerColumn
-from rich.console import Console
 from rich.panel import Panel
 from typing import Tuple, List, Dict
 
@@ -14,7 +13,6 @@ from utils.print_hamiltonian import print_hamiltonian
 from utils.print_composition_table import print_composition_table
 from utils.format_ansatz import format_ansatz
 from utils.initialize_environment import initialize_environment
-from utils.print_theta_table import print_theta_table
 from utils.create_table import create_table
 
 # Импорт констант
@@ -27,8 +25,8 @@ sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding="utf-8")
 
 
 def generate_random_theta(m: int) -> np.ndarray:
-    """Генерирует массив из m случайных чисел в диапазоне [0, 1)."""
-    return np.random.rand(m).astype(np.float64)
+    """Генерирует массив из m случайных углов в диапазоне [0, 2π)."""
+    return np.random.uniform(0, 2*np.pi, size=m).astype(np.float64)
 
 
 def multiply_pauli(i: int, j: int) -> Tuple[complex, int]:
@@ -69,7 +67,7 @@ def calculate_ansatz(
     operator_length = len(pauli_operators[0][1])
     result = {tuple([0] * operator_length): 1.0}
 
-    for t, (coeff, op) in zip(theta, pauli_operators):
+    for t, (_, op) in zip(theta, pauli_operators): 
         cos_t = np.cos(t)
         sin_t = np.sin(t)
         new_result: Dict[Tuple[int, ...], complex] = {}
@@ -80,7 +78,7 @@ def calculate_ansatz(
             new_result[existing_op] = new_result.get(existing_op, 0) + identity_coeff
 
             # Слагаемое с i*sin(θ)*σ
-            pauli_coeff = existing_coeff * 1j * sin_t * coeff
+            pauli_coeff = existing_coeff * 1j * sin_t 
             compose_coeff, compose_op = pauli_compose(list(existing_op), op)
             final_coeff = pauli_coeff * compose_coeff
             final_op = tuple(compose_op)
@@ -103,15 +101,19 @@ def compute_uhu(
 
     for coeff_h, op_h in h_terms:
         for j_op, j_coeff in u_dict.items():
-            conjugated_j_coeff = np.conj(j_coeff)  # Сопряжение для U†
+            conjugated_j_coeff = np.conj(j_coeff)
             c1, op_uh = pauli_compose(list(j_op), op_h)
-
+            
             for k_op, k_coeff in u_dict.items():
                 c2, op_uhu = pauli_compose(op_uh, list(k_op))
                 total_coeff = conjugated_j_coeff * k_coeff * coeff_h * c1 * c2
+                
+                # Стабилизация малых значений
+                if abs(total_coeff) < 1e-12:
+                    continue
+                
                 op_tuple = tuple(op_uhu)
                 uhu_dict[op_tuple] = uhu_dict.get(op_tuple, 0) + total_coeff
-
     return uhu_dict
 
 
@@ -138,54 +140,58 @@ def generate_neighbor_theta(
 def simulated_annealing(
     initial_theta: np.ndarray,
     pauli_operators: list,
-    initial_temp: float = 100.0,
-    cooling_rate: float = 0.95,
-    min_temp: float = 1e-3,
-    num_iterations_per_temp: int = 100,
-    step_size: float = 0.1,
+    initial_temp: float = 1000.0,
+    cooling_rate: float = 0.99,
+    min_temp: float = 1e-5,
+    num_iterations_per_temp: int = 500,
+    step_size: float = 0.5,
 ) -> tuple:
     """Реализует алгоритм имитации отжига."""
     current_theta = initial_theta.copy()
     best_theta = current_theta.copy()
     best_energy = float("inf")
-    final_temp = initial_temp
-
-    # Рассчитываем общее количество температурных шагов
-    temp_steps = int(np.log(min_temp / initial_temp) / np.log(cooling_rate))
-    total_steps = temp_steps * num_iterations_per_temp
-
-    progress = Progress(
+    
+    # Инициализация генератора случайных чисел
+    rng = np.random.default_rng()
+    
+    with Progress(
         SpinnerColumn(),
         TextColumn("[progress.description]{task.description}"),
         BarColumn(bar_width=None),
         TextColumn("[progress.percentage]{task.percentage:>3.0f}%"),
-        console=Console(force_terminal=True, color_system="truecolor", record=True),
-    )
-
-    with progress:
-        task = progress.add_task("[cyan]Оптимизация...", total=total_steps)
+    ) as progress:
+        task = progress.add_task("[cyan]Оптимизация...", total=100)
+        
         temp = initial_temp
-
+        iteration = 0
+        
         while temp > min_temp:
             for _ in range(num_iterations_per_temp):
-                neighbor_theta = generate_neighbor_theta(current_theta, step_size)
-                ansatz_dict, _, _ = calculate_ansatz(
-                    neighbor_theta, pauli_operators[: len(neighbor_theta)]
-                )
+                # Генерация соседнего решения с адаптивным шагом
+                perturbation = rng.normal(0, step_size*(temp/initial_temp), size=current_theta.shape)
+                neighbor_theta = (current_theta + perturbation) % (2*np.pi)
+                
+                # Вычисление энергии
+                ansatz_dict, _, _ = calculate_ansatz(neighbor_theta, pauli_operators)
                 uhu_dict = compute_uhu(ansatz_dict, pauli_operators)
                 current_energy = calculate_expectation(uhu_dict)
-
-                if current_energy < best_energy:
-                    best_theta = neighbor_theta.copy()
-                    best_energy = current_energy
-                    final_temp = temp
-
-                # Обновляем прогресс на 1 полный шаг
-                progress.update(task, advance=1)
-
+                
+                # Критерий принятия решения
+                energy_diff = current_energy - best_energy
+                if energy_diff < 0 or rng.random() < np.exp(-energy_diff / temp):
+                    current_theta = neighbor_theta.copy()
+                    
+                    if current_energy < best_energy:
+                        best_theta = current_theta.copy()
+                        best_energy = current_energy
+                
+                iteration += 1
+                if iteration % 100 == 0:
+                    progress.update(task, advance=1)
+            
             temp *= cooling_rate
-
-    return best_theta, (final_temp, best_energy)
+    
+    return best_theta, best_energy
 
 
 def main():
@@ -233,7 +239,7 @@ def main():
     for m in range(2, len(pauli_operators) + 1):
         initial_theta = generate_random_theta(m)
 
-        optimized_theta, (temp, energy) = simulated_annealing(
+        optimized_theta, energy = simulated_annealing(
             initial_theta=initial_theta,
             pauli_operators=pauli_operators,
             initial_temp=100.0,
@@ -247,7 +253,6 @@ def main():
             {
                 "m": m,
                 "theta": optimized_theta,
-                "temp": temp,
                 "energy": energy,
             }
         )
@@ -256,27 +261,6 @@ def main():
         if energy < best_energy:
             best_energy = energy
             best_result = all_results[-1]
-
-    # Создаём таблицу только с лучшим результатом
-    results_table = create_table(
-        columns=[
-            {"name": "Количество параметров (m)", "style": "cyan"},
-            {"name": "Финальная температура", "style": "green"},
-            {"name": "Энергия (⟨0|U†HU|0⟩ для состояния |0...0⟩)", "style": "yellow"},
-        ],
-        data=[
-            [
-                str(best_result["m"]),
-                f"{best_result['temp']:.2f}",
-                f"{best_result['energy']:.6f}",
-            ]
-        ],
-        title="Лучший результат оптимизации",
-        border_style="green",
-    )
-
-    # Выводим информацию
-    print_theta_table(console, best_result["theta"])
 
     _, ansatz_symbolic, ansatz_numeric = calculate_ansatz(
         best_result["theta"], pauli_operators[: best_result["m"]]
@@ -299,8 +283,15 @@ def main():
             border_style="purple",
         ),
     )
-
-    console_and_print(console, results_table)
+    
+    console_and_print(
+        console,
+        Panel(
+            f"{best_result['energy']:.6f}",
+            title="[bold]Энергия (⟨0|U†HU|0⟩ для состояния |0...0⟩)[/]",
+            border_style="green",
+        ),
+    )
     
     input('text')
 
