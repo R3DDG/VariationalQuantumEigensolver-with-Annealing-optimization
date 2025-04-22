@@ -3,13 +3,15 @@
 \def\baselinestretch{1.1}
 \usepackage[14pt]{extsizes}
 \usepackage[utf8]{inputenc}
-\usepackage[russian]{babel}
+\usepackage{listings}
+\usepackage{xcolor} % Для работы с цветами
+\usepackage[english, russian]{babel}
 \usepackage{indentfirst}
 \usepackage{mathrsfs}
 
 %%%%%%%%%%%%%%%%% Символы, графика %%%%%%%%%%%%%%%%%%%%%
 
-\usepackage[T2A]{fontenc}
+\usepackage[T1,T2A]{fontenc}
 \usepackage{amsmath,amssymb,amsfonts,amsthm}
 \usepackage{bm}
 \newcommand\dsone{\mathds{H}}
@@ -26,7 +28,7 @@
 \bibliographystyle{plain}  % Change this to your preferred style
 \renewcommand{\thetable}{\arabic{table}}
 \usepackage{indentfirst}
-\topmargin=-1.5cm %отступ сверху
+\topmargin=-1.4cm %отступ сверху
 \oddsidemargin=0.4cm %отступ слева (нечетные страницы)
 \evensidemargin=0.4cm %(четные страницы)
 \textwidth=16cm %ширина текста
@@ -36,32 +38,110 @@
 
 \pagestyle{plain}
 
-\usepackage{listings}
+\definecolor{background}{RGB}{248, 248, 248}
+\definecolor{string}{RGB}{230, 219, 116}
+\definecolor{comment}{RGB}{117, 113, 94}
+\definecolor{normal}{RGB}{0, 0, 0}
+\definecolor{identifier}{RGB}{166, 226, 46}
 
-\definecolor{codegreen}{rgb}{0,0.6,0}
-\definecolor{codegray}{rgb}{0.5,0.5,0.5}
-\definecolor{codepurple}{rgb}{0.58,0,0.82}
-\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
-
+% Основные настройки для поддержки кириллицы
 \lstset{
-    extendedchars=true,  % Corrected this line
-    backgroundcolor=\color{backcolour},
-    commentstyle=\color{codegreen},
-    keywordstyle=\color{magenta},
-    numberstyle=\tiny\color{codegray},
-    stringstyle=\color{codepurple},
-    breakatwhitespace=false,
-    breaklines=true,
-    captionpos=b,
-    keepspaces=true,
-    numbers=left,
-    numbersep=3pt,
-    showspaces=false,
-    showstringspaces=false,
-    showtabs=false,
-    tabsize=1,
-    basicstyle=\fontsize{10}{12}\selectfont\ttfamily
+    language=python,                			% choose the language of the code
+    numbers=left,                   		% where to put the line-numbers
+    stepnumber=1,                   		% the step between two line-numbers.
+    numbersep=5pt,                  		% how far the line-numbers are from the code
+    numberstyle=\tiny\color{black}\ttfamily,
+    backgroundcolor=\color{background},  		% choose the background color. You must add \usepackage{color}
+    showspaces=false,               		% show spaces adding particular underscores
+    showstringspaces=false,         		% underline spaces within strings
+    showtabs=false,                 		% show tabs within strings adding particular underscores
+    tabsize=4,                      		% sets default tabsize to 2 spaces
+    captionpos=b,                   		% sets the caption-position to bottom
+    breaklines=true,                		% sets automatic line breaking
+    breakatwhitespace=true,         		% sets if automatic breaks should only happen at whitespace
+    title=\lstname,                 		% show the filename of files included with \lstinputlisting;
+    basicstyle=\color{normal}\ttfamily\small,					% sets font style for the code
+    keywordstyle=\color{magenta}\ttfamily,	% sets color for keywords
+    stringstyle=\color{string}\ttfamily,		% sets color for strings
+    commentstyle=\color{comment}\ttfamily,	% sets color for comments
+    emph={format_string, eff_ana_bf, permute, eff_ana_btr},
+    emphstyle=\color{identifier}\ttfamily,
+    literate=
+        {θ}{{$\theta$}}1
+        {π}{{$\pi$}}1
+        {σ}{{$\sigma$}}1
+        {±}{{$\pm$}}1
+        {→}{{$\rightarrow$}}1
+        {†}{{\textdagger}}1
+        {а}{{\cyra}}1
+        {б}{{\cyrb}}1
+        {в}{{\cyrv}}1
+        {г}{{\cyrg}}1
+        {д}{{\cyrd}}1
+        {е}{{\cyre}}1
+        {ё}{{\"e}}1
+        {ж}{{\cyrzh}}1
+        {з}{{\cyrz}}1
+        {и}{{\cyri}}1
+        {й}{{\cyrishrt}}1
+        {к}{{\cyrk}}1
+        {л}{{\cyrl}}1
+        {м}{{\cyrm}}1
+        {н}{{\cyrn}}1
+        {о}{{\cyro}}1
+        {п}{{\cyrp}}1
+        {р}{{\cyrr}}1
+        {с}{{\cyrs}}1
+        {т}{{\cyrt}}1
+        {у}{{\cyru}}1
+        {ф}{{\cyrf}}1
+        {х}{{\cyrh}}1
+        {ц}{{\cyrc}}1
+        {ч}{{\cyrch}}1
+        {ш}{{\cyrsh}}1
+        {щ}{{\cyrshch}}1
+        {ъ}{{\cyrhrdsn}}1
+        {ы}{{\cyrery}}1
+        {ь}{{\cyrsftsn}}1
+        {э}{{\cyrerev}}1
+        {ю}{{\cyryu}}1
+        {я}{{\cyrya}}1
+        {А}{{\CYRA}}1
+        {Б}{{\CYRB}}1
+        {В}{{\CYRV}}1
+        {Г}{{\CYRG}}1
+        {Д}{{\CYRD}}1
+        {Е}{{\CYRE}}1
+        {Ё}{{\CYRYO}}1
+        {Ж}{{\CYRZH}}1
+        {З}{{\CYRZ}}1
+        {И}{{\CYRI}}1
+        {Й}{{\CYRISHRT}}1
+        {К}{{\CYRK}}1
+        {Л}{{\CYRL}}1
+        {М}{{\CYRM}}1
+        {Н}{{\CYRN}}1
+        {О}{{\CYRO}}1
+        {П}{{\CYRP}}1
+        {Р}{{\CYRR}}1
+        {С}{{\CYRS}}1
+        {Т}{{\CYRT}}1
+        {У}{{\CYRU}}1
+        {Ф}{{\CYRF}}1
+        {Х}{{\CYRH}}1
+        {Ц}{{\CYRC}}1
+        {Ч}{{\CYRCH}}1
+        {Ш}{{\CYRSH}}1
+        {Щ}{{\CYRSHCH}}1
+        {Ъ}{{\CYRHRDSN}}1
+        {Ы}{{\CYRERY}}1
+        {Ь}{{\CYRSFTSN}}1
+        {Э}{{\CYREREV}}1
+        {Ю}{{\CYRYU}}1
+        {Я}{{\CYRYA}}1
+        {\#}{{\#}}1,
 }
+
 
 %%%%%%%% newcommands:  ket,  bra,  ketbra,  braket
 \newcommand{\ket}[1] {\!\!\;\ensuremath{\left|#1\right\rangle}}
@@ -127,8 +207,7 @@
 \end{titlepage}
 
 \setcounter{page}{2}
-
-\vspace{-4ex}
+\addtocontents{toc}{\protect\vspace{-6ex}}
 \tableofcontents
 \newpage
 
@@ -146,14 +225,14 @@
 $${\dim_\mathbb{C} \mathcal{H}_n = \dim_\mathbb{C} \mathcal{H}_n^\dagger = 2^n,\;\;\;
             \dim_\mathbb{C} L(\mathcal{H}_n) = 2^{2n}.}$$
 
-Пространство ${L(\mathcal{H}_n)}$ наделено гильбертово-шмидтовым скалярным произведением:
+Пространство ${L(\mathcal{H}_n)}$ наделено скалярным произведением Гильберта-Шмидта:
 
 \begin{equation}\label{eq1}
     \langle\hat{A},\hat{B}\rangle = \mathrm{tr}(\hat{A}^\dagger\hat{B}),\;\;\;
     \hat{A},\hat{B} \in L(\mathcal{H}_n),
 \end{equation}
 
-\noindent которое естественно расширяет скалярное произведение в ${\mathcal{H}_n}$. Вещественное линейное пространство эрмитовых операторов далее обозначим как ${H(\mathcal{H}_n)}$.
+\noindent которое естественно продолжает скалярное произведение в ${\mathcal{H}_n}$. Вещественное линейное пространство эрмитовых операторов далее обозначим как ${H(\mathcal{H}_n)}$.
 
 
 Пусть ${\{|0\rangle,|1\rangle\}}$ образуют ортонормированный базис в однокубитном пространстве ${\mathcal{H}}$. Единичная матрица и матрицы Паули задаются как:
@@ -272,25 +351,6 @@ $${\{\sigma_1, \sigma_2\} = 0,\;\;\; \{\sigma_2, \sigma_3\} = 0.}$$
 
 Коммутаторы и антикоммутаторы применяются в квантовой механике для анализа свойств систем (спин электрона, кубиты), в квантовой теории поля (взаимодействия частиц) и квантовых вычислениях (алгоритмы, коррекция ошибок). Коммутаторы помогают определить совместную измеримость наблюдаемых, а антикоммутаторы — описать фермионные системы.
 
-Рассмотрим ряд примеров коммутационного и антикоммутационного соответствия в базисе Паули.
-
-\begin{enumerate}
-    \item Коммутатор ${\sigma_1}$ и ${\sigma_2}$:
-          $${[\sigma_1,\sigma_2] = 2i\epsilon_{12k}\sigma_k = 2i\sigma_3};$$
-    \item Антикоммутатор ${\sigma_1}$ и ${\sigma_2}$:
-          $${\{\sigma_1,\sigma_2\} = 2\delta_{12}\sigma_0 = 0};$$
-    \item Коммутатор ${\sigma_1}$ и ${\sigma_3}$:
-          $${[\sigma_1,\sigma_3] = 2i\epsilon_{13k}\sigma_k = -2i\sigma_2};$$
-    \item Антикоммутатор ${\sigma_1}$ и ${\sigma_3}$:
-          $${\{\sigma_1,\sigma_3\} = 2\delta_{13}\sigma_0 = 0};$$
-    \item Коммутатор ${\sigma_2}$ и ${\sigma_3}$:
-          $${[\sigma_2,\sigma_3] = 2i\epsilon_{23k}\sigma_k = 2i\sigma_1};$$
-    \item Антикоммутатор ${\sigma_2}$ и ${\sigma_3}$:
-          $${\{\sigma_2,\sigma_3\} = 2\delta_{23}\sigma_0 = 0}.$$
-\end{enumerate}
-
-\newpage
-
 %##################### Третий параграф первой главы ###############################
 
 \subsection{Коммутирующие элементы в алгебре Ли группы ${SU(2^{n})}$}
@@ -322,15 +382,14 @@ $${
 }$$
 где ${K = k_1k_2\ldots k_n}$ и ${L = l_1l_2\ldots l_n}$.
 
-Симметрия функции ${S}$ зависит от числа пар ${(k_r, l_r)}$ (на позициях ${r}$ в строках ${K}$ и ${L}$), где ${k_r, l_r \in \{1,2,3\}}$ и ${k_r \neq l_r}$, а также от их взаимного порядка. Пусть ${\omega^+_{KL}}$ и ${\omega^-_{KL}}$ — количество пар вида ${(1,2),(2,3),(3,1)}$ и ${(2,1),(3,2),(1,3)}$ соответственно, и ${\omega_{KL} = \omega^+_{KL} + \omega^-_{KL}}$. Тогда:
-
+Симметрия функции ${S}$ зависит от числа пар ${(k_r, l_r)}$ (на позициях ${r}$ в строках ${K}$ и ${L}$), где ${k_r, l_r \in \{1,2,3\}}$ и ${k_r \neq l_r}$, а также от их взаимного порядка. Пусть ${\omega^+_{KL}}$ и ${\omega^-_{KL}}$ — количество пар вида ${(1,2),(2,3),(3,1)}$ и ${(2,1),(3,2),(1,3)}$ соответственно, и ${\omega_{KL} = \omega^+_{KL} + \omega^-_{KL}}$. Тогда
 \begin{equation}\label{eq5}
-    S_{KL} = i^{\omega_{KL}}(-1)^{\omega^-_{KL}},\;\;\;
     S_{(KL)} = \frac{S_{KL}}{2}\left(1 + (-1)^{\omega_{KL}}\right),\;\;\;
     S_{[KL]} = \frac{S_{KL}}{2}\left(1 - (-1)^{\omega_{KL}}\right),
 \end{equation}
 
-\noindent где ${S_{(KL)}}$ и ${S_{[KL]}}$ — симметричная и антисимметричная части ${S_{KL}}$. Значения ${S_{KL}}$, ${S_{(KL)}}$ и ${S_{[KL]}}$ приведены в таблице \ref{table2}.
+где $$S_{KL} = i^{\omega_{KL}}(-1)^{\omega^-_{KL}}.$$
+Здесь ${S_{(KL)}}$ и ${S_{[KL]}}$ — симметричная и антисимметричная части ${S_{KL}}$. Значения ${S_{KL}}$, ${S_{(KL)}}$ и ${S_{[KL]}}$ приведены в таблице \ref{table2}.
 
 \begin{table}[h!]
     \centering
@@ -358,7 +417,6 @@ $${
 \end{equation}
 
 \noindent где
-
 \begin{equation}\label{eq7}
     \hat{\sigma}_M = \hat{\sigma}_{m_1\ldots m_n}, \;\;\; m_r = k_r \cdot l_r \;\;\; (r = 1,\ldots,n).
 \end{equation}
@@ -833,5 +891,682 @@ i \hbar \frac{\partial}{\partial t} \ket{\psi(t)} = H(t) \ket{\psi(t)},
 
 \addcontentsline{toc}{chapter}{\hspace{5.5mm} Приложение Python}
 \chapter*{Приложение Python}
+\begin{lstlisting}
+#constants/file_paths.py
+import sys
+from pathlib import Path
+
+def get_base_path() -> Path:
+    """Возвращает путь к директории с EXE (или к проекту в dev-режиме)."""
+    if getattr(sys, "frozen", False):
+        # Для скомпилированного EXE берём директорию исполняемого файла
+        return Path(sys.argv[0]).parent
+    else:
+        # Для разработки возвращаем корень проекта
+        return Path(__file__).parent.parent
+
+# Путь к hamiltonian_operators.txt (внешний файл)
+HAMILTONIAN_FILE_PATH = get_base_path() / "params" / "hamiltonian_operators.txt"
+
+# Файл вывода создаётся в текущей рабочей директории
+OUTPUT_FILE_PATH = get_base_path() / "output.log"
+
+
+#constants/pauli.py
+PAULI_MAP = {
+    (1, 2): (1j, 3),
+    (2, 1): (-1j, 3),
+    (3, 1): (1j, 2),
+    (1, 3): (-1j, 2),
+    (2, 3): (1j, 1),
+    (3, 2): (-1j, 1),
+}
+
+
+#params/hamiltonian_operators.txt
+# Действительная часть | Мнимая часть | Строка Паули
+
+2.0 0.0 03
+1.0 0.0 30
+-4.0 0.0 11
+
+
+#utils/console_and_print.py
+from rich.console import Console
+from typing import Any
+from constants.file_paths import OUTPUT_FILE_PATH
+
+
+def console_and_print(console: Console, message: Any) -> None:
+    """
+    Выводит результат выполнения программы в файл и консоль
+
+    :param console: Объект Console для вывода в консоль
+    :param message: Сообщение для вывода
+    """
+    console.print(message)
+    with open(OUTPUT_FILE_PATH, "a", encoding="utf-8") as file:
+        file.write(console.export_text() + "\n")
+
+
+#utils/create_table.py
+from rich.table import Table
+from rich.panel import Panel
+from rich import box
+from typing import List, Dict, Any
+
+
+def create_table(
+    columns: List[Dict[str, str]],
+    data: List[List[Any]],
+    title: str,
+    border_style: str = "yellow",
+) -> Panel:
+    table = Table(box=box.ROUNDED, border_style="yellow")
+    for col in columns:
+        table.add_column(
+            col["name"],
+            justify=col.get("justify", "default"),
+            style=col.get("style", ""),
+        )
+    for row in data:
+        table.add_row(*row)
+    return Panel(table, title=title, border_style=border_style)
+
+
+#utils/format_ansatz.py
+from .format_complex_number import format_complex_number
+
+
+def format_ansatz(
+    pauli_operators: list[list[int]], result: dict[tuple, complex]
+) -> tuple[str, str]:
+    """
+    Форматирует анзац в символьное и численное представление.
+
+    :param pauli_operators: Список операторов Паули (списки индексов).
+    :param result: Словарь с результатами вычислений {оператор: коэффициент}.
+    :return: Символьное представление анзаца и его численное значение.
+    """
+    # Формируем U(θ)
+    ansatz_symbolic = "U(θ) = " + " * ".join(
+        [
+            f"e^(iθ_{i+1}*{format_complex_number(op[0])}*σ_{''.join(map(str, op[1]))})"
+            for i, op in enumerate(pauli_operators)
+        ]
+    )
+
+    # Формируем U
+    ansatz_numeric = "U = " + " + ".join(
+        [
+            f"{format_complex_number(c)}*{format_complex_number(op[0])}*σ_{''.join(map(str, op[1:]))}"
+            if isinstance(op, (list, tuple))
+            and len(op) > 1
+            and isinstance(op[0], complex)
+            else f"{format_complex_number(c)}*σ_{''.join(map(str, op))}"
+            for op, c in result.items()
+        ]
+    )
+
+    return ansatz_symbolic, ansatz_numeric
+
+
+#utils/format_complex_number.py
+from sympy import re as sp_re, im as sp_im
+from .format_number import format_number
+
+
+def format_complex_number(c) -> str:
+    """
+    Универсальный форматировщик комплексных чисел для SymPy и стандартных типов.
+    """
+    # Извлечение компонентов через SymPy
+    real = float(sp_re(c))
+    imag = float(sp_im(c))
+
+    real_str = format_number(real) if abs(real) > 1e-12 else ""
+    imag_str = ""
+
+    if abs(imag) > 1e-12:
+        abs_imag = abs(imag)
+        imag_value = format_number(abs_imag)
+
+        # Специальные случаи для ±1
+        if imag_value == "1":
+            imag_str = "i" if imag > 0 else "-i"
+        else:
+            imag_sign = "" if imag > 0 else "-"
+            imag_str = f"{imag_sign}{imag_value}i"
+
+    # Сборка результата
+    parts = []
+    if real_str:
+        parts.append(real_str)
+    if imag_str:
+        parts.append(imag_str)
+
+    if not parts:
+        return "0"
+
+    # Корректное объединение компонентов
+    result = parts[0]
+    for part in parts[1:]:
+        if part.startswith("-"):
+            result += f"-{part[1:]}"
+        else:
+            result += f"+{part}"
+
+    # Фикс артефактов форматирования
+    return result.replace("+ -", "- ").replace("1i", "i").replace(".0i", "i")
+
+
+#utils/format_number.py
+def format_number(num: float | int) -> str:
+    """
+    Универсальный форматировщик чисел с точным определением целочисленных значений
+    и подавлением артефактов вычислений с плавающей точкой.
+    """
+    # Проверка на целое число с учетом погрешности вычислений
+    if abs(num - round(num)) < 1e-15:
+        return str(int(round(num)))
+
+    # Форматирование с ручным управлением десятичными знаками
+    s = f"{num:.14f}".rstrip("0").rstrip(".")
+
+    # Исправление артефактов вида ".5" → "0.5"
+    if s.startswith("."):
+        s = "0" + s
+    elif s.startswith("-."):
+        s = s.replace("-.", "-0.")
+
+    # Удаление лишних десятичных знаков после 4-го
+    if "." in s:
+        int_part, dec_part = s.split(".")
+        dec_part = dec_part[:4].ljust(4, "0").rstrip("0")
+        s = f"{int_part}.{dec_part}" if dec_part else int_part
+
+    return s
+
+
+#utils/get_operator_for_console.py
+from .format_complex_number import format_complex_number
+from typing import Union
+
+
+def get_operator_for_console(c: Union[complex, float, int], i: str) -> str:
+    """
+    Функция создана для 'красивого' вывода оператора Паули в консоль.
+    Избегает ситуаций, когда у нас выводится конструкция вида '1*σ'
+
+    :param c: Коэффициент оператора Паули.
+    :param i: Строка оператора Паули.
+    :return: Отформатированную строку.
+    """
+    if c == 1:
+        return f"σ_{i}"
+    else:
+        return f"{format_complex_number(c)}*σ_{i}"
+
+
+#utils/initialize_environment.py
+from rich.console import Console  # Для красивого вывода в консоль
+from constants.file_paths import OUTPUT_FILE_PATH
+
+
+def initialize_environment() -> Console:
+    """Инициализирует окружение и возвращает консольный объект."""
+    if OUTPUT_FILE_PATH.exists():
+        OUTPUT_FILE_PATH.unlink()
+    return Console(force_terminal=True, color_system="truecolor", record=True)
+
+
+#utils/print_composition_table.py
+from rich.console import Console  # Для красивого вывода в консоль
+from typing import Tuple, List, Callable
+from .console_and_print import console_and_print
+from .create_table import create_table
+from .format_complex_number import format_complex_number
+
+
+def print_composition_table(
+    console: Console,
+    pauli_compose: Callable[[List[int], List[int]], Tuple[complex, List[int]]],
+    pauli_strings: List[List[int]],
+) -> None:
+    """Выводит таблицу композиций операторов Паули."""
+    results = []
+    for s1 in pauli_strings:
+        for s2 in pauli_strings:
+            coeff, product = pauli_compose(s1, s2)
+            results.append((s1, s2, format_complex_number(coeff), product))
+
+    table_data = [
+        [str(s1), str(s2), str(h).lower(), str(p)] for s1, s2, h, p in results
+    ]
+    console_and_print(
+        console,
+        create_table(
+            columns=[
+                {"name": "Оператор 1", "style": "cyan", "justify": "center"},
+                {"name": "Оператор 2", "style": "magenta", "justify": "center"},
+                {"name": "Коэффициент", "style": "green", "justify": "center"},
+                {"name": "Результат", "style": "red", "justify": "center"},
+            ],
+            data=table_data,
+            title="Композиции операторов Паули",
+            border_style="green",
+        ),
+    )
+
+
+#utils/print_hamiltonian.py
+from rich.console import Console
+from rich.panel import Panel
+from typing import Tuple, List
+from .get_operator_for_console import get_operator_for_console
+from .console_and_print import console_and_print
+
+
+def print_hamiltonian(
+    console: Console, pauli_operators: List[Tuple[complex, List[int]]]
+) -> None:
+    """Выводит представление гамильтониана в консоль."""
+    hamiltonian_str = "H = " + " + ".join(
+        [get_operator_for_console(c, ''.join(map(str, i))) for c, i in pauli_operators]
+    )
+    console_and_print(
+        console,
+        Panel(
+            hamiltonian_str,
+            title="[bold]Введенный гамильтониан[/bold]",
+            border_style="green",
+        ),
+    )
+
+
+#utils/print_pauli_table.py
+from rich.console import Console  # Для красивого вывода в консоль
+from typing import Tuple, List
+from .format_complex_number import format_complex_number
+from .console_and_print import console_and_print
+from .create_table import create_table
+
+
+def print_pauli_table(
+    console: Console, pauli_operators: List[Tuple[complex, List[int]]]
+) -> None:
+    """Выводит таблицу операторов Паули."""
+    table_data = [[format_complex_number(c), str(i)] for c, i in pauli_operators]
+    console_and_print(
+        console,
+        create_table(
+            columns=[
+                {"name": "Коэффициент", "style": "cyan"},
+                {"name": "Индекс", "style": "magenta", "justify": "center"},
+            ],
+            data=table_data,
+            title="Операторы Паули",
+            border_style="purple",
+        ),
+    )
+
+
+#utils/read_file_lines.py
+from pathlib import Path
+
+
+def read_file_lines(file_path, ignore_comments):
+    """
+    Читает строки из файла, игнорируя комментарии (строки, начинающиеся с '#').
+
+    :param file_path: Путь к файлу.
+    :param ignore_comments: Игнорировать строки, начинающиеся с '#'.
+    :return: Список строк.
+    :raises FileNotFoundError: Если файл не найден.
+    """
+    file_path = Path(file_path) if not isinstance(file_path, Path) else file_path
+    if not file_path.exists():
+        raise FileNotFoundError(f"Файл {file_path} не найден.")
+    with open(file_path, "r") as file:
+        return [
+            line.strip()
+            for line in file
+            if not (ignore_comments and line.strip().startswith("#"))
+        ]
+
+
+#utils/read_hamiltonian_data.py
+import numpy as np  # Для работы с комплексными числами и математическими операциями
+from .read_file_lines import read_file_lines
+
+
+def read_hamiltonian_data(file_path):
+    """
+    Читает данные из файла hamiltonian_operators.txt и возвращает два списка:
+    - Список операторов Паули в виде коэффициента оператора и строки Паули.
+    - Список строк операторов Паули.
+
+    :param file_path: Путь к файлу.
+    :return: (pauli_operators, pauli_strings)
+    :raises FileNotFoundError: Если файл не найден.
+    """
+    lines = read_file_lines(file_path, ignore_comments=False)
+    pauli_operators = []
+    pauli_strings = []
+    for line in lines:
+        parts = line.strip().split()
+        if len(parts) == 3:
+            real_part, imag_part, index_str = (
+                float(parts[0]),
+                float(parts[1]),
+                str(parts[2]),
+            )
+            coefficient = np.complex128(real_part + imag_part * 1j)
+            index_list = [int(c) for c in index_str]
+            if coefficient != 0:
+                pauli_operators.append((coefficient, index_list))
+            pauli_strings.append(index_list)
+    return pauli_operators, pauli_strings
+
+
+#program.py
+import numpy as np
+import sys
+import io
+from rich.progress import Progress, BarColumn, TextColumn, SpinnerColumn
+from rich.panel import Panel
+from typing import Tuple, List, Dict
+
+# Импорт самописных util функций
+from utils.console_and_print import console_and_print
+from utils.print_pauli_table import print_pauli_table
+from utils.read_hamiltonian_data import read_hamiltonian_data
+from utils.print_hamiltonian import print_hamiltonian
+from utils.print_composition_table import print_composition_table
+from utils.format_ansatz import format_ansatz
+from utils.initialize_environment import initialize_environment
+
+# Импорт констант
+from constants.file_paths import HAMILTONIAN_FILE_PATH
+from constants.pauli import PAULI_MAP
+
+# Установка кодировки для корректного вывода
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
+sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding="utf-8")
+
+
+def generate_random_theta(m: int) -> np.ndarray:
+    """Генерирует массив из m случайных углов в диапазоне [0, 2π)."""
+    return np.random.uniform(0, 2*np.pi, size=m).astype(np.float64)
+
+
+def multiply_pauli(i: int, j: int) -> Tuple[complex, int]:
+    """
+    Вычисляет произведение базисных операторов Паули.
+    Возвращает: (коэффициент, индекс результата)
+    """
+    if i == j:
+        return (1, 0)
+    if i == 0:
+        return (1, j)
+    if j == 0:
+        return (1, i)
+    return PAULI_MAP.get((i, j), (1, 0))
+
+
+def pauli_compose(s1: List[int], s2: List[int]) -> Tuple[complex, List[int]]:
+    """
+    Вычисляет композицию двух операторов Паули.
+    Возвращает: (коэффициент, результирующий оператор)
+    """
+    coefficient = 1.0
+    result = []
+    for a, b in zip(s1, s2):
+        coeff, idx = multiply_pauli(a, b)
+        coefficient *= coeff
+        result.append(idx)
+    return coefficient, result
+
+
+def calculate_ansatz(
+    theta: np.ndarray, pauli_operators: List[Tuple[complex, List[int]]]
+) -> Tuple[Dict[Tuple[int, ...], complex], str, str]:
+    """
+    Вычисляет анзац в виде произведения экспонент операторов Паули.
+    Возвращает: (словарь операторов, символьное представление, численное представление)
+    """
+    operator_length = len(pauli_operators[0][1])
+    result = {tuple([0] * operator_length): 1.0}
+
+    for t, (_, op) in zip(theta, pauli_operators):
+        cos_t = np.cos(t)
+        sin_t = np.sin(t)
+        new_result: Dict[Tuple[int, ...], complex] = {}
+
+        for existing_op, existing_coeff in result.items():
+            # Слагаемое с cos(θ)*I
+            identity_coeff = existing_coeff * cos_t
+            new_result[existing_op] = new_result.get(existing_op, 0) + identity_coeff
+
+            # Слагаемое с i*sin(θ)*σ
+            pauli_coeff = existing_coeff * 1j * sin_t
+            compose_coeff, compose_op = pauli_compose(list(existing_op), op)
+            final_coeff = pauli_coeff * compose_coeff
+            final_op = tuple(compose_op)
+            new_result[final_op] = new_result.get(final_op, 0) + final_coeff
+
+        result = new_result
+
+    symbolic_str, numeric_str = format_ansatz(pauli_operators, result)
+    return result, symbolic_str, numeric_str
+
+
+def compute_uhu(
+    u_dict: Dict[Tuple[int, ...], complex], h_terms: List[Tuple[complex, List[int]]]
+) -> Dict[Tuple[int, ...], complex]:
+    """
+    Вычисляет оператор U† H U.
+    Возвращает: словарь {оператор: коэффициент}
+    """
+    uhu_dict: Dict[Tuple[int, ...], complex] = {}
+
+    for coeff_h, op_h in h_terms:
+        for j_op, j_coeff in u_dict.items():
+            conjugated_j_coeff = np.conj(j_coeff)
+            c1, op_uh = pauli_compose(list(j_op), op_h)
+
+            for k_op, k_coeff in u_dict.items():
+                c2, op_uhu = pauli_compose(op_uh, list(k_op))
+                total_coeff = conjugated_j_coeff * k_coeff * coeff_h * c1 * c2
+
+                # Стабилизация малых значений
+                if abs(total_coeff) < 1e-12:
+                    continue
+
+                op_tuple = tuple(op_uhu)
+                uhu_dict[op_tuple] = uhu_dict.get(op_tuple, 0) + total_coeff
+    return uhu_dict
+
+
+def calculate_expectation(uhu_dict: Dict[Tuple[int, ...], complex]) -> float:
+    """
+    Вычисляет <0|U†HU|0> для состояния |0...0>.
+    Возвращает: ожидаемое значение
+    """
+    expectation = 0.0
+    for op, coeff in uhu_dict.items():
+        if all(p in {0, 3} for p in op):
+            expectation += coeff.real
+    return expectation
+
+
+def generate_neighbor_theta(
+    current_theta: np.ndarray, step_size: float = 0.1
+) -> np.ndarray:
+    """Генерирует соседнее решение, добавляя случайное изменение к текущему theta."""
+    perturbation = np.random.normal(scale=step_size, size=current_theta.shape)
+    return np.clip(current_theta + perturbation, 0.0, 1.0)
+
+
+def simulated_annealing(
+    initial_theta: np.ndarray,
+    pauli_operators: list,
+    initial_temp: float = 1000.0,
+    cooling_rate: float = 0.99,
+    min_temp: float = 1e-5,
+    num_iterations_per_temp: int = 500,
+    step_size: float = 0.5,
+) -> tuple:
+    """Реализует алгоритм имитации отжига с термализацией."""
+    current_theta = initial_theta.copy()
+    best_theta = current_theta.copy()
+    best_energy = float("inf")
+    rng = np.random.default_rng()
+
+    with Progress(
+        SpinnerColumn(),
+        TextColumn("[progress.description]{task.description}"),
+        BarColumn(bar_width=None),
+        TextColumn("[progress.percentage]{task.percentage:>3.0f}%"),
+    ) as progress:
+        task = progress.add_task("[cyan]Отжиг...", total=100)
+
+        temp = initial_temp
+        iteration = 0
+
+        while temp > min_temp:
+            for _ in range(num_iterations_per_temp):
+                # Генерация соседнего решения с адаптивным шагом
+                perturbation = rng.normal(0, step_size*(temp/initial_temp), size=current_theta.shape)
+                neighbor_theta = (current_theta + perturbation) % (2*np.pi)
+
+                # Вычисление энергии нового состояния
+                ansatz_dict, _, _ = calculate_ansatz(neighbor_theta, pauli_operators)
+                uhu_dict = compute_uhu(ansatz_dict, pauli_operators)
+                current_energy = calculate_expectation(uhu_dict)
+
+                # Критерий принятия решения
+                energy_diff = current_energy - best_energy
+                if energy_diff < 0 or rng.random() < np.exp(-energy_diff / temp):
+                    current_theta = neighbor_theta.copy()
+
+                    if current_energy < best_energy:
+                        best_theta = current_theta.copy()
+                        best_energy = current_energy
+
+                iteration += 1
+                if iteration % 100 == 0:
+                    progress.update(task, advance=1)
+
+            temp *= cooling_rate
+
+    return best_theta, best_energy
+
+
+def main():
+    """Основная логика программы."""
+    console = initialize_environment()
+
+    # Явная проверка существования файла
+    if not HAMILTONIAN_FILE_PATH.exists():
+        msg = (
+            f"Файл [bold]{HAMILTONIAN_FILE_PATH}[/] не найден!\n"
+            "Убедитесь, что рядом с EXE есть папка [bold]params[/] с файлом [bold]hamiltonian_operators.txt[/]."
+        )
+        console_and_print(console, Panel(msg, border_style="red"))
+        return
+
+    try:
+        pauli_operators, pauli_strings = read_hamiltonian_data(HAMILTONIAN_FILE_PATH)
+
+        print_hamiltonian(console, pauli_operators)
+        print_pauli_table(console, pauli_operators)
+        print_composition_table(console, pauli_compose, pauli_strings)
+
+    except FileNotFoundError:
+        console_and_print(
+            console,
+            Panel(
+                f"[red]Файл {HAMILTONIAN_FILE_PATH} не найден[/red]", border_style="red"
+            ),
+        )
+        return
+
+    if len(pauli_operators) < 2:
+        console_and_print(
+            console,
+            Panel("[red]Требуется минимум 2 оператора Паули[/red]", border_style="red"),
+        )
+        return
+
+    best_energy = float("inf")
+    best_result = None
+
+    # Собираем все результаты для анализа
+    all_results = []
+
+    for m in range(2, len(pauli_operators) + 1):
+        initial_theta = generate_random_theta(m)
+
+        optimized_theta, energy = simulated_annealing(
+            initial_theta=initial_theta,
+            pauli_operators=pauli_operators,
+            initial_temp=100.0,
+            cooling_rate=0.95,
+            min_temp=1e-3,
+            num_iterations_per_temp=100,
+            step_size=0.1,
+        )
+
+        all_results.append(
+            {
+                "m": m,
+                "theta": optimized_theta,
+                "energy": energy,
+            }
+        )
+
+        # Обновляем лучший результат
+        if energy < best_energy:
+            best_energy = energy
+            best_result = all_results[-1]
+
+    _, ansatz_symbolic, ansatz_numeric = calculate_ansatz(
+        best_result["theta"], pauli_operators[: best_result["m"]]
+    )
+
+    console_and_print(
+        console,
+        Panel(
+            ansatz_symbolic,
+            title="[bold]Символьное представление анзаца[/]",
+            border_style="green",
+        ),
+    )
+
+    console_and_print(
+        console,
+        Panel(
+            ansatz_numeric,
+            title="[bold]Численное представление анзаца[/]",
+            border_style="purple",
+        ),
+    )
+
+    console_and_print(
+        console,
+        Panel(
+            f"{best_result['energy']:.6f}",
+            title="[bold]Энергия (<0|U†HU|0> для состояния |0...0>)[/]",
+            border_style="green",
+        ),
+    )
+
+    input('text')
+
+
+if __name__ == "__main__":
+    main()
+\end{lstlisting}
 
 \end{document} 

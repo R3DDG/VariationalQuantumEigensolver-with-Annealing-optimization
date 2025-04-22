@@ -5,13 +5,13 @@
 \usepackage[utf8]{inputenc}
 \usepackage{listings}
 \usepackage{xcolor} % Для работы с цветами
-\usepackage[russian]{babel}
+\usepackage[english, russian]{babel}
 \usepackage{indentfirst}
 \usepackage{mathrsfs}
 
 %%%%%%%%%%%%%%%%% Символы, графика %%%%%%%%%%%%%%%%%%%%%
 
-\usepackage[T2A]{fontenc}
+\usepackage[T1,T2A]{fontenc}
 \usepackage{amsmath,amssymb,amsfonts,amsthm}
 \usepackage{bm}
 \newcommand\dsone{\mathds{H}}
@@ -38,12 +38,63 @@
 
 \pagestyle{plain}
 
+\definecolor{background}{RGB}{248, 248, 248}
+\definecolor{string}{RGB}{246, 102, 30}
+\definecolor{comment}{RGB}{0, 128, 1}
+\definecolor{normal}{RGB}{0, 0, 0}
+\definecolor{identifier}{RGB}{0, 150, 186}
+\definecolor{keyword}{RGB}{138, 49, 185}
+\definecolor{variables}{RGB}{229, 8, 118}
+
 % Основные настройки для поддержки кириллицы
-\lstset{    
+\lstset{
+    alsoletter=.,
+    language=python,                			% choose the language of the code
+    numbers=left,                   		% where to put the line-numbers
+    stepnumber=1,                   		% the step between two line-numbers.
+    numbersep=5pt,                  		% how far the line-numbers are from the code
+    numberstyle=\tiny\color{black}\ttfamily,
+    backgroundcolor=\color{background},  		% choose the background color. You must add \usepackage{color}
+    showspaces=false,               		% show spaces adding particular underscores
+    showstringspaces=false,         		% underline spaces within strings
+    showtabs=false,                 		% show tabs within strings adding particular underscores
+    tabsize=4,                      		% sets default tabsize to 2 spaces
+    captionpos=b,                   		% sets the caption-position to bottom
+    breaklines=true,                		% sets automatic line breaking
+    breakatwhitespace=true,         		% sets if automatic breaks should only happen at whitespace
+    title=\lstname,                 		% show the filename of files included with \lstinputlisting;
+    basicstyle=\color{normal}\ttfamily\footnotesize,					% sets font style for the code
+    keywordstyle=\color{keyword}\textbf,	% sets color for keywords
+    stringstyle=\color{string}\ttfamily,		% sets color for strings
+    commentstyle=\color{comment}\ttfamily,	% sets color for comments
+    emph={
+    print, input, open, close, read, write,
+    len, range, enumerate, zip, format, split, join,
+    print_pauli_table, get_base_path, console_and_print, ljust, rstrip,
+    create_table, format_ansatz, format_complex_number,
+    format_number, get_operator_for_console, initialize_environment,
+    print_composition_table, print_hamiltonian, print_pauli_table,
+    read_file_lines, read_hamiltonian_data, generate_random_theta,
+    multiply_pauli, pauli_compose, calculate_ansatz, compute_uhu,
+    calculate_expectation, generate_neighbor_theta, simulated_annealing,
+    main, getattr,  print_composition_table
+    },
+    emphstyle=\color{identifier}\ttfamily,
+    %emphstyle=[2]\color{variables}\ttfamily,
+    %emphstyle=[3]\color{black}\ttfamily,
+    %moreemph=[2]{
+    %    HAMILTONIAN_FILE_PATH, OUTPUT_FILE_PATH, PAULI_MAP, ansatz_symbolic, table, ansatz_symbolic
+    % },
+    %moreemph=[3]{
+    %    rich\\.table
+    %},
     literate=
+        {θ}{{$\theta$}}1
         {π}{{$\pi$}}1
+        {σ}{{$\sigma$}}1
+        {±}{{$\pm$}}1
+        {→}{{$\rightarrow$}}1
         {†}{{\textdagger}}1
-        {\u8:Оёθ}{{$\theta$}}1       
         {а}{{\cyra}}1
         {б}{{\cyrb}}1
         {в}{{\cyrv}}1
@@ -110,54 +161,8 @@
         {Э}{{\CYREREV}}1
         {Ю}{{\CYRYU}}1
         {Я}{{\CYRYA}}1,
-    basicstyle=\ttfamily,
-    columns=fullflexible,
-    inputencoding=utf8,
-    extendedchars=true,
-    keepspaces=true,
-    texcl=true,
-    upquote=true,
-    escapeinside={(*@}{@*)},  % Альтернативные разделители для escape-последовательностей
-    morecomment=[l][\itshape\color{red}]{//}  % Стиль для однострочных комментариев
 }
 
-% GitHub-like цветовая схема
-\definecolor{gh-background}{RGB}{248, 248, 248}
-\definecolor{gh-comment}{RGB}{106, 115, 125}
-\definecolor{gh-keyword}{RGB}{215, 58, 73}
-\definecolor{gh-string}{RGB}{3, 47, 98}
-\definecolor{gh-number}{RGB}{0, 92, 197}
-\definecolor{gh-operator}{RGB}{215, 58, 73}
-\definecolor{gh-identifier}{RGB}{0, 0, 0}
-\definecolor{gh-border}{RGB}{234, 236, 239}
-
-\lstdefinestyle{githubpython}{
-    backgroundcolor=\color{gh-background},
-    commentstyle=\color{gh-comment},
-    keywordstyle=\color{gh-keyword},
-    numberstyle=\tiny\color{gh-comment},
-    stringstyle=\color{gh-string},
-    basicstyle=\ttfamily\footnotesize,
-    breakatwhitespace=false,
-    breaklines=true,
-    captionpos=b,
-    keepspaces=true,
-    numbers=left,
-    numbersep=8pt,
-    showspaces=false,
-    showstringspaces=false,
-    showtabs=false,
-    tabsize=4,
-    frame=single,
-    framesep=5pt,
-    rulecolor=\color{gh-border},
-    language=Python,
-    morekeywords={as, async, await, False, None, True, self, __init__, with},
-    otherkeywords={!,!=,\%,\%\%,&,\,*,**,*+,+,-,/,//,:,;,<,<<,<=,<>,=,==,>,>=,>>,@},
-    texcl=true, % Разрешить LaTeX-команды в комментариях
-    alsoletter={\\},  % Разрешить обратный слэш в идентификаторах
-    moredelim=**[is][\color{red}]{`}{`}  % Подсветка встроенных команд
-}
 
 %%%%%%%% newcommands:  ket,  bra,  ketbra,  braket
 \newcommand{\ket}[1] {\!\!\;\ensuremath{\left|#1\right\rangle}}
@@ -907,7 +912,385 @@ i \hbar \frac{\partial}{\partial t} \ket{\psi(t)} = H(t) \ket{\psi(t)},
 
 \addcontentsline{toc}{chapter}{\hspace{5.5mm} Приложение Python}
 \chapter*{Приложение Python}
-\begin{lstlisting}[style=githubpython]
+\begin{lstlisting}
+#constants/file_paths.py
+import sys
+from pathlib import Path
+
+def get_base_path() -> Path:
+    """Возвращает путь к директории с EXE (или к проекту в dev-режиме)."""
+    if getattr(sys, "frozen", False):
+        # Для скомпилированного EXE берём директорию исполняемого файла
+        return Path(sys.argv[0]).parent
+    else:
+        # Для разработки возвращаем корень проекта
+        return Path(__file__).parent.parent
+
+# Путь к hamiltonian_operators.txt (внешний файл)
+HAMILTONIAN_FILE_PATH = get_base_path() / "params" / "hamiltonian_operators.txt"
+
+# Файл вывода создаётся в текущей рабочей директории
+OUTPUT_FILE_PATH = get_base_path() / "output.log"
+
+
+#constants/pauli.py
+PAULI_MAP = {
+    (1, 2): (1j, 3),
+    (2, 1): (-1j, 3),
+    (3, 1): (1j, 2),
+    (1, 3): (-1j, 2),
+    (2, 3): (1j, 1),
+    (3, 2): (-1j, 1),
+}
+
+
+#params/hamiltonian_operators.txt
+# Действительная часть | Мнимая часть | Строка Паули
+
+2.0 0.0 03
+1.0 0.0 30
+-4.0 0.0 11
+
+
+#utils/console_and_print.py
+from rich.console import Console
+from typing import Any
+from constants.file_paths import OUTPUT_FILE_PATH
+
+
+def console_and_print(console: Console, message: Any) -> None:
+    """
+    Выводит результат выполнения программы в файл и консоль
+
+    :param console: Объект Console для вывода в консоль
+    :param message: Сообщение для вывода
+    """
+    console.print(message)
+    with open(OUTPUT_FILE_PATH, "a", encoding="utf-8") as file:
+        file.write(console.export_text() + "\n")
+
+
+#utils/create_table.py
+from rich.table import Table
+from rich.panel import Panel
+from rich import box
+from typing import List, Dict, Any
+
+
+def create_table(
+    columns: List[Dict[str, str]],
+    data: List[List[Any]],
+    title: str,
+    border_style: str = "yellow",
+) -> Panel:
+    table = Table(box=box.ROUNDED, border_style="yellow")
+    for col in columns:
+        table.add_column(
+            col["name"],
+            justify=col.get("justify", "default"),
+            style=col.get("style", ""),
+        )
+    for row in data:
+        table.add_row(*row)
+    return Panel(table, title=title, border_style=border_style)
+
+
+#utils/format_ansatz.py
+from .format_complex_number import format_complex_number
+
+
+def format_ansatz(
+    pauli_operators: list[list[int]], result: dict[tuple, complex]
+) -> tuple[str, str]:
+    """
+    Форматирует анзац в символьное и численное представление.
+
+    :param pauli_operators: Список операторов Паули (списки индексов).
+    :param result: Словарь с результатами вычислений {оператор: коэффициент}.
+    :return: Символьное представление анзаца и его численное значение.
+    """
+    # Формируем U(θ)
+    ansatz_symbolic = "U(θ) = " + " * ".join(
+        [
+            f"e^(iθ_{i+1}*{format_complex_number(op[0])}*σ_{''.join(map(str, op[1]))})"
+            for i, op in enumerate(pauli_operators)
+        ]
+    )
+
+    # Формируем U
+    ansatz_numeric = "U = " + " + ".join(
+        [
+            f"{format_complex_number(c)}*{format_complex_number(op[0])}*σ_{''.join(map(str, op[1:]))}"
+            if isinstance(op, (list, tuple))
+            and len(op) > 1
+            and isinstance(op[0], complex)
+            else f"{format_complex_number(c)}*σ_{''.join(map(str, op))}"
+            for op, c in result.items()
+        ]
+    )
+
+    return ansatz_symbolic, ansatz_numeric
+
+
+#utils/format_complex_number.py
+from sympy import re as sp_re, im as sp_im
+from .format_number import format_number
+
+
+def format_complex_number(c) -> str:
+    """
+    Универсальный форматировщик комплексных чисел для SymPy и стандартных типов.
+    """
+    # Извлечение компонентов через SymPy
+    real = float(sp_re(c))
+    imag = float(sp_im(c))
+
+    real_str = format_number(real) if abs(real) > 1e-12 else ""
+    imag_str = ""
+
+    if abs(imag) > 1e-12:
+        abs_imag = abs(imag)
+        imag_value = format_number(abs_imag)
+
+        # Специальные случаи для ±1
+        if imag_value == "1":
+            imag_str = "i" if imag > 0 else "-i"
+        else:
+            imag_sign = "" if imag > 0 else "-"
+            imag_str = f"{imag_sign}{imag_value}i"
+
+    # Сборка результата
+    parts = []
+    if real_str:
+        parts.append(real_str)
+    if imag_str:
+        parts.append(imag_str)
+
+    if not parts:
+        return "0"
+
+    # Корректное объединение компонентов
+    result = parts[0]
+    for part in parts[1:]:
+        if part.startswith("-"):
+            result += f"-{part[1:]}"
+        else:
+            result += f"+{part}"
+
+    # Фикс артефактов форматирования
+    return result.replace("+ -", "- ").replace("1i", "i").replace(".0i", "i")
+
+
+#utils/format_number.py
+def format_number(num: float | int) -> str:
+    """
+    Универсальный форматировщик чисел с точным определением целочисленных значений
+    и подавлением артефактов вычислений с плавающей точкой.
+    """
+    # Проверка на целое число с учетом погрешности вычислений
+    if abs(num - round(num)) < 1e-15:
+        return str(int(round(num)))
+
+    # Форматирование с ручным управлением десятичными знаками
+    s = f"{num:.14f}".rstrip("0").rstrip(".")
+
+    # Исправление артефактов вида ".5" → "0.5"
+    if s.startswith("."):
+        s = "0" + s
+    elif s.startswith("-."):
+        s = s.replace("-.", "-0.")
+
+    # Удаление лишних десятичных знаков после 4-го
+    if "." in s:
+        int_part, dec_part = s.split(".")
+        dec_part = dec_part[:4].ljust(4, "0").rstrip("0")
+        s = f"{int_part}.{dec_part}" if dec_part else int_part
+
+    return s
+
+
+#utils/get_operator_for_console.py
+from .format_complex_number import format_complex_number
+from typing import Union
+
+
+def get_operator_for_console(c: Union[complex, float, int], i: str) -> str:
+    """
+    Функция создана для 'красивого' вывода оператора Паули в консоль.
+    Избегает ситуаций, когда у нас выводится конструкция вида '1*σ'
+
+    :param c: Коэффициент оператора Паули.
+    :param i: Строка оператора Паули.
+    :return: Отформатированную строку.
+    """
+    if c == 1:
+        return f"σ_{i}"
+    else:
+        return f"{format_complex_number(c)}*σ_{i}"
+
+
+#utils/initialize_environment.py
+from rich.console import Console  # Для красивого вывода в консоль
+from constants.file_paths import OUTPUT_FILE_PATH
+
+
+def initialize_environment() -> Console:
+    """Инициализирует окружение и возвращает консольный объект."""
+    if OUTPUT_FILE_PATH.exists():
+        OUTPUT_FILE_PATH.unlink()
+    return Console(force_terminal=True, color_system="truecolor", record=True)
+
+
+#utils/print_composition_table.py
+from rich.console import Console  # Для красивого вывода в консоль
+from typing import Tuple, List, Callable
+from .console_and_print import console_and_print
+from .create_table import create_table
+from .format_complex_number import format_complex_number
+
+
+def print_composition_table(
+    console: Console,
+    pauli_compose: Callable[[List[int], List[int]], Tuple[complex, List[int]]],
+    pauli_strings: List[List[int]],
+) -> None:
+    """Выводит таблицу композиций операторов Паули."""
+    results = []
+    for s1 in pauli_strings:
+        for s2 in pauli_strings:
+            coeff, product = pauli_compose(s1, s2)
+            results.append((s1, s2, format_complex_number(coeff), product))
+
+    table_data = [
+        [str(s1), str(s2), str(h).lower(), str(p)] for s1, s2, h, p in results
+    ]
+    console_and_print(
+        console,
+        create_table(
+            columns=[
+                {"name": "Оператор 1", "style": "cyan", "justify": "center"},
+                {"name": "Оператор 2", "style": "magenta", "justify": "center"},
+                {"name": "Коэффициент", "style": "green", "justify": "center"},
+                {"name": "Результат", "style": "red", "justify": "center"},
+            ],
+            data=table_data,
+            title="Композиции операторов Паули",
+            border_style="green",
+        ),
+    )
+
+
+#utils/print_hamiltonian.py
+from rich.console import Console
+from rich.panel import Panel
+from typing import Tuple, List
+from .get_operator_for_console import get_operator_for_console
+from .console_and_print import console_and_print
+
+
+def print_hamiltonian(
+    console: Console, pauli_operators: List[Tuple[complex, List[int]]]
+) -> None:
+    """Выводит представление гамильтониана в консоль."""
+    hamiltonian_str = "H = " + " + ".join(
+        [get_operator_for_console(c, ''.join(map(str, i))) for c, i in pauli_operators]
+    )
+    console_and_print(
+        console,
+        Panel(
+            hamiltonian_str,
+            title="[bold]Введенный гамильтониан[/bold]",
+            border_style="green",
+        ),
+    )
+
+
+#utils/print_pauli_table.py
+from rich.console import Console  # Для красивого вывода в консоль
+from typing import Tuple, List
+from .format_complex_number import format_complex_number
+from .console_and_print import console_and_print
+from .create_table import create_table
+
+
+def print_pauli_table(
+    console: Console, pauli_operators: List[Tuple[complex, List[int]]]
+) -> None:
+    """Выводит таблицу операторов Паули."""
+    table_data = [[format_complex_number(c), str(i)] for c, i in pauli_operators]
+    console_and_print(
+        console,
+        create_table(
+            columns=[
+                {"name": "Коэффициент", "style": "cyan"},
+                {"name": "Индекс", "style": "magenta", "justify": "center"},
+            ],
+            data=table_data,
+            title="Операторы Паули",
+            border_style="purple",
+        ),
+    )
+
+
+#utils/read_file_lines.py
+from pathlib import Path
+
+
+def read_file_lines(file_path, ignore_comments):
+    """
+    Читает строки из файла, игнорируя комментарии (строки, начинающиеся с '#').
+
+    :param file_path: Путь к файлу.
+    :param ignore_comments: Игнорировать строки, начинающиеся с '#'.
+    :return: Список строк.
+    :raises FileNotFoundError: Если файл не найден.
+    """
+    file_path = Path(file_path) if not isinstance(file_path, Path) else file_path
+    if not file_path.exists():
+        raise FileNotFoundError(f"Файл {file_path} не найден.")
+    with open(file_path, "r") as file:
+        return [
+            line.strip()
+            for line in file
+            if not (ignore_comments and line.strip().startswith("#"))
+        ]
+
+
+#utils/read_hamiltonian_data.py
+import numpy as np  # Для работы с комплексными числами и математическими операциями
+from .read_file_lines import read_file_lines
+
+
+def read_hamiltonian_data(file_path):
+    """
+    Читает данные из файла hamiltonian_operators.txt и возвращает два списка:
+    - Список операторов Паули в виде коэффициента оператора и строки Паули.
+    - Список строк операторов Паули.
+
+    :param file_path: Путь к файлу.
+    :return: (pauli_operators, pauli_strings)
+    :raises FileNotFoundError: Если файл не найден.
+    """
+    lines = read_file_lines(file_path, ignore_comments=False)
+    pauli_operators = []
+    pauli_strings = []
+    for line in lines:
+        parts = line.strip().split()
+        if len(parts) == 3:
+            real_part, imag_part, index_str = (
+                float(parts[0]),
+                float(parts[1]),
+                str(parts[2]),
+            )
+            coefficient = np.complex128(real_part + imag_part * 1j)
+            index_list = [int(c) for c in index_str]
+            if coefficient != 0:
+                pauli_operators.append((coefficient, index_list))
+            pauli_strings.append(index_list)
+    return pauli_operators, pauli_strings
+
+
+#program.py
 import numpy as np
 import sys
 import io
@@ -1195,7 +1578,7 @@ def main():
         console,
         Panel(
             f"{best_result['energy']:.6f}",
-            title="[bold]Энергия (⟨0|U†HU|0⟩ для состояния |0...0⟩)[/]",
+            title="[bold]Энергия (<0|U†HU|0> для состояния |0...0>)[/]",
             border_style="green",
         ),
     )
