@@ -128,6 +128,7 @@
 
 \setcounter{page}{2}
 
+\vspace{-4ex}
 \tableofcontents
 \newpage
 
@@ -349,41 +350,46 @@ $${
     \caption{Множитель до ${\hat{\sigma}_M}$ в \eqref{eq6} для ${\hat{\sigma}_K\hat{\sigma}_L,\{\hat{\sigma}_K,\hat{\sigma}_L\}}$, и ${[i\hat{\sigma}_K,i\hat{\sigma}_L]}$.}\label{table1}
 \end{table}
 
-Теперь композиция двух базисных элементов Паули и их антикоммутатора и коммутатора можно записать в виде компактных выражений, удобных для классического компьютерного программирования:
+Композицию элементов базиса Паули, их антикоммутаторов и коммутаторов можно компактно выразить в виде, удобном для программной реализации:
 \begin{equation}\label{eq6}
-    \hat{\sigma}_K\hat{\sigma}_L=S_{KL}\hat{\sigma}_M,\;\;\;\{\hat{\sigma}_K,\hat{\sigma}_L\}=S_{(KL)}\hat{\sigma}_M,\;\;\;[i\hat{\sigma}_K, i\hat{\sigma}_L]=-S_{[KL]}\hat{\sigma}_M,
+    \hat{\sigma}_K\hat{\sigma}_L = S_{KL}\hat{\sigma}_M,\;\;\;
+    \{\hat{\sigma}_K, \hat{\sigma}_L\} = S_{(KL)}\hat{\sigma}_M,\;\;\;
+    [i\hat{\sigma}_K, i\hat{\sigma}_L] = -S_{[KL]}\hat{\sigma}_M,
 \end{equation}
 
 \noindent где
 
 \begin{equation}\label{eq7}
-    \hat{\sigma}_M=\hat{\sigma}_{m_1\ldots m_n}, \;\;\; m_1 = k_1*l_1,\ldots,m_n=k_n*l_n.
+    \hat{\sigma}_M = \hat{\sigma}_{m_1\ldots m_n}, \;\;\; m_r = k_r \cdot l_r \;\;\; (r = 1,\ldots,n).
 \end{equation}
 
-Обратим внимание, что две строки Паули длины ${n}$ могут коммутировать, даже если они имеют разные ненулевые записи в одних и тех же местах. Например, три оператора ${\hat{\sigma}_{11},\;\hat{\sigma}_{22}}$, и ${\hat{\sigma}_{33}}$ взаимно коммутируют. Так же легко увидеть, что унитарная матрица перехода, преобразующая стандартный базис ${\{|i_1\ldots i_n\rangle\langle j_1\ldots j_n|\}}$ в базис Паули, состоит только из элементов ${0,\;\pm1,}$ и ${\pm i}$. В частности
-$${|00\ldots0\rangle\langle00\ldots0|\rightarrow\frac{1}{2^n}\sum_{i_1,\ldots,i_n\in\{0,3\}}\hat{\sigma}_{i_1\ldots i_n}.}$$
+Две строки Паули длины ${n}$ могут коммутировать, даже имея ненулевые элементы в одних и тех же позициях. Например, операторы ${\hat{\sigma}_{11}}$, ${\hat{\sigma}_{22}}$ и ${\hat{\sigma}_{33}}$ коммутируют друг с другом. Унитарная матрица перехода из стандартного базиса ${\{|i_1\ldots i_n\rangle\langle j_1\ldots j_n|\}}$ в базис Паули содержит только элементы ${0}$, ${\pm 1}$ и ${\pm i}$. Например:
+$$
+|00\ldots0\rangle\langle00\ldots0| \rightarrow \frac{1}{2^n} \sum_{i_1,\ldots,i_n \in \{0,3\}} \hat{\sigma}_{i_1\ldots i_n}.
+$$
 
-В более общем виде стандартные ортогональные проекторы могут быть выражены как
-$${
-    |i_1\ldots i_n\rangle\langle i_1\ldots i_n|_{i_1,\ldots,i_n\in\{0,1\}} = \frac{1}{2^n}\sum_{k_1,\ldots,k_n\in\{0,3\}}\mathcal{X}^{i_1}_{k_1}\cdots\mathcal{X}^{i_n}_{k_n}\:\hat{\sigma}_{k_1\ldots k_n},
-    }$$
-
+Общее выражение для стандартных ортогональных проекторов имеет вид:
+$$
+|i_1\ldots i_n\rangle\langle i_1\ldots i_n| = \frac{1}{2^n} \sum_{k_1,\ldots,k_n \in \{0,3\}} \mathcal{X}^{i_1}_{k_1} \cdots \mathcal{X}^{i_n}_{k_n} \: \hat{\sigma}_{k_1\ldots k_n},
+$$
 \noindent где
 
 $${
             \mathcal{X}^0_0=\mathcal{X}^0_3=\mathcal{X}^1_0=1,\;\;\;\mathcal{X}^1_3 = -1.
         }$$
 
-Выражение \eqref{eq6} показывает, во-перых, что множество ${\{i\hat{\sigma}_K\}^{4^n-1}_{K=0}}$ составляет ортонормированный базис в ${\mathfrak{su}(n)}$. И, во-вторых, множество
+Из выражения \eqref{eq6} следует, что:
+1. Множество ${\{i\hat{\sigma}_K\}_{K=0}^{4^n-1}}$ образует ортонормированный базис в ${\mathfrak{su}(2^n)}$.
+2. Множество
 $${
-            \widetilde{P}(\mathcal{H}_n) = \left\{\epsilon\hat{\sigma}_K|K\in\mathrm{Str}_n,\epsilon\in\{\pm1,\pm i\}\right\},
-        }$$
+    \widetilde{P}(\mathcal{H}_n) = \left\{\epsilon\hat{\sigma}_K \mid K \in \mathrm{Str}_n,\; \epsilon \in \{\pm1, \pm i\}\right\},
+}$$
+\noindent содержащее ${4^{n+1}}$ элементов, образует группу — т.н. ${n}$-кубитную группу Паули.
 
-\noindent который состоит из ${4^{n+1}}$ элементов, это группа; это называется \mbox{(${n}$-кубитной)} группой Паули. Нормализатор группы Паули,
+Нормализатор группы Паули в унитарной группе:
 $${
-            \mathcal{C}(\mathcal{H}_n)=\{\hat{U}\in U(\mathcal{H}_n)|\hat{U}\hat{\sigma}_K\hat{U}^\dagger\in\widetilde{P}(\mathcal{H}_n),\;\;\hat{\sigma}_K\in\widetilde{P}(\mathcal{H}_n)\},
-        }$$
-
+    \mathcal{C}(\mathcal{H}_n) = \left\{\hat{U} \in U(\mathcal{H}_n) \mid \hat{U}\hat{\sigma}_K\hat{U}^\dagger \in \widetilde{P}(\mathcal{H}_n),\;\; \forall \hat{\sigma}_K \in \widetilde{P}(\mathcal{H}_n)\right\},
+}$$
 \noindent называется группой Клиффорда. Исходя из \eqref{eq2}, \eqref{eq4} и \eqref{eq7} получаем следующее утверждение
 
 \textsf{Утверждение 1.}\textit{Взаимные унитарные преобразования базисных операторов Паули подчиняются соотношениям ${\hat{\sigma}_{i_1\ldots i_n}\hat{\sigma}_{k_1\ldots k_n}\hat{\sigma}_{i_1\ldots i_n}=\pm\hat{\sigma}_{i_1\ldots i_n}}$, где знак плюс стоит тогда и только тогда, когда количество троек ${(i_m k_m i_m)_{m\in\{1,\ldots,n\}}}$, удовлетворяют условиям ${i_m\neq k_m},\;i_m\neq0,$ и ${k_m\neq0}$ четности}.
@@ -825,7 +831,7 @@ i \hbar \frac{\partial}{\partial t} \ket{\psi(t)} = H(t) \ket{\psi(t)},
 %################################################################################################### Приложение ##########################################################################################################
 %#########################################################################################################################################################################################################################
 
-\addcontentsline{toc}{chapter}{\hspace{5.5mm} Приложение  C{$\#$}}
-\chapter*{Приложение C{$\#$}}
+\addcontentsline{toc}{chapter}{\hspace{5.5mm} Приложение Python}
+\chapter*{Приложение Python}
 
 \end{document} 
