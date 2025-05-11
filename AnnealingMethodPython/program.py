@@ -28,7 +28,7 @@ def generate_shifted_theta(pauli_operators: List[Tuple[complex, List[int]]]) -> 
     if not pauli_operators:
         return np.array([], dtype=np.float64)
     
-    # Извлекаем коэффициенты и нормализуем их
+    # Извлечение модулей действительных частей
     coeffs = np.array([abs(op[0].real) for op in pauli_operators], dtype=np.float64)
     norm = np.linalg.norm(coeffs)
     if norm < 1e-12:

@@ -16,6 +16,7 @@ def read_hamiltonian_data(file_path):
     pauli_operators = []
     pauli_strings = []
     for line in lines:
+        # Разделение строки на компоненты
         parts = line.strip().split()
         if len(parts) == 3:
             real_part, imag_part, index_str = (
@@ -23,9 +24,11 @@ def read_hamiltonian_data(file_path):
                 float(parts[1]),
                 str(parts[2]),
             )
+            # Преобразование в комплексное число
             coefficient = np.complex128(real_part + imag_part * 1j)
+            # Парсинг строки Паули
             index_list = [int(c) for c in index_str]  
-            if coefficient != 0:
+            if coefficient != 0: # Игнорирование нулевых коэффициентов
                 pauli_operators.append((coefficient, index_list))
             pauli_strings.append(index_list)
     return pauli_operators, pauli_strings
