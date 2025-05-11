@@ -39,13 +39,16 @@
 \pagestyle{plain}
 
 \definecolor{background}{RGB}{248, 248, 248}
-\definecolor{string}{RGB}{230, 219, 116}
-\definecolor{comment}{RGB}{117, 113, 94}
+\definecolor{string}{RGB}{246, 102, 30}
+\definecolor{comment}{RGB}{0, 128, 1}
 \definecolor{normal}{RGB}{0, 0, 0}
-\definecolor{identifier}{RGB}{166, 226, 46}
+\definecolor{identifier}{RGB}{0, 150, 186}
+\definecolor{keyword}{RGB}{138, 49, 185}
+\definecolor{variables}{RGB}{229, 8, 118}
 
 % Основные настройки для поддержки кириллицы
 \lstset{
+    alsoletter=.,
     language=python,                			% choose the language of the code
     numbers=left,                   		% where to put the line-numbers
     stepnumber=1,                   		% the step between two line-numbers.
@@ -60,11 +63,22 @@
     breaklines=true,                		% sets automatic line breaking
     breakatwhitespace=true,         		% sets if automatic breaks should only happen at whitespace
     title=\lstname,                 		% show the filename of files included with \lstinputlisting;
-    basicstyle=\color{normal}\ttfamily\small,					% sets font style for the code
-    keywordstyle=\color{magenta}\ttfamily,	% sets color for keywords
+    basicstyle=\color{normal}\ttfamily\footnotesize,					% sets font style for the code
+    keywordstyle=\color{keyword}\textbf,	% sets color for keywords
     stringstyle=\color{string}\ttfamily,		% sets color for strings
     commentstyle=\color{comment}\ttfamily,	% sets color for comments
-    emph={format_string, eff_ana_bf, permute, eff_ana_btr},
+    emph={
+    print, input, open, close, read, write,
+    len, range, enumerate, zip, format, split, join,
+    print_pauli_table, get_base_path, console_and_print, ljust, rstrip,
+    create_table, format_ansatz, format_complex_number,
+    format_number, get_operator_for_console, initialize_environment,
+    print_composition_table, print_hamiltonian, print_pauli_table,
+    read_file_lines, read_hamiltonian_data, generate_random_theta,
+    multiply_pauli, pauli_compose, calculate_ansatz, compute_uhu,
+    calculate_expectation, generate_neighbor_theta, simulated_annealing,
+    main, getattr,  print_composition_table,generate_shifted_theta
+    },
     emphstyle=\color{identifier}\ttfamily,
     literate=
         {θ}{{$\theta$}}1
@@ -138,18 +152,15 @@
         {Ь}{{\CYRSFTSN}}1
         {Э}{{\CYREREV}}1
         {Ю}{{\CYRYU}}1
-        {Я}{{\CYRYA}}1
-        {\#}{{\#}}1,
+        {Я}{{\CYRYA}}1,
 }
 
 
-%%%%%%%% newcommands:  ket,  bra,  ketbra,  braket
+%%%%%%%% newcommands
 \newcommand{\ket}[1] {\!\!\;\ensuremath{\left|#1\right\rangle}}
 \newcommand{\bra}[1] {\!\!\:\ensuremath{\left\langle#1\right|\!\!\:}}
 \newcommand{\ketbra}[2]{\!\!\:\ensuremath {\left|#1\right\rangle\!\:\!\!\left\langle#2\right|}}
 \newcommand{\braket}[2]{\ensuremath {\!\!\:\left\langle#1\!\!\: \left|\!\!\!\;\right.#2\right\rangle\!\!\;}}
-
-
 
 \begin{document}
 
@@ -791,7 +802,6 @@ i \hbar \frac{\partial}{\partial t} \ket{\psi(t)} = H(t) \ket{\psi(t)},
 \begin{equation}
 \frac{ds}{dt} \ll \frac{\Delta^2}{\hbar \left\lVert \frac{dH}{ds} \right\rVert},
 \end{equation}
-
 где $\Delta$ — энергетический разрыв между основным и первым возбужденными состояниями гамильтониана.
 
 %#########################################################################################################################################################################################################################
@@ -799,6 +809,140 @@ i \hbar \frac{\partial}{\partial t} \ket{\psi(t)} = H(t) \ket{\psi(t)},
 %#########################################################################################################################################################################################################################
 
 \section{Алгоритм}
+
+\subsection{Этап 1: Чтение и парсинг данных гамильтониана}
+\subsubsection{Математическая модель}
+Гамильтониан представляется как линейная комбинация:
+\begin{equation}
+\hat{H} = \sum_{k=1}^K c_k \bigotimes_{j=1}^N \sigma_{k_j}^{(j)}
+\end{equation}
+где $\sigma_{k_j} \in \{I, X, Y, Z\}$ - операторы Паули для $j$-го кубита.
+\begin{lstlisting}[language=Python]
+def read_hamiltonian_data(file_path):
+    lines = read_file_lines(file_path, ignore_comments=True)
+    pauli_operators = []
+    for line in lines:
+        # Разделение строки на компоненты
+        parts = line.strip().split()
+        real_part = float(parts[0])
+        imag_part = float(parts[1])
+        pauli_str = parts[2]
+
+        # Преобразование в комплексное число
+        coefficient = complex(real_part, imag_part)
+
+        # Парсинг строки Паули
+        pauli_indices = [int(ch) for ch in pauli_str]
+
+        if abs(coefficient) > 1e-12:  # Игнорирование нулевых коэффициентов
+            pauli_operators.append( (coefficient, pauli_indices) )
+
+    return pauli_operators
+\end{lstlisting}
+\begin{itemize}
+\item \texttt{read\_file\_lines}: Чтение строк из файла с фильтрацией комментариев
+\item Преобразование строки вида "2.0 0.0 03" в:
+  \begin{itemize}
+  \item Коэффициент: $2.0 + 0.0i$
+  \item Оператор: $\sigma_0 \otimes \sigma_3$
+  \end{itemize}
+\item Валидация данных через проверку \texttt{abs(coefficient) > 1e-12}
+\end{itemize}
+
+\subsection{Этап 2: Инициализация параметров}
+\subsubsection{Математическое обоснование}
+Начальные значения $\theta$ вычисляются по формуле:
+\begin{equation}
+\theta_m^{(0)} = \underbrace{\frac{2\pi|c_m|}{\max_j|c_j|}}_{\text{Нормировка}} + \underbrace{\mathcal{N}(0, 0.1)}_{\text{Шум}}
+\end{equation}
+
+\begin{lstlisting}[language=Python]
+def generate_shifted_theta(pauli_operators):
+    # Извлечение модулей действительных частей
+    coeffs = [abs(op[0].real) for op in pauli_operators]
+
+    # Нормировка
+    max_coeff = max(coeffs) if max(coeffs) != 0 else 1.0
+    scaled = [ (c / max_coeff) * 2 * np.pi for c in coeffs ]
+
+    # Добавление гауссова шума
+    noise = np.random.normal(0, 0.1, len(scaled))
+    return np.array(scaled) + noise
+\end{lstlisting}
+
+\subsubsection{Оптимизационные аспекты}
+\begin{itemize}
+\item Использование \texttt{op[0].real} - акцент на действительной части коэффициентов
+\item Защита от деления на ноль через тернарный оператор
+\item Нормировка в диапазон $[0, 2\pi)$ для соответствия периодичности экспоненты
+\end{itemize}
+
+\subsection{Этап 3: Вычисление энергии}
+
+\subsubsection{Математическая модель}
+\begin{equation}
+E(\theta) = \langle 0|U^\dagger(\theta)\hat{H}U(\theta)|0\rangle = \sum_{k=1}^K c_k \langle 0|U^\dagger P_k U|0\rangle
+\end{equation}
+
+\subsubsection{Ключевые функции}
+\begin{enumerate}
+\item Построение анзаца (\texttt{calculate\_ansatz}):
+\begin{lstlisting}[language=Python]
+def calculate_ansatz(theta, pauli_operators):
+    result = {tuple([0]*len(pauli_operators[0][1])): 1.0}
+    for t, (_, op) in zip(theta, pauli_operators):
+        # Применение экспоненты оператора
+        new_result = defaultdict(complex)
+        for existing_op, coeff in result.items():
+            # Терм 1: cos(t)*I
+            new_result[existing_op] += coeff * np.cos(t)
+            # Терм 2: i*sin(t)*σ
+            compose_coeff, compose_op = pauli_compose(existing_op, op)
+            new_result[tuple(compose_op)] += coeff * 1j * np.sin(t) * compose_coeff
+        result = new_result
+    return result
+\end{lstlisting}
+
+\item Композиция операторов (\texttt{pauli\_compose}):
+\begin{lstlisting}[language=Python]
+def pauli_compose(s1, s2):
+    coefficient = 1.0
+    result = []
+    for a, b in zip(s1, s2):
+        coeff, idx = PAULI_MAP.get((a, b), (1, 0))
+        coefficient *= coeff
+        result.append(idx)
+    return coefficient, result
+\end{lstlisting}
+\end{enumerate}
+
+\subsubsection{Псевдокод алгоритма}
+\begin{algorithm}[H]
+\caption{Модифицированный алгоритм отжига}
+\begin{algorithmic}[1]
+\State Инициализация $\theta^{(0)}, T \gets T_{\text{init}}$
+\While{$T > T_{\min}$}
+    \For{$i = 1$ to $N_{\text{therm}}$}
+        \State $\theta' \gets \theta + \Delta\theta_{\text{therm}}$
+        \State $\Delta E \gets E(\theta') - E(\theta)$
+        \If{$\Delta E < 0$ или $e^{-\Delta E/T} > \text{rand}(0,1)$}
+            \State $\theta \gets \theta'$
+        \EndIf
+    \EndFor
+
+    \For{$i = 1$ to $N_{\text{iter}}$}
+        \State $\theta' \gets \theta + \mathcal{N}(0, \sigma(T))$
+        \State Вычисление $\Delta E$
+        \If{принять изменение}
+            \State $\theta \gets \theta'$
+        \EndIf
+    \EndFor
+    \State $T \gets \alpha T$
+\EndWhile
+\end{algorithmic}
+\end{algorithm}
+
+\subsection{Этап 4: Алгоритм отжига}
 
 %#########################################################################################################################################################################################################################
 %############################################################### 2.3 Сравнительные результаты тестирования ###############################################################################################################
@@ -889,8 +1033,16 @@ i \hbar \frac{\partial}{\partial t} \ket{\psi(t)} = H(t) \ket{\psi(t)},
 %################################################################################################### Приложение ##########################################################################################################
 %#########################################################################################################################################################################################################################
 
-\addcontentsline{toc}{chapter}{\hspace{5.5mm} Приложение Python}
-\chapter*{Приложение Python}
+\addcontentsline{toc}{chapter}{\hspace{5.5mm} Приложения}
+\chapter*{Приложения}
+\section*{Приложение А}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.6\textwidth]{figures/scheme.pdf}
+\caption{Блок-схема алгоритма}
+\label{fig:flowchart}
+\end{figure}
+\section*{Приложение Python}
 \begin{lstlisting}
 #constants/file_paths.py
 import sys

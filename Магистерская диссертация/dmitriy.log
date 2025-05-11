@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2025.4.22)  22 APR 2025 18:26
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2025.5.11)  11 MAY 2025 20:29
 entering extended mode
 **E:/Files/masters_thesis/РњР°РіРёСЃС‚РµСЂСЃРєР°СЏ*РґРёСЃСЃРµСЂС‚Р°С†РёСЏ/dmitr
 iy.tex
@@ -719,9 +719,12 @@ Package: atbegshi 2011/10/05 v1.16 At begin shipout hook (HO)
 Package: refcount 2011/10/16 v3.4 Data extraction from label references (HO)
 Package: hycolor 2011/01/30 v1.7 Color options for hyperref/bookmark (HO)
 )
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\ifxetex\ifxetex.sty
-Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
-)
+(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\bookman\iftex\ifxetex.sty
+Package: ifxetex 2019/10/25 v0.7 ifxetex legacy package. Use iftex instead.
+
+(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\bookman\iftex\iftex.sty
+Package: iftex 2024/12/12 v1.0g TeX engine tests
+))
 (E:\Soft\FullTex\Full_TeX\texmf\tex\latex\oberdiek\auxhook.sty
 Package: auxhook 2011/03/04 v1.3 Hooks for auxiliary files (HO)
 )
@@ -814,7 +817,7 @@ Package: everyshi 2001/05/15 v3.00 EveryShipout Package (MS)
 (E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\utilities\pgfrcs.code.tex
 Package: pgfrcs 2010/10/25 v2.10 (rcs-revision 1.24)
 ))
-Package: pgf 2008/01/15 v2.10 (rcs-revision 1.12)
+Package: pgf 2023/08/01 v3.1.10 Portable Graphics Format
 
 (E:\Soft\FullTex\Full_TeX\texmf\tex\latex\pgf\basiclayer\pgfcore.sty
 (E:\Soft\FullTex\Full_TeX\texmf\tex\latex\pgf\systemlayer\pgfsys.sty
@@ -1000,22 +1003,52 @@ File: pgfmoduleplot.code.tex 2010/10/22  (rcs-revision 1.8)
 )
 (E:\Soft\FullTex\Full_TeX\texmf\tex\latex\pgf\compatibility\pgfcomp-version-0-6
 5.sty
-Package: pgfcomp-version-0-65 2007/07/03 v2.10 (rcs-revision 1.7)
+Package: pgfcomp-version-0-65 
 \pgf@nodesepstart=\dimen155
 \pgf@nodesepend=\dimen156
 )
 (E:\Soft\FullTex\Full_TeX\texmf\tex\latex\pgf\compatibility\pgfcomp-version-1-1
 8.sty
-Package: pgfcomp-version-1-18 2007/07/23 v2.10 (rcs-revision 1.1)
+Package: pgfcomp-version-1-18 
 )) (E:\Soft\FullTex\Full_TeX\texmf\tex\latex\pgf\utilities\pgffor.sty
 (E:\Soft\FullTex\Full_TeX\texmf\tex\latex\pgf\utilities\pgfkeys.sty
 (E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\utilities\pgfkeys.code.tex))
+(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\pgf\math\pgfmath.sty
+(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\math\pgfmath.code.tex
+(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\math\pgfmathcalc.code.tex
+(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\math\pgfmathutil.code.tex)
+(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\math\pgfmathparser.code.tex
+\pgfmath@dimen=\dimen157
+\pgfmath@count=\count130
+\pgfmath@box=\box37
+\pgfmath@toks=\toks36
+\pgfmath@stack@operand=\toks37
+\pgfmath@stack@operation=\toks38
+)
+(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\math\pgfmathfunctions.code.tex
+(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\math\pgfmathfunctions.basic.cod
+e.tex)
+(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\math\pgfmathfunctions.trigonome
+tric.code.tex)
+(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\math\pgfmathfunctions.random.co
+de.tex)
+(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\math\pgfmathfunctions.compariso
+n.code.tex)
+(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\math\pgfmathfunctions.base.code
+.tex)
+(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\math\pgfmathfunctions.round.cod
+e.tex)
+(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\math\pgfmathfunctions.misc.code
+.tex)))
+(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\math\pgfmathfloat.code.tex
+\c@pgfmathroundto@lastzeros=\count131
+)))
 (E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\utilities\pgffor.code.tex
 Package: pgffor 2010/03/23 v2.10 (rcs-revision 1.18)
-\pgffor@iter=\dimen157
-\pgffor@skip=\dimen158
-\pgffor@stack=\toks36
-\pgffor@toks=\toks37
+\pgffor@iter=\dimen158
+\pgffor@skip=\dimen159
+\pgffor@stack=\toks39
+\pgffor@toks=\toks40
 ))
 (E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\frontendlayer\tikz\tikz.code.te
 x
@@ -1024,30 +1057,30 @@ Package: tikz 2010/10/13 v2.10 (rcs-revision 1.76)
 (E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\libraries\pgflibraryplothandler
 s.code.tex
 File: pgflibraryplothandlers.code.tex 2010/05/31 v2.10 (rcs-revision 1.15)
-\pgf@plot@mark@count=\count130
-\pgfplotmarksize=\dimen159
+\pgf@plot@mark@count=\count132
+\pgfplotmarksize=\dimen160
 )
-\tikz@lastx=\dimen160
-\tikz@lasty=\dimen161
-\tikz@lastxsaved=\dimen162
-\tikz@lastysaved=\dimen163
-\tikzleveldistance=\dimen164
-\tikzsiblingdistance=\dimen165
-\tikz@figbox=\box37
-\tikz@tempbox=\box38
-\tikztreelevel=\count131
-\tikznumberofchildren=\count132
-\tikznumberofcurrentchild=\count133
-\tikz@fig@count=\count134
+\tikz@lastx=\dimen161
+\tikz@lasty=\dimen162
+\tikz@lastxsaved=\dimen163
+\tikz@lastysaved=\dimen164
+\tikzleveldistance=\dimen165
+\tikzsiblingdistance=\dimen166
+\tikz@figbox=\box38
+\tikz@tempbox=\box39
+\tikztreelevel=\count133
+\tikznumberofchildren=\count134
+\tikznumberofcurrentchild=\count135
+\tikz@fig@count=\count136
 
 (E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\modules\pgfmodulematrix.code.te
 x
 File: pgfmodulematrix.code.tex 2010/08/24  (rcs-revision 1.4)
-\pgfmatrixcurrentrow=\count135
-\pgfmatrixcurrentcolumn=\count136
-\pgf@matrix@numberofcolumns=\count137
+\pgfmatrixcurrentrow=\count137
+\pgfmatrixcurrentcolumn=\count138
+\pgf@matrix@numberofcolumns=\count139
 )
-\tikz@expandcount=\count138
+\tikz@expandcount=\count140
 
 (E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\frontendlayer\tikz\libraries\ti
 kzlibrarytopaths.code.tex
@@ -1055,12 +1088,12 @@ File: tikzlibrarytopaths.code.tex 2008/06/17 v2.10 (rcs-revision 1.2)
 )))
 (E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\pgfplots.code.tex
 (E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\pgfplotscore.code.tex
-\t@pgfplots@toka=\toks38
-\t@pgfplots@tokb=\toks39
-\t@pgfplots@tokc=\toks40
-\pgfplots@tmpa=\dimen166
-\c@pgfplots@coordindex=\count139
-\c@pgfplots@scanlineindex=\count140
+\t@pgfplots@toka=\toks41
+\t@pgfplots@tokb=\toks42
+\t@pgfplots@tokc=\toks43
+\pgfplots@tmpa=\dimen167
+\c@pgfplots@coordindex=\count141
+\c@pgfplots@scanlineindex=\count142
 
 (E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\sys\pgfplotssysgeneric.cod
 e.tex))
@@ -1074,32 +1107,32 @@ Package pgfplots: loading complementary code for your PGF version...
 pgfsupp_misc.code.tex)
 (E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\oldpgfcompatib\pgfplotsold
 pgfsupp_pgfkeys.code.tex
-\pgfkeys@pathtoks=\toks41
-\pgfkeys@temptoks=\toks42
+\pgfkeys@pathtoks=\toks44
+\pgfkeys@temptoks=\toks45
 
 (E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\oldpgfcompatib\pgfplotsold
 pgfsupp_pgfkeysfiltered.code.tex
-\pgfkeys@tmptoks=\toks43
+\pgfkeys@tmptoks=\toks46
 ))
 (E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\oldpgfcompatib\pgfplotsold
 pgfsupp_pgfmathfloat.code.tex
-\c@pgfmathroundto@lastzeros=\count141
+\c@pgfmathroundto@lastzeros=\count143
 )
 (E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\oldpgfcompatib\pgfplotsold
 pgfsupp_pgflibraryplothandlers.code.tex
 File: pgflibraryplothandlers.code.tex 2012/09/11 v2.10 (rcs-revision 1.17)
-\pgf@plot@mark@count=\count142
-\pgfplotmarksize=\dimen167
+\pgf@plot@mark@count=\count144
+\pgfplotmarksize=\dimen168
 )
 (E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\oldpgfcompatib\pgfplotsold
 pgfsupp_pgflibraryfpu.code.tex)
 (E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\oldpgfcompatib\pgfplotsold
 pgfsupp_pgfcorescopes.code.tex
 File: pgfcorescopes.code.tex 2012/11/30  (rcs-revision 1.38)
-\pgfpic=\box39
-\pgf@hbox=\box40
-\pgf@layerbox@main=\box41
-\pgf@picture@serial@count=\count143
+\pgfpic=\box40
+\pgf@hbox=\box41
+\pgf@layerbox@main=\box42
+\pgf@picture@serial@count=\count145
 )
 (E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\oldpgfcompatib\pgfplotsold
 pgfsupp_pgfcorelayers.code.tex
@@ -1113,14 +1146,14 @@ structure.code.tex)
 structureext.code.tex)
 (E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\liststructure\pgfplotsarra
 y.code.tex
-\c@pgfplotsarray@tmp=\count144
+\c@pgfplotsarray@tmp=\count146
 )
 (E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\liststructure\pgfplotsmatr
 ix.code.tex)
 (E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\numtable\pgfplotstableshar
 ed.code.tex
-\c@pgfplotstable@counta=\count145
-\t@pgfplotstable@a=\toks44
+\c@pgfplotstable@counta=\count147
+\t@pgfplotstable@a=\toks47
 )
 (E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\liststructure\pgfplotsdequ
 e.code.tex)
@@ -1132,14 +1165,12 @@ ode.tex))
 e.tex)
 (E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\libs\pgflibrarypgfplots.su
 rfshading.code.tex
-\c@pgfplotslibrarysurf@no=\count146
+\c@pgfplotslibrarysurf@no=\count148
 
 (E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\sys\pgflibrarypgfplots.sur
 fshading.pgfsys-pdftex.def)))
 (E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\util\pgfplotscolormap.code
-.tex
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\util\pgfplotscolor.code.te
-x))
+.tex)
 (E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\pgfplotsstackedplots.code.
 tex)
 (E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\pgfplotsplothandlers.code.
@@ -1159,16 +1190,16 @@ x)
 kzlibrarydecorations.code.tex
 (E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\modules\pgfmoduledecorations.co
 de.tex
-\pgfdecoratedcompleteddistance=\dimen168
-\pgfdecoratedremainingdistance=\dimen169
-\pgfdecoratedinputsegmentcompleteddistance=\dimen170
-\pgfdecoratedinputsegmentremainingdistance=\dimen171
-\pgf@decorate@distancetomove=\dimen172
-\pgf@decorate@repeatstate=\count147
-\pgfdecorationsegmentamplitude=\dimen173
-\pgfdecorationsegmentlength=\dimen174
+\pgfdecoratedcompleteddistance=\dimen169
+\pgfdecoratedremainingdistance=\dimen170
+\pgfdecoratedinputsegmentcompleteddistance=\dimen171
+\pgfdecoratedinputsegmentremainingdistance=\dimen172
+\pgf@decorate@distancetomove=\dimen173
+\pgf@decorate@repeatstate=\count149
+\pgfdecorationsegmentamplitude=\dimen174
+\pgfdecorationsegmentlength=\dimen175
 )
-\tikz@lib@dec@box=\box42
+\tikz@lib@dec@box=\box43
 )
 (E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\frontendlayer\tikz\libraries\ti
 kzlibrarydecorations.pathmorphing.code.tex
@@ -1178,13 +1209,13 @@ ydecorations.pathmorphing.code.tex))
 kzlibrarydecorations.pathreplacing.code.tex
 (E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\libraries\decorations\pgflibrar
 ydecorations.pathreplacing.code.tex))
-\pgfplots@numplots=\count148
-\pgfplots@xmin@reg=\dimen175
-\pgfplots@xmax@reg=\dimen176
-\pgfplots@ymin@reg=\dimen177
-\pgfplots@ymax@reg=\dimen178
-\pgfplots@zmin@reg=\dimen179
-\pgfplots@zmax@reg=\dimen180
+\pgfplots@numplots=\count150
+\pgfplots@xmin@reg=\dimen176
+\pgfplots@xmax@reg=\dimen177
+\pgfplots@ymin@reg=\dimen178
+\pgfplots@ymax@reg=\dimen179
+\pgfplots@zmin@reg=\dimen180
+\pgfplots@zmax@reg=\dimen181
 )
 (E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\frontendlayer\tikz\libraries\ti
 kzlibraryplotmarks.code.tex
@@ -1195,9 +1226,9 @@ ode.tex
 File: pgflibraryplotmarks.code.tex 2010/10/15 v2.10 (rcs-revision 1.12)
 ))) (E:\Soft\FullTex\Full_TeX\texmf\tex\latex\tools\array.sty
 Package: array 2008/09/09 v2.4c Tabular extension package (FMi)
-\col@sep=\dimen181
-\extrarowheight=\dimen182
-\NC@list=\toks45
+\col@sep=\dimen182
+\extrarowheight=\dimen183
+\NC@list=\toks48
 \extratabsurround=\skip50
 \backup@length=\skip51
 )
@@ -1206,52 +1237,52 @@ File: lstlang1.sty 2024/09/23 1.10c listings language file
 )
 ("E:\Files\masters_thesis\РњР°РіРёСЃС‚РµСЂСЃРєР°СЏ РґРёСЃСЃРµСЂС‚Р°С†РёСЏ\dmitr
 iy.aux")
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 175.
-LaTeX Font Info:    ... okay on input line 175.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 175.
-LaTeX Font Info:    ... okay on input line 175.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 175.
-LaTeX Font Info:    ... okay on input line 175.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 175.
-LaTeX Font Info:    ... okay on input line 175.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 175.
-LaTeX Font Info:    ... okay on input line 175.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 175.
-LaTeX Font Info:    ... okay on input line 175.
-LaTeX Font Info:    Checking defaults for T2A/cmr/m/n on input line 175.
-LaTeX Font Info:    ... okay on input line 175.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 175.
-LaTeX Font Info:    ... okay on input line 175.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 175.
-LaTeX Font Info:    ... okay on input line 175.
-\c@lstlisting=\count149
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 165.
+LaTeX Font Info:    ... okay on input line 165.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 165.
+LaTeX Font Info:    ... okay on input line 165.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 165.
+LaTeX Font Info:    ... okay on input line 165.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 165.
+LaTeX Font Info:    ... okay on input line 165.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 165.
+LaTeX Font Info:    ... okay on input line 165.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 165.
+LaTeX Font Info:    ... okay on input line 165.
+LaTeX Font Info:    Checking defaults for T2A/cmr/m/n on input line 165.
+LaTeX Font Info:    ... okay on input line 165.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 165.
+LaTeX Font Info:    ... okay on input line 165.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 165.
+LaTeX Font Info:    ... okay on input line 165.
+\c@lstlisting=\count151
  (E:\Soft\FullTex\Full_TeX\texmf\tex\context\base\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count150
-\scratchdimen=\dimen183
-\scratchbox=\box43
-\nofMPsegments=\count151
-\nofMParguments=\count152
-\everyMPshowfont=\toks46
-\MPscratchCnt=\count153
-\MPscratchDim=\dimen184
-\MPnumerator=\count154
-\makeMPintoPDFobject=\count155
-\everyMPtoPDFconversion=\toks47
+\scratchcounter=\count152
+\scratchdimen=\dimen184
+\scratchbox=\box44
+\nofMPsegments=\count153
+\nofMParguments=\count154
+\everyMPshowfont=\toks49
+\MPscratchCnt=\count155
+\MPscratchDim=\dimen185
+\MPnumerator=\count156
+\makeMPintoPDFobject=\count157
+\everyMPtoPDFconversion=\toks50
 )
-\AtBeginShipoutBox=\box44
-Package hyperref Info: Link coloring ON on input line 175.
+\AtBeginShipoutBox=\box45
+Package hyperref Info: Link coloring ON on input line 165.
  (E:\Soft\FullTex\Full_TeX\texmf\tex\latex\hyperref\nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 
 (E:\Soft\FullTex\Full_TeX\texmf\tex\generic\oberdiek\gettitlestring.sty
 Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
-\c@section@level=\count156
+\c@section@level=\count158
 )
-LaTeX Info: Redefining \ref on input line 175.
-LaTeX Info: Redefining \pageref on input line 175.
-LaTeX Info: Redefining \nameref on input line 175.
+LaTeX Info: Redefining \ref on input line 165.
+LaTeX Info: Redefining \pageref on input line 165.
+LaTeX Info: Redefining \nameref on input line 165.
 
 ("E:\Files\masters_thesis\РњР°РіРёСЃС‚РµСЂСЃРєР°СЏ РґРёСЃСЃРµСЂС‚Р°С†РёСЏ\dmitr
 iy.out")
@@ -1263,18 +1294,18 @@ iy.out")
 Package pgfplots Warning: running in backwards compatibility mode (unsuitable t
 ick labels; missing features). Consider writing \pgfplotsset{compat=1.9} into y
 our preamble.
- on input line 175.
+ on input line 165.
 
-LaTeX Font Info:    Try loading font information for U+rsfs on input line 211.
+LaTeX Font Info:    Try loading font information for U+rsfs on input line 201.
 (E:\Soft\FullTex\Full_TeX\texmf\tex\latex\jknappen\ursfs.fd
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 )
-LaTeX Font Info:    Try loading font information for U+msa on input line 211.
+LaTeX Font Info:    Try loading font information for U+msa on input line 201.
 
 (E:\Soft\FullTex\Full_TeX\texmf\tex\latex\amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 211.
+LaTeX Font Info:    Try loading font information for U+msb on input line 201.
 
 (E:\Soft\FullTex\Full_TeX\texmf\tex\latex\amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -1282,181 +1313,212 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 {E:/Soft/FullTex/Full_TeX/texmf/pdftex/config/pdftex.map}]
 ("E:\Files\masters_thesis\РњР°РіРёСЃС‚РµСЂСЃРєР°СЏ РґРёСЃСЃРµСЂС‚Р°С†РёСЏ\dmitr
-iy.toc")
-\tf@toc=\write5
- [2
+iy.toc" [2
 
-] [3
+])
+\tf@toc=\write5
+ [3] [4
 
 ]
 {\Russian \CYRG \cyrl \cyra \cyrv \cyra } 1.
-[4
+[5
 
-] [5] [6] [7]
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 377.
-
+] [6] [7] [8]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `superscript' on input line 377.
+(hyperref)                removing `math shift' on input line 367.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 377.
+(hyperref)                removing `superscript' on input line 367.
 
-[8]
-LaTeX Font Info:    Try loading font information for U+euf on input line 461.
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 367.
+
+[9]
+LaTeX Font Info:    Try loading font information for U+euf on input line 451.
  (E:\Soft\FullTex\Full_TeX\texmf\tex\latex\amsfonts\ueuf.fd
 File: ueuf.fd 2013/01/14 v3.01 Euler Fraktur
-) [9]
-LaTeX Font Info:    Try loading font information for T2A+cmss on input line 474
+) [10]
+LaTeX Font Info:    Try loading font information for T2A+cmss on input line 464
 .
 
 (E:\Soft\FullTex\Full_TeX\texmf\tex\latex\cyrillic\t2acmss.fd
 File: t2acmss.fd 2001/08/11 v1.0a Computer Modern Cyrillic font definitions
-) [10] [11]
-[12] [13] [14pdfTeX warning (ext4): destination with the same identifier (name{
+) [11] [12]
+[13] [14] [15pdfTeX warning (ext4): destination with the same identifier (name{
 equation.1.4.16}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.594 \end{multline}
+l.584 \end{multline}
                     ]
-Overfull \hbox (8.03723pt too wide) in paragraph at lines 610--611
+Overfull \hbox (8.03723pt too wide) in paragraph at lines 600--601
 [][]\T2A/cmr/m/n/14.4 Варьируя па-ра-мет-ры $\OML/cmm/m/it/14.4 ; ; $\T2A/cm
 r/m/n/14.4 , мож-но по-лу-чить ос-нов-ное со-сто-я-ние ([][]1.16[][])
  []
 
-[15] [16]
-Overfull \hbox (9.77307pt too wide) in alignment at lines 709--727
+[16] [17]
+Overfull \hbox (9.77307pt too wide) in alignment at lines 699--717
  [][][] []
  []
 
-[17] [18pdfTeX warning (ext4): destination with the same identifier (name{equat
+[18] [19pdfTeX warning (ext4): destination with the same identifier (name{equat
 ion.1.4.28}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.768 \chapter
+l.758 \chapter
               {Р’Р°СЂРёР°С†РёРѕРЅРЅС‹Р№ РєРІР°РЅС‚РѕРІС‹Р№ Р°Р»РіРѕСЂРёС‚Рј ...
 ]
 {\Russian \CYRG \cyrl \cyra \cyrv \cyra } 2.
-[19
+[20
 
 ]
-Overfull \hbox (0.56631pt too wide) in paragraph at lines 800--801
+Overfull \hbox (0.56631pt too wide) in paragraph at lines 790--791
 \T2A/cmr/m/n/14.4 про-стую за-да-чу, та-кую как сум-ма опе-ра-то-ров Па-у-ли $\
 OML/cmm/m/it/14.4 X$\T2A/cmr/m/n/14.4 , а $\OML/cmm/m/it/14.4 H[]$ \T2A/cmr/m/n
 /14.4  проблема-
  []
 
-[20]
-Overfull \hbox (7.24911pt too wide) in paragraph at lines 828--828
-[]\T2A/cmr/bx/n/20.74 Сравнительные ре-зуль-та-ты те-сти-ро-ва-ния 
- []
-
-[21] [22
-
-] [23
-
-]
-Underfull \hbox (badness 2521) in paragraph at lines 897--899
-\T2A/cmr/m/it/14.4 using the unitary coupled cluster ansatz\T2A/cmr/m/n/14.4 . 
-Quantum Science and
- []
-
-[24] [25]
-LaTeX Font Info:    Try loading font information for T2A+cmtt on input line 915
+[21]
+LaTeX Font Info:    Try loading font information for T2A+cmtt on input line 819
 .
  (E:\Soft\FullTex\Full_TeX\texmf\tex\latex\cyrillic\t2acmtt.fd
 File: t2acmtt.fd 2001/08/11 v1.0a Computer Modern Cyrillic font definitions
 )
 LaTeX Font Info:    Font shape `T2A/cmtt/bx/n' in size <10> not available
-(Font)              Font shape `T2A/cmtt/m/n' tried instead on input line 917.
+(Font)              Font shape `T2A/cmtt/m/n' tried instead on input line 820.
+ [22]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 849.
 
-[26
 
-] [27]
-Overfull \hbox (29.74219pt too wide) in paragraph at lines 1015--1016
+(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\base\omscmr.fd
+File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <14.4> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 849.
+ [23] [24] [25]
+[26]
+Overfull \hbox (7.24911pt too wide) in paragraph at lines 1034--1034
+[]\T2A/cmr/bx/n/20.74 Сравнительные ре-зуль-та-ты те-сти-ро-ва-ния 
+ []
+
+[27] [28
+
+] [29
+
+]
+Underfull \hbox (badness 2521) in paragraph at lines 1103--1105
+\T2A/cmr/m/it/14.4 using the unitary coupled cluster ansatz\T2A/cmr/m/n/14.4 . 
+Quantum Science and
+ []
+
+[30] [31] <figures/scheme.pdf, id=538, 610.75676pt x 904.77826pt>
+File: figures/scheme.pdf Graphic file (type pdf)
+
+<use figures/scheme.pdf>
+Package pdftex.def Info: figures/scheme.pdf used on input line 1124.
+(pdftex.def)             Requested size: 273.14922pt x 404.64761pt.
+ [32
+
+ <E:/Files/masters_thesis/РњР°РіРёСЃС‚РµСЂСЃРєР°СЏ РґРёСЃСЃРµСЂС‚Р°С†РёСЏ/figur
+es/scheme.pdf>] [33] [34]
+Overfull \hbox (29.74219pt too wide) in paragraph at lines 1229--1230
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
 ][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (124.22003pt too wide) in paragraph at lines 1023--1024
+Overfull \hbox (124.22003pt too wide) in paragraph at lines 1237--1238
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
 ][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
-[28] [29] [30] [31] [32] [33] [34] [35]
-LaTeX Font Info:    Try loading font information for OMS+cmtt on input line 138
-9.
-LaTeX Font Info:    No file OMScmtt.fd. on input line 1389.
+[35] [36] [37] [38] [39] [40] [41] [42]
+LaTeX Font Info:    Try loading font information for OMS+cmtt on input line 161
+7.
+LaTeX Font Info:    No file OMScmtt.fd. on input line 1617.
 
 
 LaTeX Font Warning: Font shape `OMS/cmtt/m/n' undefined
 (Font)              using `OMS/cmsy/m/n' instead
-(Font)              for symbol `textdagger' on input line 1389.
+(Font)              for symbol `textdagger' on input line 1617.
 
-[36] [37] [38] [39]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1593.
- [40]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1593.
+[43] [44] [45] [46]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1803.
+ [47]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1803.
 
 ("E:\Files\masters_thesis\РњР°РіРёСЃС‚РµСЂСЃРєР°СЏ РґРёСЃСЃРµСЂС‚Р°С†РёСЏ\dmitr
 iy.aux")
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1593.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1593.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1803.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1803.
 
 Package rerunfilecheck Info: File `dmitriy.out' has not changed.
-(rerunfilecheck)             Checksum: 7BC2EE114181E545FCB8FBC8719127FA;4670.
+(rerunfilecheck)             Checksum: E829E6D3B9E0789160A5E99790BC9DC0;5868.
 
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1593.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1803.
  ) 
 Here is how much of TeX's memory you used:
- 29314 strings out of 493921
- 588785 string characters out of 3146112
- 987981 words of memory out of 3000000
- 31294 multiletter control sequences out of 15000+200000
+ 26582 strings out of 493921
+ 538987 string characters out of 3146112
+ 946926 words of memory out of 3000000
+ 28359 multiletter control sequences out of 15000+200000
  33998 words of font info for 90 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
- 63i,18n,74p,1549b,2161s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 63i,18n,74p,1549b,2142s stack positions out of 5000i,500n,10000p,200000b,50000s
 {E:/Soft/FullTex/Full_TeX/texmf/fonts/enc/dvips/cm-super/cm-super-t2a.enc}<E:
 /Soft/FullTex/Full_TeX/texmf/fonts/type1/public/amsfonts/cm/cmex10.pfb><E:/Soft
-/FullTex/Full_TeX/texmf/fonts/type1/public/amsfonts/cm/cmmi10.pfb><E:/Soft/Full
-Tex/Full_TeX/texmf/fonts/type1/public/amsfonts/cm/cmmi12.pfb><E:/Soft/FullTex/F
-ull_TeX/texmf/fonts/type1/public/amsfonts/cm/cmmi7.pfb><E:/Soft/FullTex/Full_Te
-X/texmf/fonts/type1/public/amsfonts/cm/cmmib10.pfb><E:/Soft/FullTex/Full_TeX/te
-xmf/fonts/type1/public/amsfonts/cm/cmr10.pfb><E:/Soft/FullTex/Full_TeX/texmf/fo
-nts/type1/public/amsfonts/cm/cmr12.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/ty
-pe1/public/amsfonts/cm/cmr17.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/pu
-blic/amsfonts/cm/cmr7.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/public/am
-sfonts/cm/cmsy10.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/public/amsfont
-s/cm/cmsy7.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/public/amsfonts/eule
-r/eufm10.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/public/amsfonts/symbol
-s/msam10.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/public/amsfonts/symbol
-s/msbm10.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/public/cm-super/sfbi14
-40.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/public/cm-super/sfbx1440.pfb
-><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/public/cm-super/sfbx1728.pfb><E:/S
-oft/FullTex/Full_TeX/texmf/fonts/type1/public/cm-super/sfbx2074.pfb><E:/Soft/Fu
-llTex/Full_TeX/texmf/fonts/type1/public/cm-super/sfbx2986.pfb><E:/Soft/FullTex/
-Full_TeX/texmf/fonts/type1/public/cm-super/sfbx3583.pfb><E:/Soft/FullTex/Full_T
-eX/texmf/fonts/type1/public/cm-super/sfrm0700.pfb><E:/Soft/FullTex/Full_TeX/tex
-mf/fonts/type1/public/cm-super/sfrm1000.pfb><E:/Soft/FullTex/Full_TeX/texmf/fon
-ts/type1/public/cm-super/sfrm1440.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/typ
-e1/public/cm-super/sfrm1728.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/pub
-lic/cm-super/sfss1440.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/public/cm
--super/sfti1000.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/public/cm-super
-/sfti1440.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/public/cm-super/sftt0
-800.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/public/cm-super/sftt1000.pf
-b>
-Output written on dmitriy.pdf (40 pages, 700923 bytes).
+/FullTex/Full_TeX/texmf/fonts/type1/public/amsfonts/cmextra/cmex8.pfb><E:/Soft/
+FullTex/Full_TeX/texmf/fonts/type1/public/amsfonts/cmextra/cmex9.pfb><E:/Soft/F
+ullTex/Full_TeX/texmf/fonts/type1/public/amsfonts/cm/cmmi10.pfb><E:/Soft/FullTe
+x/Full_TeX/texmf/fonts/type1/public/amsfonts/cm/cmmi12.pfb><E:/Soft/FullTex/Ful
+l_TeX/texmf/fonts/type1/public/amsfonts/cm/cmmi5.pfb><E:/Soft/FullTex/Full_TeX/
+texmf/fonts/type1/public/amsfonts/cm/cmmi6.pfb><E:/Soft/FullTex/Full_TeX/texmf/
+fonts/type1/public/amsfonts/cm/cmmi7.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/
+type1/public/amsfonts/cm/cmmi8.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/
+public/amsfonts/cm/cmmi9.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/public
+/amsfonts/cm/cmmib10.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/public/ams
+fonts/cm/cmr10.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/public/amsfonts/
+cm/cmr12.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/public/amsfonts/cm/cmr
+17.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/public/amsfonts/cm/cmr6.pfb>
+<E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/public/amsfonts/cm/cmr7.pfb><E:/Sof
+t/FullTex/Full_TeX/texmf/fonts/type1/public/amsfonts/cm/cmr8.pfb><E:/Soft/FullT
+ex/Full_TeX/texmf/fonts/type1/public/amsfonts/cm/cmr9.pfb><E:/Soft/FullTex/Full
+_TeX/texmf/fonts/type1/public/amsfonts/cm/cmsy10.pfb><E:/Soft/FullTex/Full_TeX/
+texmf/fonts/type1/public/amsfonts/cm/cmsy6.pfb><E:/Soft/FullTex/Full_TeX/texmf/
+fonts/type1/public/amsfonts/cm/cmsy7.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/
+type1/public/amsfonts/cm/cmsy9.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/
+public/amsfonts/euler/eufm10.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/pu
+blic/amsfonts/symbols/msam10.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/pu
+blic/amsfonts/symbols/msbm10.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/pu
+blic/cm-super/sfbi0900.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/public/c
+m-super/sfbi1440.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/public/cm-supe
+r/sfbx0900.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/public/cm-super/sfbx
+1440.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/public/cm-super/sfbx1728.p
+fb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/public/cm-super/sfbx2074.pfb><E:
+/Soft/FullTex/Full_TeX/texmf/fonts/type1/public/cm-super/sfbx2986.pfb><E:/Soft/
+FullTex/Full_TeX/texmf/fonts/type1/public/cm-super/sfbx3583.pfb><E:/Soft/FullTe
+x/Full_TeX/texmf/fonts/type1/public/cm-super/sfrm0600.pfb><E:/Soft/FullTex/Full
+_TeX/texmf/fonts/type1/public/cm-super/sfrm0700.pfb><E:/Soft/FullTex/Full_TeX/t
+exmf/fonts/type1/public/cm-super/sfrm0900.pfb><E:/Soft/FullTex/Full_TeX/texmf/f
+onts/type1/public/cm-super/sfrm1000.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/t
+ype1/public/cm-super/sfrm1440.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/p
+ublic/cm-super/sfrm1728.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/public/
+cm-super/sfss1440.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/public/cm-sup
+er/sfti1000.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/public/cm-super/sft
+i1440.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/public/cm-super/sftt0800.
+pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/public/cm-super/sftt0900.pfb><E
+:/Soft/FullTex/Full_TeX/texmf/fonts/type1/public/cm-super/sftt1000.pfb><E:/Soft
+/FullTex/Full_TeX/texmf/fonts/type1/public/cm-super/sftt1440.pfb>
+Output written on dmitriy.pdf (47 pages, 1007676 bytes).
 PDF statistics:
- 1326 PDF objects out of 1440 (max. 8388607)
- 787 named destinations out of 1000 (max. 500000)
- 149 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1689 PDF objects out of 1728 (max. 8388607)
+ 955 named destinations out of 1000 (max. 500000)
+ 186 words of extra memory for PDF output out of 10000 (max. 10000000)
 

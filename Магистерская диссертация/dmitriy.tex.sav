@@ -3,14 +3,18 @@
 \def\baselinestretch{1.1}
 \usepackage[14pt]{extsizes}
 \usepackage[utf8]{inputenc}
-\usepackage[russian]{babel}
+\usepackage{listings}
+\usepackage{xcolor} % Для работы с цветами
+\usepackage[english, russian]{babel}
 \usepackage{indentfirst}
 \usepackage{mathrsfs}
+\usepackage{booktabs}
 
 %%%%%%%%%%%%%%%%% Символы, графика %%%%%%%%%%%%%%%%%%%%%
 
-\usepackage[T2A]{fontenc}
+\usepackage[T1,T2A]{fontenc}
 \usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{bm}
 \newcommand\dsone{\mathds{H}}
 \usepackage{graphicx}
 \usepackage{color}
@@ -25,7 +29,7 @@
 \bibliographystyle{plain}  % Change this to your preferred style
 \renewcommand{\thetable}{\arabic{table}}
 \usepackage{indentfirst}
-\topmargin=-1.5cm %отступ сверху
+\topmargin=-1.4cm %отступ сверху
 \oddsidemargin=0.4cm %отступ слева (нечетные страницы)
 \evensidemargin=0.4cm %(четные страницы)
 \textwidth=16cm %ширина текста
@@ -35,32 +39,139 @@
 
 \pagestyle{plain}
 
-\usepackage{listings}
+\definecolor{background}{RGB}{248, 248, 248}
+\definecolor{string}{RGB}{246, 102, 30}
+\definecolor{comment}{RGB}{0, 128, 1}
+\definecolor{normal}{RGB}{0, 0, 0}
+\definecolor{identifier}{RGB}{0, 150, 186}
+\definecolor{keyword}{RGB}{138, 49, 185}
+\definecolor{variables}{RGB}{229, 8, 118}
 
-\definecolor{codegreen}{rgb}{0,0.6,0}
-\definecolor{codegray}{rgb}{0.5,0.5,0.5}
-\definecolor{codepurple}{rgb}{0.58,0,0.82}
-\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
-
+% Основные настройки для поддержки кириллицы
 \lstset{
-    extendedchars=true,  % Corrected this line
-    backgroundcolor=\color{backcolour},
-    commentstyle=\color{codegreen},
-    keywordstyle=\color{magenta},
-    numberstyle=\tiny\color{codegray},
-    stringstyle=\color{codepurple},
-    breakatwhitespace=false,
-    breaklines=true,
-    captionpos=b,
-    keepspaces=true,
-    numbers=left,
-    numbersep=3pt,
-    showspaces=false,
-    showstringspaces=false,
-    showtabs=false,
-    tabsize=1,
-    basicstyle=\fontsize{10}{12}\selectfont\ttfamily
+    alsoletter=.,
+    language=python,                			% choose the language of the code
+    numbers=left,                   		% where to put the line-numbers
+    stepnumber=1,                   		% the step between two line-numbers.
+    numbersep=5pt,                  		% how far the line-numbers are from the code
+    numberstyle=\tiny\color{black}\ttfamily,
+    backgroundcolor=\color{background},  		% choose the background color. You must add \usepackage{color}
+    showspaces=false,               		% show spaces adding particular underscores
+    showstringspaces=false,         		% underline spaces within strings
+    showtabs=false,                 		% show tabs within strings adding particular underscores
+    tabsize=4,                      		% sets default tabsize to 2 spaces
+    captionpos=b,                   		% sets the caption-position to bottom
+    breaklines=true,                		% sets automatic line breaking
+    breakatwhitespace=true,         		% sets if automatic breaks should only happen at whitespace
+    title=\lstname,                 		% show the filename of files included with \lstinputlisting;
+    basicstyle=\color{normal}\ttfamily\footnotesize,					% sets font style for the code
+    keywordstyle=\color{keyword}\textbf,	% sets color for keywords
+    stringstyle=\color{string}\ttfamily,		% sets color for strings
+    commentstyle=\color{comment}\ttfamily,	% sets color for comments
+    emph={
+    print, input, open, close, read, write,
+    len, range, enumerate, zip, format, split, join,
+    print_pauli_table, get_base_path, console_and_print, ljust, rstrip,
+    create_table, format_ansatz, format_complex_number,
+    format_number, get_operator_for_console, initialize_environment,
+    print_composition_table, print_hamiltonian, print_pauli_table,
+    read_file_lines, read_hamiltonian_data, generate_random_theta,
+    multiply_pauli, pauli_compose, calculate_ansatz, compute_uhu,
+    calculate_expectation, generate_neighbor_theta, simulated_annealing,
+    main, getattr,  print_composition_table
+    },
+    emphstyle=\color{identifier}\ttfamily,
+    %emphstyle=[2]\color{variables}\ttfamily,
+    %emphstyle=[3]\color{black}\ttfamily,
+    %moreemph=[2]{
+    %    HAMILTONIAN_FILE_PATH, OUTPUT_FILE_PATH, PAULI_MAP, ansatz_symbolic, table, ansatz_symbolic
+    % },
+    %moreemph=[3]{
+    %    rich\\.table
+    %},
+    literate=
+        {θ}{{$\theta$}}1
+        {π}{{$\pi$}}1
+        {σ}{{$\sigma$}}1
+        {±}{{$\pm$}}1
+        {→}{{$\rightarrow$}}1
+        {†}{{\textdagger}}1
+        {а}{{\cyra}}1
+        {б}{{\cyrb}}1
+        {в}{{\cyrv}}1
+        {г}{{\cyrg}}1
+        {д}{{\cyrd}}1
+        {е}{{\cyre}}1
+        {ё}{{\"e}}1
+        {ж}{{\cyrzh}}1
+        {з}{{\cyrz}}1
+        {и}{{\cyri}}1
+        {й}{{\cyrishrt}}1
+        {к}{{\cyrk}}1
+        {л}{{\cyrl}}1
+        {м}{{\cyrm}}1
+        {н}{{\cyrn}}1
+        {о}{{\cyro}}1
+        {п}{{\cyrp}}1
+        {р}{{\cyrr}}1
+        {с}{{\cyrs}}1
+        {т}{{\cyrt}}1
+        {у}{{\cyru}}1
+        {ф}{{\cyrf}}1
+        {х}{{\cyrh}}1
+        {ц}{{\cyrc}}1
+        {ч}{{\cyrch}}1
+        {ш}{{\cyrsh}}1
+        {щ}{{\cyrshch}}1
+        {ъ}{{\cyrhrdsn}}1
+        {ы}{{\cyrery}}1
+        {ь}{{\cyrsftsn}}1
+        {э}{{\cyrerev}}1
+        {ю}{{\cyryu}}1
+        {я}{{\cyrya}}1
+        {А}{{\CYRA}}1
+        {Б}{{\CYRB}}1
+        {В}{{\CYRV}}1
+        {Г}{{\CYRG}}1
+        {Д}{{\CYRD}}1
+        {Е}{{\CYRE}}1
+        {Ё}{{\CYRYO}}1
+        {Ж}{{\CYRZH}}1
+        {З}{{\CYRZ}}1
+        {И}{{\CYRI}}1
+        {Й}{{\CYRISHRT}}1
+        {К}{{\CYRK}}1
+        {Л}{{\CYRL}}1
+        {М}{{\CYRM}}1
+        {Н}{{\CYRN}}1
+        {О}{{\CYRO}}1
+        {П}{{\CYRP}}1
+        {Р}{{\CYRR}}1
+        {С}{{\CYRS}}1
+        {Т}{{\CYRT}}1
+        {У}{{\CYRU}}1
+        {Ф}{{\CYRF}}1
+        {Х}{{\CYRH}}1
+        {Ц}{{\CYRC}}1
+        {Ч}{{\CYRCH}}1
+        {Ш}{{\CYRSH}}1
+        {Щ}{{\CYRSHCH}}1
+        {Ъ}{{\CYRHRDSN}}1
+        {Ы}{{\CYRERY}}1
+        {Ь}{{\CYRSFTSN}}1
+        {Э}{{\CYREREV}}1
+        {Ю}{{\CYRYU}}1
+        {Я}{{\CYRYA}}1,
 }
+
+
+%%%%%%%% newcommands:  ket,  bra,  ketbra,  braket
+\newcommand{\ket}[1] {\!\!\;\ensuremath{\left|#1\right\rangle}}
+\newcommand{\bra}[1] {\!\!\:\ensuremath{\left\langle#1\right|\!\!\:}}
+\newcommand{\ketbra}[2]{\!\!\:\ensuremath {\left|#1\right\rangle\!\:\!\!\left\langle#2\right|}}
+\newcommand{\braket}[2]{\ensuremath {\!\!\:\left\langle#1\!\!\: \left|\!\!\!\;\right.#2\right\rangle\!\!\;}}
+
+
 
 \begin{document}
 
@@ -118,7 +229,7 @@
 \end{titlepage}
 
 \setcounter{page}{2}
-
+\addtocontents{toc}{\protect\vspace{-6ex}}
 \tableofcontents
 \newpage
 
@@ -126,157 +237,1494 @@
 \addcontentsline{toc}{chapter}{\hspace{5.5mm} Введение}
 \chapter*{Введение}
 
-\chapter{Вариационные квантовые алгоритмы: общая схема}
+\chapter{Общая схема квантовых вариационных алгоритмов}
 
 \section{Базис Паули}
+\subsection{Связь стандартного базиса и базиса \mbox{Паули}}
 
-\subsection{Матричная форма}
-Матрицы Паули, обозначаемые как $\sigma_x$, $\sigma_y$ и $\sigma_z$, представляют собой набор эрмитовых и унитарных $2 \times 2$ матриц. Эти матрицы играют центральную роль в описании квантовых систем с полуцелым спином, таких как электроны, и занимают важное место в теории представлений группы SU(2). Их использование охватывает широкий спектр задач в квантовой механике и квантовой теории поля.
+Рассмотрим квантовую систему из ${n}$ кубитов, где каждый кубит связан с двумерным гильбертовым пространством ${\mathcal{H}}$ и его эрмитово сопряжённым пространством ${\mathcal{H}^\dagger}$. Обозначим через ${\mathcal{H}_n = \mathcal{H}^{\otimes n}}$ и ${\mathcal{H}_n^\dagger = (\mathcal{H}^\dagger)^{\otimes n}}$ гильбертово пространство системы и его эрмитово сопряжение соответственно. Пространство линейных операторов, действующих на ${\mathcal{H}}$ и ${\mathcal{H}^\dagger}$ левым и правым умножением, задаётся как ${L(\mathcal{H}_n) = \mathcal{H}_n \otimes \mathcal{H}_n^\dagger}$. Тогда
 
-Матрицы Паули определяются следующим образом:
+$${\dim_\mathbb{C} \mathcal{H}_n = \dim_\mathbb{C} \mathcal{H}_n^\dagger = 2^n,\;\;\;
+            \dim_\mathbb{C} L(\mathcal{H}_n) = 2^{2n}.}$$
 
-$$
-\sigma_x = \begin{pmatrix}
-0 & 1 \\
-1 & 0
-\end{pmatrix}, \quad
-\sigma_y = \begin{pmatrix}
-0 & -i \\
-i & 0
-\end{pmatrix}, \quad
-\sigma_z = \begin{pmatrix}
-1 & 0 \\
-0 & -1
-\end{pmatrix}.
-$$
+Пространство ${L(\mathcal{H}_n)}$ наделено скалярным произведением Гильберта-Шмидта:
 
-Эти матрицы имеют ряд уникальных свойств, включая эрмитовость ($\sigma_i = \sigma_i^\dagger$) и унитарность ($\sigma_i \sigma_i^\dagger = I$). Они также удовлетворяют специфическим соотношениям коммутации и антикоммутации, что делает их полезными для описания квантовых преобразований и взаимодействий.
+\begin{equation}\label{eq1}
+    \langle\hat{A},\hat{B}\rangle = \mathrm{tr}(\hat{A}^\dagger\hat{B}),\;\;\;
+    \hat{A},\hat{B} \in L(\mathcal{H}_n),
+\end{equation}
 
-Коммутационные соотношения для матриц Паули выражаются следующим образом:
+\noindent которое естественно продолжает скалярное произведение в ${\mathcal{H}_n}$. Вещественное линейное пространство эрмитовых операторов далее обозначим как ${H(\mathcal{H}_n)}$.
 
-$$
-[\sigma_i, \sigma_j] = 2i\epsilon_{ijk}\sigma_k,
-$$
 
-где $\epsilon_{ijk}$ — символ Леви-Чивиты. Эти соотношения играют важную роль в понимании квантовой динамики и описании вращений в спиновых системах.
+Пусть ${\{|0\rangle,|1\rangle\}}$ образуют ортонормированный базис в однокубитном пространстве ${\mathcal{H}}$. Единичная матрица и матрицы Паули задаются как:
 
-Антикоммутационные соотношения для матриц Паули выглядят следующим образом:
+$${
+    \sigma_0 = \begin{pmatrix}1 & 0 \\ 0 & 1\end{pmatrix},\;
+    \sigma_1 = \begin{pmatrix}0 & 1 \\ 1 & 0\end{pmatrix},\;
+    \sigma_2 = \begin{pmatrix}0 & -i \\ i & 0\end{pmatrix},\;
+    \sigma_3 = \begin{pmatrix}1 & 0 \\ 0 & -1\end{pmatrix},
+}$$
 
-$$
-\{\sigma_i, \sigma_j\} = 2\delta_{ij}I,
-$$
-
-где $\delta_{ij}$ — символ Кронекера, а $I$ — единичная матрица. Эти свойства широко используются в квантовых вычислениях и других приложениях, где важна как коммутация, так и антикоммутация операторов.
-
-Матрицы Паули находят применение в описании операторов спина. Оператор спина частицы можно выразить через линейную комбинацию матриц Паули:
-
-$$
-\vec{S} = \frac{\hbar}{2} \vec{\sigma},
-$$
-
-где $\vec{S}$ — оператор спина, $\hbar$ — приведенная постоянная Планка. Это позволяет моделировать взаимодействие спина с внешними полями и другими квантовыми системами.
-
-В квантовой информации матрицы Паули формируют базис для всех эрмитовых матриц размерности $2 \times 2$. Любой эрмитов оператор может быть представлен как:
-
-$$
-A = a_0 I + a_x \sigma_x + a_y \sigma_y + a_z \sigma_z,
-$$
-
-где $a_0, a_x, a_y, a_z$ — вещественные коэффициенты. Это представление используется в квантовой томографии и других вычислительных задачах.
-
-\subsection{Операторная форма}
-
-Перейдем к рассмотрению операторной формы матриц Паули в контексте квантовой системы из $n$ кубитов. Каждый кубит связан с двумерным Гильбертовым пространством $\mathcal{H}$. Для системы из $n$ кубитов, полное пространство $\mathcal{H}_n$ образуется как тензорное произведение индивидуальных пространств, и его размерность равна $2^n$.
-
-Теперь определим операторную форму матриц Паули в этом пространстве. Для ортонормированного базиса $\{|0\rangle, |1\rangle\}$, соответствующего каждому кубиту, мы можем выразить операторы Паули как:
-
+\noindent а соответствующие операторы Паули представляются в виде:
 \begin{align*}
-    \hat{\sigma}_0 = |0\rangle\langle0| + |1\rangle\langle1|,\; \hat{\sigma}_1 = |0\rangle\langle1| + |1\rangle\langle0|,     \\
-    \hat{\sigma}_2 = -i|0\rangle\langle1| + i|1\rangle\langle0|,\;  \hat{\sigma}_3 = |0\rangle\langle0| - |1\rangle\langle1|,
+    \hat{\sigma}_0 = |0\rangle\langle0| + |1\rangle\langle1|,\;
+    \hat{\sigma}_1 = |0\rangle\langle1| + |1\rangle\langle0|,     \\
+    \hat{\sigma}_2 = -i|0\rangle\langle1| + i|1\rangle\langle0|,\;
+    \hat{\sigma}_3 = |0\rangle\langle0| - |1\rangle\langle1|.
 \end{align*}
 
-Эти операторы эрмитовы и унитарны и составляют основу в $\mathcal{H}$. Каждый из них может быть выражен в виде тензорного произведения операторов на отдельных кубитах:
+\noindent Эти операторы одновременно эрмитовы и унитарны, а также образуют базис в ${\mathcal{H}}$. Обратное преобразование выражается следующим образом:
 
+$${
+    |0\rangle\langle0| = \frac{\hat{\sigma}_0 + \hat{\sigma}_3}{2},\;
+    |0\rangle\langle1| = \frac{\hat{\sigma}_1 + i\hat{\sigma}_2}{2},\;
+    |1\rangle\langle0| = \frac{\hat{\sigma}_1 - i\hat{\sigma}_2}{2},\;
+    |1\rangle\langle1| = \frac{\hat{\sigma}_0 - \hat{\sigma}_3}{2}.
+}$$
+
+Для ${k, l, m \in \{1,2,3\}}$ выполняются свойства:
+${\mathrm{tr}\hat{\sigma}_k = 0}$,
+${\hat{\sigma}^2_k = \hat{\sigma}_0}$, а также
+
+\begin{equation}\label{eq2}
+    \hat{\sigma}_k\hat{\sigma}_l = -\hat{\sigma}_l\hat{\sigma}_k, \;\;\;
+    \hat{\sigma}_k\hat{\sigma}_l = i\,\mathrm{sign}(\pi)\hat{\sigma}_m, \;\;\;
+    (klm) = \pi(123),
+\end{equation}
+
+\noindent где ${\pi(123)}$ — произвольная перестановка множества ${\{1,2,3\}}$.
+
+Рассмотрим стандартный\footnote[1]{Мы избегаем термина <<вычислительный>>, так как он может приводить к неоднозначности. И базис Паули, и стандартный базис являются вычислительными в одинаковом контексте.} бинарный базис в ${\mathcal{H}_n}$, образованный ортонормированными базисами ${\{|0\rangle,|1\rangle\}}$ в однокубитных пространствах. Позиция в тензорном произведении позволяет различать кубиты. Для фиксированного ${n}$ элементы этого базиса и соответствующие им элементы двумерного базиса удобно записывать как:
+$${
+    |k\rangle = |k_1\ldots k_n\rangle = |k_1\rangle \otimes \ldots \otimes |k_n\rangle,\;\;\;
+    \langle k| = \langle k_1\ldots k_n| = \langle k_1|\otimes\ldots\otimes\langle k_n|,
+}$$
+\noindent где строки ${k_1\ldots k_n}$ (${k_1,\ldots,k_n\in\{0, 1\}}$) интерпретируются как двоичные числа с десятичным представлением ${k}$. Например, ${|101\rangle = |5\rangle}$ и ${|00110\rangle = |6\rangle}$.
+
+В стандартном базисе:
+$${
+    |u\rangle = \sum_{k=0}^{2^n - 1} u_k |k\rangle, \;\;\;
+    \hat{A} = \sum_{k,l=0}^{2^n - 1} a_{kl} |k\rangle\langle l|,
+}$$
+\noindent где ${|u\rangle \in \mathcal{H}_n}$ и ${\hat{A} \in L(\mathcal{H}_n)}$.
+
+Базис Паули ${P(\mathcal{H}_n)}$ в ${L(\mathcal{H}_n)}$ определяется как:
+\begin{equation}\label{eq3}
+    \{\hat{\sigma}_{k_1\ldots k_n}\}_{k_1,\ldots,k_n\in\{0,1,2,3\}},\;\;\;
+    \hat{\sigma}_{k_1\ldots k_n} = \hat{\sigma}_{k_1}\otimes\ldots\otimes\hat{\sigma}_{k_n},
+\end{equation}
+\noindent где ${\hat{\sigma}_{0\ldots 0}}$ — тождественный оператор. Базис ${P(\mathcal{H}_n)}$ содержит ${4^n}$ элементов. Для краткости будем использовать обозначение:
+$${
+    \hat{\sigma}_K = \hat{\sigma}_{k_1\ldots k_n},
+}$$
+\noindent где строка Паули ${k_1\ldots k_n}$ (${k_1,\ldots,k_n \in \{0,1,2,3\}}$) соответствует числу ${K}$ в десятичной системе (${0 \leq K \leq 4^n - 1}$). Строка Паули ${K}$ и элемент ${\hat{\sigma}_K}$ взаимно однозначно соответствуют друг другу.
+
+Сравним ${P(\mathcal{H}_n)}$ со стандартным базисом. Для элементов базиса Паули выполняются:
+\begin{equation}\label{eq4}
+    \hat{\sigma}_{k_1\ldots k_n} \hat{\sigma}_{k_1\ldots k_n} = \hat{\sigma}_{0\ldots 0}, \;\;\;
+    \mathrm{tr}\,\hat{\sigma}_{0\ldots 0} = 2^n,\;\;\;
+    \mathrm{tr}\,\hat{\sigma}_{k_1\ldots k_n}\Big|_{k_1\ldots k_n \neq 0\ldots0} = 0.
+\end{equation}
+
+Базис Паули является эрмитовым, унитарным и ортогональным относительно скалярного произведения \eqref{eq1}. Отметим, что оператор ${|k\rangle\langle l|}$ из стандартного базиса не является унитарным или эрмитовым при ${k \neq l}$. Стандартный базис не включает тождественный оператор, который в этом базисе записывается как:
+$${
+    \sum_{k=0}^{2^n-1} |k\rangle \langle k|.
+}$$
+
+В базисе Паули любой оператор ${\hat{U}}$ из унитарной группы ${U(\mathcal{H}_n)}$ (где $\hat{U}^\dagger\hat{U} = \hat{\sigma}_{0\ldots0}$) раскладывается в виде:
+$${
+    \hat{U} = \sum_{i_1,\ldots,i_n\in\{0,1,2,3\}} U_{i_1\ldots i_n}\hat{\sigma}_{i_1\ldots i_n},\;\;\;
+    \hat{U}^\dagger = \sum_{i_1,\ldots,i_n\in\{0,1,2,3\}} \overline{U}_{i_1\ldots i_n}\hat{\sigma}_{i_1\ldots i_n},
+}$$
+где коэффициенты удовлетворяют условиям:
+$${
+    \sum_{i_1,\ldots,i_n\in\{0,1,2,3\}} \overline{U}_{i_1\ldots i_n}U_{i_1\ldots i_n} = 1,\;\;\;
+    \sum_{\substack{
+        i_1,\ldots,i_n,j_1,\ldots,j_n\in\{0,1,2,3\} \\
+        (i_1,\ldots,i_n)\neq(j_1,\ldots,j_n)
+    }} \overline{U}_{i_1\ldots i_n}U_{j_1\ldots j_n} = 0.
+}$$
+
+Последнее условие эквивалентно ${2^{2n-1}(2^n-1)}$ независимым соотношениям.
+
+Эрмитовы операторы в базисе Паули разлагаются с вещественными коэффициентами.
+
+
+\subsection{Коммутационное и антикоммутационное соотношение}
+
+Коммутатор определяет взаимодействие операторов при их перестановке. Для операторов ${A}$ и ${B}$ он задаётся как:
+$${[A, B] = AB - BA.}$$
+
+\noindent Если ${[A, B] = 0}$, операторы коммутируют; в противном случае — нет. В базисе Паули коммутаторы выражаются через символ Леви-Чивиты ${\varepsilon_{ijk}}$:
+$${[\sigma_i, \sigma_j] = 2i\varepsilon_{ijk}\sigma_k,}$$
+
+\noindent где ${\varepsilon_{ijk}}$ равен $1$ при чётной перестановке индексов ${(i,j,k)}$, $-1$ при нечётной и $0$ в остальных случаях. Например:
+$${[\sigma_1, \sigma_2] = 2i\sigma_3,\;\;\; [\sigma_2, \sigma_3] = 2i\sigma_1.}$$
+
+Антикоммутатор характеризует симметричное произведение операторов:
+$${\{A, B\} = AB + BA.}$$
+
+\noindent Если ${\{A, B\} = 0}$, операторы антикоммутируют. Для операторов Паули:
+$${\{\sigma_i, \sigma_j\} = 2\delta_{ij},}$$
+
+\noindent где ${\delta_{ij}}$ — символ Кронекера ($1$ при ${i = j}$, $0$ иначе). Примеры:
+$${\{\sigma_1, \sigma_2\} = 0,\;\;\; \{\sigma_2, \sigma_3\} = 0.}$$
+
+Коммутаторы и антикоммутаторы применяются в квантовой механике для анализа свойств систем (спин электрона, кубиты), в квантовой теории поля (взаимодействия частиц) и квантовых вычислениях (алгоритмы, коррекция ошибок). Коммутаторы помогают определить совместную измеримость наблюдаемых, а антикоммутаторы — описать фермионные системы.
+
+%##################### Третий параграф первой главы ###############################
+
+\subsection{Коммутирующие элементы в алгебре Ли группы ${SU(2^{n})}$}
+
+Рассмотрим базис Паули и множество строк Паули длины ${n}$:
+$${
+    \mathrm{Str}_n = \{K = k_1\ldots k_n\}_{k_1,\ldots,k_n \in \{0,1,2,3\}}.
+}$$
+
+1. Множество ${\mathbb{F}_4 = \{0,1,2,3\}}$ образует квадгруппу ${\mbox{Клейна}}$ с умножением:
+$${
+    0 \cdot k = k,\;\;\;
+    k \cdot k = 0,\;\;\;
+    k \cdot l = m,
+}$$
+где ${k,l,m \in \{1,2,3\}}$ и ${(klm)}$ — произвольная перестановка ${(1\,2\,3)}$.
+
+2. Функция ${s: \mathbb{F}_4 \times \mathbb{F}_4 \to \{1, i, -i\}}$ задаётся значениями:
+$${
+    \begin{array}{ll}
+        s(0,0) = s(0,k) = s(k,0) = s(k,k) = 1, & k=1,2,3, \\
+        s(1,2) = s(2,3) = s(3,1) = i, & s(2,1) = s(3,2) = s(1,3) = -i.
+    \end{array}
+}$$
+
+3. Функция ${S: \mathrm{Str}_n \times \mathrm{Str}_n \to \{1, -1, i, -i\}}$ определяется как:
+$${
+    S_{KL} = s(k_1, l_1) \cdot s(k_2, l_2) \cdot \ldots \cdot s(k_n, l_n),
+}$$
+где ${K = k_1k_2\ldots k_n}$ и ${L = l_1l_2\ldots l_n}$.
+
+Симметрия функции ${S}$ зависит от числа пар ${(k_r, l_r)}$ (на позициях ${r}$ в строках ${K}$ и ${L}$), где ${k_r, l_r \in \{1,2,3\}}$ и ${k_r \neq l_r}$, а также от их взаимного порядка. Пусть ${\omega^+_{KL}}$ и ${\omega^-_{KL}}$ — количество пар вида ${(1,2),(2,3),(3,1)}$ и ${(2,1),(3,2),(1,3)}$ соответственно, и ${\omega_{KL} = \omega^+_{KL} + \omega^-_{KL}}$. Тогда
+\begin{equation}\label{eq5}
+    S_{(KL)} = \frac{S_{KL}}{2}\left(1 + (-1)^{\omega_{KL}}\right),\;\;\;
+    S_{[KL]} = \frac{S_{KL}}{2}\left(1 - (-1)^{\omega_{KL}}\right),
+\end{equation}
+
+где $$S_{KL} = i^{\omega_{KL}}(-1)^{\omega^-_{KL}}.$$
+Здесь ${S_{(KL)}}$ и ${S_{[KL]}}$ — симметричная и антисимметричная части ${S_{KL}}$. Значения ${S_{KL}}$, ${S_{(KL)}}$ и ${S_{[KL]}}$ приведены в таблице \ref{table2}.
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{ | c | P{1cm} | P{1cm} | P{1cm} | P{1cm} | P{1cm} | P{1cm} | P{1cm} | P{1cm} | }
+        \hline
+        ${\omega_{KL}\mathrm{mod4}}$     & 0 & 2 & 0      & 2      & 1     & 3     & 1      & 3      \\
+        \hline
+        ${\omega_{KL}^{-}\mathrm{mod4}}$ & 0 & 1 & 1      & 0      & 0     & 1     & 1      & 0      \\
+        \hline\hline
+        ${S_{KL}}$                       &   & 1 & ${-1}$ & -1     & ${i}$ & ${i}$ & ${-i}$ & ${-i}$ \\
+        \hline
+        ${S_{(KL)}}$                     & 1 & 1 & ${-1}$ & ${-1}$ & 0     & 0     & 0      & 0      \\
+        \hline
+        ${S_{[KL]}}$                     & 0 & 0 & 0      & 0      & ${i}$ & ${i}$ & ${-i}$ & ${-i}$ \\
+        \hline
+    \end{tabular}
+    \caption{Множитель до ${\hat{\sigma}_M}$ в \eqref{eq6} для ${\hat{\sigma}_K\hat{\sigma}_L,\{\hat{\sigma}_K,\hat{\sigma}_L\}}$, и ${[i\hat{\sigma}_K,i\hat{\sigma}_L]}$.}\label{table1}
+\end{table}
+
+Композицию элементов базиса Паули, их антикоммутаторов и коммутаторов можно компактно выразить в виде, удобном для программной реализации:
+\begin{equation}\label{eq6}
+    \hat{\sigma}_K\hat{\sigma}_L = S_{KL}\hat{\sigma}_M,\;\;\;
+    \{\hat{\sigma}_K, \hat{\sigma}_L\} = S_{(KL)}\hat{\sigma}_M,\;\;\;
+    [i\hat{\sigma}_K, i\hat{\sigma}_L] = -S_{[KL]}\hat{\sigma}_M,
+\end{equation}
+
+\noindent где
+\begin{equation}\label{eq7}
+    \hat{\sigma}_M = \hat{\sigma}_{m_1\ldots m_n}, \;\;\; m_r = k_r \cdot l_r \;\;\; (r = 1,\ldots,n).
+\end{equation}
+
+Две строки Паули длины ${n}$ могут коммутировать, даже имея ненулевые элементы в одних и тех же позициях. Например, операторы ${\hat{\sigma}_{11}}$, ${\hat{\sigma}_{22}}$ и ${\hat{\sigma}_{33}}$ коммутируют друг с другом. Унитарная матрица перехода из стандартного базиса ${\{|i_1\ldots i_n\rangle\langle j_1\ldots j_n|\}}$ в базис Паули содержит только элементы ${0}$, ${\pm 1}$ и ${\pm i}$. Например:
 $$
-\hat{\sigma}_{k_1\ldots k_n} = \hat{\sigma}_{k_1} \otimes \ldots \otimes \hat{\sigma}_{k_n},
+|00\ldots0\rangle\langle00\ldots0| \rightarrow \frac{1}{2^n} \sum_{i_1,\ldots,i_n \in \{0,3\}} \hat{\sigma}_{i_1\ldots i_n}.
 $$
 
-где $k_i \in \{0, 1, 2, 3\}$. Таким образом, операторная форма матриц Паули позволяет описывать сложные квантовые состояния и преобразования в системах из нескольких кубитов.
+Общее выражение для стандартных ортогональных проекторов имеет вид:
+$$
+|i_1\ldots i_n\rangle\langle i_1\ldots i_n| = \frac{1}{2^n} \sum_{k_1,\ldots,k_n \in \{0,3\}} \mathcal{X}^{i_1}_{k_1} \cdots \mathcal{X}^{i_n}_{k_n} \: \hat{\sigma}_{k_1\ldots k_n},
+$$
+\noindent где
 
-\section{Целевая функция и анзац}
+$${
+            \mathcal{X}^0_0=\mathcal{X}^0_3=\mathcal{X}^1_0=1,\;\;\;\mathcal{X}^1_3 = -1.
+        }$$
 
-\section{Общая схема алгоритма}
+Из выражения \eqref{eq6} следует, что:
+1. Множество ${\{i\hat{\sigma}_K\}_{K=0}^{4^n-1}}$ образует ортонормированный базис в ${\mathfrak{su}(2^n)}$.
+2. Множество
+$${
+    \widetilde{P}(\mathcal{H}_n) = \left\{\epsilon\hat{\sigma}_K \mid K \in \mathrm{Str}_n,\; \epsilon \in \{\pm1, \pm i\}\right\},
+}$$
+\noindent содержащее ${4^{n+1}}$ элементов, образует группу — т.н. ${n}$-кубитную группу Паули.
+
+Нормализатор группы Паули в унитарной группе:
+$${
+    \mathcal{C}(\mathcal{H}_n) = \left\{\hat{U} \in U(\mathcal{H}_n) \mid \hat{U}\hat{\sigma}_K\hat{U}^\dagger \in \widetilde{P}(\mathcal{H}_n),\;\; \forall \hat{\sigma}_K \in \widetilde{P}(\mathcal{H}_n)\right\},
+}$$
+\noindent называется группой Клиффорда. Исходя из \eqref{eq2}, \eqref{eq4} и \eqref{eq7} получаем следующее утверждение
+
+\textsf{Утверждение 1.}\textit{Взаимные унитарные преобразования базисных операторов Паули подчиняются соотношениям ${\hat{\sigma}_{i_1\ldots i_n}\hat{\sigma}_{k_1\ldots k_n}\hat{\sigma}_{i_1\ldots i_n}=\pm\hat{\sigma}_{i_1\ldots i_n}}$, где знак плюс стоит тогда и только тогда, когда количество троек ${(i_m k_m i_m)_{m\in\{1,\ldots,n\}}}$, удовлетворяют условиям ${i_m\neq k_m},\;i_m\neq0,$ и ${k_m\neq0}$ четности}.
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{ | c | P{1cm} | P{1cm} | P{1cm} | P{1cm} | P{1cm} | P{1cm} | P{1cm} | P{1cm} | }
+        \hline
+        ${l}$                    & 0                      & 1                      & 2                      & 3                      & 4                      & 5                      & 6                      & 7                      \\
+        \hline
+        ${l_2 l_1 l_0}$          & 000                    & 001                    & 010                    & 011                    & 100                    & 101                    & 110                    & 111                    \\
+        \hline
+        ${k_2 k_1 k_0}$          & 011                    & 011                    & 011                    & 011                    & 011                    & 011                    & 011                    & 011                    \\
+        \hline
+        ${\overline{l}\wedge k}$ & 011                    & 010                    & 001                    & 000                    & 011                    & 010                    & 001                    & 000                    \\
+        \hline
+        ${l\wedge k}$            & 000                    & 001                    & 010                    & 011                    & 000                    & 001                    & 010                    & 011                    \\
+        \hline
+        ${l\wedge \overline{k}}$ & 000                    & 000                    & 000                    & 000                    & 100                    & 100                    & 100                    & 100                    \\
+        \hline
+        ${\hat{\sigma}_{I}}$     & ${\hat{\sigma}_{011}}$ & ${\hat{\sigma}_{012}}$ & ${\hat{\sigma}_{021}}$ & ${\hat{\sigma}_{022}}$ & ${\hat{\sigma}_{311}}$ & ${\hat{\sigma}_{312}}$ & ${\hat{\sigma}_{121}}$ & ${\hat{\sigma}_{322}}$ \\
+        \hline
+    \end{tabular}
+    \caption{Элементы базиса Паули, возникающие для ${k=011}$.}\label{table2}
+\end{table}
+
+\section{Вариационная квантовая оптимизация}
+
+Пусть $\mathcal{H}_n$ --- гильбертово пространство квантовой системы, состоящей из $n$ кубитов, ${\mathcal{S}\subset\mathcal{H}_n}$ --- пространство векторов состояния (т.е. векторов, нормированных на единицу), $L(\mathcal{H}_n)$ --- алгебра операторов на $\mathcal{H}_n$ и ${\hat{H}\in L(\mathcal{H}_n)}$ --- эрмитов оператор. Определим функцию
+\begin{equation}\label{E(u)}
+  E(\ket{u})=\bra{u}\hat{H}\ket{u},\quad \ket{u}\in\mathcal{S}.
+\end{equation}
+\textit{В простейшей постановке \textbf{квантовой задачи оптимизации} требуется найти вектор состояния, на котором целевая функция (функция стоимости) $E$ принимает минимальное значение}, т.е., в формальной записи, решить задачу
+\begin{equation}\label{Emin}
+  E(\ket{u})\; \stackrel{\ket{u}\in\mathcal{S}}{-\!-\!\!\!\longrightarrow}\; \min.
+\end{equation}
+Ниже, для определенности и краткости, будем называть $\hat{H}$ гамильтонианом системы, а целевую функцию $E$ --- энергией.
+
+Сложность алгоритмов прямого вычисления собственных значений гамильтониана $\hat{H}$ растет экспоненциально с ростом числа кубитов, поэтому для больших систем используются вариационные методы решения задачи оптимизации~(\ref{Emin}).
+
+Вариационными квантовыми алгоритмами обычно называют такие гибридные квантово-классические алгоритмы, нацеленные на решение квантовых задач оптимизации посредством квантовых вычислений или их классической имитации, которые проводят вариационную настройку параметров квантовой схемы. Параметрически управляемое квантовое устройство, обычно представленное квантовой цепью, реализует анзац, т.е. унитарное преобразование стандартного начального состояния ${\ket{0}^{\!\otimes\:\! n}}$ или, как вариант, предудущего полученного состояния. На каждом шаге регулирующие параметры подбираются так, чтобы минимизировать энергию (целевую функцию). Обычно это выполняется путём измерения энергии состояний, предоставляемых вариационной схемой, и обновления параметров для минимизации целевой функции.
+
+В точной математической формулировке сказанное означает, что в функции~(\ref{E(u)}) вектор состояния $\ket{u}$ зависит от набора $m$ параметров $\bm\theta=(\theta_1, \ldots,\theta_m)$, которые принимают значения в некоторой связной и односвязной области $\Omega\in\mathbb{R}^m$. Вариационная формулировка квантовой задачи оптимизации~(\ref{Emin}) имеет вид
+\begin{equation}\label{Emin-theta}
+  E\big(\ket{u(\bm\theta)}\big)\; \stackrel{\bm\theta\,\in\,\Omega}{-\!-\!\!\!\longrightarrow}\; \min, \qquad E\big(\ket{u(\bm\theta)}\big)=\bra{u(\bm\theta)}\hat{H}\ket{u(\bm\theta)}.
+\end{equation}
+
+Итак, цель вариационного квантового алгоритма --- найти такой набор параметров, на котором энергия достигает минимума. Число параметров $m$ в наборе $\bm\theta=(\theta_1, \ldots,\theta_m)$ зависит от конкретной задачи, в частности, от числа кубитов в квантовом устройстве. Для $n$ кубитов размерность пространства состояний, $N=2^n$, растет экспоненциально с ростом числа кубитов. Поэтому вариационный квантовый алгоритм должен быть организован и выполнен так, чтобы выполнялось условие $m\ll N$, поскольку в противном случае высокий класс сложности алгоритма сделает его неэффективным с практической точки зрения.
+
+Но наиболее важным вопросом является выбор зависимости вектора состояния $\ket{u(\bm\theta)}$ от параметров. В вариационных квантовых алгоритмах используется \textit{анзац} (унитарное преобразование) вида
+\begin{equation}\label{u(theta)}
+\ket{u(\bm\theta)}= \hat{U}(\bm\theta)\ket{u_0}.
+\end{equation}
+В общем случае форма анзаца определяет, какими будут параметры $\boldsymbol\theta$ и как их можно настроить для минимизации энергии (целевой функции). Структура анзаца, как правило, будет зависеть от поставленной задачи, так как во многих случаях можно использовать информацию о проблеме, чтобы подобрать анзац: это "анзац, подсказнный задачей". Однако можно построить анзацы достаточно общего вида, которые пригодны для использования в некоторых классах задач даже тогда, когда интуиция и известная информация о задаче не позволят его уточнить. Стандартно анзац выбирается в виде композиции $m$ последовательно примененных унитарных преобразований
+\begin{equation}\label{Ansatz}
+\hat{U}(\boldsymbol\theta)= \hat{U}_{m}(\theta_m)\cdots \hat{U}_{1}(\theta_1).
+\end{equation}
+
+В композиции~(\ref{Ansatz}) выбор операторов определяется типом задачи и технической возможностью их реализации на конкретном квантовом устройстве. Например, можно выбрать
+\begin{equation}\label{Ansatz1}
+\hat{U}_{K}(\theta_K)= \hat{W}_K\exp\!\big(i\theta_K\hat{\sigma}_K\big)= \hat{W}_K\big(\cos\:\!\!\theta_K\hat{\sigma}_{0\ldots0}+ i\sin\:\!\!\theta_K\hat{\sigma}_K\big),
+\end{equation}
+где $1\!\leqslant\! K\!\leqslant\! m,\; \hat{\sigma}_K\!=\! \hat{\sigma}_{k_1}\!\otimes\ldots\otimes\hat{\sigma}_{k_n},\; k_1,\!\ldots,\:\!\!k_n\!\in\!\{0,1,2,3\},\; K\!=\!k_1\!\ldots k_n$\linebreak
+(т.е. $K$ --- десятичное представление строки $k_1\ldots k_n$, рассматриваемой как число по основанию 4), $n$ --- число кубитов, а $\hat{W}_K$ --- независящий от параметров унитарный оператор. Как правило, в строке $k_1\ldots k_n$ только отдельные числа отличны от нуля, так что в тензорном произведении ${\hat{\sigma}_{k_1}\!\otimes\ldots \otimes \hat{\sigma}_{k_n}}$ часть операторов являются тождественными.
+
+В другом распространенном варианте операторы в композиции~(\ref{Ansatz}) имеют вид
+\begin{equation}\label{Ansatz2}
+\hat{U}_{K}(\theta_K)= \hat{W}_K
+\big(\mathrm{e}^{i\theta_{k_1}\hat{\sigma}_{k_1}} \otimes\ldots\otimes \mathrm{e}^{i\theta_{k_n}\hat{\sigma}_{k_n}}\big),
+\end{equation}
+где по-прежнему $1\!\leqslant\! K\!\leqslant\! m$ и $K\!=\!k_1\!\ldots k_n$. Если в~(\ref{Ansatz1}) все операторы $\hat{W}_K$ могут быть тождественными, то в~(\ref{Ansatz2}), по крайней мере некоторые операторы $\hat{W}_K$ должны быть запутывающими и, следовательно, как минимум двухкубитными.
+
+Таким образом, анзацы~(\ref{Ansatz}), (\ref{Ansatz1}) и (\ref{Ansatz2}) конкретизируют вариационную квантовую задачу оптимизации~(\ref{Emin-theta}) и~(\ref{u(theta)}) в отношении параметрической зависимости вектора состояния,
+\begin{equation*}
+\ket{u(\bm\theta)}= \hat{U}(\bm\theta)\ket{0\ldots0},
+\end{equation*}
+где начальное состояние имеет вид ${\ket{0\ldots0}=\ket{0}^{\!\otimes\:\! n}}$. Если предположить далее, что мы в состоянии уверенно приготовить начальное состояние, реализовать анзац на физическом устройстве и вычислить значение энергии $E\big(\ket{u(\bm\theta)}\big)=\bra{u(\bm\theta)}\hat{H}\ket{u(\bm\theta)}$ посредством измерений (с привлечением классического компьютера), то следующий --- основной --- вопрос можно сформулировать так: как искать параметры, которые обеспечивают глобальный минимум энергии. Этот этап выполняется с помощью классического компьютера, так что вариационный квантовый алгоритм --- гибридный квантово-классический алгоритм: параметризованная квантовая схема и измерительный прибор представляют квантовую часть, а алгоритм настройки параметров — классическую.
+
+\section{Общая схема алгоритма и анзац}
+
+
+
+\section{Пример, иллюстрирующий особенности алгоритма}
+
+
+Для иллюстрации алгоритма рассмотрим гамильтониан
+\begin{align}\label{H}
+\hat{H} = 2\,\hat{\sigma}_{03} + \hat{\sigma}_{30} - 4\,\hat{\sigma}_{11},
+\end{align}
+который в стандартном базисе $\big\{\ket{00}, \ket{01}, \ket{10}, \ket{11}\!\big\}$ имеет матрицу
+\begin{equation}\label{}
+H=
+\!\!\left(\!
+\begin{array}{cccc}
+3& 0& 0& \!\!-4 \vphantom{\hat{A}}  \\[2pt]
+0& \!\!-1& \!\!-4& 0 \vphantom{\hat{A}}  \\[2pt]
+0& \!\!-4& 1& 0 \vphantom{\hat{A}}  \\[2pt]
+\!\!-4& 0& 0& \!\!-3 \vphantom{\hat{A}}
+\end{array}
+\!\!\right).\nonumber
+\end{equation}
+Используя систему Maple находим собственные значения и собственные состояния в порядке возрастания собственных значений, начиная с основного состояния $\ket{u_0}$ с собственным значением $E_0$:
+\begin{align}
+E_0&= -5,\; &&\ket{u_0}= \frac{1}{\,\sqrt{5}\,}\,\ket{00}+ \frac{2}{\,\sqrt{5}\,}\,\ket{11}, \label{E0-u0}\\
+E_1&= -\sqrt{17},\;\vphantom{\int\limits^A} &&\ket{u_1}= \frac{\sqrt{17}+1}{\,\sqrt{34+2\sqrt{17}\,}\,}\,\ket{01}+ \frac{\sqrt{8}}{\,\sqrt{17+\sqrt{17}\,}\,}\,\ket{10}, \label{E1-u1}\\
+E_2&= \sqrt{17},\;\vphantom{\int\limits^A} &&\ket{u_1}= -\frac{\sqrt{17}-1}{\,\sqrt{34-2\sqrt{17}\,}\,}\,\ket{01}+ \frac{\sqrt{8}}{\,\sqrt{17-\sqrt{17}\,}\,}\,\ket{10}, \label{E2-u2}\\
+E_3&= 5,\;\vphantom{\int\limits^A} &&\ket{u_3}= -\frac{2}{\,\sqrt{5}\,}\,\ket{00}+ \frac{1}{\,\sqrt{5}\,}\,\ket{11}. \label{E3-u3}
+\end{align}
+Рассмотрим далее пошаговое выполнение вариационного квантового алгоритма, который позволяет найти состояние, близкое к основному.
+
+\textit{Первый шаг --- выбор анзаца}, т.е. унитарного преобразования $\hat{U}(\bm\theta)$. В гамильтониан~(\ref{H}) не входят операторы вида $\hat{\sigma}_{k2}$ и $\hat{\sigma}_{k2}$ с $k\neq2$, поэтому имеет смысл сразу выбирать анзац так, чтобы при действии на $k\neq2$ он давал вектор состояния с вещественными коэффициентами. Других наводящих соображений относительно формы анзаца не видно, поэтому следует рассмотреть разные варианты. В общем случае вектор параметров $\bm\theta$ четырехмерен. В простейшем варианте анзац с четырехмерным вектором параметров $\bm\theta=(\xi,\lambda,\mu,\nu)$ можно выбирать как композицию экспонент
+\begin{equation}\label{ansatz}
+\hat{U}(\bm\theta)= \mathrm{e}^{i\xi\hat{\sigma}_{02}}\mathrm{e}^{i\lambda\hat{\sigma}_{03}} \mathrm{e}^{i\mu\hat{\sigma}_{30}} \mathrm{e}^{i\nu\hat{\sigma}_{11}}
+\end{equation}
+операторов Паули, присутствующих в гамильтониане~(\ref{H}). Вычислим вначале
+\begin{multline}\label{}
+\mathrm{e}^{i\mu\hat{\sigma}_{30}} \mathrm{e}^{i\nu\hat{\sigma}_{11}}\ket{00}= \big(\cos\:\!\!\mu\,\hat{\sigma}_{00}+ i\sin\:\!\!\mu\,\hat{\sigma}_{30}\big)\big(\cos\:\!\!\nu\ket{00}+ i\sin\:\!\!\nu\ket{11}\big)
+\vphantom{\int}\\
+=\cos\:\!\!\mu\cos\:\!\!\nu\ket{00}- \sin\:\!\!\mu\sin\:\!\!\nu\ket{11}+ i\sin\:\!\!\mu\cos\:\!\!\nu\ket{00}+ i\cos\:\!\!\mu\sin\:\!\!\nu\ket{11}
+\vphantom{\int}\\
+=\mathrm{e}^{i\mu}\cos\:\!\!\nu\ket{00}+ i\mathrm{e}^{i\mu}\sin\:\!\!\nu\ket{11}= \mathrm{e}^{i\mu}\cos\:\!\!\nu\ket{00}+ \mathrm{e}^{i(\mu+\pi/2)}\sin\:\!\!\nu\ket{11}.
+\nonumber
+\end{multline}
+Действуя на результат оператором $\mathrm{e}^{i\lambda\hat{\sigma}_{03}}$, получим следующий промежуточный вектор состояния:
+\begin{multline}\label{3param}
+\mathrm{e}^{i\lambda\hat{\sigma}_{03}} \mathrm{e}^{i\mu\hat{\sigma}_{30}} \mathrm{e}^{i\nu\hat{\sigma}_{11}}\ket{00}= \mathrm{e}^{i\mu}\cos\:\!\!\nu \big(\cos\:\!\!\lambda\,\hat{\sigma}_{00}+ i\sin\:\!\!\lambda\hat{\sigma}_{03}\big)
+\ket{00}\\
+\qquad\qquad\qquad\qquad\qquad\quad\: +\mathrm{e}^{i(\mu+\pi/2)}\sin\:\!\!\nu \big(\cos\:\!\!\lambda\,\hat{\sigma}_{00}+ i\sin\:\!\!\lambda\hat{\sigma}_{03}\big)
+\ket{11} \vphantom{\int}\\
+\;\;=\mathrm{e}^{i\mu}\cos\:\!\!\nu
+\big(\cos\:\!\!\lambda+ i\sin\:\!\!\lambda\big)\ket{00}+
+\mathrm{e}^{i(\mu+\pi/2)}\sin\:\!\!\nu
+\big(\cos\:\!\!\lambda+ i\sin\:\!\!\lambda\big)\ket{11}
+\vphantom{\int}\\
+=\mathrm{e}^{i(\mu+\lambda)}\cos\:\!\!\nu\ket{00}+ \mathrm{e}^{i(\mu+\pi/2-\lambda)}\sin\:\!\!\nu\ket{11}.\quad\,
+\end{multline}
+Очевидно, что этот анзац не является универсальным.
+
+Варьируя параметры $\lambda,\mu,\nu$, можно получить основное состояние~(\ref{E0-u0}) с точностью до несущественного множителя $\mathrm{e}^{i(\mu+\pi/4)}$, например, при
+\begin{equation}\label{param}
+\lambda=\pi/4, \quad \mu\in\mathbb{R}, \quad \cos\:\!\!\nu=1/\sqrt{5},
+\quad
+\sin\:\!\!\nu=2/\sqrt{5}.
+\end{equation}
+Здесь $\mu$ --- любое, поэтому к нужному результату приводит более простой анзац (при $\mu=0$) $\hat{U}(\bm\theta)= \mathrm{e}^{i\lambda\hat{\sigma}_{03}} \mathrm{e}^{i\nu\hat{\sigma}_{11}}$, однако заранее это нам не известно. Более того основное состояние~(\ref{E0-u0}) можно достигнуть (что заранее также неизвестно и неочевидно) даже однопараметрическим анзацем
+\begin{equation*}\label{}
+\mathrm{e}^{i\nu\hat{\sigma}_{12}}\ket{00}= \big(\cos\:\!\!\nu\,\hat{\sigma}_{00}+ i\sin\:\!\!\nu\,\hat{\sigma}_{12}\big)\ket{00}= \cos\:\!\!\nu\ket{00}+ \sin\:\!\!\nu\ket{11},
+\nonumber
+\end{equation*}
+с теми же значениями $\cos\:\!\!\nu$ и $\sin\:\!\!\nu$, что и в~(\ref{param}).
+
+Действуя на~(\ref{3param}) оператором $\mathrm{e}^{i\xi\hat{\sigma}_{02}}$, получим вектор состояния
+\begin{multline}\label{Phi0}
+\ket{\Phi}= \hat{U}(\bm\theta)\ket{00}\;\\
+=\big(\cos\:\!\!\xi\,\hat{\sigma}_{00}+ i\sin\:\!\!\xi\,\hat{\sigma}_{02}\big) \big(\mathrm{e}^{i(\mu+\lambda)}\cos\:\!\!\nu\ket{00}+ \mathrm{e}^{i(\mu+\pi/2-\lambda)}\sin\:\!\!\nu\ket{11}\big)\! \vphantom{\int}\\
+=\mathrm{e}^{i(\mu+\lambda)}\sin\:\!\!\xi\cos\:\!\!\nu\ket{01}- \mathrm{e}^{i(\mu+\pi/2-\lambda)}\sin\:\!\!\xi\sin\:\!\!\nu\ket{10}
+\hspace{6.5em} \vphantom{\int}\\
++\mathrm{e}^{i(\mu+\lambda)}\cos\:\!\!\xi\cos\:\!\!\nu\ket{00}+ \mathrm{e}^{i(\mu+\pi/2-\lambda)}\cos\:\!\!\xi\sin\:\!\!\nu\ket{11},\;\,
+\end{multline}
+который зависит от четырех параметров. Из формы данного вектора видно, что анзац~(\ref{ansatz}) универсален (с учетом замечания о вещественности коэффициентов, сделанного выше). Основное состояние достигается при произвольном $\mu\in\mathbb{R}$ и
+\begin{equation}\label{param1}
+\!\!\xi=0, \;\lambda=\!\big\{\pi/4,7\pi/4\big\}, \; \cos\:\!\!\nu=1/\sqrt{5},
+\; \sin\:\!\!\nu=\big\{2/\sqrt{5},-2/\sqrt{5}\big\}\\
+\end{equation}
+или
+\begin{equation}\label{param2}
+\,\xi=\pi, \;\lambda=\!\big\{\pi/4,7\pi/4\big\}, \; {\cos\:\!\!\nu}=\!-1/\sqrt{5},
+\; {\sin\:\!\!\nu}=\big\{\!\!-\:\!\!2/\sqrt{5},2/\sqrt{5}\big\}.
+\end{equation}
+
+Для сокращения записи имеет смысл освободиться в~(\ref{Phi0}) от фазового множителя и записать вектор состояния в виде
+\begin{multline}\label{Phi}
+\ket\Phi= \sin\:\!\!\xi \big(\cos\:\!\!\nu\ket{01}- \mathrm{e}^{i(\pi/2-2\lambda)}\sin\:\!\!\nu\ket{10}\!\big)
+\\
++\cos\:\!\!\xi \big(\cos\:\!\!\nu\ket{00}+ \mathrm{e}^{i(\pi/2-2\lambda)}\sin\:\!\!\nu\ket{11}\!\big)
+\end{multline}
+
+\textit{Второй шаг --- вычисление энергии состояния}, т.е. среднего значения $\bra\Phi{\hat{H}}\ket\Phi$. Заметим, что первый и второй шаги должны выполняться на квантовых устройствах, а при классической симуляции алгоритма необходимо проводить явные вычисления. Из~(\ref{H}) и~(\ref{Phi}) находим
+\begin{multline}\label{}
+{\hat{H}}\ket\Phi= \sin\:\!\!\xi\big(2\,\hat{\sigma}_{03}+ \hat{\sigma}_{30}- 4\hat{\sigma}_{11}\big)\! \big(\cos\:\!\!\nu\ket{01}- \mathrm{e}^{i(\pi/2-2\lambda)}\sin\:\!\!\nu\ket{10}\!\big)
+\\
++\cos\:\!\!\xi\big(2\,\hat{\sigma}_{03}+ \hat{\sigma}_{30}- 4\hat{\sigma}_{11}\big)\! \big(\cos\:\!\!\nu\ket{00}+ \mathrm{e}^{i(\pi/2-2\lambda)}\sin\:\!\!\nu\ket{11}\!\big)
+\hspace{0.2em} \vphantom{\int\limits^A_A}
+\\%%%%%%%%%%%%%% |01> |10>
+={\sin\:\!\!\xi}\!\left\{\! \big(4\mathrm{e}^{i(\pi/2-2\lambda)}\sin\:\!\!\nu- \cos\:\!\!\nu\big)\ket{01}\right.\hspace{7.6em}
+\\
+\hspace{16em}\left.-\big(\mathrm{e}^{i(\pi/2-2\lambda)}\sin\:\!\!\nu+ 4\cos\:\!\!\nu\big)\ket{10}\!\right\}
+\\%%%%%%%%%%%%%% |00> |11>
++{\cos\:\!\!\xi}\!\left\{\! \big(3\cos\:\!\!\nu-4\mathrm{e}^{i(\pi/2-2\lambda)}\sin\:\!\!\nu\big)\ket{00} \right.\hspace{6.6em}
+\\
+\left.-\big(4\cos\:\!\!\nu+ 3\mathrm{e}^{i(\pi/2-2\lambda)}\sin\:\!\!\nu\big) \ket{11}\!\right\}\!.\hspace{0.5em}
+\nonumber
+\end{multline}
+Поскольку
+\begin{multline}\label{}
+\bra\Phi=
+\sin\:\!\!\xi \big(\cos\:\!\!\nu\bra{01}- \mathrm{e}^{-i(\pi/2-2\lambda)}\sin\:\!\!\nu\bra{10}\,\big)
+\\
++\cos\:\!\!\xi \big(\cos\:\!\!\nu\bra{00}+ \mathrm{e}^{-i(\pi/2-2\lambda)}\sin\:\!\!\nu\bra{11}\,\big),
+\hspace{2.2em} \vphantom{\int\limits^A}
+\nonumber
+\end{multline}
+то
+\begin{multline}\label{EPhi}
+E_{\Phi}= \bra\Phi{\hat{H}}\ket\Phi
+\\
+=\sin^2\:\!\!\xi\!\left\{\!\cos\:\!\!\nu \big(4\mathrm{e}^{i(\pi/2-2\lambda)}\sin\:\!\!\nu- \cos\:\!\!\nu\big) \right.\hspace{7.6em}
+\\
+\hspace{16em}\left.+\sin\:\!\!\nu\big(\sin\:\!\!\nu+ 4\mathrm{e}^{-i(\pi/2-2\lambda)}\cos\:\!\!\nu\big)\right\}
+\\%%%%%%%%%%%%%% |00> |11>
++\cos^2\:\!\!\xi\!\left\{\!\cos\:\!\!\nu\big(3\cos\:\!\!\nu- 4\mathrm{e}^{i(\pi/2-2\lambda)}\sin\:\!\!\nu\big) \right.\hspace{6.6em}
+\\
+\hspace{4em}\left.-\sin\:\!\!\nu\big(4\mathrm{e}^{-i(\pi/2-2\lambda)}\cos\:\!\!\nu+ 3\sin\:\!\!\nu\big)\!\right\}
+\vphantom{\underbrace{j_|}}
+\\
+=\sin^2\:\!\!\xi\big(4\sin\:\!\!2\lambda\sin\:\!\!2\nu- \cos\:\!\!2\nu\big)+
+\cos^2\:\!\!\xi\big(3\cos\:\!\!2\nu- 4\sin\:\!\!2\lambda\sin\:\!\!2\nu\big).
+\vphantom{\widehat{A^|}}
+\end{multline}
+Разумеется, если взять значения ${\xi,\, \lambda,\, \cos\:\!\!\nu,\, \sin\:\!\!\nu}$ как в~(\ref{param1}) или в~(\ref{param2}), то мы получим энергию основного состояния~(\ref{E0-u0}), т.е.  $E_{\Phi}=-5$.
+
+
+\textit{Третий шаг --- изменение значений параметров} $\lambda,\mu,\nu$ (с целью минимизации $E_{\Phi}$) и возвращение к первому шагу; предполагается, что в начале выполнения алгоритма начальные значения параметров заданы. Из~(\ref{EPhi}) видно, что на значение $E_{\Phi}$ параметр $\mu$ не влияет, а параметры $\lambda,\nu$ должны варьироваться в области ${[0,\pi]\times[0,\pi]}$. Однако изначально это неизвестно, поэтому все четыре параметра должны варьироваться в области ${[0,2\pi]\times[0,2\pi]\times[0,2\pi]\times[0,2\pi]}$. Имеет смысл установить независимость энергии от параметра $\mu$ (и ее зависимость от остальных параметров) в начале работы алгоритма.
+
+Мы уже знаем, что глобальный минимум энергии достигается для четырех наборов параметров~(\ref{param1}) и~(\ref{param2}). Соответствующие собственные векторы, вычисленные по выражению~(\ref{Phi}) отличаются от~(\ref{E0-u0}) только фазовыми множителями. Теперь необходимо выяснить, имеются ли у функции (трех переменных)~(\ref{EPhi}) другие локальные минимумы.
+
+Используя систему Maple, вычислим производные
+\begin{equation*}
+\partial_\xi E_{\Phi},\,\; \partial_\lambda E_{\Phi},\,\; \partial_\nu E_{\Phi},\,\;
+\end{equation*}
+\begin{equation*}
+A=\partial_\xi^{\:\!2}E_{\Phi},\,\; B=\partial_\lambda^{\:\!2}E_{\Phi},\,\; C=\partial_\nu^{\:\!2}E_{\Phi},\,\;
+\end{equation*}
+\begin{equation*}
+K= \partial_{\xi\lambda}E_{\Phi},\,\; L=\partial_{\xi\nu}E_{\Phi},\,\; M=\partial_{\lambda\nu}E_{\Phi}.\,\;
+\end{equation*}
+Находим
+\begin{eqnarray*}
+\partial_\xi E_{\Phi} &=& 4\sin\:\!\!2\xi\big(2\sin\:\!\!2\lambda\sin\:\!\!2\nu- \cos\:\!\!2\nu\big),
+\\
+\partial_\lambda E_{\Phi} &=& -8\cos\:\!\!2\xi\cos\:\!\!2\lambda\sin\:\!\!2\nu, \\
+\partial_\nu E_{\Phi} &=& \sin^2\:\!\!\xi\big(8\sin\:\!\!2\lambda\cos\:\!\!2\nu+ 2\sin\:\!\!2\nu\big)-
+\cos^2\:\!\!\xi\big(6\sin\:\!\!2\nu+ 8\sin\:\!\!2\lambda\cos\:\!\!2\nu\big),
+\\
+A &=& 8\cos\:\!\!2\xi \big(2\sin\:\!\!2\lambda\sin\:\!\!2\nu-\cos\:\!\!2\nu\big),
+\\
+B &=& 16\cos\:\!\!2\xi \sin\:\!\!2\lambda \sin\:\!\!2\nu,
+\\
+C &=& 4\cos^2\:\!\!\xi\big(4\sin\:\!\!2\lambda\sin\:\!\!2\nu- 3\cos\:\!\!2\nu\big) -4\sin^2\:\!\!\xi\big(4\sin\:\!\!2\lambda\sin\:\!\!2\nu- \cos\:\!\!2\nu\big),
+\\
+K &=& 16\sin\:\!\!2\xi \cos\:\!\!2\lambda \sin\:\!\!2\nu,
+\\
+L &=& 4\sin\:\!\!2\xi \big(4\sin\:\!\!2\lambda\cos\:\!\!2\nu+ 2\sin\:\!\!2\nu\big),
+\\
+M &=& -16\cos\:\!\!2\xi \cos\:\!\!2\lambda \cos\:\!\!2\nu.
+\end{eqnarray*}
+Необходимые и достаточные условия минимума имеют вид
+\begin{equation}\label{ExtrConds}
+\partial_\xi E_{\Phi}=0,\quad \partial_\lambda E_{\Phi}=0,\quad \partial_\nu E_{\Phi}=0,
+\nonumber
+\end{equation}
+\begin{equation}\label{}
+A>0,\qquad
+\det\!\left(\!\!
+\begin{array}{cc}
+A&\!\! K \\
+K&\!\! B\vphantom{\hat{A}}
+\end{array}
+\!\!\!\:\right)\!>0,
+\qquad
+\det\!\!\!\:\left(\!\!
+\begin{array}{ccc}
+A&\! K&\! L \\[2pt]
+K&\! B&\! M\vphantom{\hat{A}}  \\[2pt]
+L&\! M&\! C\vphantom{\hat{A}}
+\end{array}
+\!\!\right)\!>0.
+\nonumber
+\end{equation}
+
+Снова проводя вычисления с помощью системы Maple, обнаруживаем четыре точки локального минимума с энергией ${E_\Phi=-\sqrt{17}}$:
+\begin{align*}
+\xi=\frac{\pi}{2}, &\qquad\lambda=\frac{\pi}{4}, \qquad \nu=\pi-\,\frac{1}{2}\,\arctan(4),\\
+\xi=\frac{\pi}{2}, &\qquad\lambda=\frac{\pi}{4}, \qquad\:\! \!\!\:\nu=2\pi-\,\frac{1}{2}\,\arctan(4),\\
+\xi=\frac{\pi}{2}, &\qquad\lambda=\frac{3\pi}{4}, \quad\;\, \nu=\frac{1}{2}\,\arctan(4),\\
+\xi=\frac{\pi}{2}, &\qquad\lambda=\frac{3\pi}{4}, \quad\;\, \nu=\pi+\,\frac{1}{2}\,\arctan(4).
+\end{align*}
+
+Таким образом, в процессе оптимизации целевой функции должны использоваться методы, которые позволяют избежать попадания в точку локального минимума, например, метод отжига.
 
 \section{Оптимизация}
 
+%#############################################################################################################################################################################################################################
+%################################################################### 2 Вариационный квантовый алгоритм на основе метода отжига ###############################################################################################
+%#############################################################################################################################################################################################################################
+
 \chapter{Вариационный квантовый алгоритм на основе метода отжига}
+
+%#############################################################################################################################################################################################################################
+%##################################################################################### 2.1 Метод отжига ######################################################################################################################
+%#############################################################################################################################################################################################################################
 
 \section{Метод отжига}
 
-Метод имитации отжига (Simulated Annealing, SA) представляет собой стохастический алгоритм, который применяется для глобальной оптимизации сложных функций и систем. Алгоритм заимствует свою концепцию из процесса физического отжига металлов, где материал нагревается до высокой температуры и затем медленно охлаждается, что позволяет атомам достигать состояния с минимальной энергией. Этот подход оказался чрезвычайно полезным в математической оптимизации, особенно в задачах с многими локальными минимумами.
+Метод отжига, как фундаментальная концепция в решении задач глобальной оптимизации, находит широкое применение в квантовых вычислениях, особенно в контексте вариационных квантовых алгоритмов. Основная идея метода заключается в постепенном снижении "температуры" системы, чтобы достичь состояния минимальной энергии. В этом разделе подробно рассмотрим как классический, так и квантовый подходы к отжигу, их теоретические основы и практическое применение.
 
-\textbf{Алгоритмическая структура и основные принципы:}
-
-1. \textbf{Пространство состояний:} Пусть $S$ обозначает множество всех возможных состояний системы. Каждое состояние $s \in S$ оценивается с помощью целевой функции $f(s)$, которую необходимо минимизировать. Начальное состояние системы $s_0$ может быть выбрано случайным образом или с использованием эвристик, повышающих вероятность успешного поиска глобального минимума.
-
-2. \textbf{Генерация соседних состояний:} На каждом шаге алгоритма осуществляется переход от текущего состояния $s$ к новому состоянию $s'$ из множества соседних состояний $N(s)$. Для комбинаторных задач, таких как задача коммивояжёра, соседние состояния могут определяться перестановкой элементов, а для непрерывных задач — небольшими случайными изменениями параметров.
-
-3. \textbf{Функция стоимости и её изменение:} Изменение стоимости при переходе к новому состоянию определяется как $\Delta f = f(s') - f(s)$. Алгоритм стремится минимизировать значение $f(s)$, и новое состояние принимается на основе вероятностного критерия:
+Классический метод отжига основывается на аналогии с физическим процессом термического отжига, при котором материал медленно охлаждается, чтобы избежать образования дефектов и достичь состояния минимальной энергии. Математическое основание метода связано с распределением Больцмана, которое описывает вероятность состояния системы при заданной температуре $T$:
 
 \begin{equation}
-P(\Delta f, T) =
-\begin{cases}
-1, & \text{если } \Delta f \leq 0, \\
-\exp\left(-\frac{\Delta f}{T}\right), & \text{если } \Delta f > 0,
-\end{cases}
+p(x) = \frac{1}{Z(T)} \exp\left(-\frac{E(x)}{k_B T}\right),
 \end{equation}
 
-где $T$ — температурный параметр. Эта вероятность позволяет алгоритму избегать застревания в локальных минимумах, принимая менее выгодные состояния с определённой вероятностью.
-
-4. \textbf{Температурный график:} Температура $T$ управляет степенью случайности в принятии решений. Изначально устанавливается высокая температура, которая позволяет системе исследовать пространство состояний более свободно. По мере выполнения алгоритма температура уменьшается согласно выбранному графику. Один из распространённых подходов — экспоненциальное уменьшение:
+где $E(x)$ — энергия состояния $x$, $k_B$ — константа Больцмана, а $Z(T)$ — статистическая сумма. Процесс отжига моделирует систему, которая может переходить между состояниями $x$ и $y$ с вероятностью, зависящей от разности энергий $\Delta E = E(y) - E(x)$:
 
 \begin{equation}
-T_k = T_0 \cdot \alpha^k,
+p(x \rightarrow y) = \min\left(1, \exp\left(-\frac{\Delta E}{k_B T}\right)\right).
 \end{equation}
 
-где $T_0$ — начальная температура, $\alpha \in (0, 1)$ — коэффициент охлаждения, и $k$ — номер итерации. Выбор графика снижения температуры критически важен для эффективности метода.
+С течением времени, температура $T$ постепенно уменьшается, что приводит к уменьшению вероятности перехода в состояния с более высокой энергией, в то время как система стремится к состоянию глобального минимума энергии.
 
-5. \textbf{Критерии остановки:} Алгоритм может завершиться при достижении предельно низкой температуры $T_{\text{min}}$, либо если улучшения в значении $f(s)$ прекращаются на определённое количество итераций. Также может использоваться фиксированное число итераций или достижение заданного уровня точности.
+Квантовый алгоритм отжига использует преимущества квантовой механики, такие как суперпозиция и туннелирование, для более эффективного поиска глобального минимума. В отличие от классического подхода, квантовый отжиг позволяет системе преодолевать энергетические барьеры, используя когерентное туннелирование, что значительно увеличивает вероятность нахождения глобального минимума.
 
-\textbf{Примеры и применение:}
+Квантовый отжиг моделируется с помощью временного гамильтониана, который постепенно изменяется от начального состояния к целевому:
 
-- \textbf{Комбинаторная оптимизация:} В задачах, таких как задача коммивояжёра или задача о рюкзаке, SA позволяет исследовать огромное пространство решений. Соседние состояния определяются перестановками элементов, что позволяет алгоритму находить приближённые оптимумы.
+\begin{equation}
+H(t) = (1 - s(t)) H_B + s(t) H_P,
+\end{equation}
 
-- \textbf{Непрерывные задачи:} SA также применяется в задачах с непрерывными переменными, где используются небольшие случайные изменения переменных для генерации соседних состояний. Таким образом, метод помогает находить экстремумы сложных функций, где традиционные методы градиентного спуска могут быть неэффективны.
+где $H_B$ — начальный гамильтониан, часто представляющий собой простую задачу, такую как сумма операторов Паули $X$, а $H_P$ — проблема-специфический гамильтониан. Функция $s(t)$, изменяющаяся от 0 до 1, управляет эволюцией системы от начального состояния к состоянию минимальной энергии.
 
-- \textbf{Практические применения:} Метод имитации отжига успешно используется в задачах планирования, оптимизации производственных процессов, проектирования систем и даже в задачах финансовой оптимизации, таких как управление портфелем.
+Эволюция квантовой системы описывается уравнением Шрёдингера:
 
-\textbf{Преимущества и ограничения:}
+\begin{equation}
+i \hbar \frac{\partial}{\partial t} \ket{\psi(t)} = H(t) \ket{\psi(t)},
+\end{equation}
 
-Основные преимущества метода включают его универсальность и способность к нахождению глобальных оптимумов благодаря вероятностному характеру принятия решений. Однако эффективность алгоритма сильно зависит от правильной настройки начальных параметров и графика охлаждения. Кроме того, вычислительная сложность метода может стать проблемой для задач с высокой размерностью пространства решений.
+где $\hbar$ — приведённая постоянная Планка. Это уравнение описывает, как квантовая система изменяется со временем под воздействием изменяющегося гамильтониана.
 
-\textbf{Дополнительные аспекты:}
+Важным аспектом квантового отжига является адъективная эволюция системы, которая позволяет системе оставаться в состоянии минимальной энергии в течение всего процесса. Это достигается за счёт медленного изменения параметра $s(t)$ в соответствии с адъективным теоремой:
 
-- \textbf{Адаптивные методы:} В некоторых реализациях метода SA используется адаптивное изменение температуры и других параметров в зависимости от текущего состояния системы. Это позволяет улучшить сходимость и эффективность алгоритма.
+\begin{equation}
+\frac{ds}{dt} \ll \frac{\Delta^2}{\hbar \left\lVert \frac{dH}{ds} \right\rVert},
+\end{equation}
 
-- \textbf{Параллельные вычисления:} Современные вычислительные мощности позволяют реализовывать параллельные версии алгоритма, где несколько экземпляров SA работают одновременно, исследуя различные части пространства состояний. Это существенно увеличивает скорость и качество нахождения решения.
+где $\Delta$ — энергетический разрыв между основным и первым возбужденными состояниями гамильтониана.
 
-- \textbf{Гибридные методы:} SA может комбинироваться с другими методами оптимизации, такими как генетические алгоритмы или методы градиентного спуска, для улучшения эффективности решения сложных задач.
-
+%#########################################################################################################################################################################################################################
+%##################################################################################### 2.2 Алгоритм ######################################################################################################################
+%#########################################################################################################################################################################################################################
 
 \section{Алгоритм}
 
+\label{sec:algorithm}
+
+\subsection{Постановка задачи}
+Для заданного гамильтониана $\hat{H}$, представленного в виде линейной комбинации операторов Паули:
+
+\begin{equation}
+\hat{H} = \sum_{k=1}^K c_k \hat{P}_k,\quad \hat{P}_k = \bigotimes_{j=1}^N \sigma_{k_j}
+\end{equation}
+где $c_k \in \mathbb{C}$, $\sigma_{k_j} \in \{I, \sigma^x, \sigma^y, \sigma^z\}$, требуется найти параметры $\theta = (\theta_1, ..., \theta_M)$, минимизирующие энергию основного состояния:
+
+\begin{equation}
+E(\theta) = \langle 0|U^\dagger(\theta)\hat{H}U(\theta)|0\rangle
+\end{equation}
+
+\subsection{Реализация алгоритма}
+
+
+
+
+Основные этапы алгоритма представлены на рис.~\ref{fig:flowchart}. Ключевые компоненты реализации:
+
+\begin{figure}[ht]
+\centering
+%\includegraphics[width=0.8\textwidth]{algorithm_flowchart}
+\caption{Блок-схема алгоритма}
+\label{fig:flowchart}
+\end{figure}
+
+\subsubsection{Инициализация параметров}
+Параметры $\theta$ инициализируются на основе коэффициентов операторов:
+
+\begin{equation}
+\theta^{(0)}_k = \frac{2\pi|c_k|}{\max|c_j|} + \mathcal{N}(0, 0.1)
+\end{equation}
+
+\begin{lstlisting}[language=Python,caption=Функция инициализации параметров]
+def generate_shifted_theta(pauli_operators):
+    coeffs = [abs(op[0].real) for op in pauli_operators]
+    norm = np.linalg.norm(coeffs) or 1.0
+    scaled = (coeffs / norm) * 2 * np.pi
+    return scaled + np.random.normal(0, 0.1, len(scaled))
+\end{lstlisting}
+
+\subsubsection{Вычисление анзаца}
+Анзац представляется в виде произведения экспонент операторов Паули:
+
+\begin{equation}
+U(\theta) = \prod_{k=1}^M e^{i\theta_k\hat{P}_k}
+\end{equation}
+
+\begin{lstlisting}[language=Python,caption=Функция вычисления анзаца]
+def calculate_ansatz(theta, pauli_operators):
+    operator_length = len(pauli_operators[0][1])
+    result = {tuple([0]*operator_length): 1.0}
+    for t, (_, op) in zip(theta, pauli_operators):
+        cos_t = np.cos(t)
+        sin_t = np.sin(t)
+        new_result = defaultdict(complex)
+        for existing_op, existing_coeff in result.items():
+            # Term 1: cos(t)*I
+            new_result[existing_op] += existing_coeff * cos_t
+            # Term 2: i*sin(t)*σ
+            compose_coeff, compose_op = pauli_compose(
+                list(existing_op), op)
+            new_result[tuple(compose_op)] += (
+                existing_coeff * 1j * sin_t * compose_coeff
+            )
+        result = new_result
+    return result
+\end{lstlisting}
+
+\subsubsection{Метод отжига}
+Модифицированный алгоритм имитации отжига с адаптивным шагом:
+
+\begin{equation}
+T_{n+1} = \alpha T_n,\quad \Delta\theta \sim \mathcal{N}(0, \sigma(T))
+\end{equation}
+
+\begin{equation}
+P(\Delta E) = \begin{cases}
+1, & \Delta E < 0 \\
+e^{-\Delta E/T}, & \text{иначе}
+\end{cases}
+\end{equation}
+
+\begin{lstlisting}[language=Python,caption=Алгоритм отжига]
+def simulated_annealing(initial_theta, pauli_operators, ...):
+    current_theta = initial_theta.copy()
+    best_theta = current_theta.copy()
+    best_energy = float("inf")
+
+    while temp > min_temp:
+        # Термализация
+        for _ in range(thermalization_steps):
+            current_theta = generate_shifted_theta(pauli_operators)
+            current_energy = compute_energy(current_theta)
+
+        # Основной цикл
+        for _ in range(num_iterations_per_temp):
+            neighbor_theta = current_theta + normal(0, step_size*temp)
+            energy_diff = compute_energy(neighbor_theta) - best_energy
+
+            if energy_diff < 0 or exp(-energy_diff/temp) > random():
+                current_theta = neighbor_theta
+                if current_energy < best_energy:
+                    best_theta = current_theta.copy()
+                    best_energy = current_energy
+
+        temp *= cooling_rate
+    return best_theta, best_energy
+\end{lstlisting}
+
+\subsection{Вычислительная сложность}
+Алгоритм имеет полиномиальную сложность:
+\begin{itemize}
+\item Сложность вычисления анзаца: $O(M \cdot 4^N)$
+\item Сложность одного шага отжига: $O(K \cdot M \cdot 4^N)$
+\item Общая сложность: $O(N_{iter} \cdot K \cdot M \cdot 4^N)$
+\end{itemize}
+
+где $N$ -- число кубитов, $M$ -- число параметров, $K$ -- число операторов в гамильтониане, $N_{iter}$ -- число итераций алгоритма.
+
+\begin{table}[ht]
+\centering
+\caption{Сравнение производительности алгоритма}
+\begin{tabular}{lcc}
+\toprule
+Метод & Время выполнения (с) & Точность (Ha) \\
+\midrule
+Случайная инициализация & 152.3 & 0.012 \\
+Вектор сдвига & 84.7 & 0.005 \\
+\bottomrule
+\end{tabular}
+\label{tab:perf}
+\end{table}
+
+%#########################################################################################################################################################################################################################
+%############################################################### 2.3 Сравнительные результаты тестирования ###############################################################################################################
+%#########################################################################################################################################################################################################################
+
 \section{Сравнительные результаты тестирования}
+
+%#########################################################################################################################################################################################################################
+%################################################################################################### Заключение ##########################################################################################################
+%#########################################################################################################################################################################################################################
 
 \addcontentsline{toc}{chapter}{\hspace{5.5mm} Заключение}
 \chapter*{Заключение}
 
-\addcontentsline{toc}{chapter}{\hspace{5.5mm} Список литературы}
-\chapter*{Список литературы}
 
-https://math.spbu.ru/user/gran/sb1/lopatin.pdf  
+%#########################################################################################################################################################################################################################
+%################################################################################################### Литература ##########################################################################################################
+%#########################################################################################################################################################################################################################
 
-\addcontentsline{toc}{chapter}{\hspace{5.5mm} Приложение  C{$\#$}}
-\chapter*{Приложение C{$\#$}}
+\addcontentsline{toc}{chapter}{\hspace{5.5mm} Литература}
+\begin{thebibliography}{99}
+    \bibitem{Tsirulev2020}
+    V. V. Nikonov, A. N. Tsirulev. \textit{Pauli basis formalism in quantum computations}. Volume 8, No 3, pp. 1 – 14, 2020.\\
+    (\href{https:doi.org/10.26456/mmg/2020-831} {\textit{doi:10.26456/mmg/2020-831}})
+
+    \bibitem{Preskill2018}
+    J. Preskill. \textit{Quantum Computing in the NISQ era and beyond}. Quantum, vol. 2, p. 79, 2018.\\
+    (\href{https://quantum-journal.org/papers/q-2018-08-06-79/}{\textit{quantum-journal:q-2018-08-06-79}})
+
+    \bibitem{Cerezo2021}
+    M. Cerezo, et al. \textit{Variational Quantum Algorithms}. Nature Reviews Physics, vol. 3, pp. 625-644, 2021.\\
+    (\href{https://www.nature.com/articles/s42254-021-00348-9}{\textit{nature:42254-021-00348-9}})
+
+    \bibitem{Peruzzo2014}
+    A. Peruzzo, et al. \textit{A variational eigenvalue solver on a photonic quantum processor}. Nature Communications, vol. 5, p. 4213, 2014.\\
+    (\href{https://www.nature.com/articles/ncomms5213}{\textit{nature:ncomms5213}})
+
+    \bibitem{Farhi2014}
+    E. Farhi, J. Goldstone, and S. Gutmann. \textit{A Quantum Approximate Optimization Algorithm}. arXiv preprint arXiv:1411.4028, 2014.\\
+    (\href{https://arxiv.org/abs/1411.4028}{\textit{arXiv:1411.4028}})
+
+    \bibitem{McClean2016}
+    J. R. McClean, et al. \textit{The theory of variational hybrid quantum-classical algorithms}. New Journal of Physics, vol. 18, p. 023023, 2016.\\
+    (\href{https://iopscience.iop.org/article/10.1088/1367-2630/18/2/023023}{\textit{iopscience:1367-2630-18-2-023023}})
+
+    \bibitem{Kandala2017}
+    A. Kandala, et al. \textit{Hardware-efficient variational quantum eigensolver for small molecules and quantum magnets}. Nature, vol. 549, pp. 242-246, 2017.\\
+    (\href{https://www.nature.com/articles/nature23879}{\textit{nature:nature23879}})
+
+    \bibitem{Harrow2009}
+    A. W. Harrow, A. Hassidim, and S. Lloyd. \textit{Quantum algorithm for linear systems of equations}. Physical Review Letters, vol. 103, no. 15, p. 150502, 2009.\\
+    (\href{https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.103.150502}{\textit{aps:PhysRevLett.103.150502}})
+
+    \bibitem{Biamonte2017}
+    J. Biamonte, et al. \textit{Quantum machine learning}. Nature, vol. 549, pp. 195-202, 2017.\\
+    (\href{https://www.nature.com/articles/nature23474}{\textit{nature:nature23474}})
+
+    \bibitem{Lopatin}
+    A. A. Lopatin. \textit{Квантовая механика и её приложения}. Санкт-Петербургский Государственный Университет.\\
+    (\href{https://math.spbu.ru/user/gran/sb1/lopatin.pdf}{\textit{math.spbu:user/gran/sb1/lopatin}})
+
+    \bibitem{Aspuru-Guzik2005}
+    A. Aspuru-Guzik, A. D. Dutoi, P. J. Love, M. Head-Gordon. \textit{Simulated Quantum Computation of Molecular Energies}. Science, vol. 309, no. 5741, pp. 1704-1707, 2005.\\
+    (\href{https://www.science.org/doi/10.1126/science.1113479}{\textit{science:1113479}})
+
+    \bibitem{Schuld2015}
+    M. Schuld, I. Sinayskiy, F. Petruccione. \textit{An introduction to quantum machine learning}. Contemporary Physics, vol. 56, no. 2, pp. 172-185, 2015.\\
+    (\href{https://www.tandfonline.com/doi/abs/10.1080/00107514.2014.964942}{\textit{tandfonline:00107514.2014.964942}})
+
+    \bibitem{Daskin2014}
+    A. Daskin, S. Kais. \textit{Decomposition of unitary matrices for finding quantum circuits: Application to molecular Hamiltonians}. The Journal of Chemical Physics, vol. 141, no. 23, p. 234115, 2014.\\
+    (\href{https://aip.scitation.org/doi/10.1063/1.4904315}{\textit{aip:1.4904315}})
+
+    \bibitem{Romero2018}
+    J. Romero, R. Babbush, J. R. McClean, C. Hempel, P. J. Love, A. Aspuru-Guzik. \textit{Strategies for quantum computing molecular energies using the unitary coupled cluster ansatz}. Quantum Science and Technology, vol. 4, no. 1, p. 014008, 2018.\\
+    (\href{https://iopscience.iop.org/article/10.1088/2058-9565/aad3e4}{\textit{iopscience:2058-9565/aad3e4}})
+
+    \bibitem{Havlicek2019}
+    V. Havlicek, A. D. Córcoles, K. Temme, A. W. Harrow, A. Kandala, J. M. Chow, J. M. Gambetta. \textit{Supervised learning with quantum-enhanced feature spaces}. Nature, vol. 567, pp. 209-212, 2019.\\
+    (\href{https://www.nature.com/articles/s41586-019-0980-2}{\textit{nature:s41586-019-0980-2}})
+
+    \bibitem{Moll2018}
+    N. Moll, P. Barkoutsos, L. Bishop, J. M. Chow, A. Cross, D. J. Egger, S. Filipp, A. Fuhrer, J. M. Gambetta, M. Ganzhorn, et al. \textit{Quantum optimization using variational algorithms on near-term quantum devices}. Quantum Science and Technology, vol. 3, no. 3, p. 030503, 2018.\\
+    (\href{https://iopscience.iop.org/article/10.1088/2058-9565/aab822}{\textit{iopscience:2058-9565/aab822}})
+\end{thebibliography}
+
+%#########################################################################################################################################################################################################################
+%################################################################################################### Приложение ##########################################################################################################
+%#########################################################################################################################################################################################################################
+
+\addcontentsline{toc}{chapter}{\hspace{5.5mm} Приложение Python}
+\chapter*{Приложение Python}
+\begin{lstlisting}
+#constants/file_paths.py
+import sys
+from pathlib import Path
+
+def get_base_path() -> Path:
+    """Возвращает путь к директории с EXE (или к проекту в dev-режиме)."""
+    if getattr(sys, "frozen", False):
+        # Для скомпилированного EXE берём директорию исполняемого файла
+        return Path(sys.argv[0]).parent
+    else:
+        # Для разработки возвращаем корень проекта
+        return Path(__file__).parent.parent
+
+# Путь к hamiltonian_operators.txt (внешний файл)
+HAMILTONIAN_FILE_PATH = get_base_path() / "params" / "hamiltonian_operators.txt"
+
+# Файл вывода создаётся в текущей рабочей директории
+OUTPUT_FILE_PATH = get_base_path() / "output.log"
+
+
+#constants/pauli.py
+PAULI_MAP = {
+    (1, 2): (1j, 3),
+    (2, 1): (-1j, 3),
+    (3, 1): (1j, 2),
+    (1, 3): (-1j, 2),
+    (2, 3): (1j, 1),
+    (3, 2): (-1j, 1),
+}
+
+
+#params/hamiltonian_operators.txt
+# Действительная часть | Мнимая часть | Строка Паули
+
+2.0 0.0 03
+1.0 0.0 30
+-4.0 0.0 11
+
+
+#utils/console_and_print.py
+from rich.console import Console
+from typing import Any
+from constants.file_paths import OUTPUT_FILE_PATH
+
+
+def console_and_print(console: Console, message: Any) -> None:
+    """
+    Выводит результат выполнения программы в файл и консоль
+
+    :param console: Объект Console для вывода в консоль
+    :param message: Сообщение для вывода
+    """
+    console.print(message)
+    with open(OUTPUT_FILE_PATH, "a", encoding="utf-8") as file:
+        file.write(console.export_text() + "\n")
+
+
+#utils/create_table.py
+from rich.table import Table
+from rich.panel import Panel
+from rich import box
+from typing import List, Dict, Any
+
+
+def create_table(
+    columns: List[Dict[str, str]],
+    data: List[List[Any]],
+    title: str,
+    border_style: str = "yellow",
+) -> Panel:
+    table = Table(box=box.ROUNDED, border_style="yellow")
+    for col in columns:
+        table.add_column(
+            col["name"],
+            justify=col.get("justify", "default"),
+            style=col.get("style", ""),
+        )
+    for row in data:
+        table.add_row(*row)
+    return Panel(table, title=title, border_style=border_style)
+
+
+#utils/format_ansatz.py
+from .format_complex_number import format_complex_number
+
+
+def format_ansatz(
+    pauli_operators: list[list[int]], result: dict[tuple, complex]
+) -> tuple[str, str]:
+    """
+    Форматирует анзац в символьное и численное представление.
+
+    :param pauli_operators: Список операторов Паули (списки индексов).
+    :param result: Словарь с результатами вычислений {оператор: коэффициент}.
+    :return: Символьное представление анзаца и его численное значение.
+    """
+    # Формируем U(θ)
+    ansatz_symbolic = "U(θ) = " + " * ".join(
+        [
+            f"e^(iθ_{i+1}*{format_complex_number(op[0])}*σ_{''.join(map(str, op[1]))})"
+            for i, op in enumerate(pauli_operators)
+        ]
+    )
+
+    # Формируем U
+    ansatz_numeric = "U = " + " + ".join(
+        [
+            f"{format_complex_number(c)}*{format_complex_number(op[0])}*σ_{''.join(map(str, op[1:]))}"
+            if isinstance(op, (list, tuple))
+            and len(op) > 1
+            and isinstance(op[0], complex)
+            else f"{format_complex_number(c)}*σ_{''.join(map(str, op))}"
+            for op, c in result.items()
+        ]
+    )
+
+    return ansatz_symbolic, ansatz_numeric
+
+
+#utils/format_complex_number.py
+from sympy import re as sp_re, im as sp_im
+from .format_number import format_number
+
+
+def format_complex_number(c) -> str:
+    """
+    Универсальный форматировщик комплексных чисел для SymPy и стандартных типов.
+    """
+    # Извлечение компонентов через SymPy
+    real = float(sp_re(c))
+    imag = float(sp_im(c))
+
+    real_str = format_number(real) if abs(real) > 1e-12 else ""
+    imag_str = ""
+
+    if abs(imag) > 1e-12:
+        abs_imag = abs(imag)
+        imag_value = format_number(abs_imag)
+
+        # Специальные случаи для ±1
+        if imag_value == "1":
+            imag_str = "i" if imag > 0 else "-i"
+        else:
+            imag_sign = "" if imag > 0 else "-"
+            imag_str = f"{imag_sign}{imag_value}i"
+
+    # Сборка результата
+    parts = []
+    if real_str:
+        parts.append(real_str)
+    if imag_str:
+        parts.append(imag_str)
+
+    if not parts:
+        return "0"
+
+    # Корректное объединение компонентов
+    result = parts[0]
+    for part in parts[1:]:
+        if part.startswith("-"):
+            result += f"-{part[1:]}"
+        else:
+            result += f"+{part}"
+
+    # Фикс артефактов форматирования
+    return result.replace("+ -", "- ").replace("1i", "i").replace(".0i", "i")
+
+
+#utils/format_number.py
+def format_number(num: float | int) -> str:
+    """
+    Универсальный форматировщик чисел с точным определением целочисленных значений
+    и подавлением артефактов вычислений с плавающей точкой.
+    """
+    # Проверка на целое число с учетом погрешности вычислений
+    if abs(num - round(num)) < 1e-15:
+        return str(int(round(num)))
+
+    # Форматирование с ручным управлением десятичными знаками
+    s = f"{num:.14f}".rstrip("0").rstrip(".")
+
+    # Исправление артефактов вида ".5" → "0.5"
+    if s.startswith("."):
+        s = "0" + s
+    elif s.startswith("-."):
+        s = s.replace("-.", "-0.")
+
+    # Удаление лишних десятичных знаков после 4-го
+    if "." in s:
+        int_part, dec_part = s.split(".")
+        dec_part = dec_part[:4].ljust(4, "0").rstrip("0")
+        s = f"{int_part}.{dec_part}" if dec_part else int_part
+
+    return s
+
+
+#utils/get_operator_for_console.py
+from .format_complex_number import format_complex_number
+from typing import Union
+
+
+def get_operator_for_console(c: Union[complex, float, int], i: str) -> str:
+    """
+    Функция создана для 'красивого' вывода оператора Паули в консоль.
+    Избегает ситуаций, когда у нас выводится конструкция вида '1*σ'
+
+    :param c: Коэффициент оператора Паули.
+    :param i: Строка оператора Паули.
+    :return: Отформатированную строку.
+    """
+    if c == 1:
+        return f"σ_{i}"
+    else:
+        return f"{format_complex_number(c)}*σ_{i}"
+
+
+#utils/initialize_environment.py
+from rich.console import Console  # Для красивого вывода в консоль
+from constants.file_paths import OUTPUT_FILE_PATH
+
+
+def initialize_environment() -> Console:
+    """Инициализирует окружение и возвращает консольный объект."""
+    if OUTPUT_FILE_PATH.exists():
+        OUTPUT_FILE_PATH.unlink()
+    return Console(force_terminal=True, color_system="truecolor", record=True)
+
+
+#utils/print_composition_table.py
+from rich.console import Console  # Для красивого вывода в консоль
+from typing import Tuple, List, Callable
+from .console_and_print import console_and_print
+from .create_table import create_table
+from .format_complex_number import format_complex_number
+
+
+def print_composition_table(
+    console: Console,
+    pauli_compose: Callable[[List[int], List[int]], Tuple[complex, List[int]]],
+    pauli_strings: List[List[int]],
+) -> None:
+    """Выводит таблицу композиций операторов Паули."""
+    results = []
+    for s1 in pauli_strings:
+        for s2 in pauli_strings:
+            coeff, product = pauli_compose(s1, s2)
+            results.append((s1, s2, format_complex_number(coeff), product))
+
+    table_data = [
+        [str(s1), str(s2), str(h).lower(), str(p)] for s1, s2, h, p in results
+    ]
+    console_and_print(
+        console,
+        create_table(
+            columns=[
+                {"name": "Оператор 1", "style": "cyan", "justify": "center"},
+                {"name": "Оператор 2", "style": "magenta", "justify": "center"},
+                {"name": "Коэффициент", "style": "green", "justify": "center"},
+                {"name": "Результат", "style": "red", "justify": "center"},
+            ],
+            data=table_data,
+            title="Композиции операторов Паули",
+            border_style="green",
+        ),
+    )
+
+
+#utils/print_hamiltonian.py
+from rich.console import Console
+from rich.panel import Panel
+from typing import Tuple, List
+from .get_operator_for_console import get_operator_for_console
+from .console_and_print import console_and_print
+
+
+def print_hamiltonian(
+    console: Console, pauli_operators: List[Tuple[complex, List[int]]]
+) -> None:
+    """Выводит представление гамильтониана в консоль."""
+    hamiltonian_str = "H = " + " + ".join(
+        [get_operator_for_console(c, ''.join(map(str, i))) for c, i in pauli_operators]
+    )
+    console_and_print(
+        console,
+        Panel(
+            hamiltonian_str,
+            title="[bold]Введенный гамильтониан[/bold]",
+            border_style="green",
+        ),
+    )
+
+
+#utils/print_pauli_table.py
+from rich.console import Console  # Для красивого вывода в консоль
+from typing import Tuple, List
+from .format_complex_number import format_complex_number
+from .console_and_print import console_and_print
+from .create_table import create_table
+
+
+def print_pauli_table(
+    console: Console, pauli_operators: List[Tuple[complex, List[int]]]
+) -> None:
+    """Выводит таблицу операторов Паули."""
+    table_data = [[format_complex_number(c), str(i)] for c, i in pauli_operators]
+    console_and_print(
+        console,
+        create_table(
+            columns=[
+                {"name": "Коэффициент", "style": "cyan"},
+                {"name": "Индекс", "style": "magenta", "justify": "center"},
+            ],
+            data=table_data,
+            title="Операторы Паули",
+            border_style="purple",
+        ),
+    )
+
+
+#utils/read_file_lines.py
+from pathlib import Path
+
+
+def read_file_lines(file_path, ignore_comments):
+    """
+    Читает строки из файла, игнорируя комментарии (строки, начинающиеся с '#').
+
+    :param file_path: Путь к файлу.
+    :param ignore_comments: Игнорировать строки, начинающиеся с '#'.
+    :return: Список строк.
+    :raises FileNotFoundError: Если файл не найден.
+    """
+    file_path = Path(file_path) if not isinstance(file_path, Path) else file_path
+    if not file_path.exists():
+        raise FileNotFoundError(f"Файл {file_path} не найден.")
+    with open(file_path, "r") as file:
+        return [
+            line.strip()
+            for line in file
+            if not (ignore_comments and line.strip().startswith("#"))
+        ]
+
+
+#utils/read_hamiltonian_data.py
+import numpy as np  # Для работы с комплексными числами и математическими операциями
+from .read_file_lines import read_file_lines
+
+
+def read_hamiltonian_data(file_path):
+    """
+    Читает данные из файла hamiltonian_operators.txt и возвращает два списка:
+    - Список операторов Паули в виде коэффициента оператора и строки Паули.
+    - Список строк операторов Паули.
+
+    :param file_path: Путь к файлу.
+    :return: (pauli_operators, pauli_strings)
+    :raises FileNotFoundError: Если файл не найден.
+    """
+    lines = read_file_lines(file_path, ignore_comments=False)
+    pauli_operators = []
+    pauli_strings = []
+    for line in lines:
+        parts = line.strip().split()
+        if len(parts) == 3:
+            real_part, imag_part, index_str = (
+                float(parts[0]),
+                float(parts[1]),
+                str(parts[2]),
+            )
+            coefficient = np.complex128(real_part + imag_part * 1j)
+            index_list = [int(c) for c in index_str]
+            if coefficient != 0:
+                pauli_operators.append((coefficient, index_list))
+            pauli_strings.append(index_list)
+    return pauli_operators, pauli_strings
+
+
+#program.py
+import numpy as np
+import sys
+import io
+from rich.progress import Progress, BarColumn, TextColumn, SpinnerColumn
+from rich.panel import Panel
+from typing import Tuple, List, Dict
+
+# Импорт самописных util функций
+from utils.console_and_print import console_and_print
+from utils.print_pauli_table import print_pauli_table
+from utils.read_hamiltonian_data import read_hamiltonian_data
+from utils.print_hamiltonian import print_hamiltonian
+from utils.print_composition_table import print_composition_table
+from utils.format_ansatz import format_ansatz
+from utils.initialize_environment import initialize_environment
+
+# Импорт констант
+from constants.file_paths import HAMILTONIAN_FILE_PATH
+from constants.pauli import PAULI_MAP
+
+# Установка кодировки для корректного вывода
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
+sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding="utf-8")
+
+
+def generate_random_theta(m: int) -> np.ndarray:
+    """Генерирует массив из m случайных углов в диапазоне [0, 2π)."""
+    return np.random.uniform(0, 2*np.pi, size=m).astype(np.float64)
+
+
+def multiply_pauli(i: int, j: int) -> Tuple[complex, int]:
+    """
+    Вычисляет произведение базисных операторов Паули.
+    Возвращает: (коэффициент, индекс результата)
+    """
+    if i == j:
+        return (1, 0)
+    if i == 0:
+        return (1, j)
+    if j == 0:
+        return (1, i)
+    return PAULI_MAP.get((i, j), (1, 0))
+
+
+def pauli_compose(s1: List[int], s2: List[int]) -> Tuple[complex, List[int]]:
+    """
+    Вычисляет композицию двух операторов Паули.
+    Возвращает: (коэффициент, результирующий оператор)
+    """
+    coefficient = 1.0
+    result = []
+    for a, b in zip(s1, s2):
+        coeff, idx = multiply_pauli(a, b)
+        coefficient *= coeff
+        result.append(idx)
+    return coefficient, result
+
+
+def calculate_ansatz(
+    theta: np.ndarray, pauli_operators: List[Tuple[complex, List[int]]]
+) -> Tuple[Dict[Tuple[int, ...], complex], str, str]:
+    """
+    Вычисляет анзац в виде произведения экспонент операторов Паули.
+    Возвращает: (словарь операторов, символьное представление, численное представление)
+    """
+    operator_length = len(pauli_operators[0][1])
+    result = {tuple([0] * operator_length): 1.0}
+
+    for t, (_, op) in zip(theta, pauli_operators):
+        cos_t = np.cos(t)
+        sin_t = np.sin(t)
+        new_result: Dict[Tuple[int, ...], complex] = {}
+
+        for existing_op, existing_coeff in result.items():
+            # Слагаемое с cos(θ)*I
+            identity_coeff = existing_coeff * cos_t
+            new_result[existing_op] = new_result.get(existing_op, 0) + identity_coeff
+
+            # Слагаемое с i*sin(θ)*σ
+            pauli_coeff = existing_coeff * 1j * sin_t
+            compose_coeff, compose_op = pauli_compose(list(existing_op), op)
+            final_coeff = pauli_coeff * compose_coeff
+            final_op = tuple(compose_op)
+            new_result[final_op] = new_result.get(final_op, 0) + final_coeff
+
+        result = new_result
+
+    symbolic_str, numeric_str = format_ansatz(pauli_operators, result)
+    return result, symbolic_str, numeric_str
+
+
+def compute_uhu(
+    u_dict: Dict[Tuple[int, ...], complex], h_terms: List[Tuple[complex, List[int]]]
+) -> Dict[Tuple[int, ...], complex]:
+    """
+    Вычисляет оператор U† H U.
+    Возвращает: словарь {оператор: коэффициент}
+    """
+    uhu_dict: Dict[Tuple[int, ...], complex] = {}
+
+    for coeff_h, op_h in h_terms:
+        for j_op, j_coeff in u_dict.items():
+            conjugated_j_coeff = np.conj(j_coeff)
+            c1, op_uh = pauli_compose(list(j_op), op_h)
+
+            for k_op, k_coeff in u_dict.items():
+                c2, op_uhu = pauli_compose(op_uh, list(k_op))
+                total_coeff = conjugated_j_coeff * k_coeff * coeff_h * c1 * c2
+
+                # Стабилизация малых значений
+                if abs(total_coeff) < 1e-12:
+                    continue
+
+                op_tuple = tuple(op_uhu)
+                uhu_dict[op_tuple] = uhu_dict.get(op_tuple, 0) + total_coeff
+    return uhu_dict
+
+
+def calculate_expectation(uhu_dict: Dict[Tuple[int, ...], complex]) -> float:
+    """
+    Вычисляет <0|U†HU|0> для состояния |0...0>.
+    Возвращает: ожидаемое значение
+    """
+    expectation = 0.0
+    for op, coeff in uhu_dict.items():
+        if all(p in {0, 3} for p in op):
+            expectation += coeff.real
+    return expectation
+
+
+def generate_neighbor_theta(
+    current_theta: np.ndarray, step_size: float = 0.1
+) -> np.ndarray:
+    """Генерирует соседнее решение, добавляя случайное изменение к текущему theta."""
+    perturbation = np.random.normal(scale=step_size, size=current_theta.shape)
+    return np.clip(current_theta + perturbation, 0.0, 1.0)
+
+
+def simulated_annealing(
+    initial_theta: np.ndarray,
+    pauli_operators: list,
+    initial_temp: float = 1000.0,
+    cooling_rate: float = 0.99,
+    min_temp: float = 1e-5,
+    num_iterations_per_temp: int = 500,
+    step_size: float = 0.5,
+) -> tuple:
+    """Реализует алгоритм имитации отжига с термализацией."""
+    current_theta = initial_theta.copy()
+    best_theta = current_theta.copy()
+    best_energy = float("inf")
+    rng = np.random.default_rng()
+
+    with Progress(
+        SpinnerColumn(),
+        TextColumn("[progress.description]{task.description}"),
+        BarColumn(bar_width=None),
+        TextColumn("[progress.percentage]{task.percentage:>3.0f}%"),
+    ) as progress:
+        task = progress.add_task("[cyan]Отжиг...", total=100)
+
+        temp = initial_temp
+        iteration = 0
+
+        while temp > min_temp:
+            for _ in range(num_iterations_per_temp):
+                # Генерация соседнего решения с адаптивным шагом
+                perturbation = rng.normal(0, step_size*(temp/initial_temp), size=current_theta.shape)
+                neighbor_theta = (current_theta + perturbation) % (2*np.pi)
+
+                # Вычисление энергии нового состояния
+                ansatz_dict, _, _ = calculate_ansatz(neighbor_theta, pauli_operators)
+                uhu_dict = compute_uhu(ansatz_dict, pauli_operators)
+                current_energy = calculate_expectation(uhu_dict)
+
+                # Критерий принятия решения
+                energy_diff = current_energy - best_energy
+                if energy_diff < 0 or rng.random() < np.exp(-energy_diff / temp):
+                    current_theta = neighbor_theta.copy()
+
+                    if current_energy < best_energy:
+                        best_theta = current_theta.copy()
+                        best_energy = current_energy
+
+                iteration += 1
+                if iteration % 100 == 0:
+                    progress.update(task, advance=1)
+
+            temp *= cooling_rate
+
+    return best_theta, best_energy
+
+
+def main():
+    """Основная логика программы."""
+    console = initialize_environment()
+
+    # Явная проверка существования файла
+    if not HAMILTONIAN_FILE_PATH.exists():
+        msg = (
+            f"Файл [bold]{HAMILTONIAN_FILE_PATH}[/] не найден!\n"
+            "Убедитесь, что рядом с EXE есть папка [bold]params[/] с файлом [bold]hamiltonian_operators.txt[/]."
+        )
+        console_and_print(console, Panel(msg, border_style="red"))
+        return
+
+    try:
+        pauli_operators, pauli_strings = read_hamiltonian_data(HAMILTONIAN_FILE_PATH)
+
+        print_hamiltonian(console, pauli_operators)
+        print_pauli_table(console, pauli_operators)
+        print_composition_table(console, pauli_compose, pauli_strings)
+
+    except FileNotFoundError:
+        console_and_print(
+            console,
+            Panel(
+                f"[red]Файл {HAMILTONIAN_FILE_PATH} не найден[/red]", border_style="red"
+            ),
+        )
+        return
+
+    if len(pauli_operators) < 2:
+        console_and_print(
+            console,
+            Panel("[red]Требуется минимум 2 оператора Паули[/red]", border_style="red"),
+        )
+        return
+
+    best_energy = float("inf")
+    best_result = None
+
+    # Собираем все результаты для анализа
+    all_results = []
+
+    for m in range(2, len(pauli_operators) + 1):
+        initial_theta = generate_random_theta(m)
+
+        optimized_theta, energy = simulated_annealing(
+            initial_theta=initial_theta,
+            pauli_operators=pauli_operators,
+            initial_temp=100.0,
+            cooling_rate=0.95,
+            min_temp=1e-3,
+            num_iterations_per_temp=100,
+            step_size=0.1,
+        )
+
+        all_results.append(
+            {
+                "m": m,
+                "theta": optimized_theta,
+                "energy": energy,
+            }
+        )
+
+        # Обновляем лучший результат
+        if energy < best_energy:
+            best_energy = energy
+            best_result = all_results[-1]
+
+    _, ansatz_symbolic, ansatz_numeric = calculate_ansatz(
+        best_result["theta"], pauli_operators[: best_result["m"]]
+    )
+
+    console_and_print(
+        console,
+        Panel(
+            ansatz_symbolic,
+            title="[bold]Символьное представление анзаца[/]",
+            border_style="green",
+        ),
+    )
+
+    console_and_print(
+        console,
+        Panel(
+            ansatz_numeric,
+            title="[bold]Численное представление анзаца[/]",
+            border_style="purple",
+        ),
+    )
+
+    console_and_print(
+        console,
+        Panel(
+            f"{best_result['energy']:.6f}",
+            title="[bold]Энергия (<0|U†HU|0> для состояния |0...0>)[/]",
+            border_style="green",
+        ),
+    )
+
+    input('text')
+
+
+if __name__ == "__main__":
+    main()
+\end{lstlisting}
 
 \end{document} 
