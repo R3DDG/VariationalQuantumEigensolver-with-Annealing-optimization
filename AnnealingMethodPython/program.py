@@ -23,9 +23,20 @@ sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
 sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding="utf-8")
 
 
-def generate_random_theta(m: int) -> np.ndarray:
-    """Генерирует массив из m случайных углов в диапазоне [0, 2π)."""
-    return np.random.uniform(0, 2*np.pi, size=m).astype(np.float64)
+def generate_shifted_theta(pauli_operators: List[Tuple[complex, List[int]]]) -> np.ndarray:
+    """Генерирует θ на основе коэффициентов операторов (вектор сдвига)."""
+    if not pauli_operators:
+        return np.array([], dtype=np.float64)
+    
+    # Извлекаем коэффициенты и нормализуем их
+    coeffs = np.array([abs(op[0].real) for op in pauli_operators], dtype=np.float64)
+    norm = np.linalg.norm(coeffs)
+    if norm < 1e-12:
+        return np.zeros(len(coeffs))
+    
+    # Масштабируем в [0, 2π) и добавляем шум
+    scaled = (coeffs / norm) * 2 * np.pi
+    return scaled + np.random.normal(0, 0.1, len(scaled))
 
 
 def multiply_pauli(i: int, j: int) -> Tuple[complex, int]:
@@ -145,12 +156,12 @@ def simulated_annealing(
     num_iterations_per_temp: int = 500,
     step_size: float = 0.5,
 ) -> tuple:
-    """Реализует алгоритм имитации отжига с термализацией."""
+    """Алгоритм отжига с термализацией."""
     current_theta = initial_theta.copy()
     best_theta = current_theta.copy()
     best_energy = float("inf")
     rng = np.random.default_rng()
-    
+
     with Progress(
         SpinnerColumn(),
         TextColumn("[progress.description]{task.description}"),
@@ -158,22 +169,32 @@ def simulated_annealing(
         TextColumn("[progress.percentage]{task.percentage:>3.0f}%"),
     ) as progress:
         task = progress.add_task("[cyan]Отжиг...", total=100)
-        
+
         temp = initial_temp
         iteration = 0
-        
+        thermalization_steps = int(num_iterations_per_temp * 0.2)  # 20% шагов на термализацию
+
         while temp > min_temp:
+            # Фаза термализации
+            for _ in range(thermalization_steps):
+                current_theta = generate_shifted_theta(pauli_operators)
+                ansatz_dict, _, _ = calculate_ansatz(current_theta, pauli_operators)
+                uhu_dict = compute_uhu(ansatz_dict, pauli_operators) 
+                current_energy = calculate_expectation(uhu_dict)
+                
+                if current_energy < best_energy:
+                    best_theta = current_theta.copy()
+                    best_energy = current_energy
+
+            # Основная фаза отжига
             for _ in range(num_iterations_per_temp):
-                # Генерация соседнего решения с адаптивным шагом
-                perturbation = rng.normal(0, step_size*(temp/initial_temp), size=current_theta.shape)
+                perturbation = rng.normal(0, step_size*(temp/initial_temp), current_theta.shape)
                 neighbor_theta = (current_theta + perturbation) % (2*np.pi)
                 
-                # Вычисление энергии нового состояния
                 ansatz_dict, _, _ = calculate_ansatz(neighbor_theta, pauli_operators)
                 uhu_dict = compute_uhu(ansatz_dict, pauli_operators)
                 current_energy = calculate_expectation(uhu_dict)
-                
-                # Критерий принятия решения
+
                 energy_diff = current_energy - best_energy
                 if energy_diff < 0 or rng.random() < np.exp(-energy_diff / temp):
                     current_theta = neighbor_theta.copy()
@@ -181,21 +202,20 @@ def simulated_annealing(
                     if current_energy < best_energy:
                         best_theta = current_theta.copy()
                         best_energy = current_energy
-                
+
                 iteration += 1
                 if iteration % 100 == 0:
                     progress.update(task, advance=1)
-            
+
             temp *= cooling_rate
-    
+
     return best_theta, best_energy
 
 
 def main():
     """Основная логика программы."""
     console = initialize_environment()
-    
-    # Явная проверка существования файла
+
     if not HAMILTONIAN_FILE_PATH.exists():
         msg = (
             f"Файл [bold]{HAMILTONIAN_FILE_PATH}[/] не найден!\n"
@@ -206,39 +226,30 @@ def main():
 
     try:
         pauli_operators, pauli_strings = read_hamiltonian_data(HAMILTONIAN_FILE_PATH)
-
         print_hamiltonian(console, pauli_operators)
         print_pauli_table(console, pauli_operators)
         print_composition_table(console, pauli_compose, pauli_strings)
-
     except FileNotFoundError:
-        console_and_print(
-            console,
-            Panel(
-                f"[red]Файл {HAMILTONIAN_FILE_PATH} не найден[/red]", border_style="red"
-            ),
-        )
+        console_and_print(console, Panel(f"[red]Файл {HAMILTONIAN_FILE_PATH} не найден[/red]", border_style="red"))
         return
 
     if len(pauli_operators) < 2:
-        console_and_print(
-            console,
-            Panel("[red]Требуется минимум 2 оператора Паули[/red]", border_style="red"),
-        )
+        console_and_print(console, Panel("[red]Требуется минимум 2 оператора Паули[/red]", border_style="red"))
         return
 
     best_energy = float("inf")
     best_result = None
-
-    # Собираем все результаты для анализа
     all_results = []
 
+    # Для каждого m используем первые m операторов
     for m in range(2, len(pauli_operators) + 1):
-        initial_theta = generate_random_theta(m)
-
+        current_ops = pauli_operators[:m]
+        initial_theta = generate_shifted_theta(current_ops)  # Вектор сдвига!
+        
+        # Оптимизация только для текущего подмножества операторов
         optimized_theta, energy = simulated_annealing(
             initial_theta=initial_theta,
-            pauli_operators=pauli_operators,
+            pauli_operators=current_ops,  # Передаем подмножество
             initial_temp=100.0,
             cooling_rate=0.95,
             min_temp=1e-3,
@@ -246,51 +257,33 @@ def main():
             step_size=0.1,
         )
 
-        all_results.append(
-            {
-                "m": m,
-                "theta": optimized_theta,
-                "energy": energy,
-            }
-        )
+        all_results.append({
+            "m": m,
+            "theta": optimized_theta,
+            "energy": energy,
+            "operators": current_ops
+        })
 
-        # Обновляем лучший результат
         if energy < best_energy:
             best_energy = energy
             best_result = all_results[-1]
 
+    # Вывод результатов для лучшего набора параметров
     _, ansatz_symbolic, ansatz_numeric = calculate_ansatz(
-        best_result["theta"], pauli_operators[: best_result["m"]]
+        best_result["theta"], 
+        best_result["operators"]  # Используем сохраненное подмножество
     )
 
-    console_and_print(
-        console,
-        Panel(
-            ansatz_symbolic,
-            title="[bold]Символьное представление анзаца[/]",
-            border_style="green",
-        ),
-    )
+    console_and_print(console, Panel(ansatz_symbolic,
+        title="[bold]Символьное представление анзаца[/]", border_style="green"))
+    
+    console_and_print(console, Panel(ansatz_numeric,
+        title="[bold]Численное представление анзаца[/]", border_style="purple"))
+    
+    console_and_print(console, Panel(f"{best_result['energy']:.6f}",
+        title="[bold]Энергия (<0|U†HU|0> для состояния |0...0>)[/]", border_style="green"))
 
-    console_and_print(
-        console,
-        Panel(
-            ansatz_numeric,
-            title="[bold]Численное представление анзаца[/]",
-            border_style="purple",
-        ),
-    )
-    
-    console_and_print(
-        console,
-        Panel(
-            f"{best_result['energy']:.6f}",
-            title="[bold]Энергия (⟨0|U†HU|0⟩ для состояния |0...0⟩)[/]",
-            border_style="green",
-        ),
-    )
-    
-    input('text')
+    input('Нажмите Enter для выхода...')
 
 
 if __name__ == "__main__":
