@@ -20,7 +20,11 @@
 \usepackage[pdftex,colorlinks,linkcolor=blue,citecolor=blue]{hyperref}
 \usepackage{pgfplots}
 \usepackage{tikz}
+\usetikzlibrary{external, positioning, arrows.meta}
+\usetikzlibrary{through, shapes, snakes}
 \usepackage{array}
+\usepackage{algorithm}
+\usepackage{algcompatible}
 \newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
 
 %%%%%%%%% Разметка страницы %%%%%%%%%
@@ -34,7 +38,7 @@
 \textwidth=16cm %ширина текста
 \textheight=24cm
 \tolerance=800
-\parskip=1ex
+\parskip=0.8ex
 
 \pagestyle{plain}
 
@@ -512,7 +516,15 @@ $${
 \begin{equation}\label{u(theta)}
 \ket{u(\bm\theta)}= \hat{U}(\bm\theta)\ket{u_0}.
 \end{equation}
-В общем случае форма анзаца определяет, какими будут параметры $\boldsymbol\theta$ и как их можно настроить для минимизации энергии (целевой функции). Структура анзаца, как правило, будет зависеть от поставленной задачи, так как во многих случаях можно использовать информацию о проблеме, чтобы подобрать анзац: это "анзац, подсказнный задачей". Однако можно построить анзацы достаточно общего вида, которые пригодны для использования в некоторых классах задач даже тогда, когда интуиция и известная информация о задаче не позволят его уточнить. Стандартно анзац выбирается в виде композиции $m$ последовательно примененных унитарных преобразований
+В общем случае форма анзаца определяет, какими будут параметры $\boldsymbol\theta$ и как их можно настроить для минимизации энергии (целевой функции). Структура анзаца, как правило, будет зависеть от поставленной задачи, так как во многих случаях можно использовать информацию о проблеме, чтобы подобрать анзац: это "анзац, подсказнный задачей". Однако можно построить анзацы достаточно общего вида, которые пригодны для использования в некоторых классах задач даже тогда, когда интуиция и известная информация о задаче не позволят его уточнить. Две наиболее распространенных формы анзаца рассмотрены в следующем разделе.
+
+
+
+
+
+\section{Анзац и общая схема алгоритма}
+
+В вариационных квантовых алгоритмах анзац~(\ref{u(theta)}) стандартно выбирается в виде композиции $m$ последовательно примененных унитарных преобразований
 \begin{equation}\label{Ansatz}
 \hat{U}(\boldsymbol\theta)= \hat{U}_{m}(\theta_m)\cdots \hat{U}_{1}(\theta_1).
 \end{equation}
@@ -537,8 +549,25 @@ $${
 \end{equation*}
 где начальное состояние имеет вид ${\ket{0\ldots0}=\ket{0}^{\!\otimes\:\! n}}$. Если предположить далее, что мы в состоянии уверенно приготовить начальное состояние, реализовать анзац на физическом устройстве и вычислить значение энергии $E\big(\ket{u(\bm\theta)}\big)=\bra{u(\bm\theta)}\hat{H}\ket{u(\bm\theta)}$ посредством измерений (с привлечением классического компьютера), то следующий --- основной --- вопрос можно сформулировать так: как искать параметры, которые обеспечивают глобальный минимум энергии. Этот этап выполняется с помощью классического компьютера, так что вариационный квантовый алгоритм --- гибридный квантово-классический алгоритм: параметризованная квантовая схема и измерительный прибор представляют квантовую часть, а алгоритм настройки параметров — классическую.
 
-\section{Общая схема алгоритма и анзац}
+Опишем кратко схему алгоритма псевдокодом (см. также Рис.~\ref{ShemeVQA}).
 
+\textbf{Алгоритм вариационной квантовой оптимизации} $\vphantom{\int\limits^a_a}$\\
+1.\; Ввод начального вектора параметров $\bm\theta$. $\vphantom{\int\limits^a}$ Полагаем $\bm\theta_0=\bm\theta$.\\
+\textcolor{red}{2}.\; Генерация состояния ${\ket{u(\bm\theta)}= \hat{U}(\bm\theta)\ket0^{\!{\scriptscriptstyle\otimes}{n}}}$ $\vphantom{\int\limits^a}$ и случайного вектора $\delta\bm\theta$.\\
+3.\; Вычисление энергии$\vphantom{\int\limits^a}$ $E(\bm\theta)= \bra{u(\bm\theta)}\hat{H}\ket{u(\bm\theta)}$ с текущим вектором $\bm\theta$.\\
+4.\; Алгоритмический переход к вектору параметров $\bm\theta_1 = \bm\theta + \delta\bm\theta$. $\vphantom{\int\limits^a}$\\
+$\hphantom{4.\;}$ Если $E(\bm\theta_1)<E(\bm\theta)$, то положим $\bm\theta=\bm\theta_1$ и запомним $\bm\theta_0=\bm\theta_1$.\\
+5.\; Условие завершения работы.$\vphantom{\int\limits^a}$\! Если условие выполнено, то выходим с\\
+$\hphantom{5.\;}$ результатом ${\ket{u(\bm\theta_0)}}$ и $E(\bm\theta_0)$. Иначе переходим к метке \textcolor{red}{2}.
+
+\noindent
+Переход к новому вектору параметров $\bm\theta_1$ является вторым ключевым пунктом (после выбора анзаца), который характеризует различные типы вариационных квантовых алгоритмов. Условие завершения работы может быть выбрано очень многими способами. Простейшим и одновременно универсальным является условие отсутствия понижения энергии в течение определенного числа циклов работы алгоритма.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=15cm]{ShemeVQA}\\
+  \caption{Общая схема квантового вариационного алгоритма.}\label{ShemeVQA}
+\end{figure}
 
 
 \section{Пример, иллюстрирующий особенности алгоритма}
@@ -749,7 +778,6 @@ L&\! M&\! C\vphantom{\hat{A}}
 
 Таким образом, в процессе оптимизации целевой функции должны использоваться методы, которые позволяют избежать попадания в точку локального минимума, например, метод отжига.
 
-\section{Оптимизация}
 
 %#############################################################################################################################################################################################################################
 %################################################################### 2 Вариационный квантовый алгоритм на основе метода отжига ###############################################################################################
@@ -761,57 +789,88 @@ L&\! M&\! C\vphantom{\hat{A}}
 %##################################################################################### 2.1 Метод отжига ######################################################################################################################
 %#############################################################################################################################################################################################################################
 
-\section{Метод отжига}
+\section{Метод отжига}\label{MethAnn}
 
-Метод отжига, как фундаментальная концепция в решении задач глобальной оптимизации, находит широкое применение в квантовых вычислениях, особенно в контексте вариационных квантовых алгоритмов. Основная идея метода заключается в постепенном снижении "температуры" системы, чтобы достичь состояния минимальной энергии. В этом разделе подробно рассмотрим как классический, так и квантовый подходы к отжигу, их теоретические основы и практическое применение.
+Метод отжига или, подробнее, метод имитации отжига относится к семейству методов Монте-Карло, разработанных для поиска \textit{глобального}\linebreak минимума целевой функции. Этот метод обладает одним существенным преимуществом по сравнению с аналитическими методами оптимизации: он применим к целевым функциям произвольной природы. Особенно важно то, что метод отжига полностью сохраняет свою эффективность в задачах, где целевая функция не дифференцируема и при этом имеет большое число локальных минимумов. По этой причине, метод отжига, как фундаментальная концепция в теории глобальной оптимизации, широко используется в квантовых вычислениях, особенно в вариационных квантовых алгоритмах (в их квантовой реализации, а не классической эмуляции), где вычисление целевой функции не обладает достаточной точностью. Основная идея метода заключается в постепенном снижении "температуры"\, системы, чтобы достичь состояния с минимальным значением целевой функции (далее, для краткости, энергии). В этом разделе подробно рассматривается классический вариант отжига и детали его практического применения. 
 
-Классический метод отжига основывается на аналогии с физическим процессом термического отжига, при котором материал медленно охлаждается, чтобы избежать образования дефектов и достичь состояния минимальной энергии. Математическое основание метода связано с распределением Больцмана, которое описывает вероятность состояния системы при заданной температуре $T$:
-
+Классический метод отжига основывается на аналогии с физическим процессом термического отжига, при котором материал медленно охлаждается, чтобы избежать образования дефектов и достичь состояния минимальной энергии. Математическое обоснование метода связано с распределением Больцмана, которое описывает вероятность состояния системы при заданной температуре $T$ формулой
 \begin{equation}
-p(x) = \frac{1}{Z(T)} \exp\left(-\frac{E(x)}{k_B T}\right),
+p(x) = \frac{1}{Z(T)} \exp\left(-\frac{E(x)}{k_B T}\right), \nonumber
 \end{equation}
-
-где $E(x)$ — энергия состояния $x$, $k_B$ — константа Больцмана, а $Z(T)$ — статистическая сумма. Процесс отжига моделирует систему, которая может переходить между состояниями $x$ и $y$ с вероятностью, зависящей от разности энергий $\Delta E = E(y) - E(x)$:
-
-\begin{equation}
-p(x \rightarrow y) = \min\left(1, \exp\left(-\frac{\Delta E}{k_B T}\right)\right).
+в которой $E(x)$ — энергия состояния $x$, $k_B$ — постоянная Больцмана, а $Z(T)$ — статистическая сумма. Процесс отжига является дискретным и моделирует систему, которая на каждом шаге может переходить между состояниями $x$ и $y$ с вероятностью, которая зависит от разности энергий $\Delta E= E(y)-E(x)$:
+\begin{equation}\label{prob}
+p(x\rightarrow y) = \min\left(1, \exp\left(-\frac{\Delta E}{k_B T}\right)\right).
 \end{equation}
+С вероятностью $1-p(x\rightarrow y)$ состояние системы не изменяется.
 
-С течением времени, температура $T$ постепенно уменьшается, что приводит к уменьшению вероятности перехода в состояния с более высокой энергией, в то время как система стремится к состоянию глобального минимума энергии.
+В самом общем случае в абстрактную математическую постановку задачи оптимизации методом отжига входят следующие данные.
 
-Квантовый алгоритм отжига использует преимущества квантовой механики, такие как суперпозиция и туннелирование, для более эффективного поиска глобального минимума. В отличие от классического подхода, квантовый отжиг позволяет системе преодолевать энергетические барьеры, используя когерентное туннелирование, что значительно увеличивает вероятность нахождения глобального минимума.
+\textbf{Список данных}\vspace{-2ex}
+\begin{enumerate}
+  \item Множество состояний $C$. 
+  \item Энергия (целевая функция) $E: C\rightarrow\mathbf{R}$. 
+  \item Семейство $Rnd=\big\{R_s\big\}_{s\in J}$ отображений $R_s\!:C\rightarrow C$, где множество индексов $J$, вообще говоря, не счетно.
+  \item Начальная температура $T$, минимальная температура $T_{min}$ и закон ее понижения  $T_k\rightarrow T_{k+1}=F(T_k,k)$, где $k$ --- шаг процесса отжига. 
+\end{enumerate}
 
-Квантовый отжиг моделируется с помощью временного гамильтониана, который постепенно изменяется от начального состояния к целевому:
+Практическая реализация имитации отжига обычно осуществляется\linebreak посредством последовательности конечного числа шагов --- случайных испытаний. Каждое испытание состоит, во-первых, из случайного выбора некоторого отображения $R_s\in Rnd$, задающего переход $x\rightarrow y=R_s(x)$, т.е. этот переход выбирается случайным образом из некоторого семейства возможностей. В зависимости от типа задачи вероятностное распределение (вероятностная мера) на $Rnd$ выбирается в достаточно широком диапазоне (нормальное распределение, распределение Коши, равномерное распределение и т.д.). Такое распределение, в свою очередь, может зависеть от температуры. 
 
-\begin{equation}
-H(t) = (1 - s(t)) H_B + s(t) H_P,
+Во-вторых, с помощью генератора псевдослучайных чисел выбирается значение $\varepsilon$ равномерно распределенной на интервале {(0,\;1)} случайной величины. Если выполнено условие
+\begin{equation}\label{prob1}
+\varepsilon < \exp\:\!\frac{E(x)-E(y)}{k_B T}, \nonumber
 \end{equation}
+то переход $x \rightarrow y$ принимается даже если энергия нового состояния, $E(y)$, больше, чем энергия $E(x)$ предыдущего состояния. В противном случае, когда $E(y)\leqslant E(x)$, данное условие выполняется. Такой способ перехода предохраняет от попадания в локальный минимум, в особенности, если процедуру отжига повторять несколько раз. Наконец, в третьих, на каждом шаге производится понижение температуры в соответствии с некоторым правилом. Постепенное уменьшение температуры приводит к уменьшению вероятности перехода в состояния с более высокой энергией, в то время как система стремится к состоянию глобального минимума энергии.
 
-где $H_B$ — начальный гамильтониан, часто представляющий собой простую задачу, такую как сумма операторов Паули $X$, а $H_P$ — проблема-специфический гамильтониан. Функция $s(t)$, изменяющаяся от 0 до 1, управляет эволюцией системы от начального состояния к состоянию минимальной энергии.
-
-Эволюция квантовой системы описывается уравнением Шрёдингера:
-
-\begin{equation}
-i \hbar \frac{\partial}{\partial t} \ket{\psi(t)} = H(t) \ket{\psi(t)},
-\end{equation}
-
-где $\hbar$ — приведённая постоянная Планка. Это уравнение описывает, как квантовая система изменяется со временем под воздействием изменяющегося гамильтониана.
-
-Важным аспектом квантового отжига является адъективная эволюция системы, которая позволяет системе оставаться в состоянии минимальной энергии в течение всего процесса. Это достигается за счёт медленного изменения параметра $s(t)$ в соответствии с адъективным теоремой:
-
-\begin{equation}
-\frac{ds}{dt} \ll \frac{\Delta^2}{\hbar \left\lVert \frac{dH}{ds} \right\rVert},
-\end{equation}
-где $\Delta$ — энергетический разрыв между основным и первым возбужденными состояниями гамильтониана.
-
-%#########################################################################################################################################################################################################################
-%##################################################################################### 2.2 Алгоритм ######################################################################################################################
-%#########################################################################################################################################################################################################################
 
 \section{Алгоритм}
 
+В задачах квантовой оптимизации в системе из $n$ кубитов множество состояний $C$, входящее в \textit{Список данных} из предыдущего раздела~\ref{MethAnn}, является подмножеством в пространстве состояний системы ${\mathcal{H}_n}$. Оно возникает в результате применения параметризованного анзаца ${\hat{U}(\bm\theta)}$ к начальному состоянию ${\ket{0\ldots0}=\ket0^{\!{\scriptscriptstyle\otimes}{n}}}$, так что ${\ket{u(\bm\theta)}= \hat{U}(\bm\theta)\ket0^{\!{\scriptscriptstyle\otimes}{n}}}$, где
+\begin{equation*}
+\bm\theta= (\theta_1,\ldots,\theta_m)\in\Omega= [0, 2\pi]^m.
+\end{equation*}
+Таким образом, ${\ket{u(\bm\theta)}}\in C$ --- это функция на пространстве параметров $\Omega$ со значениями в ${\mathcal{H}_n}$; при этом $C$ не является подпространством в ${\mathcal{H}_n}$. Энергия (целевая функция на $\Omega$) из \textit{Списка данных, п.\,2}, определяется выражением $E(\bm\theta)= \bra{u(\bm\theta)}\hat{H}\ket{u(\bm\theta)}$.
+
+В предлагаемом алгоритме выбор отображения из семейства $Rnd$ (\textit{Список данных, п.\,3}) равновероятен в отношении любого отображения в следующем смысле.
+С помощью генератора псевдослучайных чисел\linebreak выбирается $m$ значений ${\varepsilon_i\in(0,\;1),\, i=1,\ldots,m}$ случайной величины, равномерно распределенной на данном интервале, а затем формируется случайный вектор
+\begin{equation*}
+\delta\bm\theta=(\delta\theta_1,\ldots,\delta\theta_m)\in\Omega,\quad \delta\theta_i= \varepsilon_i\pi.
+\end{equation*}
+Отображение $R_{\delta\bm\theta}\!: C\rightarrow C$ определяется формулой ${\ket{u(\bm\theta)} \mapsto \ket{u(\bm\theta\!+\!\delta\bm\theta)}}$, где вектор ${\bm\theta+\delta\bm\theta}$ берется по модулю $2\pi$. Далее производим понижение\linebreak температуры (\textit{Список данных, п.\,4}) по простейшей схеме равномерного уменьшения ее значения на каждом шаге процесса отжига $T_{k+1}\!=T_k-\tau$, где выбор значения $\tau$ производится на основе численных экспериментов с конкретной задачей.
+
+Краткая формулировка алгоритма на уровне псевдокода выглядит следующим образом.
+
+\textbf{Вариационная квантовая оптимизация методом отжига}$\vphantom{\int\limits^a}$
+
+\noindent
+1.\; Вводим начальный вектор $\bm\theta\in\Omega$, минимальную температуру ${T_{min}}$,\\
+$\hphantom{1.\;}$ текущую температуру ${T\!>\!T_{min}}$ и значение $\tau$. Положим $\bm\theta_0=\bm\theta$.
+
+\noindent
+\textcolor{red}{\textbf{2}}.\; Генерируем состояние ${\ket{u(\bm\theta)}}$ и вычисляем энергию $E(\bm\theta)$ при\\
+$\hphantom{2.\;}$ текущей температуре $T$.
+
+\noindent
+3.\; Генерируем случайный вектор ${\delta\bm\theta\in\Omega}$,\;  ${\bm\theta_1= \bm\theta+ \delta\bm\theta\; (\mathrm{mod}\;2\pi)}$.\\
+$\hphantom{3.\;}$ Вычисляем энергию $E(\bm\theta_1)$.
+
+\noindent
+4.\; Если ${E(\bm\theta_1)\!\leqslant\!E(\bm\theta)}$, то полагаем ${\bm\theta\!=\!\bm\theta_1}$ и ${\bm\theta_0\!=\!\bm\theta_1}$.
+Иначе генерируем\\
+$\hphantom{4.\;}$  ${\varepsilon\in(0,1)}$ и если ${\varepsilon<\exp\{[E(\bm\theta)- E(\bm\theta_1)]/T\}}$, то полагаем ${\bm\theta\!=\!\bm\theta_1}$.
+
+\noindent
+5.\; Понижаем температуру: ${T \mapsto T-\tau}$. 
+
+\noindent
+6.\; Если ${T\!>\!T_{min}}$, то переходим к метке \textcolor{red}{\textbf{2}}.\; Иначе выходим с результатом\\
+$\hphantom{6.\;}$ ${\ket{u(\bm\theta_0)}}$ и $E(\bm\theta_0)$.
+
+
+
+
+\section{Сравнительные результаты тестирования}
+
 \subsection{Этап 1: Чтение и парсинг данных гамильтониана}
-\subsubsection{Математическая модель}
 Гамильтониан представляется как линейная комбинация:
 \begin{equation}
 \hat{H} = \sum_{k=1}^K c_k \bigotimes_{j=1}^N \sigma_{k_j}^{(j)}
@@ -819,25 +878,32 @@ i \hbar \frac{\partial}{\partial t} \ket{\psi(t)} = H(t) \ket{\psi(t)},
 где $\sigma_{k_j} \in \{I, X, Y, Z\}$ - операторы Паули для $j$-го кубита.
 \begin{lstlisting}[language=Python]
 def read_hamiltonian_data(file_path):
-    lines = read_file_lines(file_path, ignore_comments=True)
+    """
+    Читает данные из файла hamiltonian_operators.txt и возвращает два списка:
+    - Список операторов Паули в виде коэффициента оператора и строки Паули.
+    - Список строк операторов Паули.
+
+    :param file_path: Путь к файлу.
+    :return: (pauli_operators, pauli_strings)
+    :raises FileNotFoundError: Если файл не найден.
+    """
+    lines = read_file_lines(file_path, ignore_comments=False)
     pauli_operators = []
+    pauli_strings = []
     for line in lines:
-        # Разделение строки на компоненты
         parts = line.strip().split()
-        real_part = float(parts[0])
-        imag_part = float(parts[1])
-        pauli_str = parts[2]
-
-        # Преобразование в комплексное число
-        coefficient = complex(real_part, imag_part)
-
-        # Парсинг строки Паули
-        pauli_indices = [int(ch) for ch in pauli_str]
-
-        if abs(coefficient) > 1e-12:  # Игнорирование нулевых коэффициентов
-            pauli_operators.append( (coefficient, pauli_indices) )
-
-    return pauli_operators
+        if len(parts) == 3:
+            real_part, imag_part, index_str = (
+                float(parts[0]),
+                float(parts[1]),
+                str(parts[2]),
+            )
+            coefficient = np.complex128(real_part + imag_part * 1j)
+            index_list = [int(c) for c in index_str]
+            if coefficient != 0:
+                pauli_operators.append((coefficient, index_list))
+            pauli_strings.append(index_list)
+    return pauli_operators, pauli_strings
 \end{lstlisting}
 \begin{itemize}
 \item \texttt{read\_file\_lines}: Чтение строк из файла с фильтрацией комментариев
@@ -850,27 +916,27 @@ def read_hamiltonian_data(file_path):
 \end{itemize}
 
 \subsection{Этап 2: Инициализация параметров}
-\subsubsection{Математическое обоснование}
 Начальные значения $\theta$ вычисляются по формуле:
 \begin{equation}
 \theta_m^{(0)} = \underbrace{\frac{2\pi|c_m|}{\max_j|c_j|}}_{\text{Нормировка}} + \underbrace{\mathcal{N}(0, 0.1)}_{\text{Шум}}
 \end{equation}
 
 \begin{lstlisting}[language=Python]
-def generate_shifted_theta(pauli_operators):
+def generate_shifted_theta(pauli_operators: List[Tuple[complex, List[int]]]) -> np.ndarray:
+    """Генерирует θ на основе коэффициентов операторов (вектор сдвига)."""
+    if not pauli_operators:
+        return np.array([], dtype=np.float64)
+
     # Извлечение модулей действительных частей
-    coeffs = [abs(op[0].real) for op in pauli_operators]
+    coeffs = np.array([abs(op[0].real) for op in pauli_operators], dtype=np.float64)
+    norm = np.linalg.norm(coeffs)
+    if norm < 1e-12:
+        return np.zeros(len(coeffs))
 
-    # Нормировка
-    max_coeff = max(coeffs) if max(coeffs) != 0 else 1.0
-    scaled = [ (c / max_coeff) * 2 * np.pi for c in coeffs ]
-
-    # Добавление гауссова шума
-    noise = np.random.normal(0, 0.1, len(scaled))
-    return np.array(scaled) + noise
+    # Масштабируем в [0, 2π) и добавляем шум
+    scaled = (coeffs / norm) * 2 * np.pi
+    return scaled + np.random.normal(0, 0.1, len(scaled))
 \end{lstlisting}
-
-\subsubsection{Оптимизационные аспекты}
 \begin{itemize}
 \item Использование \texttt{op[0].real} - акцент на действительной части коэффициентов
 \item Защита от деления на ноль через тернарный оператор
@@ -878,77 +944,152 @@ def generate_shifted_theta(pauli_operators):
 \end{itemize}
 
 \subsection{Этап 3: Вычисление энергии}
-
-\subsubsection{Математическая модель}
+Вычисление энергии происходит с использованием формулы:
 \begin{equation}
 E(\theta) = \langle 0|U^\dagger(\theta)\hat{H}U(\theta)|0\rangle = \sum_{k=1}^K c_k \langle 0|U^\dagger P_k U|0\rangle
 \end{equation}
 
-\subsubsection{Ключевые функции}
 \begin{enumerate}
 \item Построение анзаца (\texttt{calculate\_ansatz}):
 \begin{lstlisting}[language=Python]
-def calculate_ansatz(theta, pauli_operators):
-    result = {tuple([0]*len(pauli_operators[0][1])): 1.0}
+def calculate_ansatz(
+    theta: np.ndarray, pauli_operators: List[Tuple[complex, List[int]]]
+) -> Tuple[Dict[Tuple[int, ...], complex], str, str]:
+    """
+    Вычисляет анзац в виде произведения экспонент операторов Паули.
+    Возвращает: (словарь операторов, символьное представление, численное представление)
+    """
+    operator_length = len(pauli_operators[0][1])
+    result = {tuple([0] * operator_length): 1.0}
+
     for t, (_, op) in zip(theta, pauli_operators):
-        # Применение экспоненты оператора
-        new_result = defaultdict(complex)
-        for existing_op, coeff in result.items():
-            # Терм 1: cos(t)*I
-            new_result[existing_op] += coeff * np.cos(t)
-            # Терм 2: i*sin(t)*σ
-            compose_coeff, compose_op = pauli_compose(existing_op, op)
-            new_result[tuple(compose_op)] += coeff * 1j * np.sin(t) * compose_coeff
+        cos_t = np.cos(t)
+        sin_t = np.sin(t)
+        new_result: Dict[Tuple[int, ...], complex] = {}
+
+        for existing_op, existing_coeff in result.items():
+            # Слагаемое с cos(θ)*I
+            identity_coeff = existing_coeff * cos_t
+            new_result[existing_op] = new_result.get(existing_op, 0) + identity_coeff
+
+            # Слагаемое с i*sin(θ)*σ
+            pauli_coeff = existing_coeff * 1j * sin_t
+            compose_coeff, compose_op = pauli_compose(list(existing_op), op)
+            final_coeff = pauli_coeff * compose_coeff
+            final_op = tuple(compose_op)
+            new_result[final_op] = new_result.get(final_op, 0) + final_coeff
+
         result = new_result
-    return result
+
+    symbolic_str, numeric_str = format_ansatz(pauli_operators, result)
+    return result, symbolic_str, numeric_str
 \end{lstlisting}
 
 \item Композиция операторов (\texttt{pauli\_compose}):
 \begin{lstlisting}[language=Python]
-def pauli_compose(s1, s2):
+def pauli_compose(s1: List[int], s2: List[int]) -> Tuple[complex, List[int]]:
+    """
+    Вычисляет композицию двух операторов Паули.
+    Возвращает: (коэффициент, результирующий оператор)
+    """
     coefficient = 1.0
     result = []
     for a, b in zip(s1, s2):
-        coeff, idx = PAULI_MAP.get((a, b), (1, 0))
+        coeff, idx = multiply_pauli(a, b)
         coefficient *= coeff
         result.append(idx)
     return coefficient, result
 \end{lstlisting}
 \end{enumerate}
 
-\subsubsection{Псевдокод алгоритма}
-\begin{algorithm}[H]
-\caption{Модифицированный алгоритм отжига}
-\begin{algorithmic}[1]
-\State Инициализация $\theta^{(0)}, T \gets T_{\text{init}}$
-\While{$T > T_{\min}$}
-    \For{$i = 1$ to $N_{\text{therm}}$}
-        \State $\theta' \gets \theta + \Delta\theta_{\text{therm}}$
-        \State $\Delta E \gets E(\theta') - E(\theta)$
-        \If{$\Delta E < 0$ или $e^{-\Delta E/T} > \text{rand}(0,1)$}
-            \State $\theta \gets \theta'$
-        \EndIf
-    \EndFor
-
-    \For{$i = 1$ to $N_{\text{iter}}$}
-        \State $\theta' \gets \theta + \mathcal{N}(0, \sigma(T))$
-        \State Вычисление $\Delta E$
-        \If{принять изменение}
-            \State $\theta \gets \theta'$
-        \EndIf
-    \EndFor
-    \State $T \gets \alpha T$
-\EndWhile
-\end{algorithmic}
-\end{algorithm}
-
 \subsection{Этап 4: Алгоритм отжига}
+Сам алгоритм отжига описан в данном коде
+\begin{lstlisting}[language=Python]
+def simulated_annealing(
+    initial_theta: np.ndarray,
+    pauli_operators: list,
+    initial_temp: float = 1000.0,
+    cooling_rate: float = 0.99,
+    min_temp: float = 1e-5,
+    num_iterations_per_temp: int = 500,
+    step_size: float = 0.5,
+) -> tuple:
+    """Алгоритм отжига с термализацией."""
+    current_theta = initial_theta.copy()
+    best_theta = current_theta.copy()
+    best_energy = float("inf")
+    rng = np.random.default_rng()
+
+    with Progress(
+        SpinnerColumn(),
+        TextColumn("[progress.description]{task.description}"),
+        BarColumn(bar_width=None),
+        TextColumn("[progress.percentage]{task.percentage:>3.0f}%"),
+    ) as progress:
+        task = progress.add_task("[cyan]Отжиг...", total=100)
+
+        temp = initial_temp
+        iteration = 0
+        thermalization_steps = int(num_iterations_per_temp * 0.2)  # 20% шагов на термализацию
+
+        while temp > min_temp:
+            # Фаза термализации
+            for _ in range(thermalization_steps):
+                current_theta = generate_shifted_theta(pauli_operators)
+                ansatz_dict, _, _ = calculate_ansatz(current_theta, pauli_operators)
+                uhu_dict = compute_uhu(ansatz_dict, pauli_operators)
+                current_energy = calculate_expectation(uhu_dict)
+
+                if current_energy < best_energy:
+                    best_theta = current_theta.copy()
+                    best_energy = current_energy
+
+            # Основная фаза отжига
+            for _ in range(num_iterations_per_temp):
+                perturbation = rng.normal(0, step_size*(temp/initial_temp), current_theta.shape)
+                neighbor_theta = (current_theta + perturbation) % (2*np.pi)
+
+                ansatz_dict, _, _ = calculate_ansatz(neighbor_theta, pauli_operators)
+                uhu_dict = compute_uhu(ansatz_dict, pauli_operators)
+                current_energy = calculate_expectation(uhu_dict)
+
+                energy_diff = current_energy - best_energy
+                if energy_diff < 0 or rng.random() < np.exp(-energy_diff / temp):
+                    current_theta = neighbor_theta.copy()
+
+                    if current_energy < best_energy:
+                        best_theta = current_theta.copy()
+                        best_energy = current_energy
+
+                iteration += 1
+                if iteration % 100 == 0:
+                    progress.update(task, advance=1)
+
+            temp *= cooling_rate
+
+    return best_theta, best_energy
+\end{lstlisting}
+
+\subsubsection{Ключевые особенности реализации}
+\begin{itemize}
+    \item Адаптивный размер шага: $\sigma(T) = \sigma_0 \cdot T/T_{\text{init}}$
+    \item Двухэтапный процесс: термализация + основной цикл
+    \item Сохранение лучшего решения в отдельной переменной
+    \item Модульная структура с возможностью изменения:
+      \begin{itemize}
+      \item \texttt{thermalization\_steps} - число шагов термализации
+      \item \texttt{iter\_per\_temp} - итераций на одну температуру
+      \item \texttt{cooling\_rate} - скорость охлаждения $\alpha$
+      \end{itemize}
+    \item Использование \texttt{defaultdict} для эффективного управления операторами
+    \item Стабилизация численных вычислений через отсечение малых значений ($<10^{-12}$)
+    \item Векторизованные операции с NumPy для ускорения вычислений
+    \item Логирование процесса оптимизации в \texttt{output.log}
+\end{itemize}
 
 %#########################################################################################################################################################################################################################
 %############################################################### 2.3 Сравнительные результаты тестирования ###############################################################################################################
 %#########################################################################################################################################################################################################################
-
-\section{Сравнительные результаты тестирования}
 
 %#########################################################################################################################################################################################################################
 %################################################################################################### Заключение ##########################################################################################################
@@ -1447,9 +1588,20 @@ sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
 sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding="utf-8")
 
 
-def generate_random_theta(m: int) -> np.ndarray:
-    """Генерирует массив из m случайных углов в диапазоне [0, 2π)."""
-    return np.random.uniform(0, 2*np.pi, size=m).astype(np.float64)
+def generate_shifted_theta(pauli_operators: List[Tuple[complex, List[int]]]) -> np.ndarray:
+    """Генерирует θ на основе коэффициентов операторов (вектор сдвига)."""
+    if not pauli_operators:
+        return np.array([], dtype=np.float64)
+
+    # Извлечение модулей действительных частей
+    coeffs = np.array([abs(op[0].real) for op in pauli_operators], dtype=np.float64)
+    norm = np.linalg.norm(coeffs)
+    if norm < 1e-12:
+        return np.zeros(len(coeffs))
+
+    # Масштабируем в [0, 2π) и добавляем шум
+    scaled = (coeffs / norm) * 2 * np.pi
+    return scaled + np.random.normal(0, 0.1, len(scaled))
 
 
 def multiply_pauli(i: int, j: int) -> Tuple[complex, int]:
@@ -1585,19 +1737,29 @@ def simulated_annealing(
 
         temp = initial_temp
         iteration = 0
+        thermalization_steps = int(num_iterations_per_temp * 0.2)  # 20% шагов на термализацию
 
         while temp > min_temp:
+            # Фаза термализации
+            for _ in range(thermalization_steps):
+                current_theta = generate_shifted_theta(pauli_operators)
+                ansatz_dict, _, _ = calculate_ansatz(current_theta, pauli_operators)
+                uhu_dict = compute_uhu(ansatz_dict, pauli_operators)
+                current_energy = calculate_expectation(uhu_dict)
+
+                if current_energy < best_energy:
+                    best_theta = current_theta.copy()
+                    best_energy = current_energy
+
+            # Основная фаза отжига
             for _ in range(num_iterations_per_temp):
-                # Генерация соседнего решения с адаптивным шагом
-                perturbation = rng.normal(0, step_size*(temp/initial_temp), size=current_theta.shape)
+                perturbation = rng.normal(0, step_size*(temp/initial_temp), current_theta.shape)
                 neighbor_theta = (current_theta + perturbation) % (2*np.pi)
 
-                # Вычисление энергии нового состояния
                 ansatz_dict, _, _ = calculate_ansatz(neighbor_theta, pauli_operators)
                 uhu_dict = compute_uhu(ansatz_dict, pauli_operators)
                 current_energy = calculate_expectation(uhu_dict)
 
-                # Критерий принятия решения
                 energy_diff = current_energy - best_energy
                 if energy_diff < 0 or rng.random() < np.exp(-energy_diff / temp):
                     current_theta = neighbor_theta.copy()
@@ -1619,7 +1781,6 @@ def main():
     """Основная логика программы."""
     console = initialize_environment()
 
-    # Явная проверка существования файла
     if not HAMILTONIAN_FILE_PATH.exists():
         msg = (
             f"Файл [bold]{HAMILTONIAN_FILE_PATH}[/] не найден!\n"
@@ -1630,39 +1791,30 @@ def main():
 
     try:
         pauli_operators, pauli_strings = read_hamiltonian_data(HAMILTONIAN_FILE_PATH)
-
         print_hamiltonian(console, pauli_operators)
         print_pauli_table(console, pauli_operators)
         print_composition_table(console, pauli_compose, pauli_strings)
-
     except FileNotFoundError:
-        console_and_print(
-            console,
-            Panel(
-                f"[red]Файл {HAMILTONIAN_FILE_PATH} не найден[/red]", border_style="red"
-            ),
-        )
+        console_and_print(console, Panel(f"[red]Файл {HAMILTONIAN_FILE_PATH} не найден[/red]", border_style="red"))
         return
 
     if len(pauli_operators) < 2:
-        console_and_print(
-            console,
-            Panel("[red]Требуется минимум 2 оператора Паули[/red]", border_style="red"),
-        )
+        console_and_print(console, Panel("[red]Требуется минимум 2 оператора Паули[/red]", border_style="red"))
         return
 
     best_energy = float("inf")
     best_result = None
-
-    # Собираем все результаты для анализа
     all_results = []
 
+    # Для каждого m используем первые m операторов
     for m in range(2, len(pauli_operators) + 1):
-        initial_theta = generate_random_theta(m)
+        current_ops = pauli_operators[:m]
+        initial_theta = generate_shifted_theta(current_ops)  # Вектор сдвига!
 
+        # Оптимизация только для текущего подмножества операторов
         optimized_theta, energy = simulated_annealing(
             initial_theta=initial_theta,
-            pauli_operators=pauli_operators,
+            pauli_operators=current_ops,  # Передаем подмножество
             initial_temp=100.0,
             cooling_rate=0.95,
             min_temp=1e-3,
@@ -1670,51 +1822,33 @@ def main():
             step_size=0.1,
         )
 
-        all_results.append(
-            {
+        all_results.append({
                 "m": m,
                 "theta": optimized_theta,
                 "energy": energy,
-            }
-        )
+            "operators": current_ops
+        })
 
-        # Обновляем лучший результат
         if energy < best_energy:
             best_energy = energy
             best_result = all_results[-1]
 
+    # Вывод результатов для лучшего набора параметров
     _, ansatz_symbolic, ansatz_numeric = calculate_ansatz(
-        best_result["theta"], pauli_operators[: best_result["m"]]
+        best_result["theta"],
+        best_result["operators"]  # Используем сохраненное подмножество
     )
 
-    console_and_print(
-        console,
-        Panel(
-            ansatz_symbolic,
-            title="[bold]Символьное представление анзаца[/]",
-            border_style="green",
-        ),
-    )
+    console_and_print(console, Panel(ansatz_symbolic,
+        title="[bold]Символьное представление анзаца[/]", border_style="green"))
 
-    console_and_print(
-        console,
-        Panel(
-            ansatz_numeric,
-            title="[bold]Численное представление анзаца[/]",
-            border_style="purple",
-        ),
-    )
+    console_and_print(console, Panel(ansatz_numeric,
+        title="[bold]Численное представление анзаца[/]", border_style="purple"))
 
-    console_and_print(
-        console,
-        Panel(
-            f"{best_result['energy']:.6f}",
-            title="[bold]Энергия (<0|U†HU|0> для состояния |0...0>)[/]",
-            border_style="green",
-        ),
-    )
+    console_and_print(console, Panel(f"{best_result['energy']:.6f}",
+        title="[bold]Энергия (<0|U†HU|0> для состояния |0...0>)[/]", border_style="green"))
 
-    input('text')
+    input('Нажмите Enter для выхода...')
 
 
 if __name__ == "__main__":

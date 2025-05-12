@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2025.5.11)  11 MAY 2025 20:29
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2025.5.12)  12 MAY 2025 21:28
 entering extended mode
 **E:/Files/masters_thesis/РњР°РіРёСЃС‚РµСЂСЃРєР°СЏ*РґРёСЃСЃРµСЂС‚Р°С†РёСЏ/dmitr
 iy.tex
@@ -1232,57 +1232,135 @@ Package: array 2008/09/09 v2.4c Tabular extension package (FMi)
 \extratabsurround=\skip50
 \backup@length=\skip51
 )
+(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\algorithms\algorithm.sty
+Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating enviro
+nment
+
+(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\float\float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count151
+\float@exts=\toks49
+\float@box=\box44
+\@float@everytoks=\toks50
+\@floatcapt=\box45
+)
+(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\base\ifthen.sty
+Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
+)
+\@float@every@algorithm=\toks51
+\c@algorithm=\count152
+)
+(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\algorithmicx\algcompatible.sty
+Package: algcompatible 
+
+(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\algorithmicx\algorithmicx.sty
+Package: algorithmicx 2005/04/27 v1.2 Algorithmicx
+
+Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
+\c@ALG@line=\count153
+\c@ALG@rem=\count154
+\c@ALG@nested=\count155
+\ALG@tlm=\skip52
+\ALG@thistlm=\skip53
+\c@ALG@Lnr=\count156
+\c@ALG@blocknr=\count157
+\c@ALG@storecount=\count158
+\c@ALG@tmpcounter=\count159
+\ALG@tmplength=\skip54
+)
+Document Style - algorithmic compatible environments for the `algorithmicx' sty
+le
+) (E:\Soft\FullTex\Full_TeX\texmf\tex\latex\tocloft\tocloft.sty
+Package: tocloft 2017/08/31 v2.3i parameterised ToC, etc., typesetting
+Package tocloft Info: The document has chapter divisions on input line 51.
+\cftparskip=\skip55
+\cftbeforetoctitleskip=\skip56
+\cftaftertoctitleskip=\skip57
+\cftbeforepartskip=\skip58
+\cftpartnumwidth=\skip59
+\cftpartindent=\skip60
+\cftbeforechapskip=\skip61
+\cftchapindent=\skip62
+\cftchapnumwidth=\skip63
+\cftbeforesecskip=\skip64
+\cftsecindent=\skip65
+\cftsecnumwidth=\skip66
+\cftbeforesubsecskip=\skip67
+\cftsubsecindent=\skip68
+\cftsubsecnumwidth=\skip69
+\cftbeforesubsubsecskip=\skip70
+\cftsubsubsecindent=\skip71
+\cftsubsubsecnumwidth=\skip72
+\cftbeforeparaskip=\skip73
+\cftparaindent=\skip74
+\cftparanumwidth=\skip75
+\cftbeforesubparaskip=\skip76
+\cftsubparaindent=\skip77
+\cftsubparanumwidth=\skip78
+\cftbeforeloftitleskip=\skip79
+\cftafterloftitleskip=\skip80
+\cftbeforefigskip=\skip81
+\cftfigindent=\skip82
+\cftfignumwidth=\skip83
+\c@lofdepth=\count160
+\c@lotdepth=\count161
+\cftbeforelottitleskip=\skip84
+\cftafterlottitleskip=\skip85
+\cftbeforetabskip=\skip86
+\cfttabindent=\skip87
+\cfttabnumwidth=\skip88
+)
 (E:\Soft\FullTex\Full_TeX\texmf\tex\latex\listings\lstlang1.sty
 File: lstlang1.sty 2024/09/23 1.10c listings language file
 )
 ("E:\Files\masters_thesis\РњР°РіРёСЃС‚РµСЂСЃРєР°СЏ РґРёСЃСЃРµСЂС‚Р°С†РёСЏ\dmitr
 iy.aux")
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 165.
-LaTeX Font Info:    ... okay on input line 165.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 165.
-LaTeX Font Info:    ... okay on input line 165.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 165.
-LaTeX Font Info:    ... okay on input line 165.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 165.
-LaTeX Font Info:    ... okay on input line 165.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 165.
-LaTeX Font Info:    ... okay on input line 165.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 165.
-LaTeX Font Info:    ... okay on input line 165.
-LaTeX Font Info:    Checking defaults for T2A/cmr/m/n on input line 165.
-LaTeX Font Info:    ... okay on input line 165.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 165.
-LaTeX Font Info:    ... okay on input line 165.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 165.
-LaTeX Font Info:    ... okay on input line 165.
-\c@lstlisting=\count151
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 167.
+LaTeX Font Info:    ... okay on input line 167.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 167.
+LaTeX Font Info:    ... okay on input line 167.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 167.
+LaTeX Font Info:    ... okay on input line 167.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 167.
+LaTeX Font Info:    ... okay on input line 167.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 167.
+LaTeX Font Info:    ... okay on input line 167.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 167.
+LaTeX Font Info:    ... okay on input line 167.
+LaTeX Font Info:    Checking defaults for T2A/cmr/m/n on input line 167.
+LaTeX Font Info:    ... okay on input line 167.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 167.
+LaTeX Font Info:    ... okay on input line 167.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 167.
+LaTeX Font Info:    ... okay on input line 167.
+\c@lstlisting=\count162
  (E:\Soft\FullTex\Full_TeX\texmf\tex\context\base\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count152
+\scratchcounter=\count163
 \scratchdimen=\dimen184
-\scratchbox=\box44
-\nofMPsegments=\count153
-\nofMParguments=\count154
-\everyMPshowfont=\toks49
-\MPscratchCnt=\count155
+\scratchbox=\box46
+\nofMPsegments=\count164
+\nofMParguments=\count165
+\everyMPshowfont=\toks52
+\MPscratchCnt=\count166
 \MPscratchDim=\dimen185
-\MPnumerator=\count156
-\makeMPintoPDFobject=\count157
-\everyMPtoPDFconversion=\toks50
+\MPnumerator=\count167
+\makeMPintoPDFobject=\count168
+\everyMPtoPDFconversion=\toks53
 )
-\AtBeginShipoutBox=\box45
-Package hyperref Info: Link coloring ON on input line 165.
+\AtBeginShipoutBox=\box47
+Package hyperref Info: Link coloring ON on input line 167.
  (E:\Soft\FullTex\Full_TeX\texmf\tex\latex\hyperref\nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 
 (E:\Soft\FullTex\Full_TeX\texmf\tex\generic\oberdiek\gettitlestring.sty
 Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
-\c@section@level=\count158
+\c@section@level=\count169
 )
-LaTeX Info: Redefining \ref on input line 165.
-LaTeX Info: Redefining \pageref on input line 165.
-LaTeX Info: Redefining \nameref on input line 165.
+LaTeX Info: Redefining \ref on input line 167.
+LaTeX Info: Redefining \pageref on input line 167.
+LaTeX Info: Redefining \nameref on input line 167.
 
 ("E:\Files\masters_thesis\РњР°РіРёСЃС‚РµСЂСЃРєР°СЏ РґРёСЃСЃРµСЂС‚Р°С†РёСЏ\dmitr
 iy.out")
@@ -1294,18 +1372,18 @@ iy.out")
 Package pgfplots Warning: running in backwards compatibility mode (unsuitable t
 ick labels; missing features). Consider writing \pgfplotsset{compat=1.9} into y
 our preamble.
- on input line 165.
+ on input line 167.
 
-LaTeX Font Info:    Try loading font information for U+rsfs on input line 201.
+LaTeX Font Info:    Try loading font information for U+rsfs on input line 203.
 (E:\Soft\FullTex\Full_TeX\texmf\tex\latex\jknappen\ursfs.fd
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 )
-LaTeX Font Info:    Try loading font information for U+msa on input line 201.
+LaTeX Font Info:    Try loading font information for U+msa on input line 203.
 
 (E:\Soft\FullTex\Full_TeX\texmf\tex\latex\amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 201.
+LaTeX Font Info:    Try loading font information for U+msb on input line 203.
 
 (E:\Soft\FullTex\Full_TeX\texmf\tex\latex\amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -1313,54 +1391,79 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 {E:/Soft/FullTex/Full_TeX/texmf/pdftex/config/pdftex.map}]
 ("E:\Files\masters_thesis\РњР°РіРёСЃС‚РµСЂСЃРєР°СЏ РґРёСЃСЃРµСЂС‚Р°С†РёСЏ\dmitr
-iy.toc" [2
-
-])
+iy.toc")
 \tf@toc=\write5
- [3] [4
+ [2] [3
 
 ]
 {\Russian \CYRG \cyrl \cyra \cyrv \cyra } 1.
-[5
+[4
 
-] [6] [7] [8]
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 367.
-
+] [5] [6] [7]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `superscript' on input line 367.
+(hyperref)                removing `math shift' on input line 368.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 367.
+(hyperref)                removing `superscript' on input line 368.
 
-[9]
-LaTeX Font Info:    Try loading font information for U+euf on input line 451.
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 368.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[8]
+LaTeX Font Info:    Try loading font information for U+euf on input line 452.
  (E:\Soft\FullTex\Full_TeX\texmf\tex\latex\amsfonts\ueuf.fd
 File: ueuf.fd 2013/01/14 v3.01 Euler Fraktur
-) [10]
-LaTeX Font Info:    Try loading font information for T2A+cmss on input line 464
-.
-
-(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\cyrillic\t2acmss.fd
-File: t2acmss.fd 2001/08/11 v1.0a Computer Modern Cyrillic font definitions
-) [11] [12]
-[13] [14] [15pdfTeX warning (ext4): destination with the same identifier (name{
-equation.1.4.16}) has been already used, duplicate ignored
+) [9pdfTeX warning (ext4): destination with the same identifier (name{table.1.1
+}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.584 \end{multline}
-                    ]
-Overfull \hbox (8.03723pt too wide) in paragraph at lines 600--601
+l.458 
+      ]
+LaTeX Font Info:    Try loading font information for T2A+cmss on input line 465
+.
+ (E:\Soft\FullTex\Full_TeX\texmf\tex\latex\cyrillic\t2acmss.fd
+File: t2acmss.fd 2001/08/11 v1.0a Computer Modern Cyrillic font definitions
+) [10pdfTeX warning (ext4): destination with the same identifier (name{table.1.
+2}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.498 \end{equation}
+                    ] [11] [12] [13]
+<figures/scheme_simple.pdf, id=230, 406.35114pt x 217.26169pt>
+File: figures/scheme_simple.pdf Graphic file (type pdf)
+
+<use figures/scheme_simple.pdf>
+Package pdftex.def Info: figures/scheme_simple.pdf used on input line 565.
+(pdftex.def)             Requested size: 426.79134pt x 228.19115pt.
+ [14pdfTeX warning (ext4): destination with the same identifier (name{figure.1.
+1}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.590 \begin{align}
+                    <E:/Files/masters_thesis/РњР°РіРёСЃС‚РµСЂСЃРєР°СЏ РґРёСЃСЃР
+µСЂС‚Р°С†РёСЏ/figures/scheme_simple.pdf>]pdfTeX warning (ext4): destination wit
+h the same identifier (name{equation.1.4.16}) has been already used, duplicate 
+ignored
+<to be read again> 
+                   \relax 
+l.595 \end{align}
+                  [15]
+Overfull \hbox (8.03723pt too wide) in paragraph at lines 626--627
 [][]\T2A/cmr/m/n/14.4 Варьируя па-ра-мет-ры $\OML/cmm/m/it/14.4 ; ; $\T2A/cm
 r/m/n/14.4 , мож-но по-лу-чить ос-нов-ное со-сто-я-ние ([][]1.16[][])
  []
 
 [16] [17]
-Overfull \hbox (9.77307pt too wide) in alignment at lines 699--717
+Overfull \hbox (9.77307pt too wide) in alignment at lines 725--743
  [][][] []
  []
 
@@ -1369,156 +1472,163 @@ ion.1.4.28}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.758 \chapter
+l.783 \chapter
               {Р’Р°СЂРёР°С†РёРѕРЅРЅС‹Р№ РєРІР°РЅС‚РѕРІС‹Р№ Р°Р»РіРѕСЂРёС‚Рј ...
 ]
 {\Russian \CYRG \cyrl \cyra \cyrv \cyra } 2.
 [20
 
-]
-Overfull \hbox (0.56631pt too wide) in paragraph at lines 790--791
-\T2A/cmr/m/n/14.4 про-стую за-да-чу, та-кую как сум-ма опе-ра-то-ров Па-у-ли $\
-OML/cmm/m/it/14.4 X$\T2A/cmr/m/n/14.4 , а $\OML/cmm/m/it/14.4 H[]$ \T2A/cmr/m/n
-/14.4  проблема-
+] [21pdfTeX warning (ext4): destination with the same identifier (name{equation
+.2.1.1}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.814 
+      ] [22]
+Overfull \hbox (7.24911pt too wide) in paragraph at lines 868--868
+[]\T2A/cmr/bx/n/20.74 Сравнительные ре-зуль-та-ты те-сти-ро-ва-ния 
  []
 
-[21]
-LaTeX Font Info:    Try loading font information for T2A+cmtt on input line 819
+[23]
+LaTeX Font Info:    Try loading font information for T2A+cmtt on input line 876
 .
  (E:\Soft\FullTex\Full_TeX\texmf\tex\latex\cyrillic\t2acmtt.fd
 File: t2acmtt.fd 2001/08/11 v1.0a Computer Modern Cyrillic font definitions
 )
 LaTeX Font Info:    Font shape `T2A/cmtt/bx/n' in size <10> not available
-(Font)              Font shape `T2A/cmtt/m/n' tried instead on input line 820.
- [22]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 849.
+(Font)              Font shape `T2A/cmtt/m/n' tried instead on input line 877.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 906.
 
 
 (E:\Soft\FullTex\Full_TeX\texmf\tex\latex\base\omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <14.4> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 849.
- [23] [24] [25]
-[26]
-Overfull \hbox (7.24911pt too wide) in paragraph at lines 1034--1034
-[]\T2A/cmr/bx/n/20.74 Сравнительные ре-зуль-та-ты те-сти-ро-ва-ния 
- []
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 906.
+ [24] [25] [26]
+[27] [28] [29] [30
 
-[27] [28
-
-] [29
+] [31
 
 ]
-Underfull \hbox (badness 2521) in paragraph at lines 1103--1105
+Underfull \hbox (badness 2521) in paragraph at lines 1158--1160
 \T2A/cmr/m/it/14.4 using the unitary coupled cluster ansatz\T2A/cmr/m/n/14.4 . 
 Quantum Science and
  []
 
-[30] [31] <figures/scheme.pdf, id=538, 610.75676pt x 904.77826pt>
+[32] [33] <figures/scheme.pdf, id=599, 610.75676pt x 904.77826pt>
 File: figures/scheme.pdf Graphic file (type pdf)
 
 <use figures/scheme.pdf>
-Package pdftex.def Info: figures/scheme.pdf used on input line 1124.
+Package pdftex.def Info: figures/scheme.pdf used on input line 1179.
 (pdftex.def)             Requested size: 273.14922pt x 404.64761pt.
- [32
+ [34
 
- <E:/Files/masters_thesis/РњР°РіРёСЃС‚РµСЂСЃРєР°СЏ РґРёСЃСЃРµСЂС‚Р°С†РёСЏ/figur
-es/scheme.pdf>] [33] [34]
-Overfull \hbox (29.74219pt too wide) in paragraph at lines 1229--1230
+pdfTeX warning (ext4): destination with the same identifier (name{figure.2.1}) 
+has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.1184 \begin{lstlisting}
+                          <E:/Files/masters_thesis/РњР°РіРёСЃС‚РµСЂСЃРєР°СЏ РґР
+ёСЃСЃРµСЂС‚Р°С†РёСЏ/figures/scheme.pdf>] [35] [36]
+Overfull \hbox (29.74219pt too wide) in paragraph at lines 1284--1285
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
 ][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (124.22003pt too wide) in paragraph at lines 1237--1238
+Overfull \hbox (124.22003pt too wide) in paragraph at lines 1292--1293
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
 ][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
-[35] [36] [37] [38] [39] [40] [41] [42]
-LaTeX Font Info:    Try loading font information for OMS+cmtt on input line 161
-7.
-LaTeX Font Info:    No file OMScmtt.fd. on input line 1617.
+[37] [38] [39] [40] [41] [42] [43] [44]
+LaTeX Font Info:    Try loading font information for OMS+cmtt on input line 166
+9.
+LaTeX Font Info:    No file OMScmtt.fd. on input line 1669.
 
 
 LaTeX Font Warning: Font shape `OMS/cmtt/m/n' undefined
 (Font)              using `OMS/cmsy/m/n' instead
-(Font)              for symbol `textdagger' on input line 1617.
+(Font)              for symbol `textdagger' on input line 1669.
 
-[43] [44] [45] [46]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1803.
- [47]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1803.
+[45] [46] [47] [48]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1855.
+ [49]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1855.
 
 ("E:\Files\masters_thesis\РњР°РіРёСЃС‚РµСЂСЃРєР°СЏ РґРёСЃСЃРµСЂС‚Р°С†РёСЏ\dmitr
 iy.aux")
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1803.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1803.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1855.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1855.
 
 Package rerunfilecheck Info: File `dmitriy.out' has not changed.
-(rerunfilecheck)             Checksum: E829E6D3B9E0789160A5E99790BC9DC0;5868.
+(rerunfilecheck)             Checksum: 5D97DEA591171716FCA3A3D843E44803;5706.
 
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1803.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1855.
  ) 
 Here is how much of TeX's memory you used:
- 26582 strings out of 493921
- 538987 string characters out of 3146112
- 946926 words of memory out of 3000000
- 28359 multiletter control sequences out of 15000+200000
+ 27434 strings out of 493921
+ 551181 string characters out of 3146112
+ 961622 words of memory out of 3000000
+ 29189 multiletter control sequences out of 15000+200000
  33998 words of font info for 90 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
- 63i,18n,74p,1549b,2142s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 63i,18n,74p,2128b,2067s stack positions out of 5000i,500n,10000p,200000b,50000s
 {E:/Soft/FullTex/Full_TeX/texmf/fonts/enc/dvips/cm-super/cm-super-t2a.enc}<E:
-/Soft/FullTex/Full_TeX/texmf/fonts/type1/public/amsfonts/cm/cmex10.pfb><E:/Soft
-/FullTex/Full_TeX/texmf/fonts/type1/public/amsfonts/cmextra/cmex8.pfb><E:/Soft/
-FullTex/Full_TeX/texmf/fonts/type1/public/amsfonts/cmextra/cmex9.pfb><E:/Soft/F
-ullTex/Full_TeX/texmf/fonts/type1/public/amsfonts/cm/cmmi10.pfb><E:/Soft/FullTe
-x/Full_TeX/texmf/fonts/type1/public/amsfonts/cm/cmmi12.pfb><E:/Soft/FullTex/Ful
-l_TeX/texmf/fonts/type1/public/amsfonts/cm/cmmi5.pfb><E:/Soft/FullTex/Full_TeX/
-texmf/fonts/type1/public/amsfonts/cm/cmmi6.pfb><E:/Soft/FullTex/Full_TeX/texmf/
-fonts/type1/public/amsfonts/cm/cmmi7.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/
-type1/public/amsfonts/cm/cmmi8.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/
-public/amsfonts/cm/cmmi9.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/public
-/amsfonts/cm/cmmib10.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/public/ams
-fonts/cm/cmr10.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/public/amsfonts/
-cm/cmr12.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/public/amsfonts/cm/cmr
-17.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/public/amsfonts/cm/cmr6.pfb>
-<E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/public/amsfonts/cm/cmr7.pfb><E:/Sof
-t/FullTex/Full_TeX/texmf/fonts/type1/public/amsfonts/cm/cmr8.pfb><E:/Soft/FullT
-ex/Full_TeX/texmf/fonts/type1/public/amsfonts/cm/cmr9.pfb><E:/Soft/FullTex/Full
-_TeX/texmf/fonts/type1/public/amsfonts/cm/cmsy10.pfb><E:/Soft/FullTex/Full_TeX/
-texmf/fonts/type1/public/amsfonts/cm/cmsy6.pfb><E:/Soft/FullTex/Full_TeX/texmf/
-fonts/type1/public/amsfonts/cm/cmsy7.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/
-type1/public/amsfonts/cm/cmsy9.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/
-public/amsfonts/euler/eufm10.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/pu
-blic/amsfonts/symbols/msam10.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/pu
-blic/amsfonts/symbols/msbm10.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/pu
-blic/cm-super/sfbi0900.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/public/c
-m-super/sfbi1440.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/public/cm-supe
-r/sfbx0900.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/public/cm-super/sfbx
-1440.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/public/cm-super/sfbx1728.p
-fb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/public/cm-super/sfbx2074.pfb><E:
-/Soft/FullTex/Full_TeX/texmf/fonts/type1/public/cm-super/sfbx2986.pfb><E:/Soft/
-FullTex/Full_TeX/texmf/fonts/type1/public/cm-super/sfbx3583.pfb><E:/Soft/FullTe
-x/Full_TeX/texmf/fonts/type1/public/cm-super/sfrm0600.pfb><E:/Soft/FullTex/Full
-_TeX/texmf/fonts/type1/public/cm-super/sfrm0700.pfb><E:/Soft/FullTex/Full_TeX/t
-exmf/fonts/type1/public/cm-super/sfrm0900.pfb><E:/Soft/FullTex/Full_TeX/texmf/f
-onts/type1/public/cm-super/sfrm1000.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/t
-ype1/public/cm-super/sfrm1440.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/p
-ublic/cm-super/sfrm1728.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/public/
-cm-super/sfss1440.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/public/cm-sup
-er/sfti1000.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/public/cm-super/sft
-i1440.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/public/cm-super/sftt0800.
-pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/public/cm-super/sftt0900.pfb><E
-:/Soft/FullTex/Full_TeX/texmf/fonts/type1/public/cm-super/sftt1000.pfb><E:/Soft
-/FullTex/Full_TeX/texmf/fonts/type1/public/cm-super/sftt1440.pfb>
-Output written on dmitriy.pdf (47 pages, 1007676 bytes).
+/Soft/FullTex/Full_TeX/texmf/fonts/type1/public/amsfonts/cm/cmbx12.pfb><E:/Soft
+/FullTex/Full_TeX/texmf/fonts/type1/public/amsfonts/cm/cmex10.pfb><E:/Soft/Full
+Tex/Full_TeX/texmf/fonts/type1/public/amsfonts/cmextra/cmex8.pfb><E:/Soft/FullT
+ex/Full_TeX/texmf/fonts/type1/public/amsfonts/cmextra/cmex9.pfb><E:/Soft/FullTe
+x/Full_TeX/texmf/fonts/type1/public/amsfonts/cm/cmmi10.pfb><E:/Soft/FullTex/Ful
+l_TeX/texmf/fonts/type1/public/amsfonts/cm/cmmi12.pfb><E:/Soft/FullTex/Full_TeX
+/texmf/fonts/type1/public/amsfonts/cm/cmmi5.pfb><E:/Soft/FullTex/Full_TeX/texmf
+/fonts/type1/public/amsfonts/cm/cmmi6.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts
+/type1/public/amsfonts/cm/cmmi7.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1
+/public/amsfonts/cm/cmmi8.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/publi
+c/amsfonts/cm/cmmi9.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/public/amsf
+onts/cm/cmmib10.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/public/amsfonts
+/cm/cmr10.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/public/amsfonts/cm/cm
+r12.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/public/amsfonts/cm/cmr17.pf
+b><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/public/amsfonts/cm/cmr6.pfb><E:/S
+oft/FullTex/Full_TeX/texmf/fonts/type1/public/amsfonts/cm/cmr7.pfb><E:/Soft/Ful
+lTex/Full_TeX/texmf/fonts/type1/public/amsfonts/cm/cmr8.pfb><E:/Soft/FullTex/Fu
+ll_TeX/texmf/fonts/type1/public/amsfonts/cm/cmr9.pfb><E:/Soft/FullTex/Full_TeX/
+texmf/fonts/type1/public/amsfonts/cm/cmsy10.pfb><E:/Soft/FullTex/Full_TeX/texmf
+/fonts/type1/public/amsfonts/cm/cmsy5.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts
+/type1/public/amsfonts/cm/cmsy6.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1
+/public/amsfonts/cm/cmsy7.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/publi
+c/amsfonts/cm/cmsy9.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/public/amsf
+onts/euler/eufm10.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/public/amsfon
+ts/symbols/msam10.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/public/amsfon
+ts/symbols/msbm10.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/public/cm-sup
+er/sfbi0900.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/public/cm-super/sfb
+i1440.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/public/cm-super/sfbx0900.
+pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/public/cm-super/sfbx1000.pfb><E
+:/Soft/FullTex/Full_TeX/texmf/fonts/type1/public/cm-super/sfbx1440.pfb><E:/Soft
+/FullTex/Full_TeX/texmf/fonts/type1/public/cm-super/sfbx1728.pfb><E:/Soft/FullT
+ex/Full_TeX/texmf/fonts/type1/public/cm-super/sfbx2074.pfb><E:/Soft/FullTex/Ful
+l_TeX/texmf/fonts/type1/public/cm-super/sfbx2986.pfb><E:/Soft/FullTex/Full_TeX/
+texmf/fonts/type1/public/cm-super/sfbx3583.pfb><E:/Soft/FullTex/Full_TeX/texmf/
+fonts/type1/public/cm-super/sfrm0600.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/
+type1/public/cm-super/sfrm0700.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/
+public/cm-super/sfrm0900.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/public
+/cm-super/sfrm1000.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/public/cm-su
+per/sfrm1440.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/public/cm-super/sf
+rm1728.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/public/cm-super/sfss1440
+.pfb><E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/public/cm-super/sfti1000.pfb><
+E:/Soft/FullTex/Full_TeX/texmf/fonts/type1/public/cm-super/sfti1440.pfb><E:/Sof
+t/FullTex/Full_TeX/texmf/fonts/type1/public/cm-super/sftt0800.pfb><E:/Soft/Full
+Tex/Full_TeX/texmf/fonts/type1/public/cm-super/sftt0900.pfb><E:/Soft/FullTex/Fu
+ll_TeX/texmf/fonts/type1/public/cm-super/sftt1000.pfb><E:/Soft/FullTex/Full_TeX
+/texmf/fonts/type1/public/cm-super/sftt1440.pfb>
+Output written on dmitriy.pdf (49 pages, 1058780 bytes).
 PDF statistics:
- 1689 PDF objects out of 1728 (max. 8388607)
- 955 named destinations out of 1000 (max. 500000)
- 186 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1744 PDF objects out of 2073 (max. 8388607)
+ 954 named destinations out of 1000 (max. 500000)
+ 183 words of extra memory for PDF output out of 10000 (max. 10000000)
 
