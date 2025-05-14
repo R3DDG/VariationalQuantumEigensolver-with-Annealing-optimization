@@ -13,6 +13,7 @@ from utils.print_hamiltonian import print_hamiltonian
 from utils.print_composition_table import print_composition_table
 from utils.format_ansatz import format_ansatz
 from utils.initialize_environment import initialize_environment
+from utils.calculate_temp_steps import calculate_temp_steps
 
 # Импорт констант
 from constants.file_paths import HAMILTONIAN_FILE_PATH
@@ -150,6 +151,8 @@ def generate_neighbor_theta(
 def simulated_annealing(
     initial_theta: np.ndarray,
     pauli_operators: list,
+    progress: Progress,
+    task: int,
     initial_temp: float = 1000.0,
     cooling_rate: float = 0.99,
     min_temp: float = 1e-5,
@@ -162,52 +165,42 @@ def simulated_annealing(
     best_energy = float("inf")
     rng = np.random.default_rng()
 
-    with Progress(
-        SpinnerColumn(),
-        TextColumn("[progress.description]{task.description}"),
-        BarColumn(bar_width=None),
-        TextColumn("[progress.percentage]{task.percentage:>3.0f}%"),
-    ) as progress:
-        task = progress.add_task("[cyan]Отжиг...", total=100)
+    temp = initial_temp
+    thermalization_steps = int(num_iterations_per_temp * 0.2)
 
-        temp = initial_temp
-        iteration = 0
-        thermalization_steps = int(num_iterations_per_temp * 0.2)  # 20% шагов на термализацию
+    while temp > min_temp:
+        # Фаза термализации
+        for _ in range(thermalization_steps):
+            current_theta = generate_shifted_theta(pauli_operators)
+            ansatz_dict, _, _ = calculate_ansatz(current_theta, pauli_operators)
+            uhu_dict = compute_uhu(ansatz_dict, pauli_operators)
+            current_energy = calculate_expectation(uhu_dict)
 
-        while temp > min_temp:
-            # Фаза термализации
-            for _ in range(thermalization_steps):
-                current_theta = generate_shifted_theta(pauli_operators)
-                ansatz_dict, _, _ = calculate_ansatz(current_theta, pauli_operators)
-                uhu_dict = compute_uhu(ansatz_dict, pauli_operators) 
-                current_energy = calculate_expectation(uhu_dict)
-                
+            if current_energy < best_energy:
+                best_theta = current_theta.copy()
+                best_energy = current_energy
+            progress.update(task, advance=1)
+
+        # Основная фаза отжига
+        for _ in range(num_iterations_per_temp):
+            perturbation = rng.normal(0, step_size*(temp/initial_temp), current_theta.shape)
+            neighbor_theta = (current_theta + perturbation) % (2*np.pi)
+
+            ansatz_dict, _, _ = calculate_ansatz(neighbor_theta, pauli_operators)
+            uhu_dict = compute_uhu(ansatz_dict, pauli_operators)
+            current_energy = calculate_expectation(uhu_dict)
+
+            energy_diff = current_energy - best_energy
+            if energy_diff < 0 or rng.random() < np.exp(-energy_diff / temp):
+                current_theta = neighbor_theta.copy()
+
                 if current_energy < best_energy:
                     best_theta = current_theta.copy()
                     best_energy = current_energy
 
-            # Основная фаза отжига
-            for _ in range(num_iterations_per_temp):
-                perturbation = rng.normal(0, step_size*(temp/initial_temp), current_theta.shape)
-                neighbor_theta = (current_theta + perturbation) % (2*np.pi)
-                
-                ansatz_dict, _, _ = calculate_ansatz(neighbor_theta, pauli_operators)
-                uhu_dict = compute_uhu(ansatz_dict, pauli_operators)
-                current_energy = calculate_expectation(uhu_dict)
+            progress.update(task, advance=1)
 
-                energy_diff = current_energy - best_energy
-                if energy_diff < 0 or rng.random() < np.exp(-energy_diff / temp):
-                    current_theta = neighbor_theta.copy()
-                    
-                    if current_energy < best_energy:
-                        best_theta = current_theta.copy()
-                        best_energy = current_energy
-
-                iteration += 1
-                if iteration % 100 == 0:
-                    progress.update(task, advance=1)
-
-            temp *= cooling_rate
+        temp *= cooling_rate
 
     return best_theta, best_energy
 
@@ -237,49 +230,76 @@ def main():
         console_and_print(console, Panel("[red]Требуется минимум 2 оператора Паули[/red]", border_style="red"))
         return
 
+    # Параметры алгоритма отжига
+    SA_PARAMS = {
+        "initial_temp": 100.0,
+        "cooling_rate": 0.95,
+        "min_temp": 1e-3,
+        "num_iterations_per_temp": 100,
+        "step_size": 0.1,
+    }
+
+    # Рассчитываем общее количество шагов
+    thermalization_steps = int(SA_PARAMS["num_iterations_per_temp"] * 0.2)
+    temp_steps = calculate_temp_steps(
+        SA_PARAMS["initial_temp"], 
+        SA_PARAMS["cooling_rate"], 
+        SA_PARAMS["min_temp"]
+    )
+    steps_per_m = temp_steps * (thermalization_steps + SA_PARAMS["num_iterations_per_temp"])
+    total_steps = steps_per_m * (len(pauli_operators) - 1)
+
     best_energy = float("inf")
     best_result = None
     all_results = []
 
-    # Для каждого m используем первые m операторов
-    for m in range(2, len(pauli_operators) + 1):
-        current_ops = pauli_operators[:m]
-        initial_theta = generate_shifted_theta(current_ops)  # Вектор сдвига!
-        
-        # Оптимизация только для текущего подмножества операторов
-        optimized_theta, energy = simulated_annealing(
-            initial_theta=initial_theta,
-            pauli_operators=current_ops,  # Передаем подмножество
-            initial_temp=100.0,
-            cooling_rate=0.95,
-            min_temp=1e-3,
-            num_iterations_per_temp=100,
-            step_size=0.1,
-        )
+    with Progress(
+        SpinnerColumn(),
+        TextColumn("[progress.description]{task.description}"),
+        BarColumn(bar_width=None),
+        TextColumn("[progress.percentage]{task.percentage:>3.0f}%"),
+    ) as progress:
+        task = progress.add_task("[cyan]Отжиг...", total=total_steps)
 
-        all_results.append({
-            "m": m,
-            "theta": optimized_theta,
-            "energy": energy,
-            "operators": current_ops
-        })
+        for m in range(2, len(pauli_operators) + 1):
+            current_ops = pauli_operators[:m]
+            initial_theta = generate_shifted_theta(current_ops)
 
-        if energy < best_energy:
-            best_energy = energy
-            best_result = all_results[-1]
+            optimized_theta, energy = simulated_annealing(
+                initial_theta=initial_theta,
+                pauli_operators=current_ops,
+                progress=progress,
+                task=task,
+                **SA_PARAMS
+            )
 
-    # Вывод результатов для лучшего набора параметров
+            all_results.append({
+                "m": m,
+                "theta": optimized_theta,
+                "energy": energy,
+                "operators": current_ops
+            })
+
+            if energy < best_energy:
+                best_energy = energy
+                best_result = all_results[-1]
+
+    # Вывод результатов
+    if best_result is None:
+        console_and_print(console, Panel("[red]Не удалось найти решение[/red]", border_style="red"))
+        return
+
     _, ansatz_symbolic, ansatz_numeric = calculate_ansatz(
-        best_result["theta"], 
-        best_result["operators"]  # Используем сохраненное подмножество
+        best_result["theta"],
+        best_result["operators"]
     )
 
     console_and_print(console, Panel(ansatz_symbolic,
         title="[bold]Символьное представление анзаца[/]", border_style="green"))
-    
+
     console_and_print(console, Panel(ansatz_numeric,
         title="[bold]Численное представление анзаца[/]", border_style="purple"))
-    
+
     console_and_print(console, Panel(f"{best_result['energy']:.6f}",
         title="[bold]Энергия (<0|U†HU|0> для состояния |0...0>)[/]", border_style="green"))
 
