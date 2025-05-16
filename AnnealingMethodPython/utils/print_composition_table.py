@@ -14,7 +14,7 @@ def print_composition_table(
     results = []
     for s1 in pauli_strings:
         for s2 in pauli_strings:
-            coeff, product = pauli_compose(s1, s2)
+            coeff, product = pauli_compose(tuple(s1), tuple(s2))
             results.append((s1, s2, format_complex_number(coeff), product))
 
     table_data = [
