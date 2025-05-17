@@ -6,18 +6,19 @@ from .format_complex_number import format_complex_number
 
 def print_composition_table(
     console: Console,
-    pauli_compose: Callable[[List[int], List[int]], Tuple[complex, List[int]]],
+    pauli_compose: Callable[[tuple, tuple], Tuple[complex, tuple]],
     pauli_strings: List[List[int]],
 ) -> None:
     """
-    Выводит таблицу композиций операторов Паули.
+    Выводит таблицу композиции операторов Паули для всех их пар.
 
     Args:
         console (Console): Объект rich.Console.
-        pauli_compose (Callable): Функция композиции Паули.
-        pauli_strings (List[List[int]]): Список строк операторов Паули.
+        pauli_compose (Callable): Функция для композиции двух операторов Паули.
+        pauli_strings (List[List[int]]): Список векторных индексов операторов Паули.
     """
     results = []
+    # Перебор всех пар операторов Паули
     for s1 in pauli_strings:
         for s2 in pauli_strings:
             coeff, product = pauli_compose(tuple(s1), tuple(s2))

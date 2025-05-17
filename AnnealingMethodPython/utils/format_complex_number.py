@@ -1,15 +1,20 @@
 from sympy import re as sp_re, im as sp_im
 from .format_number import format_number
 
-def format_complex_number(c: complex) -> str:
+def format_complex_number(c) -> str:
     """
-    Универсальный форматировщик комплексных чисел для SymPy и стандартных типов.
+    Форматирует комплексное число (или выражение SymPy) в строку с подавлением артефактов.
 
     Args:
-        c (complex): Комплексное число (или выражение SymPy).
+        c (complex|sympy.Expr): Комплексное число или выражение.
 
     Returns:
-        str: Отформатированная строка.
+        str: Отформатированное комплексное число (пример: "1.2-3i").
+
+    Особенности:
+        - Если число очень близко к нулю (<1e-12), оно не выводится.
+        - Мнимая часть ±1 форматируется как ±i.
+        - Корректно обрабатывает как стандартные числа, так и объекты SymPy.
     """
     real = float(sp_re(c))
     imag = float(sp_im(c))
@@ -20,15 +25,12 @@ def format_complex_number(c: complex) -> str:
     if abs(imag) > 1e-12:
         abs_imag = abs(imag)
         imag_value = format_number(abs_imag)
-
-        # Специальные случаи для ±1
         if imag_value == "1":
             imag_str = "i" if imag > 0 else "-i"
         else:
             imag_sign = "" if imag > 0 else "-"
             imag_str = f"{imag_sign}{imag_value}i"
 
-    # Собираем результат
     parts = []
     if real_str:
         parts.append(real_str)
@@ -45,5 +47,4 @@ def format_complex_number(c: complex) -> str:
         else:
             result += f"+{part}"
 
-    # Фикс артефактов форматирования
     return result.replace("+ -", "- ").replace("1i", "i").replace(".0i", "i")

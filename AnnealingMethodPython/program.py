@@ -3,7 +3,6 @@ import io
 from rich.progress import Progress, BarColumn, TextColumn, SpinnerColumn
 from rich.panel import Panel
 
-# Импорт вспомогательных функций
 from utils.console_and_print import console_and_print
 from utils.initialize_environment import initialize_environment
 from utils.read_hamiltonian_data import read_hamiltonian_data
@@ -18,16 +17,24 @@ from vqa_utils.calculate_ansatz import calculate_ansatz
 
 from constants.file_paths import HAMILTONIAN_FILE_PATH
 
-# Установка кодировки для корректного вывода
+# Установка корректной кодировки стандартных потоков для поддержки Unicode
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
 sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding="utf-8")
 
 def main() -> None:
     """
-    Точка входа: Основная логика программы.
+    Основная функция программы. Реализует следующий цикл:
+      1. Чтение гамильтониана из файла.
+      2. Вывод операторов Паули и их композиции.
+      3. Оптимизация анзаца методом отжига для последовательных подмножеств операторов.
+      4. Поиск минимальной энергии и вывод оптимального анзаца.
+
+    Программа построена как демонстрация вариационного квантового алгоритма
+    с классическим оптимизатором (simulated annealing).
     """
     console = initialize_environment()
 
+    # Проверка наличия файла с гамильтонианом
     if not HAMILTONIAN_FILE_PATH.exists():
         msg = (
             f"Файл [bold]{HAMILTONIAN_FILE_PATH}[/] не найден!\n"
@@ -49,7 +56,7 @@ def main() -> None:
         console_and_print(console, Panel("[red]Требуется минимум 2 оператора Паули[/red]", border_style="red"))
         return
 
-    # Параметры алгоритма отжига
+    # Параметры отжига
     SA_PARAMS = {
         "initial_temp": 100.0,
         "cooling_rate": 0.95,
@@ -58,7 +65,7 @@ def main() -> None:
         "step_size": 0.1,
     }
 
-    # Рассчитываем общее количество шагов для прогресс-бара
+    # Оценка общего количества шагов для прогресс-бара
     thermalization_steps = int(SA_PARAMS["num_iterations_per_temp"] * 0.2)
     temp_steps = calculate_temp_steps(
         SA_PARAMS["initial_temp"], 
@@ -72,6 +79,7 @@ def main() -> None:
     best_result = None
     all_results = []
 
+    # Запуск прогресс-бара с симпатичным оформлением
     with Progress(
         SpinnerColumn(),
         TextColumn("[progress.description]{task.description}"),
@@ -80,10 +88,12 @@ def main() -> None:
     ) as progress:
         task = progress.add_task("[cyan]Отжиг...", total=total_steps)
 
+        # Последовательно увеличиваем число операторов в анзаце
         for m in range(2, len(pauli_operators) + 1):
             current_ops = pauli_operators[:m]
             initial_theta = generate_shifted_theta(current_ops)
 
+            # Оптимизация параметров для текущего поднабора операторов
             optimized_theta, energy = simulated_annealing(
                 initial_theta=initial_theta,
                 pauli_operators=current_ops,
@@ -103,7 +113,7 @@ def main() -> None:
                 best_energy = energy
                 best_result = all_results[-1]
 
-    # Вывод результатов
+    # Выводим результаты оптимизации
     if best_result is None:
         console_and_print(console, Panel("[red]Не удалось найти решение[/red]", border_style="red"))
         return

@@ -6,14 +6,18 @@ def compute_uhu(
     u_dict: Dict[Tuple[int, ...], complex], h_terms: List[Tuple[complex, List[int]]]
 ) -> Dict[Tuple[int, ...], complex]:
     """
-    Вычисляет оператор U† H U.
+    Вычисляет оператор U† H U в базисе Паули.
 
     Args:
-        u_dict (Dict[Tuple[int, ...], complex]): Словарь операторов U.
-        h_terms (List[Tuple[complex, List[int]]]): Операторы гамильтониана.
+        u_dict (Dict[Tuple[int, ...], complex]): Разложение оператора U.
+        h_terms (List[Tuple[complex, List[int]]]): Операторы гамильтониана с коэффициентами.
 
     Returns:
-        Dict[Tuple[int, ...], complex]: Новый оператор U†HU.
+        Dict[Tuple[int, ...], complex]: Разложение U† H U по Паули-операторам.
+
+    Алгоритм:
+        (U† H U)_{kl} = sum_{i,j} conj(U_{ik}) * H_{ij} * U_{jl}
+        Реализовано через перебор всех Паули-операторов.
     """
     uhu_dict: Dict[Tuple[int, ...], complex] = {}
     u_items = list(u_dict.items())

@@ -3,14 +3,14 @@ from constants.pauli import PAULI_MAP
 
 def multiply_pauli(i: int, j: int) -> Tuple[complex, int]:
     """
-    Вычисляет произведение базисных операторов Паули.
+    Перемножает два базисных оператора Паули.
 
     Args:
-        i (int): Первый индекс.
-        j (int): Второй индекс.
+        i (int): Первый индекс (0=I, 1=X, 2=Y, 3=Z).
+        j (int): Второй индекс (0=I, 1=X, 2=Y, 3=Z).
 
     Returns:
-        Tuple[complex, int]: (коэффициент, индекс результата)
+        Tuple[complex, int]: Коэффициент и индекс результата.
     """
     if i == j:
         return (1, 0)

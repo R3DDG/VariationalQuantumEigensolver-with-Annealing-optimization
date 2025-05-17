@@ -4,13 +4,16 @@ from constants.file_paths import OUTPUT_FILE_PATH
 
 def console_and_print(console: Console, message: Any) -> None:
     """
-    Выводит результат выполнения программы в файл и консоль.
+    Выводит сообщение в консоль и дублирует его в лог-файл.
 
     Args:
-        console (Console): Объект rich.Console для консольного вывода.
-        message (Any): Сообщение для вывода (строка, панель и т.д.).
+        console (Console): объект rich.Console для форматированного вывода.
+        message (Any): строка, rich.Panel или другой объект, печатаемый в консоль.
+
+    Примечания:
+        - Используется rich для красивого форматирования в консоли и логах.
+        - Лог хранит весь вывод, включая цветовые коды (если export_text это поддерживает).
     """
     console.print(message)
-    # Экспортируем всё содержимое консоли (в т.ч. цвета) в файл
     with open(OUTPUT_FILE_PATH, "a", encoding="utf-8") as file:
         file.write(console.export_text() + "\n")

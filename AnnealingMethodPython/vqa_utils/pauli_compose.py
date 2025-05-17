@@ -1,18 +1,19 @@
 from functools import lru_cache
-from typing import Tuple, List
+from typing import Tuple
+
 from .multiply_pauli import multiply_pauli
 
 @lru_cache(maxsize=4096)
 def pauli_compose(s1: tuple, s2: tuple) -> Tuple[complex, tuple]:
     """
-    Вычисляет композицию двух операторов Паули покомпонентно.
+    Перемножает два оператора Паули, заданных покубитно.
 
     Args:
-        s1 (tuple): Первый оператор (кортеж индексов).
-        s2 (tuple): Второй оператор.
+        s1 (tuple): Индексы первого оператора (например, (0,3) для I⊗Z).
+        s2 (tuple): Индексы второго оператора.
 
     Returns:
-        Tuple[complex, tuple]: (коэффициент, результат)
+        Tuple[complex, tuple]: Коэффициент и индексы результата.
     """
     coefficient = 1.0
     result = []

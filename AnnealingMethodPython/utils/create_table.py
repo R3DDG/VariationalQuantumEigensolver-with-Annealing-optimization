@@ -10,16 +10,16 @@ def create_table(
     border_style: str = "yellow",
 ) -> Panel:
     """
-    Создаёт таблицу rich для вывода в консоль.
+    Создает таблицу rich.Table и оборачивает ее в rich.Panel для консольного вывода.
 
     Args:
-        columns (List[Dict[str, str]]): Описание столбцов (name, style, justify).
-        data (List[List[Any]]): Данные для строк.
-        title (str): Заголовок.
-        border_style (str): Цвет рамки.
+        columns (List[Dict[str, str]]): Описание столбцов (ключи: name, style, justify).
+        data (List[List[Any]]): Массив данных для строк таблицы.
+        title (str): Заголовок панели.
+        border_style (str): Цвет рамки панели.
 
     Returns:
-        Panel: Панель rich с таблицей.
+        Panel: Панель с таблицей для печати в консоль.
     """
     table = Table(box=box.ROUNDED, border_style=border_style)
     for col in columns:

@@ -8,11 +8,11 @@ def print_pauli_table(
     console: Console, pauli_operators: List[Tuple[complex, List[int]]]
 ) -> None:
     """
-    Выводит таблицу операторов Паули.
+    Выводит таблицу всех операторов Паули из гамильтониана.
 
     Args:
-        console (Console): rich.Console.
-        pauli_operators (List[Tuple[complex, List[int]]]): Список операторов Паули.
+        console (Console): rich.Console для вывода.
+        pauli_operators (List[Tuple[complex, List[int]]]): Список операторов Паули с коэффициентами.
     """
     table_data = [[format_complex_number(c), str(i)] for c, i in pauli_operators]
     console_and_print(

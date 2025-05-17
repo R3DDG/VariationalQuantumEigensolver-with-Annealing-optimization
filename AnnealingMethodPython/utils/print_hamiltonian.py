@@ -8,10 +8,10 @@ def print_hamiltonian(
     console: Console, pauli_operators: List[Tuple[complex, List[int]]]
 ) -> None:
     """
-    Выводит представление гамильтониана в консоль.
+    Выводит гамильтониан в удобочитаемом виде.
 
     Args:
-        console (Console): rich.Console.
+        console (Console): rich.Console для вывода.
         pauli_operators (List[Tuple[complex, List[int]]]): Список операторов Паули с коэффициентами.
     """
     hamiltonian_str = "H = " + " + ".join(

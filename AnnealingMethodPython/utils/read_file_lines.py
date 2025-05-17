@@ -3,17 +3,17 @@ from typing import List, Union
 
 def read_file_lines(file_path: Union[str, Path], ignore_comments: bool) -> List[str]:
     """
-    Читает строки из файла, игнорируя комментарии (строки, начинающиеся с '#').
+    Считывает строки из файла, игнорируя комментарии (начинающиеся с "#").
 
     Args:
-        file_path (str | Path): Путь к файлу.
-        ignore_comments (bool): Игнорировать строки, начинающиеся с '#'.
+        file_path (str|Path): Путь к файлу.
+        ignore_comments (bool): Если True, строки, начинающиеся с "#", игнорируются.
 
     Returns:
-        List[str]: Список строк.
+        List[str]: Список строк без лишних пробелов и пустых строк.
 
     Raises:
-        FileNotFoundError: Если файл не найден.
+        FileNotFoundError: Если файл не существует.
     """
     file_path = Path(file_path) if not isinstance(file_path, Path) else file_path
     if not file_path.exists():

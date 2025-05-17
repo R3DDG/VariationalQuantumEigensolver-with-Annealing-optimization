@@ -3,10 +3,12 @@ from constants.file_paths import OUTPUT_FILE_PATH
 
 def initialize_environment() -> Console:
     """
-    Инициализирует окружение, очищает файл вывода и возвращает объект rich.Console.
+    Инициализирует окружение для запуска программы:
+    - Очищает лог-файл с прошлых запусков.
+    - Возвращает объект rich.Console для форматированного вывода.
 
     Returns:
-        Console: Объект rich.Console.
+        Console: Готовый к использованию rich.Console.
     """
     if OUTPUT_FILE_PATH.exists():
         OUTPUT_FILE_PATH.unlink()
