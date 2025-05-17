@@ -3,14 +3,25 @@ from rich.panel import Panel
 from rich import box
 from typing import List, Dict, Any
 
-
 def create_table(
     columns: List[Dict[str, str]],
     data: List[List[Any]],
     title: str,
     border_style: str = "yellow",
 ) -> Panel:
-    table = Table(box=box.ROUNDED, border_style="yellow")
+    """
+    Создаёт таблицу rich для вывода в консоль.
+
+    Args:
+        columns (List[Dict[str, str]]): Описание столбцов (name, style, justify).
+        data (List[List[Any]]): Данные для строк.
+        title (str): Заголовок.
+        border_style (str): Цвет рамки.
+
+    Returns:
+        Panel: Панель rich с таблицей.
+    """
+    table = Table(box=box.ROUNDED, border_style=border_style)
     for col in columns:
         table.add_column(
             col["name"],

@@ -1,4 +1,5 @@
 import numpy as np
+from typing import Any, List, Tuple
 from .generate_shifted_theta import generate_shifted_theta
 from .calculate_ansatz import calculate_ansatz
 from .compute_uhu import compute_uhu
@@ -6,16 +7,32 @@ from .calculate_expectation import calculate_expectation
 
 def simulated_annealing(
     initial_theta: np.ndarray,
-    pauli_operators: list,
-    progress,
-    task,
+    pauli_operators: List[Any],
+    progress: Any,
+    task: Any,
     initial_temp: float = 1000.0,
     cooling_rate: float = 0.99,
     min_temp: float = 1e-5,
     num_iterations_per_temp: int = 500,
     step_size: float = 0.5,
-) -> tuple:
-    """Алгоритм отжига с термализацией."""
+) -> Tuple[np.ndarray, float]:
+    """
+    Алгоритм отжига с термализацией.
+
+    Args:
+        initial_theta (np.ndarray): Начальный вектор theta.
+        pauli_operators (List): Операторы Паули.
+        progress (Any): Индикатор прогресса.
+        task (Any): Задача прогресса.
+        initial_temp (float): Начальная температура.
+        cooling_rate (float): Коэффициент охлаждения.
+        min_temp (float): Минимальная температура.
+        num_iterations_per_temp (int): Итераций на каждую температуру.
+        step_size (float): Размер шага.
+
+    Returns:
+        Tuple[np.ndarray, float]: Лучшая найденная theta и энергия.
+    """
     current_theta = initial_theta.copy()
     best_theta = current_theta.copy()
     best_energy = float("inf")
@@ -24,7 +41,7 @@ def simulated_annealing(
     thermalization_steps = int(num_iterations_per_temp * 0.2)
 
     while temp > min_temp:
-        # Термализация (можно уменьшить число шагов)
+        # Термализация
         for _ in range(thermalization_steps):
             current_theta = generate_shifted_theta(pauli_operators)
             ansatz_dict, _, _ = calculate_ansatz(current_theta, pauli_operators)

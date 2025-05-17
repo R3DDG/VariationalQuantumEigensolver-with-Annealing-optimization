@@ -2,7 +2,15 @@ import numpy as np
 from typing import Tuple, List
 
 def generate_shifted_theta(pauli_operators: List[Tuple[complex, List[int]]]) -> np.ndarray:
-    """Генерирует θ на основе коэффициентов операторов (вектор сдвига)."""
+    """
+    Генерирует θ на основе коэффициентов операторов (вектор сдвига).
+
+    Args:
+        pauli_operators (List[Tuple[complex, List[int]]]): Операторы Паули.
+
+    Returns:
+        np.ndarray: Вектор theta.
+    """
     if not pauli_operators:
         return np.array([], dtype=np.float64)
     

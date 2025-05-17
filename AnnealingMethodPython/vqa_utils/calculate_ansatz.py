@@ -1,22 +1,31 @@
 import numpy as np
-from typing import Tuple, List, Dict
+from typing import Tuple, List, Dict, Any
 from utils.format_ansatz import format_ansatz
 from .pauli_compose import pauli_compose
 
 def calculate_ansatz(
     theta: np.ndarray, pauli_operators: List[Tuple[complex, List[int]]]
-) -> Dict[Tuple[int, ...], complex]:
+) -> Tuple[Dict[Tuple[int, ...], complex], str, str]:
     """
     Вычисляет анзац в виде произведения экспонент операторов Паули.
-    Возвращает: (словарь операторов, символьное представление, численное представление)
+
+    Args:
+        theta (np.ndarray): Вектор параметров θ.
+        pauli_operators (List[Tuple[complex, List[int]]]): Операторы Паули.
+
+    Returns:
+        Tuple[Dict[Tuple[int, ...], complex], str, str]: 
+            - словарь операторов,
+            - символьное представление,
+            - численное представление.
     """
     operator_length = len(pauli_operators[0][1])
-    result = {tuple([0]*operator_length): 1.0}
+    result: Dict[Tuple[int, ...], complex] = {tuple([0]*operator_length): 1.0}
 
     for t, (_, op) in zip(theta, pauli_operators):
         cos_t = np.cos(t)
         sin_t = np.sin(t)
-        new_result = {}
+        new_result: Dict[Tuple[int, ...], complex] = {}
         op_tuple = tuple(op)
         for existing_op, existing_coeff in result.items():
             # cos(θ) * I

@@ -1,14 +1,19 @@
-from rich.console import Console  # Для красивого вывода в консоль
+from rich.console import Console
 from typing import Tuple, List
 from .format_complex_number import format_complex_number
 from .console_and_print import console_and_print
 from .create_table import create_table
 
-
 def print_pauli_table(
     console: Console, pauli_operators: List[Tuple[complex, List[int]]]
 ) -> None:
-    """Выводит таблицу операторов Паули."""
+    """
+    Выводит таблицу операторов Паули.
+
+    Args:
+        console (Console): rich.Console.
+        pauli_operators (List[Tuple[complex, List[int]]]): Список операторов Паули.
+    """
     table_data = [[format_complex_number(c), str(i)] for c, i in pauli_operators]
     console_and_print(
         console,

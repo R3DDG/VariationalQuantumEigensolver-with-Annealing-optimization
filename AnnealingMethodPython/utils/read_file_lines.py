@@ -1,14 +1,19 @@
 from pathlib import Path
+from typing import List, Union
 
-
-def read_file_lines(file_path, ignore_comments):
+def read_file_lines(file_path: Union[str, Path], ignore_comments: bool) -> List[str]:
     """
     Читает строки из файла, игнорируя комментарии (строки, начинающиеся с '#').
 
-    :param file_path: Путь к файлу.
-    :param ignore_comments: Игнорировать строки, начинающиеся с '#'.
-    :return: Список строк.
-    :raises FileNotFoundError: Если файл не найден.
+    Args:
+        file_path (str | Path): Путь к файлу.
+        ignore_comments (bool): Игнорировать строки, начинающиеся с '#'.
+
+    Returns:
+        List[str]: Список строк.
+
+    Raises:
+        FileNotFoundError: Если файл не найден.
     """
     file_path = Path(file_path) if not isinstance(file_path, Path) else file_path
     if not file_path.exists():

@@ -7,9 +7,15 @@ def compute_uhu(
 ) -> Dict[Tuple[int, ...], complex]:
     """
     Вычисляет оператор U† H U.
-    Возвращает: словарь {оператор: коэффициент}
+
+    Args:
+        u_dict (Dict[Tuple[int, ...], complex]): Словарь операторов U.
+        h_terms (List[Tuple[complex, List[int]]]): Операторы гамильтониана.
+
+    Returns:
+        Dict[Tuple[int, ...], complex]: Новый оператор U†HU.
     """
-    uhu_dict = {}
+    uhu_dict: Dict[Tuple[int, ...], complex] = {}
     u_items = list(u_dict.items())
     for coeff_h, op_h in h_terms:
         op_h_tuple = tuple(op_h)

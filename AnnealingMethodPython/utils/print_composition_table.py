@@ -1,16 +1,22 @@
-from rich.console import Console  # Для красивого вывода в консоль
+from rich.console import Console
 from typing import Tuple, List, Callable
 from .console_and_print import console_and_print
 from .create_table import create_table
 from .format_complex_number import format_complex_number
-
 
 def print_composition_table(
     console: Console,
     pauli_compose: Callable[[List[int], List[int]], Tuple[complex, List[int]]],
     pauli_strings: List[List[int]],
 ) -> None:
-    """Выводит таблицу композиций операторов Паули."""
+    """
+    Выводит таблицу композиций операторов Паули.
+
+    Args:
+        console (Console): Объект rich.Console.
+        pauli_compose (Callable): Функция композиции Паули.
+        pauli_strings (List[List[int]]): Список строк операторов Паули.
+    """
     results = []
     for s1 in pauli_strings:
         for s2 in pauli_strings:

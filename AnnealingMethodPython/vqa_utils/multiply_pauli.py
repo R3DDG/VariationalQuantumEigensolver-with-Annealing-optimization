@@ -4,7 +4,13 @@ from constants.pauli import PAULI_MAP
 def multiply_pauli(i: int, j: int) -> Tuple[complex, int]:
     """
     Вычисляет произведение базисных операторов Паули.
-    Возвращает: (коэффициент, индекс результата)
+
+    Args:
+        i (int): Первый индекс.
+        j (int): Второй индекс.
+
+    Returns:
+        Tuple[complex, int]: (коэффициент, индекс результата)
     """
     if i == j:
         return (1, 0)

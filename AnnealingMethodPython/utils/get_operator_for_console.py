@@ -1,15 +1,16 @@
 from .format_complex_number import format_complex_number
 from typing import Union
 
-
 def get_operator_for_console(c: Union[complex, float, int], i: str) -> str:
     """
-    Функция создана для 'красивого' вывода оператора Паули в консоль.
-    Избегает ситуаций, когда у нас выводится конструкция вида '1*σ'
+    Форматирует оператор Паули для красивого вывода в консоль.
 
-    :param c: Коэффициент оператора Паули.
-    :param i: Строка оператора Паули.
-    :return: Отформатированную строку.
+    Args:
+        c (complex | float | int): Коэффициент оператора Паули.
+        i (str): Строка оператора Паули.
+
+    Returns:
+        str: Отформатированная строка.
     """
     if c == 1:
         return f"σ_{i}"

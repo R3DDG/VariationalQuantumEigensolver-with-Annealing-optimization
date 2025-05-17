@@ -3,7 +3,7 @@ import io
 from rich.progress import Progress, BarColumn, TextColumn, SpinnerColumn
 from rich.panel import Panel
 
-# Импорт самописных функций
+# Импорт вспомогательных функций
 from utils.console_and_print import console_and_print
 from utils.initialize_environment import initialize_environment
 from utils.read_hamiltonian_data import read_hamiltonian_data
@@ -16,16 +16,16 @@ from vqa_utils.generate_shifted_theta import generate_shifted_theta
 from vqa_utils.simulated_annealing import simulated_annealing
 from vqa_utils.calculate_ansatz import calculate_ansatz
 
-# Импорт констант
 from constants.file_paths import HAMILTONIAN_FILE_PATH
 
 # Установка кодировки для корректного вывода
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
 sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding="utf-8")
 
-
-def main():
-    """Основная логика программы."""
+def main() -> None:
+    """
+    Точка входа: Основная логика программы.
+    """
     console = initialize_environment()
 
     if not HAMILTONIAN_FILE_PATH.exists():
@@ -58,7 +58,7 @@ def main():
         "step_size": 0.1,
     }
 
-    # Рассчитываем общее количество шагов
+    # Рассчитываем общее количество шагов для прогресс-бара
     thermalization_steps = int(SA_PARAMS["num_iterations_per_temp"] * 0.2)
     temp_steps = calculate_temp_steps(
         SA_PARAMS["initial_temp"], 
@@ -123,7 +123,6 @@ def main():
         title="[bold]Энергия (<0|U†HU|0> для состояния |0...0>)[/]", border_style="green"))
 
     input('Нажмите Enter для выхода...')
-
 
 if __name__ == "__main__":
     main()

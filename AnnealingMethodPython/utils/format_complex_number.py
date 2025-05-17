@@ -1,12 +1,16 @@
 from sympy import re as sp_re, im as sp_im
 from .format_number import format_number
 
-
-def format_complex_number(c) -> str:
+def format_complex_number(c: complex) -> str:
     """
     Универсальный форматировщик комплексных чисел для SymPy и стандартных типов.
+
+    Args:
+        c (complex): Комплексное число (или выражение SymPy).
+
+    Returns:
+        str: Отформатированная строка.
     """
-    # Извлечение компонентов через SymPy
     real = float(sp_re(c))
     imag = float(sp_im(c))
 
@@ -24,7 +28,7 @@ def format_complex_number(c) -> str:
             imag_sign = "" if imag > 0 else "-"
             imag_str = f"{imag_sign}{imag_value}i"
 
-    # Сборка результата
+    # Собираем результат
     parts = []
     if real_str:
         parts.append(real_str)
@@ -34,7 +38,6 @@ def format_complex_number(c) -> str:
     if not parts:
         return "0"
 
-    # Корректное объединение компонентов
     result = parts[0]
     for part in parts[1:]:
         if part.startswith("-"):
