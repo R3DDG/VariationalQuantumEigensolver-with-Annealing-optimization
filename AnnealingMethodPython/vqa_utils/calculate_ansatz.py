@@ -30,7 +30,7 @@ def calculate_ansatz(
     result: Dict[Tuple[int, ...], complex] = {tuple([0]*operator_length): 1.0}
 
     for t, (coeff, op) in zip(theta, pauli_operators):
-        angle = t * abs(coeff)  # Используем абсолютное значение коэффициента!
+        angle = t * coeff
         cos_t = np.cos(angle)
         sin_t = np.sin(angle)
         new_result: Dict[Tuple[int, ...], complex] = {}
