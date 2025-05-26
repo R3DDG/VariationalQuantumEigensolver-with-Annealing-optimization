@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2025.1.11)  20 APR 2025 08:26
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2025.5.12)  26 MAY 2025 20:59
 entering extended mode
 **E:/Files/masters_thesis/Бакалаврский*диплом/diplom_dmitriy/
 dmitriy.tex
@@ -662,9 +662,12 @@ Package: atbegshi 2011/10/05 v1.16 At begin shipout hook (HO)
 Package: refcount 2011/10/16 v3.4 Data extraction from label references (HO)
 Package: hycolor 2011/01/30 v1.7 Color options for hyperref/bookmark (HO)
 )
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\ifxetex\ifxetex.sty
-Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
-)
+(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\bookman\iftex\ifxetex.sty
+Package: ifxetex 2019/10/25 v0.7 ifxetex legacy package. Use iftex instead.
+
+(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\bookman\iftex\iftex.sty
+Package: iftex 2024/12/12 v1.0g TeX engine tests
+))
 (E:\Soft\FullTex\Full_TeX\texmf\tex\latex\oberdiek\auxhook.sty
 Package: auxhook 2011/03/04 v1.3 Hooks for auxiliary files (HO)
 )
@@ -757,7 +760,7 @@ Package: everyshi 2001/05/15 v3.00 EveryShipout Package (MS)
 (E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\utilities\pgfrcs.code.tex
 Package: pgfrcs 2010/10/25 v2.10 (rcs-revision 1.24)
 ))
-Package: pgf 2008/01/15 v2.10 (rcs-revision 1.12)
+Package: pgf 2023/08/01 v3.1.10 Portable Graphics Format
 
 (E:\Soft\FullTex\Full_TeX\texmf\tex\latex\pgf\basiclayer\pgfcore.sty
 (E:\Soft\FullTex\Full_TeX\texmf\tex\latex\pgf\systemlayer\pgfsys.sty
@@ -960,22 +963,52 @@ File: pgfmoduleplot.code.tex 2010/10/22  (rcs-revision 1.8)
 )
 (E:\Soft\FullTex\Full_TeX\texmf\tex\latex\pgf\compatibility\pgfcomp-version-0-6
 5.sty
-Package: pgfcomp-version-0-65 2007/07/03 v2.10 (rcs-revision 1.7)
+Package: pgfcomp-version-0-65 
 \pgf@nodesepstart=\dimen151
 \pgf@nodesepend=\dimen152
 )
 (E:\Soft\FullTex\Full_TeX\texmf\tex\latex\pgf\compatibility\pgfcomp-version-1-1
 8.sty
-Package: pgfcomp-version-1-18 2007/07/23 v2.10 (rcs-revision 1.1)
+Package: pgfcomp-version-1-18 
 )) (E:\Soft\FullTex\Full_TeX\texmf\tex\latex\pgf\utilities\pgffor.sty
 (E:\Soft\FullTex\Full_TeX\texmf\tex\latex\pgf\utilities\pgfkeys.sty
 (E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\utilities\pgfkeys.code.tex))
+(E:\Soft\FullTex\Full_TeX\texmf\tex\latex\pgf\math\pgfmath.sty
+(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\math\pgfmath.code.tex
+(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\math\pgfmathcalc.code.tex
+(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\math\pgfmathutil.code.tex)
+(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\math\pgfmathparser.code.tex
+\pgfmath@dimen=\dimen153
+\pgfmath@count=\count122
+\pgfmath@box=\box35
+\pgfmath@toks=\toks35
+\pgfmath@stack@operand=\toks36
+\pgfmath@stack@operation=\toks37
+)
+(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\math\pgfmathfunctions.code.tex
+(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\math\pgfmathfunctions.basic.cod
+e.tex)
+(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\math\pgfmathfunctions.trigonome
+tric.code.tex)
+(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\math\pgfmathfunctions.random.co
+de.tex)
+(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\math\pgfmathfunctions.compariso
+n.code.tex)
+(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\math\pgfmathfunctions.base.code
+.tex)
+(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\math\pgfmathfunctions.round.cod
+e.tex)
+(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\math\pgfmathfunctions.misc.code
+.tex)))
+(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\math\pgfmathfloat.code.tex
+\c@pgfmathroundto@lastzeros=\count123
+)))
 (E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\utilities\pgffor.code.tex
 Package: pgffor 2010/03/23 v2.10 (rcs-revision 1.18)
-\pgffor@iter=\dimen153
-\pgffor@skip=\dimen154
-\pgffor@stack=\toks35
-\pgffor@toks=\toks36
+\pgffor@iter=\dimen154
+\pgffor@skip=\dimen155
+\pgffor@stack=\toks38
+\pgffor@toks=\toks39
 ))
 (E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\frontendlayer\tikz\tikz.code.te
 x
@@ -984,30 +1017,30 @@ Package: tikz 2010/10/13 v2.10 (rcs-revision 1.76)
 (E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\libraries\pgflibraryplothandler
 s.code.tex
 File: pgflibraryplothandlers.code.tex 2010/05/31 v2.10 (rcs-revision 1.15)
-\pgf@plot@mark@count=\count122
-\pgfplotmarksize=\dimen155
+\pgf@plot@mark@count=\count124
+\pgfplotmarksize=\dimen156
 )
-\tikz@lastx=\dimen156
-\tikz@lasty=\dimen157
-\tikz@lastxsaved=\dimen158
-\tikz@lastysaved=\dimen159
-\tikzleveldistance=\dimen160
-\tikzsiblingdistance=\dimen161
-\tikz@figbox=\box35
-\tikz@tempbox=\box36
-\tikztreelevel=\count123
-\tikznumberofchildren=\count124
-\tikznumberofcurrentchild=\count125
-\tikz@fig@count=\count126
+\tikz@lastx=\dimen157
+\tikz@lasty=\dimen158
+\tikz@lastxsaved=\dimen159
+\tikz@lastysaved=\dimen160
+\tikzleveldistance=\dimen161
+\tikzsiblingdistance=\dimen162
+\tikz@figbox=\box36
+\tikz@tempbox=\box37
+\tikztreelevel=\count125
+\tikznumberofchildren=\count126
+\tikznumberofcurrentchild=\count127
+\tikz@fig@count=\count128
 
 (E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\modules\pgfmodulematrix.code.te
 x
 File: pgfmodulematrix.code.tex 2010/08/24  (rcs-revision 1.4)
-\pgfmatrixcurrentrow=\count127
-\pgfmatrixcurrentcolumn=\count128
-\pgf@matrix@numberofcolumns=\count129
+\pgfmatrixcurrentrow=\count129
+\pgfmatrixcurrentcolumn=\count130
+\pgf@matrix@numberofcolumns=\count131
 )
-\tikz@expandcount=\count130
+\tikz@expandcount=\count132
 
 (E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\frontendlayer\tikz\libraries\ti
 kzlibrarytopaths.code.tex
@@ -1015,12 +1048,12 @@ File: tikzlibrarytopaths.code.tex 2008/06/17 v2.10 (rcs-revision 1.2)
 )))
 (E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\pgfplots.code.tex
 (E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\pgfplotscore.code.tex
-\t@pgfplots@toka=\toks37
-\t@pgfplots@tokb=\toks38
-\t@pgfplots@tokc=\toks39
-\pgfplots@tmpa=\dimen162
-\c@pgfplots@coordindex=\count131
-\c@pgfplots@scanlineindex=\count132
+\t@pgfplots@toka=\toks40
+\t@pgfplots@tokb=\toks41
+\t@pgfplots@tokc=\toks42
+\pgfplots@tmpa=\dimen163
+\c@pgfplots@coordindex=\count133
+\c@pgfplots@scanlineindex=\count134
 
 (E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\sys\pgfplotssysgeneric.cod
 e.tex))
@@ -1034,32 +1067,32 @@ Package pgfplots: loading complementary code for your PGF version...
 pgfsupp_misc.code.tex)
 (E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\oldpgfcompatib\pgfplotsold
 pgfsupp_pgfkeys.code.tex
-\pgfkeys@pathtoks=\toks40
-\pgfkeys@temptoks=\toks41
+\pgfkeys@pathtoks=\toks43
+\pgfkeys@temptoks=\toks44
 
 (E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\oldpgfcompatib\pgfplotsold
 pgfsupp_pgfkeysfiltered.code.tex
-\pgfkeys@tmptoks=\toks42
+\pgfkeys@tmptoks=\toks45
 ))
 (E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\oldpgfcompatib\pgfplotsold
 pgfsupp_pgfmathfloat.code.tex
-\c@pgfmathroundto@lastzeros=\count133
+\c@pgfmathroundto@lastzeros=\count135
 )
 (E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\oldpgfcompatib\pgfplotsold
 pgfsupp_pgflibraryplothandlers.code.tex
 File: pgflibraryplothandlers.code.tex 2012/09/11 v2.10 (rcs-revision 1.17)
-\pgf@plot@mark@count=\count134
-\pgfplotmarksize=\dimen163
+\pgf@plot@mark@count=\count136
+\pgfplotmarksize=\dimen164
 )
 (E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\oldpgfcompatib\pgfplotsold
 pgfsupp_pgflibraryfpu.code.tex)
 (E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\oldpgfcompatib\pgfplotsold
 pgfsupp_pgfcorescopes.code.tex
 File: pgfcorescopes.code.tex 2012/11/30  (rcs-revision 1.38)
-\pgfpic=\box37
-\pgf@hbox=\box38
-\pgf@layerbox@main=\box39
-\pgf@picture@serial@count=\count135
+\pgfpic=\box38
+\pgf@hbox=\box39
+\pgf@layerbox@main=\box40
+\pgf@picture@serial@count=\count137
 )
 (E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\oldpgfcompatib\pgfplotsold
 pgfsupp_pgfcorelayers.code.tex
@@ -1073,14 +1106,14 @@ structure.code.tex)
 structureext.code.tex)
 (E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\liststructure\pgfplotsarra
 y.code.tex
-\c@pgfplotsarray@tmp=\count136
+\c@pgfplotsarray@tmp=\count138
 )
 (E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\liststructure\pgfplotsmatr
 ix.code.tex)
 (E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\numtable\pgfplotstableshar
 ed.code.tex
-\c@pgfplotstable@counta=\count137
-\t@pgfplotstable@a=\toks43
+\c@pgfplotstable@counta=\count139
+\t@pgfplotstable@a=\toks46
 )
 (E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\liststructure\pgfplotsdequ
 e.code.tex)
@@ -1092,14 +1125,12 @@ ode.tex))
 e.tex)
 (E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\libs\pgflibrarypgfplots.su
 rfshading.code.tex
-\c@pgfplotslibrarysurf@no=\count138
+\c@pgfplotslibrarysurf@no=\count140
 
 (E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\sys\pgflibrarypgfplots.sur
 fshading.pgfsys-pdftex.def)))
 (E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\util\pgfplotscolormap.code
-.tex
-(E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\util\pgfplotscolor.code.te
-x))
+.tex)
 (E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\pgfplotsstackedplots.code.
 tex)
 (E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgfplots\pgfplotsplothandlers.code.
@@ -1119,16 +1150,16 @@ x)
 kzlibrarydecorations.code.tex
 (E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\modules\pgfmoduledecorations.co
 de.tex
-\pgfdecoratedcompleteddistance=\dimen164
-\pgfdecoratedremainingdistance=\dimen165
-\pgfdecoratedinputsegmentcompleteddistance=\dimen166
-\pgfdecoratedinputsegmentremainingdistance=\dimen167
-\pgf@decorate@distancetomove=\dimen168
-\pgf@decorate@repeatstate=\count139
-\pgfdecorationsegmentamplitude=\dimen169
-\pgfdecorationsegmentlength=\dimen170
+\pgfdecoratedcompleteddistance=\dimen165
+\pgfdecoratedremainingdistance=\dimen166
+\pgfdecoratedinputsegmentcompleteddistance=\dimen167
+\pgfdecoratedinputsegmentremainingdistance=\dimen168
+\pgf@decorate@distancetomove=\dimen169
+\pgf@decorate@repeatstate=\count141
+\pgfdecorationsegmentamplitude=\dimen170
+\pgfdecorationsegmentlength=\dimen171
 )
-\tikz@lib@dec@box=\box40
+\tikz@lib@dec@box=\box41
 )
 (E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\frontendlayer\tikz\libraries\ti
 kzlibrarydecorations.pathmorphing.code.tex
@@ -1138,13 +1169,13 @@ ydecorations.pathmorphing.code.tex))
 kzlibrarydecorations.pathreplacing.code.tex
 (E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\libraries\decorations\pgflibrar
 ydecorations.pathreplacing.code.tex))
-\pgfplots@numplots=\count140
-\pgfplots@xmin@reg=\dimen171
-\pgfplots@xmax@reg=\dimen172
-\pgfplots@ymin@reg=\dimen173
-\pgfplots@ymax@reg=\dimen174
-\pgfplots@zmin@reg=\dimen175
-\pgfplots@zmax@reg=\dimen176
+\pgfplots@numplots=\count142
+\pgfplots@xmin@reg=\dimen172
+\pgfplots@xmax@reg=\dimen173
+\pgfplots@ymin@reg=\dimen174
+\pgfplots@ymax@reg=\dimen175
+\pgfplots@zmin@reg=\dimen176
+\pgfplots@zmax@reg=\dimen177
 )
 (E:\Soft\FullTex\Full_TeX\texmf\tex\generic\pgf\frontendlayer\tikz\libraries\ti
 kzlibraryplotmarks.code.tex
@@ -1155,34 +1186,34 @@ ode.tex
 File: pgflibraryplotmarks.code.tex 2010/10/15 v2.10 (rcs-revision 1.12)
 ))) (E:\Soft\FullTex\Full_TeX\texmf\tex\latex\tools\array.sty
 Package: array 2008/09/09 v2.4c Tabular extension package (FMi)
-\col@sep=\dimen177
-\extrarowheight=\dimen178
-\NC@list=\toks44
+\col@sep=\dimen178
+\extrarowheight=\dimen179
+\NC@list=\toks47
 \extratabsurround=\skip50
 \backup@length=\skip51
 )
 (E:\Soft\FullTex\Full_TeX\texmf\tex\latex\listings\listings.sty
-\lst@mode=\count141
-\lst@gtempboxa=\box41
-\lst@token=\toks45
-\lst@length=\count142
-\lst@currlwidth=\dimen179
-\lst@column=\count143
-\lst@pos=\count144
-\lst@lostspace=\dimen180
-\lst@width=\dimen181
-\lst@newlines=\count145
-\lst@lineno=\count146
-\lst@maxwidth=\dimen182
+\lst@mode=\count143
+\lst@gtempboxa=\box42
+\lst@token=\toks48
+\lst@length=\count144
+\lst@currlwidth=\dimen180
+\lst@column=\count145
+\lst@pos=\count146
+\lst@lostspace=\dimen181
+\lst@width=\dimen182
+\lst@newlines=\count147
+\lst@lineno=\count148
+\lst@maxwidth=\dimen183
 
 (E:\Soft\FullTex\Full_TeX\texmf\tex\latex\listings\lstpatch.sty
 File: lstpatch.sty 2024/09/23 1.10c (Carsten Heinz)
 )
 (E:\Soft\FullTex\Full_TeX\texmf\tex\latex\listings\lstmisc.sty
 File: lstmisc.sty 2024/09/23 1.10c (Carsten Heinz)
-\c@lstnumber=\count147
-\lst@skipnumbers=\count148
-\lst@framebox=\box42
+\c@lstnumber=\count149
+\lst@skipnumbers=\count150
+\lst@framebox=\box43
 )
 (E:\Soft\FullTex\Full_TeX\texmf\tex\latex\listings\listings.cfg
 File: listings.cfg 2024/09/23 1.10c listings configuration
@@ -1211,19 +1242,19 @@ LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 65.
 LaTeX Font Info:    ... okay on input line 65.
  (E:\Soft\FullTex\Full_TeX\texmf\tex\context\base\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count149
-\scratchdimen=\dimen183
-\scratchbox=\box43
-\nofMPsegments=\count150
-\nofMParguments=\count151
-\everyMPshowfont=\toks46
-\MPscratchCnt=\count152
-\MPscratchDim=\dimen184
-\MPnumerator=\count153
-\makeMPintoPDFobject=\count154
-\everyMPtoPDFconversion=\toks47
+\scratchcounter=\count151
+\scratchdimen=\dimen184
+\scratchbox=\box44
+\nofMPsegments=\count152
+\nofMParguments=\count153
+\everyMPshowfont=\toks49
+\MPscratchCnt=\count154
+\MPscratchDim=\dimen185
+\MPnumerator=\count155
+\makeMPintoPDFobject=\count156
+\everyMPtoPDFconversion=\toks50
 )
-\AtBeginShipoutBox=\box44
+\AtBeginShipoutBox=\box45
 Package hyperref Info: Link coloring ON on input line 65.
  (E:\Soft\FullTex\Full_TeX\texmf\tex\latex\hyperref\nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
@@ -1231,7 +1262,7 @@ Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 (E:\Soft\FullTex\Full_TeX\texmf\tex\generic\oberdiek\gettitlestring.sty
 Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
-\c@section@level=\count155
+\c@section@level=\count157
 )
 LaTeX Info: Redefining \ref on input line 65.
 LaTeX Info: Redefining \pageref on input line 65.
@@ -1249,7 +1280,7 @@ ick labels; missing features). Consider writing \pgfplotsset{compat=1.9} into y
 our preamble.
  on input line 65.
 
-\c@lstlisting=\count156
+\c@lstlisting=\count158
 LaTeX Font Info:    Try loading font information for U+rsfs on input line 100.
 (E:\Soft\FullTex\Full_TeX\texmf\tex\latex\jknappen\ursfs.fd
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
@@ -1581,10 +1612,10 @@ LaTeX Font Warning: Size substitutions with differences
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 907.
  ) 
 Here is how much of TeX's memory you used:
- 27835 strings out of 493921
- 570826 string characters out of 3146112
- 882578 words of memory out of 3000000
- 30215 multiletter control sequences out of 15000+200000
+ 24891 strings out of 493921
+ 517935 string characters out of 3146112
+ 842459 words of memory out of 3000000
+ 27241 multiletter control sequences out of 15000+200000
  34066 words of font info for 105 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
  63i,14n,74p,1477b,1059s stack positions out of 5000i,500n,10000p,200000b,50000s

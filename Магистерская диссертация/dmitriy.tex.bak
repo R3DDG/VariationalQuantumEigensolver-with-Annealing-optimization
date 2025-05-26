@@ -9,6 +9,7 @@
 \usepackage{indentfirst}
 \usepackage{mathrsfs}
 
+
 %%%%%%%%%%%%%%%%% Символы, графика %%%%%%%%%%%%%%%%%%%%%
 
 \usepackage[T1,T2A]{fontenc}
@@ -19,6 +20,9 @@
 \usepackage{color}
 \usepackage[pdftex,colorlinks,linkcolor=blue,citecolor=blue]{hyperref}
 \usepackage{pgfplots}
+\usepackage{tikz}
+\usetikzlibrary{external, positioning, arrows.meta}
+\usetikzlibrary{through, shapes, snakes}
 \usepackage{array}
 \usepackage{algorithm}
 \usepackage{algcompatible}
@@ -79,14 +83,21 @@
     read_file_lines, read_hamiltonian_data, generate_random_theta,
     multiply_pauli, pauli_compose, calculate_ansatz, compute_uhu,
     calculate_expectation, generate_neighbor_theta, simulated_annealing,
-    main, getattr,  print_composition_table,generate_shifted_theta
+    main, getattr,  print_composition_table, generate_shifted_theta
     },
     emphstyle=\color{identifier}\ttfamily,
+    mathescape=true,
     literate=
         {θ}{{$\theta$}}1
         {π}{{$\pi$}}1
         {σ}{{$\sigma$}}1
         {±}{{$\pm$}}1
+        {θ}{{$\theta$}}1
+        {σ}{{$\sigma$}}1
+        {·}{{$\cdot$}}1
+        {₁}{{\textsubscript{1}}}1
+        {₂}{{\textsubscript{2}}}1
+        {…}{{\cdots}}1
         {→}{{$\rightarrow$}}1
         {†}{{\textdagger}}1
         {а}{{\cyra}}1
@@ -158,7 +169,7 @@
 }
 
 
-%%%%%%%% newcommands
+%%%%%%%% newcommands:  ket,  bra,  ketbra,  braket
 \newcommand{\ket}[1] {\!\!\;\ensuremath{\left|#1\right\rangle}}
 \newcommand{\bra}[1] {\!\!\:\ensuremath{\left\langle#1\right|\!\!\:}}
 \newcommand{\ketbra}[2]{\!\!\:\ensuremath {\left|#1\right\rangle\!\:\!\!\left\langle#2\right|}}
@@ -181,7 +192,7 @@
 		{МАГИСТЕРСКАЯ ДИССЕРТАЦИЯ}	
 		
 		\vspace{1.0cm}
-        \large{Вариационный квантовый алгоритм с оптимизацией методом отжига}
+    \large{Вариационный квантовый алгоритм с оптимизацией методом отжига}
 		
 		
 		\vspace{1.0cm}
@@ -272,7 +283,6 @@ $${
     |1\rangle\langle0| = \frac{\hat{\sigma}_1 - i\hat{\sigma}_2}{2},\;
     |1\rangle\langle1| = \frac{\hat{\sigma}_0 - \hat{\sigma}_3}{2}.
 }$$
-
 Для ${k, l, m \in \{1,2,3\}}$ выполняются свойства:
 ${\mathrm{tr}\hat{\sigma}_k = 0}$,
 ${\hat{\sigma}^2_k = \hat{\sigma}_0}$, а также
@@ -562,8 +572,8 @@ $\hphantom{5.\;}$ результатом ${\ket{u(\bm\theta_0)}}$ и $E(\bm\thet
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[width=15cm]{figures/scheme_simple.pdf}\\
-  \caption{Общая схема квантового вариационного алгоритма. Более подробную схему можно изучить на Рис. \ref{DetailedQuantumVariationAlgorithmScheme}}\label{ShemeVQA}
+  \includegraphics[width=15cm]{ShemeVQA}\\
+  \caption{Общая схема квантового вариационного алгоритма.}\label{ShemeVQA}
 \end{figure}
 
 
@@ -867,230 +877,22 @@ $\hphantom{6.\;}$ ${\ket{u(\bm\theta_0)}}$ и $E(\bm\theta_0)$.
 
 \section{Сравнительные результаты тестирования}
 
-\subsection{Этап 1: Чтение и парсинг данных гамильтониана}
-Гамильтониан представляется как линейная комбинация:
-\begin{equation}
-\hat{H} = \sum_{k=1}^K c_k \bigotimes_{j=1}^N \sigma_{k_j}^{(j)}
+Для тестирования алгоритма на системе из четырех кубитов будет использоваться гамильтониан
+\begin{multline}\label{OH}
+\hat{H}_{\scriptscriptstyle OH} = 0.501\,\hat{\sigma}_{1230} - 0.501\,\hat{\sigma}_{2103} - 1.252\,\hat{\sigma}_{0330} \\
+- 1.453\,\hat{\sigma}_{2323} + 1.700\,\hat{\sigma}_{1010} + 0.223\,\hat{\sigma}_{1313},\quad
+\end{multline}
+взятый из работы~\cite{Cawley2013}, в которой изучается спектроскопия основного состояния гидроксильной группы $\mathrm{OH}^-$; гамильтониан переписан в базисе Паули и редуцирован по нулевому уровню энергии (т.е. учтена только бесследовая часть оператора). Сравнительное тестирование включает в себя две задачи: во-первых, сравнительное тестирование двух методов Монте-Карло выбора нового набора параметров, а именно, метода отжига и метода случайного поиска; во-вторых, сравнительное тестирование анзацев --- универсального анзаца, построенного на основе базисных операторов Паули из $\hat{H}_{\scriptscriptstyle OH}$, и нескольких "угаданных"\, пробных анзацев.
+
+
+Универсальный анзац имеет вид
+\begin{equation}\label{ansatz-OH}
+\hat{U}(\bm\theta)= \mathrm{e}^{i\theta_4\hat{\sigma}_{0330}} \mathrm{e}^{i\theta_3\hat{\sigma}_{1313}} \mathrm{e}^{i\theta_2\hat{\sigma}_{2103}} \mathrm{e}^{i\theta_1\hat{\sigma}_{1230}},
 \end{equation}
-где $\sigma_{k_j} \in \{I, X, Y, Z\}$ - операторы Паули для $j$-го кубита.
-\begin{lstlisting}[language=Python]
-def read_hamiltonian_data(file_path):
-    """
-    Читает данные из файла hamiltonian_operators.txt и возвращает два списка:
-    - Список операторов Паули в виде коэффициента оператора и строки Паули.
-    - Список строк операторов Паули.
+где $\theta_k\in[0,2\pi),\; k=1,2,3,4$. Он записан на основе операторов Паули из гамильтониана~(\ref{OH}) за исключением операторов $\hat{\sigma}_{1100}$   $\hat{\sigma}_{2323}$, которые дублируются оператором $\hat{\sigma}_{1313}$. Последний выбран только потому, что он входит в гамильтониан с минимальным коэффициентом.
 
-    :param file_path: Путь к файлу.
-    :return: (pauli_operators, pauli_strings)
-    :raises FileNotFoundError: Если файл не найден.
-    """
-    lines = read_file_lines(file_path, ignore_comments=False)
-    pauli_operators = []
-    pauli_strings = []
-    for line in lines:
-        parts = line.strip().split()
-        if len(parts) == 3:
-            real_part, imag_part, index_str = (
-                float(parts[0]),
-                float(parts[1]),
-                str(parts[2]),
-            )
-            coefficient = np.complex128(real_part + imag_part * 1j)
-            index_list = [int(c) for c in index_str]
-            if coefficient != 0:
-                pauli_operators.append((coefficient, index_list))
-            pauli_strings.append(index_list)
-    return pauli_operators, pauli_strings
-\end{lstlisting}
-\begin{itemize}
-\item \texttt{read\_file\_lines}: Чтение строк из файла с фильтрацией комментариев
-\item Преобразование строки вида "2.0 0.0 03" в:
-  \begin{itemize}
-  \item Коэффициент: $2.0 + 0.0i$
-  \item Оператор: $\sigma_0 \otimes \sigma_3$
-  \end{itemize}
-\item Валидация данных через проверку \texttt{abs(coefficient) > 1e-12}
-\end{itemize}
 
-\subsection{Этап 2: Инициализация параметров}
-Начальные значения $\theta$ вычисляются по формуле:
-\begin{equation}
-\theta_m^{(0)} = \underbrace{\frac{2\pi|c_m|}{\max_j|c_j|}}_{\text{Нормировка}} + \underbrace{\mathcal{N}(0, 0.1)}_{\text{Шум}}
-\end{equation}
-
-\begin{lstlisting}[language=Python]
-def generate_shifted_theta(pauli_operators: List[Tuple[complex, List[int]]]) -> np.ndarray:
-    """Генерирует θ на основе коэффициентов операторов (вектор сдвига)."""
-    if not pauli_operators:
-        return np.array([], dtype=np.float64)
-
-    # Извлечение модулей действительных частей
-    coeffs = np.array([abs(op[0].real) for op in pauli_operators], dtype=np.float64)
-    norm = np.linalg.norm(coeffs)
-    if norm < 1e-12:
-        return np.zeros(len(coeffs))
-
-    # Масштабируем в [0, 2π) и добавляем шум
-    scaled = (coeffs / norm) * 2 * np.pi
-    return scaled + np.random.normal(0, 0.1, len(scaled))
-\end{lstlisting}
-\begin{itemize}
-\item Использование \texttt{op[0].real} - акцент на действительной части коэффициентов
-\item Защита от деления на ноль через тернарный оператор
-\item Нормировка в диапазон $[0, 2\pi)$ для соответствия периодичности экспоненты
-\end{itemize}
-
-\subsection{Этап 3: Вычисление энергии}
-Вычисление энергии происходит с использованием формулы:
-\begin{equation}
-E(\theta) = \langle 0|U^\dagger(\theta)\hat{H}U(\theta)|0\rangle = \sum_{k=1}^K c_k \langle 0|U^\dagger P_k U|0\rangle
-\end{equation}
-
-\begin{enumerate}
-\item Построение анзаца (\texttt{calculate\_ansatz}):
-\begin{lstlisting}[language=Python]
-def calculate_ansatz(
-    theta: np.ndarray, pauli_operators: List[Tuple[complex, List[int]]]
-) -> Tuple[Dict[Tuple[int, ...], complex], str, str]:
-    """
-    Вычисляет анзац в виде произведения экспонент операторов Паули.
-    Возвращает: (словарь операторов, символьное представление, численное представление)
-    """
-    operator_length = len(pauli_operators[0][1])
-    result = {tuple([0] * operator_length): 1.0}
-
-    for t, (_, op) in zip(theta, pauli_operators):
-        cos_t = np.cos(t)
-        sin_t = np.sin(t)
-        new_result: Dict[Tuple[int, ...], complex] = {}
-
-        for existing_op, existing_coeff in result.items():
-            # Слагаемое с cos(θ)*I
-            identity_coeff = existing_coeff * cos_t
-            new_result[existing_op] = new_result.get(existing_op, 0) + identity_coeff
-
-            # Слагаемое с i*sin(θ)*σ
-            pauli_coeff = existing_coeff * 1j * sin_t
-            compose_coeff, compose_op = pauli_compose(list(existing_op), op)
-            final_coeff = pauli_coeff * compose_coeff
-            final_op = tuple(compose_op)
-            new_result[final_op] = new_result.get(final_op, 0) + final_coeff
-
-        result = new_result
-
-    symbolic_str, numeric_str = format_ansatz(pauli_operators, result)
-    return result, symbolic_str, numeric_str
-\end{lstlisting}
-
-\item Композиция операторов (\texttt{pauli\_compose}):
-\begin{lstlisting}[language=Python]
-def pauli_compose(s1: List[int], s2: List[int]) -> Tuple[complex, List[int]]:
-    """
-    Вычисляет композицию двух операторов Паули.
-    Возвращает: (коэффициент, результирующий оператор)
-    """
-    coefficient = 1.0
-    result = []
-    for a, b in zip(s1, s2):
-        coeff, idx = multiply_pauli(a, b)
-        coefficient *= coeff
-        result.append(idx)
-    return coefficient, result
-\end{lstlisting}
-\end{enumerate}
-
-\subsection{Этап 4: Алгоритм отжига}
-Сам алгоритм отжига описан в данном коде
-\begin{lstlisting}[language=Python]
-def simulated_annealing(
-    initial_theta: np.ndarray,
-    pauli_operators: list,
-    initial_temp: float = 1000.0,
-    cooling_rate: float = 0.99,
-    min_temp: float = 1e-5,
-    num_iterations_per_temp: int = 500,
-    step_size: float = 0.5,
-) -> tuple:
-    """Алгоритм отжига с термализацией."""
-    current_theta = initial_theta.copy()
-    best_theta = current_theta.copy()
-    best_energy = float("inf")
-    rng = np.random.default_rng()
-
-    with Progress(
-        SpinnerColumn(),
-        TextColumn("[progress.description]{task.description}"),
-        BarColumn(bar_width=None),
-        TextColumn("[progress.percentage]{task.percentage:>3.0f}%"),
-    ) as progress:
-        task = progress.add_task("[cyan]Отжиг...", total=100)
-
-        temp = initial_temp
-        iteration = 0
-        thermalization_steps = int(num_iterations_per_temp * 0.2)  # 20% шагов на термализацию
-
-        while temp > min_temp:
-            # Фаза термализации
-            for _ in range(thermalization_steps):
-                current_theta = generate_shifted_theta(pauli_operators)
-                ansatz_dict, _, _ = calculate_ansatz(current_theta, pauli_operators)
-                uhu_dict = compute_uhu(ansatz_dict, pauli_operators)
-                current_energy = calculate_expectation(uhu_dict)
-
-                if current_energy < best_energy:
-                    best_theta = current_theta.copy()
-                    best_energy = current_energy
-
-            # Основная фаза отжига
-            for _ in range(num_iterations_per_temp):
-                perturbation = rng.normal(0, step_size*(temp/initial_temp), current_theta.shape)
-                neighbor_theta = (current_theta + perturbation) % (2*np.pi)
-
-                ansatz_dict, _, _ = calculate_ansatz(neighbor_theta, pauli_operators)
-                uhu_dict = compute_uhu(ansatz_dict, pauli_operators)
-                current_energy = calculate_expectation(uhu_dict)
-
-                energy_diff = current_energy - best_energy
-                if energy_diff < 0 or rng.random() < np.exp(-energy_diff / temp):
-                    current_theta = neighbor_theta.copy()
-
-                    if current_energy < best_energy:
-                        best_theta = current_theta.copy()
-                        best_energy = current_energy
-
-                iteration += 1
-                if iteration % 100 == 0:
-                    progress.update(task, advance=1)
-
-            temp *= cooling_rate
-
-    return best_theta, best_energy
-\end{lstlisting}
-
-\subsubsection{Ключевые особенности реализации}
-\begin{itemize}
-    \item Адаптивный размер шага: $\sigma(T) = \sigma_0 \cdot T/T_{\text{init}}$
-    \item Двухэтапный процесс: термализация + основной цикл
-    \item Сохранение лучшего решения в отдельной переменной
-    \item Модульная структура с возможностью изменения:
-      \begin{itemize}
-      \item \texttt{thermalization\_steps} - число шагов термализации
-      \item \texttt{iter\_per\_temp} - итераций на одну температуру
-      \item \texttt{cooling\_rate} - скорость охлаждения $\alpha$
-      \end{itemize}
-    \item Использование \texttt{defaultdict} для эффективного управления операторами
-    \item Стабилизация численных вычислений через отсечение малых значений ($<10^{-12}$)
-    \item Векторизованные операции с NumPy для ускорения вычислений
-    \item Логирование процесса оптимизации в \texttt{output.log}
-\end{itemize}
-
-%#########################################################################################################################################################################################################################
-%############################################################### 2.3 Сравнительные результаты тестирования ###############################################################################################################
-%#########################################################################################################################################################################################################################
-
-%#########################################################################################################################################################################################################################
-%################################################################################################### Заключение ##########################################################################################################
-%#########################################################################################################################################################################################################################
+%################### Заключение #######################
 
 \addcontentsline{toc}{chapter}{\hspace{5.5mm} Заключение}
 \chapter*{Заключение}
@@ -1122,13 +924,12 @@ def simulated_annealing(
     E. Farhi, J. Goldstone, and S. Gutmann. \textit{A Quantum Approximate Optimization Algorithm}. arXiv preprint arXiv:1411.4028, 2014.\\
     (\href{https://arxiv.org/abs/1411.4028}{\textit{arXiv:1411.4028}})
 
-    \bibitem{McClean2016}
-    J. R. McClean, et al. \textit{The theory of variational hybrid quantum-classical algorithms}. New Journal of Physics, vol. 18, p. 023023, 2016.\\
-    (\href{https://iopscience.iop.org/article/10.1088/1367-2630/18/2/023023}{\textit{iopscience:1367-2630-18-2-023023}})
+    \bibitem{Cawley2013}
+    N. Cawley, Z. Howard, M. Kleinert et al. \textit{Analytical study of level crossings in the Stark-Zeeman spectrum of ground state OH}. Eur. Phys. J. D, vol. 67, 233, 2013.\;--\; M. Bhattacharya. S. Marin, M. Kleinert. \textit{Coherent cancellation of geometric phase for the OH molecule in external fields}, 2014.
+    (\url{https://doi.org/10.48550/arXiv.1404.6285})
 
     \bibitem{Kandala2017}
-    A. Kandala, et al. \textit{Hardware-efficient variational quantum eigensolver for small molecules and quantum magnets}. Nature, vol. 549, pp. 242-246, 2017.\\
-    (\href{https://www.nature.com/articles/nature23879}{\textit{nature:nature23879}})
+    A. Kandala, et al. \textit{Hardware-efficient variational quantum eigensolver for small molecules and quantum magnets}. Nature, vol. 549, pp. 242-246, 2017.\;    (\href{https://www.nature.com/articles/nature23879}{\textit{nature:nature23879}})
 
     \bibitem{Harrow2009}
     A. W. Harrow, A. Hassidim, and S. Lloyd. \textit{Quantum algorithm for linear systems of equations}. Physical Review Letters, vol. 103, no. 15, p. 150502, 2009.\\
@@ -1171,112 +972,71 @@ def simulated_annealing(
 %################################################################################################### Приложение ##########################################################################################################
 %#########################################################################################################################################################################################################################
 
-\addcontentsline{toc}{chapter}{Приложения}
-\chapter*{Приложения}
-\section*{Приложение А}
-\begin{figure}[ht]
-\centering
-\includegraphics[width=0.6\textwidth]{figures/scheme.pdf}
-\caption{Подробная схема квантового вариационного алгоритма}
-\label{DetailedQuantumVariationAlgorithmScheme}
-\end{figure}
-\section*{Приложение Python}
+\addcontentsline{toc}{chapter}{\hspace{5.5mm} Приложение Python}
+\chapter*{Приложение Python}
 \begin{lstlisting}
+#constants/file_paths.py
 import sys
-import io
-import numpy as np
 from pathlib import Path
-from rich.console import Console
-from rich.table import Table
-from rich.panel import Panel
-from rich.progress import Progress, BarColumn, TextColumn, SpinnerColumn
-from rich import box
-from sympy import re as sp_re, im as sp_im
-from functools import lru_cache
-from typing import Any, List, Dict, Tuple, Union, Callable
-
 
 def get_base_path() -> Path:
-    """
-    Определяет базовую директорию проекта.
-
-    Returns:
-        Path: Абсолютный путь к папке с .exe-файлом (если приложение заморожено)
-              или к корню проекта (в режиме разработки).
-
-    Примечания:
-        - sys.frozen (атрибут пакета PyInstaller) используется для определения,
-          был ли код скомпилирован в исполняемый файл.
-        - Это позволяет корректно определять относительные пути при запуске
-          как из исходников, так и из собранного .exe.
-    """
+    """Возвращает путь к директории с EXE (или к проекту в dev-режиме)."""
     if getattr(sys, "frozen", False):
-        # Для скомпилированного EXE возвращаем директорию исполняемого файла.
+        # Для скомпилированного EXE берём директорию исполняемого файла
         return Path(sys.argv[0]).parent
     else:
-        # Для разработки возвращаем корень проекта (на уровень выше constants/).
+        # Для разработки возвращаем корень проекта
         return Path(__file__).parent.parent
 
+# Путь к hamiltonian_operators.txt (внешний файл)
+HAMILTONIAN_FILE_PATH = get_base_path() / "params" / "hamiltonian_operators.txt"
 
-# Абсолютный путь к файлу с гамильтонианом (описание операторов Паули и их коэффициентов).
-HAMILTONIAN_FILE_PATH: Path = get_base_path() / "params" / "hamiltonian_operators.txt"
+# Файл вывода создаётся в текущей рабочей директории
+OUTPUT_FILE_PATH = get_base_path() / "output.log"
 
-# Абсолютный путь к файлу для логирования вывода (очищается при запуске).
-OUTPUT_FILE_PATH: Path = get_base_path() / "output.log"
-# Карта произведения для базисных операторов Паули:
-# (i, j) -> (мнимая единица с правильным знаком, индекс результата)
-# Индексы: 0=I, 1=X, 2=Y, 3=Z
+
+#constants/pauli.py
 PAULI_MAP = {
-    (1, 2): (1j, 3),  # X*Y = iZ
-    (2, 1): (-1j, 3),  # Y*X = -iZ
-    (3, 1): (1j, 2),  # Z*X = iY
-    (1, 3): (-1j, 2),  # X*Z = -iY
-    (2, 3): (1j, 1),  # Y*Z = iX
-    (3, 2): (-1j, 1),  # Z*Y = -iX
+    (1, 2): (1j, 3),
+    (2, 1): (-1j, 3),
+    (3, 1): (1j, 2),
+    (1, 3): (-1j, 2),
+    (2, 3): (1j, 1),
+    (3, 2): (-1j, 1),
 }
 
 
-def calculate_temp_steps(
-    initial_temp: float, cooling_rate: float, min_temp: float
-) -> int:
-    """
-    Вычисляет количество температурных шагов для метода отжига.
+#params/hamiltonian_operators.txt
+# Действительная часть | Мнимая часть | Строка Паули
 
-    Алгоритм: на каждом шаге температура уменьшается по формуле:
-        T_{n+1} = T_n * cooling_rate
-    Шаги считаются, пока температура не станет меньше min_temp.
+2.0 0.0 03
+1.0 0.0 30
+-4.0 0.0 11
 
-    Args:
-        initial_temp (float): Начальная температура.
-        cooling_rate (float): Множитель охлаждения (0 < cooling_rate < 1).
-        min_temp (float): Минимально допустимая температура.
 
-    Returns:
-        int: Число температурных шагов до достижения min_temp.
-    """
-    steps = 0
-    current_temp = initial_temp
-    while current_temp > min_temp:
-        current_temp *= cooling_rate
-        steps += 1
-    return steps
+#utils/console_and_print.py
+from rich.console import Console
+from typing import Any
+from constants.file_paths import OUTPUT_FILE_PATH
 
 
 def console_and_print(console: Console, message: Any) -> None:
     """
-    Выводит сообщение в консоль и дублирует его в лог-файл.
+    Выводит результат выполнения программы в файл и консоль
 
-    Args:
-        console (Console): объект rich.Console для форматированного вывода.
-        message (Any): строка, rich.Panel или другой объект, печатаемый в консоль.
-
-    Примечания:
-        - Используется rich для красивого форматирования в консоли и логах.
-        - Лог хранит весь вывод, включая цветовые коды (если export_text это поддерживает).
+    :param console: Объект Console для вывода в консоль
+    :param message: Сообщение для вывода
     """
     console.print(message)
     with open(OUTPUT_FILE_PATH, "a", encoding="utf-8") as file:
         file.write(console.export_text() + "\n")
+
+
+#utils/create_table.py
+from rich.table import Table
+from rich.panel import Panel
+from rich import box
+from typing import List, Dict, Any
 
 
 def create_table(
@@ -1285,19 +1045,7 @@ def create_table(
     title: str,
     border_style: str = "yellow",
 ) -> Panel:
-    """
-    Создает таблицу rich.Table и оборачивает ее в rich.Panel для консольного вывода.
-
-    Args:
-        columns (List[Dict[str, str]]): Описание столбцов (ключи: name, style, justify).
-        data (List[List[Any]]): Массив данных для строк таблицы.
-        title (str): Заголовок панели.
-        border_style (str): Цвет рамки панели.
-
-    Returns:
-        Panel: Панель с таблицей для печати в консоль.
-    """
-    table = Table(box=box.ROUNDED, border_style=border_style)
+    table = Table(box=box.ROUNDED, border_style="yellow")
     for col in columns:
         table.add_column(
             col["name"],
@@ -1309,59 +1057,53 @@ def create_table(
     return Panel(table, title=title, border_style=border_style)
 
 
+#utils/format_ansatz.py
+from .format_complex_number import format_complex_number
+
+
 def format_ansatz(
-    pauli_operators: List[Tuple[complex, List[int]]],
-    result: Dict[Tuple[int, ...], complex],
-) -> Tuple[str, str]:
+    pauli_operators: list[list[int]], result: dict[tuple, complex]
+) -> tuple[str, str]:
     """
-    Форматирует вариационный анзац в символьное и численное представление.
+    Форматирует анзац в символьное и численное представление.
 
-    Args:
-        pauli_operators (List[Tuple[complex, List[int]]]): Список операторов Паули для анзаца,
-            где каждый оператор представлен кортежем из коэффициента и вектора индексов.
-        result (Dict[Tuple[int, ...], complex]): Разложение анзаца после экспоненцирования
-            по базису Паули (ключ: вектор индексов, значение: коэффициент).
-
-    Returns:
-        Tuple[str, str]: Строки символьного (произведение экспонент) и численного (разложение) представления.
-
-    Символьное представление важно для понимания структуры унитарного оператора:
-        U(θ) = exp(i·θ₁·c₁·σ₁) * exp(i·θ₂·c₂·σ₂) * ...
-
-    Численное разложение полезно для анализа конечного состояния оператора:
-        U = α₀·I + α₁·σ₁ + α₂·σ₂ + ...
+    :param pauli_operators: Список операторов Паули (списки индексов).
+    :param result: Словарь с результатами вычислений {оператор: коэффициент}.
+    :return: Символьное представление анзаца и его численное значение.
     """
+    # Формируем U(θ)
     ansatz_symbolic = "U(θ) = " + " * ".join(
         [
-            f"exp(i·θ_{i+1}·{format_complex_number(coeff)}·σ_{''.join(map(str, op))})"
-            for i, (coeff, op) in enumerate(pauli_operators)
+            f"e^(iθ_{i+1}*{format_complex_number(op[0])}*σ_{''.join(map(str, op[1]))})"
+            for i, op in enumerate(pauli_operators)
         ]
     )
+
+    # Формируем U
     ansatz_numeric = "U = " + " + ".join(
         [
-            f"{format_complex_number(c)}·σ_{''.join(map(str, op))}"
+            f"{format_complex_number(c)}*{format_complex_number(op[0])}*σ_{''.join(map(str, op[1:]))}"
+            if isinstance(op, (list, tuple))
+            and len(op) > 1
+            and isinstance(op[0], complex)
+            else f"{format_complex_number(c)}*σ_{''.join(map(str, op))}"
             for op, c in result.items()
-            if abs(c) > 1e-12
         ]
     )
+
     return ansatz_symbolic, ansatz_numeric
+
+
+#utils/format_complex_number.py
+from sympy import re as sp_re, im as sp_im
+from .format_number import format_number
 
 
 def format_complex_number(c) -> str:
     """
-    Форматирует комплексное число (или выражение SymPy) в строку с подавлением артефактов.
-
-    Args:
-        c (complex|sympy.Expr): Комплексное число или выражение.
-
-    Returns:
-        str: Отформатированное комплексное число (пример: "1.2-3i").
-
-    Особенности:
-        - Если число очень близко к нулю (<1e-12), оно не выводится.
-        - Мнимая часть ±1 форматируется как ±i.
-        - Корректно обрабатывает как стандартные числа, так и объекты SymPy.
+    Универсальный форматировщик комплексных чисел для SymPy и стандартных типов.
     """
+    # Извлечение компонентов через SymPy
     real = float(sp_re(c))
     imag = float(sp_im(c))
 
@@ -1371,12 +1113,15 @@ def format_complex_number(c) -> str:
     if abs(imag) > 1e-12:
         abs_imag = abs(imag)
         imag_value = format_number(abs_imag)
+
+        # Специальные случаи для ±1
         if imag_value == "1":
             imag_str = "i" if imag > 0 else "-i"
         else:
             imag_sign = "" if imag > 0 else "-"
             imag_str = f"{imag_sign}{imag_value}i"
 
+    # Сборка результата
     parts = []
     if real_str:
         parts.append(real_str)
@@ -1386,6 +1131,7 @@ def format_complex_number(c) -> str:
     if not parts:
         return "0"
 
+    # Корректное объединение компонентов
     result = parts[0]
     for part in parts[1:]:
         if part.startswith("-"):
@@ -1393,43 +1139,51 @@ def format_complex_number(c) -> str:
         else:
             result += f"+{part}"
 
+    # Фикс артефактов форматирования
     return result.replace("+ -", "- ").replace("1i", "i").replace(".0i", "i")
 
 
+#utils/format_number.py
 def format_number(num: float | int) -> str:
     """
-    Форматирует число для вывода, корректно подавляя артефакты округления.
-
-    Args:
-        num (float|int): Число для форматирования.
-
-    Returns:
-        str: Число в виде строки, без лишних нулей и ошибок округления.
+    Универсальный форматировщик чисел с точным определением целочисленных значений
+    и подавлением артефактов вычислений с плавающей точкой.
     """
+    # Проверка на целое число с учетом погрешности вычислений
     if abs(num - round(num)) < 1e-15:
         return str(int(round(num)))
+
+    # Форматирование с ручным управлением десятичными знаками
     s = f"{num:.14f}".rstrip("0").rstrip(".")
+
+    # Исправление артефактов вида ".5" → "0.5"
     if s.startswith("."):
         s = "0" + s
     elif s.startswith("-."):
         s = s.replace("-.", "-0.")
+
+    # Удаление лишних десятичных знаков после 4-го
     if "." in s:
         int_part, dec_part = s.split(".")
         dec_part = dec_part[:4].ljust(4, "0").rstrip("0")
         s = f"{int_part}.{dec_part}" if dec_part else int_part
+
     return s
+
+
+#utils/get_operator_for_console.py
+from .format_complex_number import format_complex_number
+from typing import Union
 
 
 def get_operator_for_console(c: Union[complex, float, int], i: str) -> str:
     """
-    Формирует строку для красивого вывода оператора Паули.
+    Функция создана для 'красивого' вывода оператора Паули в консоль.
+    Избегает ситуаций, когда у нас выводится конструкция вида '1*σ'
 
-    Args:
-        c (complex|float|int): Коэффициент перед оператором.
-        i (str): Индексная строка оператора (например, "03" для I⊗Z).
-
-    Returns:
-        str: Строка вида "σ_i" или "c*σ_i" (если коэффициент не равен 1).
+    :param c: Коэффициент оператора Паули.
+    :param i: Строка оператора Паули.
+    :return: Отформатированную строку.
     """
     if c == 1:
         return f"σ_{i}"
@@ -1437,38 +1191,36 @@ def get_operator_for_console(c: Union[complex, float, int], i: str) -> str:
         return f"{format_complex_number(c)}*σ_{i}"
 
 
-def initialize_environment() -> Console:
-    """
-    Инициализирует окружение для запуска программы:
-    - Очищает лог-файл с прошлых запусков.
-    - Возвращает объект rich.Console для форматированного вывода.
+#utils/initialize_environment.py
+from rich.console import Console  # Для красивого вывода в консоль
+from constants.file_paths import OUTPUT_FILE_PATH
 
-    Returns:
-        Console: Готовый к использованию rich.Console.
-    """
+
+def initialize_environment() -> Console:
+    """Инициализирует окружение и возвращает консольный объект."""
     if OUTPUT_FILE_PATH.exists():
         OUTPUT_FILE_PATH.unlink()
     return Console(force_terminal=True, color_system="truecolor", record=True)
 
 
+#utils/print_composition_table.py
+from rich.console import Console  # Для красивого вывода в консоль
+from typing import Tuple, List, Callable
+from .console_and_print import console_and_print
+from .create_table import create_table
+from .format_complex_number import format_complex_number
+
+
 def print_composition_table(
     console: Console,
-    pauli_compose: Callable[[tuple, tuple], Tuple[complex, tuple]],
+    pauli_compose: Callable[[List[int], List[int]], Tuple[complex, List[int]]],
     pauli_strings: List[List[int]],
 ) -> None:
-    """
-    Выводит таблицу композиции операторов Паули для всех их пар.
-
-    Args:
-        console (Console): Объект rich.Console.
-        pauli_compose (Callable): Функция для композиции двух операторов Паули.
-        pauli_strings (List[List[int]]): Список векторных индексов операторов Паули.
-    """
+    """Выводит таблицу композиций операторов Паули."""
     results = []
-    # Перебор всех пар операторов Паули
     for s1 in pauli_strings:
         for s2 in pauli_strings:
-            coeff, product = pauli_compose(tuple(s1), tuple(s2))
+            coeff, product = pauli_compose(s1, s2)
             results.append((s1, s2, format_complex_number(coeff), product))
 
     table_data = [
@@ -1490,18 +1242,20 @@ def print_composition_table(
     )
 
 
+#utils/print_hamiltonian.py
+from rich.console import Console
+from rich.panel import Panel
+from typing import Tuple, List
+from .get_operator_for_console import get_operator_for_console
+from .console_and_print import console_and_print
+
+
 def print_hamiltonian(
     console: Console, pauli_operators: List[Tuple[complex, List[int]]]
 ) -> None:
-    """
-    Выводит гамильтониан в удобочитаемом виде.
-
-    Args:
-        console (Console): rich.Console для вывода.
-        pauli_operators (List[Tuple[complex, List[int]]]): Список операторов Паули с коэффициентами.
-    """
+    """Выводит представление гамильтониана в консоль."""
     hamiltonian_str = "H = " + " + ".join(
-        [get_operator_for_console(c, "".join(map(str, i))) for c, i in pauli_operators]
+        [get_operator_for_console(c, ''.join(map(str, i))) for c, i in pauli_operators]
     )
     console_and_print(
         console,
@@ -1513,16 +1267,18 @@ def print_hamiltonian(
     )
 
 
+#utils/print_pauli_table.py
+from rich.console import Console  # Для красивого вывода в консоль
+from typing import Tuple, List
+from .format_complex_number import format_complex_number
+from .console_and_print import console_and_print
+from .create_table import create_table
+
+
 def print_pauli_table(
     console: Console, pauli_operators: List[Tuple[complex, List[int]]]
 ) -> None:
-    """
-    Выводит таблицу всех операторов Паули из гамильтониана.
-
-    Args:
-        console (Console): rich.Console для вывода.
-        pauli_operators (List[Tuple[complex, List[int]]]): Список операторов Паули с коэффициентами.
-    """
+    """Выводит таблицу операторов Паули."""
     table_data = [[format_complex_number(c), str(i)] for c, i in pauli_operators]
     console_and_print(
         console,
@@ -1538,23 +1294,18 @@ def print_pauli_table(
     )
 
 
+#utils/read_file_lines.py
 from pathlib import Path
-from typing import List, Union
 
 
-def read_file_lines(file_path: Union[str, Path], ignore_comments: bool) -> List[str]:
+def read_file_lines(file_path, ignore_comments):
     """
-    Считывает строки из файла, игнорируя комментарии (начинающиеся с "#").
+    Читает строки из файла, игнорируя комментарии (строки, начинающиеся с '#').
 
-    Args:
-        file_path (str|Path): Путь к файлу.
-        ignore_comments (bool): Если True, строки, начинающиеся с "#", игнорируются.
-
-    Returns:
-        List[str]: Список строк без лишних пробелов и пустых строк.
-
-    Raises:
-        FileNotFoundError: Если файл не существует.
+    :param file_path: Путь к файлу.
+    :param ignore_comments: Игнорировать строки, начинающиеся с '#'.
+    :return: Список строк.
+    :raises FileNotFoundError: Если файл не найден.
     """
     file_path = Path(file_path) if not isinstance(file_path, Path) else file_path
     if not file_path.exists():
@@ -1567,23 +1318,24 @@ def read_file_lines(file_path: Union[str, Path], ignore_comments: bool) -> List[
         ]
 
 
-def read_hamiltonian_data(
-    file_path,
-) -> Tuple[List[Tuple[complex, List[int]]], List[List[int]]]:
+#utils/read_hamiltonian_data.py
+import numpy as np  # Для работы с комплексными числами и математическими операциями
+from .read_file_lines import read_file_lines
+
+
+def read_hamiltonian_data(file_path):
     """
-    Читает список операторов Паули из текстового файла.
+    Читает данные из файла hamiltonian_operators.txt и возвращает два списка:
+    - Список операторов Паули в виде коэффициента оператора и строки Паули.
+    - Список строк операторов Паули.
 
-    Формат файла:
-        <действительная часть> <мнимая часть> <строка Паули>
-
-    Returns:
-        Tuple[List[Tuple[complex, List[int]]], List[List[int]]]:
-            - Список операторов (коэффициент, индексы Паули)
-            - Список только индексов (без коэффициентов)
+    :param file_path: Путь к файлу.
+    :return: (pauli_operators, pauli_strings)
+    :raises FileNotFoundError: Если файл не найден.
     """
     lines = read_file_lines(file_path, ignore_comments=False)
-    pauli_operators: List[Tuple[complex, List[int]]] = []
-    pauli_strings: List[List[int]] = []
+    pauli_operators = []
+    pauli_strings = []
     for line in lines:
         parts = line.strip().split()
         if len(parts) == 3:
@@ -1600,162 +1352,41 @@ def read_hamiltonian_data(
     return pauli_operators, pauli_strings
 
 
-def calculate_ansatz(
-    theta: np.ndarray, pauli_operators: List[Tuple[complex, List[int]]]
-) -> Tuple[Dict[Tuple[int, ...], complex], str, str]:
-    """
-    Вычисляет вариационный анзац в виде произведения экспонент операторов Паули.
+#program.py
+import numpy as np
+import sys
+import io
+from rich.progress import Progress, BarColumn, TextColumn, SpinnerColumn
+from rich.panel import Panel
+from typing import Tuple, List, Dict
 
-    Args:
-        theta (np.ndarray): Вектор параметров (обычно одного размера с числом операторов).
-        pauli_operators (List[Tuple[complex, List[int]]]): Операторы Паули с коэффициентами.
+# Импорт самописных util функций
+from utils.console_and_print import console_and_print
+from utils.print_pauli_table import print_pauli_table
+from utils.read_hamiltonian_data import read_hamiltonian_data
+from utils.print_hamiltonian import print_hamiltonian
+from utils.print_composition_table import print_composition_table
+from utils.format_ansatz import format_ansatz
+from utils.initialize_environment import initialize_environment
 
-    Returns:
-        Tuple[
-            Dict[Tuple[int, ...], complex],   # Разложение анзаца по Паули-операторам
-            str,                             # Символьное представление (произведение экспонент)
-            str                              # Численное разложение
-        ]
+# Импорт констант
+from constants.file_paths import HAMILTONIAN_FILE_PATH
+from constants.pauli import PAULI_MAP
 
-    Алгоритм:
-        U(θ) = prod_j exp(i * θ_j * |c_j| * σ_j)
-        Реализуется по принципу покомпонентного разложения через формулу Эйлера:
-            exp(i·α·σ) = cos(α)·I + i·sin(α)·σ
-        С каждым новым оператором результат рекурсивно обновляется через pauli_compose.
-    """
-    operator_length = len(pauli_operators[0][1])
-    result: Dict[Tuple[int, ...], complex] = {tuple([0] * operator_length): 1.0}
-
-    for t, (coeff, op) in zip(theta, pauli_operators):
-        angle = t * abs(coeff)  # Используем абсолютное значение коэффициента!
-        cos_t = np.cos(angle)
-        sin_t = np.sin(angle)
-        new_result: Dict[Tuple[int, ...], complex] = {}
-        op_tuple = tuple(op)
-        for existing_op, existing_coeff in result.items():
-            # cos(angle) * I (сохраняем индекс базисного оператора)
-            new_result[existing_op] = (
-                new_result.get(existing_op, 0) + existing_coeff * cos_t
-            )
-            # i*sin(angle)*σ (композиция Паули)
-            compose_coeff, compose_op = pauli_compose(existing_op, op_tuple)
-            final_coeff = existing_coeff * 1j * sin_t * compose_coeff
-            new_result[compose_op] = new_result.get(compose_op, 0) + final_coeff
-        result = new_result
-
-    symbolic_str, numeric_str = format_ansatz(pauli_operators, result)
-    return result, symbolic_str, numeric_str
+# Установка кодировки для корректного вывода
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
+sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding="utf-8")
 
 
-from typing import Tuple, Dict
-
-
-def calculate_expectation(uhu_dict: Dict[Tuple[int, ...], complex]) -> float:
-    """
-    Вычисляет среднее значение энергии ⟨0|U†HU|0⟩ для состояния |0...0⟩.
-
-    Args:
-        uhu_dict (Dict[Tuple[int, ...], complex]): Разложение оператора U†HU
-            по базису Паули (ключ: индекс, значение: коэффициент).
-
-    Returns:
-        float: Ожидаемое значение (энергия).
-
-    Примечание:
-        - Только те операторы, которые не изменяют |0...0⟩ (то есть содержащие только I и Z),
-          могут дать нетривиальный вклад в среднее значение.
-    """
-    expectation = 0.0
-    for op, coeff in uhu_dict.items():
-        if all(p in (0, 3) for p in op):  # Только I или Z на каждом кубите
-            expectation += coeff.real
-    return expectation
-
-
-def compute_uhu(
-    u_dict: Dict[Tuple[int, ...], complex], h_terms: List[Tuple[complex, List[int]]]
-) -> Dict[Tuple[int, ...], complex]:
-    """
-    Вычисляет оператор U† H U в базисе Паули.
-
-    Args:
-        u_dict (Dict[Tuple[int, ...], complex]): Разложение оператора U.
-        h_terms (List[Tuple[complex, List[int]]]): Операторы гамильтониана с коэффициентами.
-
-    Returns:
-        Dict[Tuple[int, ...], complex]: Разложение U† H U по Паули-операторам.
-
-    Алгоритм:
-        (U† H U)_{kl} = sum_{i,j} conj(U_{ik}) * H_{ij} * U_{jl}
-        Реализовано через перебор всех Паули-операторов.
-    """
-    uhu_dict: Dict[Tuple[int, ...], complex] = {}
-    u_items = list(u_dict.items())
-    for coeff_h, op_h in h_terms:
-        op_h_tuple = tuple(op_h)
-        for j_op, j_coeff in u_items:
-            conj_j_coeff = np.conj(j_coeff)
-            c1, op_uh = pauli_compose(j_op, op_h_tuple)
-            for k_op, k_coeff in u_items:
-                c2, op_uhu = pauli_compose(op_uh, k_op)
-                total_coeff = conj_j_coeff * k_coeff * coeff_h * c1 * c2
-                uhu_dict[op_uhu] = uhu_dict.get(op_uhu, 0) + total_coeff
-    return uhu_dict
-
-
-def generate_neighbor_theta(
-    current_theta: np.ndarray, step_size: float = 0.1
-) -> np.ndarray:
-    """
-    Генерирует новое состояние θ, добавляя нормальный шум
-    с заданной дисперсией, и приводит все значения к диапазону [0, 2π).
-
-    Args:
-        current_theta (np.ndarray): Текущий вектор параметров.
-        step_size (float): Стандартное отклонение для гауссового шума.
-
-    Returns:
-        np.ndarray: Новый вектор параметров.
-    """
-    perturbation = np.random.normal(scale=step_size, size=current_theta.shape)
-    return (current_theta + perturbation) % (2 * np.pi)
-
-
-def generate_shifted_theta(
-    pauli_operators: List[Tuple[complex, List[int]]]
-) -> np.ndarray:
-    """
-    Генерирует начальный вектор θ для анзаца, масштабируя его пропорционально
-    модулям коэффициентов операторов Паули.
-
-    Args:
-        pauli_operators (List[Tuple[complex, List[int]]]): Операторы Паули.
-
-    Returns:
-        np.ndarray: Начальный вектор θ (размер соответствует числу операторов).
-    """
-    if not pauli_operators:
-        return np.array([], dtype=np.float64)
-    # Используем модуль коэффициента (абсолютная величина, чтобы избежать ошибок для комплексных коэффициентов)
-    coeffs = np.array([abs(op[0]) for op in pauli_operators], dtype=np.float64)
-    norm = np.linalg.norm(coeffs)
-    if norm < 1e-12:
-        return np.zeros(len(coeffs))
-    # Масштабируем на диапазон [0, 2π) и добавляем небольшой случайный шум
-    scaled = (coeffs / norm) * 2 * np.pi
-    return scaled + np.random.normal(0, 0.1, len(scaled))
+def generate_random_theta(m: int) -> np.ndarray:
+    """Генерирует массив из m случайных углов в диапазоне [0, 2π)."""
+    return np.random.uniform(0, 2*np.pi, size=m).astype(np.float64)
 
 
 def multiply_pauli(i: int, j: int) -> Tuple[complex, int]:
     """
-    Перемножает два базисных оператора Паули.
-
-    Args:
-        i (int): Первый индекс (0=I, 1=X, 2=Y, 3=Z).
-        j (int): Второй индекс (0=I, 1=X, 2=Y, 3=Z).
-
-    Returns:
-        Tuple[complex, int]: Коэффициент и индекс результата.
+    Вычисляет произведение базисных операторов Паули.
+    Возвращает: (коэффициент, индекс результата)
     """
     if i == j:
         return (1, 0)
@@ -1766,17 +1397,10 @@ def multiply_pauli(i: int, j: int) -> Tuple[complex, int]:
     return PAULI_MAP.get((i, j), (1, 0))
 
 
-@lru_cache(maxsize=4096)
-def pauli_compose(s1: tuple, s2: tuple) -> Tuple[complex, tuple]:
+def pauli_compose(s1: List[int], s2: List[int]) -> Tuple[complex, List[int]]:
     """
-    Перемножает два оператора Паули, заданных покубитно.
-
-    Args:
-        s1 (tuple): Индексы первого оператора (например, (0,3) для I⊗Z).
-        s2 (tuple): Индексы второго оператора.
-
-    Returns:
-        Tuple[complex, tuple]: Коэффициент и индексы результата.
+    Вычисляет композицию двух операторов Паули.
+    Возвращает: (коэффициент, результирующий оператор)
     """
     coefficient = 1.0
     result = []
@@ -1784,110 +1408,149 @@ def pauli_compose(s1: tuple, s2: tuple) -> Tuple[complex, tuple]:
         coeff, idx = multiply_pauli(a, b)
         coefficient *= coeff
         result.append(idx)
-    return coefficient, tuple(result)
+    return coefficient, result
+
+
+def calculate_ansatz(
+    theta: np.ndarray, pauli_operators: List[Tuple[complex, List[int]]]
+) -> Tuple[Dict[Tuple[int, ...], complex], str, str]:
+    """
+    Вычисляет анзац в виде произведения экспонент операторов Паули.
+    Возвращает: (словарь операторов, символьное представление, численное представление)
+    """
+    operator_length = len(pauli_operators[0][1])
+    result = {tuple([0] * operator_length): 1.0}
+
+    for t, (_, op) in zip(theta, pauli_operators):
+        cos_t = np.cos(t)
+        sin_t = np.sin(t)
+        new_result: Dict[Tuple[int, ...], complex] = {}
+
+        for existing_op, existing_coeff in result.items():
+            # Слагаемое с cos(θ)*I
+            identity_coeff = existing_coeff * cos_t
+            new_result[existing_op] = new_result.get(existing_op, 0) + identity_coeff
+
+            # Слагаемое с i*sin(θ)*σ
+            pauli_coeff = existing_coeff * 1j * sin_t
+            compose_coeff, compose_op = pauli_compose(list(existing_op), op)
+            final_coeff = pauli_coeff * compose_coeff
+            final_op = tuple(compose_op)
+            new_result[final_op] = new_result.get(final_op, 0) + final_coeff
+
+        result = new_result
+
+    symbolic_str, numeric_str = format_ansatz(pauli_operators, result)
+    return result, symbolic_str, numeric_str
+
+
+def compute_uhu(
+    u_dict: Dict[Tuple[int, ...], complex], h_terms: List[Tuple[complex, List[int]]]
+) -> Dict[Tuple[int, ...], complex]:
+    """
+    Вычисляет оператор U† H U.
+    Возвращает: словарь {оператор: коэффициент}
+    """
+    uhu_dict: Dict[Tuple[int, ...], complex] = {}
+
+    for coeff_h, op_h in h_terms:
+        for j_op, j_coeff in u_dict.items():
+            conjugated_j_coeff = np.conj(j_coeff)
+            c1, op_uh = pauli_compose(list(j_op), op_h)
+
+            for k_op, k_coeff in u_dict.items():
+                c2, op_uhu = pauli_compose(op_uh, list(k_op))
+                total_coeff = conjugated_j_coeff * k_coeff * coeff_h * c1 * c2
+
+                # Стабилизация малых значений
+                if abs(total_coeff) < 1e-12:
+                    continue
+
+                op_tuple = tuple(op_uhu)
+                uhu_dict[op_tuple] = uhu_dict.get(op_tuple, 0) + total_coeff
+    return uhu_dict
+
+
+def calculate_expectation(uhu_dict: Dict[Tuple[int, ...], complex]) -> float:
+    """
+    Вычисляет <0|U†HU|0> для состояния |0...0>.
+    Возвращает: ожидаемое значение
+    """
+    expectation = 0.0
+    for op, coeff in uhu_dict.items():
+        if all(p in {0, 3} for p in op):
+            expectation += coeff.real
+    return expectation
+
+
+def generate_neighbor_theta(
+    current_theta: np.ndarray, step_size: float = 0.1
+) -> np.ndarray:
+    """Генерирует соседнее решение, добавляя случайное изменение к текущему theta."""
+    perturbation = np.random.normal(scale=step_size, size=current_theta.shape)
+    return np.clip(current_theta + perturbation, 0.0, 1.0)
 
 
 def simulated_annealing(
     initial_theta: np.ndarray,
-    pauli_operators: List[Any],
-    progress: Any,
-    task: Any,
+    pauli_operators: list,
     initial_temp: float = 1000.0,
     cooling_rate: float = 0.99,
     min_temp: float = 1e-5,
     num_iterations_per_temp: int = 500,
     step_size: float = 0.5,
-) -> Tuple[np.ndarray, float]:
-    """
-    Алгоритм отжига (simulated annealing) для оптимизации параметров θ вариационного анзаца.
-
-    Args:
-        initial_theta (np.ndarray): Начальный вектор θ.
-        pauli_operators (List[Tuple[complex, List[int]]]): Операторы Паули.
-        progress (Any): Индикатор прогресса (может быть None).
-        task (Any): Задача для прогресс-бара.
-        initial_temp (float): Начальная температура (чем выше — тем вероятнее принять ухудшающее решение).
-        cooling_rate (float): Множитель охлаждения (0 < cooling_rate < 1).
-        min_temp (float): Минимально допустимая температура.
-        num_iterations_per_temp (int): Количество шагов на каждой температуре.
-        step_size (float): Стандартное отклонение для шума θ.
-
-    Returns:
-        Tuple[np.ndarray, float]: Оптимальный найденный θ и соответствующая энергия.
-
-    Принцип работы:
-        - На каждом шаге генерируется новое состояние θ (случайным образом).
-        - Если энергия уменьшилась — принимаем новое состояние.
-        - Если энергия увеличилась — принимаем с вероятностью exp(-ΔE/T).
-        - Температура постепенно понижается (охлаждение).
-
-    Важно:
-        - В термализации используется локальный случайный шаг (как и в основном цикле).
-        - Это обеспечивает более "физичное" поведение отжига.
-    """
+) -> tuple:
+    """Реализует алгоритм имитации отжига с термализацией."""
     current_theta = initial_theta.copy()
     best_theta = current_theta.copy()
     best_energy = float("inf")
     rng = np.random.default_rng()
-    temp = initial_temp
-    thermalization_steps = int(num_iterations_per_temp * 0.2)
 
-    while temp > min_temp:
-        # Этап термализации: локальные случайные шаги для прогрева цепочки
-        for _ in range(thermalization_steps):
-            neighbor_theta = generate_neighbor_theta(current_theta, step_size)
-            ansatz_dict, _, _ = calculate_ansatz(neighbor_theta, pauli_operators)
-            uhu_dict = compute_uhu(ansatz_dict, pauli_operators)
-            current_energy = calculate_expectation(uhu_dict)
-            if current_energy < best_energy:
-                best_theta = neighbor_theta.copy()
-                best_energy = current_energy
-            current_theta = neighbor_theta.copy()
-            if progress is not None:
-                progress.update(task, advance=1)
+    with Progress(
+        SpinnerColumn(),
+        TextColumn("[progress.description]{task.description}"),
+        BarColumn(bar_width=None),
+        TextColumn("[progress.percentage]{task.percentage:>3.0f}%"),
+    ) as progress:
+        task = progress.add_task("[cyan]Отжиг...", total=100)
 
-        # Основной цикл отжига с возможностью принимать ухудшения
-        for _ in range(num_iterations_per_temp):
-            perturbation = rng.normal(
-                0, step_size * (temp / initial_temp), current_theta.shape
-            )
-            neighbor_theta = (current_theta + perturbation) % (2 * np.pi)
-            ansatz_dict, _, _ = calculate_ansatz(neighbor_theta, pauli_operators)
-            uhu_dict = compute_uhu(ansatz_dict, pauli_operators)
-            current_energy = calculate_expectation(uhu_dict)
-            energy_diff = current_energy - best_energy
-            # Классическое правило Метрополиса
-            if energy_diff < 0 or rng.random() < np.exp(-energy_diff / temp):
-                current_theta = neighbor_theta.copy()
-                if current_energy < best_energy:
-                    best_theta = current_theta.copy()
-                    best_energy = current_energy
-            if progress is not None:
-                progress.update(task, advance=1)
-        temp *= cooling_rate
+        temp = initial_temp
+        iteration = 0
+
+        while temp > min_temp:
+            for _ in range(num_iterations_per_temp):
+                # Генерация соседнего решения с адаптивным шагом
+                perturbation = rng.normal(0, step_size*(temp/initial_temp), size=current_theta.shape)
+                neighbor_theta = (current_theta + perturbation) % (2*np.pi)
+
+                # Вычисление энергии нового состояния
+                ansatz_dict, _, _ = calculate_ansatz(neighbor_theta, pauli_operators)
+                uhu_dict = compute_uhu(ansatz_dict, pauli_operators)
+                current_energy = calculate_expectation(uhu_dict)
+
+                # Критерий принятия решения
+                energy_diff = current_energy - best_energy
+                if energy_diff < 0 or rng.random() < np.exp(-energy_diff / temp):
+                    current_theta = neighbor_theta.copy()
+
+                    if current_energy < best_energy:
+                        best_theta = current_theta.copy()
+                        best_energy = current_energy
+
+                iteration += 1
+                if iteration % 100 == 0:
+                    progress.update(task, advance=1)
+
+            temp *= cooling_rate
 
     return best_theta, best_energy
 
 
-# Установка корректной кодировки стандартных потоков для поддержки Unicode
-sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
-sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding="utf-8")
-
-
-def main() -> None:
-    """
-    Основная функция программы. Реализует следующий цикл:
-      1. Чтение гамильтониана из файла.
-      2. Вывод операторов Паули и их композиции.
-      3. Оптимизация анзаца методом отжига для последовательных подмножеств операторов.
-      4. Поиск минимальной энергии и вывод оптимального анзаца.
-
-    Программа построена как демонстрация вариационного квантового алгоритма
-    с классическим оптимизатором (simulated annealing).
-    """
+def main():
+    """Основная логика программы."""
     console = initialize_environment()
 
-    # Проверка наличия файла с гамильтонианом
+    # Явная проверка существования файла
     if not HAMILTONIAN_FILE_PATH.exists():
         msg = (
             f"Файл [bold]{HAMILTONIAN_FILE_PATH}[/] не найден!\n"
@@ -1898,9 +1561,11 @@ def main() -> None:
 
     try:
         pauli_operators, pauli_strings = read_hamiltonian_data(HAMILTONIAN_FILE_PATH)
+
         print_hamiltonian(console, pauli_operators)
         print_pauli_table(console, pauli_operators)
         print_composition_table(console, pauli_compose, pauli_strings)
+
     except FileNotFoundError:
         console_and_print(
             console,
@@ -1917,74 +1582,40 @@ def main() -> None:
         )
         return
 
-    # Параметры отжига
-    SA_PARAMS = {
-        "initial_temp": 100.0,
-        "cooling_rate": 0.95,
-        "min_temp": 1e-3,
-        "num_iterations_per_temp": 100,
-        "step_size": 0.1,
-    }
-
-    # Оценка общего количества шагов для прогресс-бара
-    thermalization_steps = int(SA_PARAMS["num_iterations_per_temp"] * 0.2)
-    temp_steps = calculate_temp_steps(
-        SA_PARAMS["initial_temp"], SA_PARAMS["cooling_rate"], SA_PARAMS["min_temp"]
-    )
-    steps_per_m = temp_steps * (
-        thermalization_steps + SA_PARAMS["num_iterations_per_temp"]
-    )
-    total_steps = steps_per_m * (len(pauli_operators) - 1)
-
     best_energy = float("inf")
     best_result = None
+
+    # Собираем все результаты для анализа
     all_results = []
 
-    # Запуск прогресс-бара с симпатичным оформлением
-    with Progress(
-        SpinnerColumn(),
-        TextColumn("[progress.description]{task.description}"),
-        BarColumn(bar_width=None),
-        TextColumn("[progress.percentage]{task.percentage:>3.0f}%"),
-    ) as progress:
-        task = progress.add_task("[cyan]Отжиг...", total=total_steps)
+    for m in range(2, len(pauli_operators) + 1):
+        initial_theta = generate_random_theta(m)
 
-        # Последовательно увеличиваем число операторов в анзаце
-        for m in range(2, len(pauli_operators) + 1):
-            current_ops = pauli_operators[:m]
-            initial_theta = generate_shifted_theta(current_ops)
-
-            # Оптимизация параметров для текущего поднабора операторов
-            optimized_theta, energy = simulated_annealing(
-                initial_theta=initial_theta,
-                pauli_operators=current_ops,
-                progress=progress,
-                task=task,
-                **SA_PARAMS,
-            )
-
-            all_results.append(
-                {
-                    "m": m,
-                    "theta": optimized_theta,
-                    "energy": energy,
-                    "operators": current_ops,
-                }
-            )
-
-            if energy < best_energy:
-                best_energy = energy
-                best_result = all_results[-1]
-
-    # Выводим результаты оптимизации
-    if best_result is None:
-        console_and_print(
-            console, Panel("[red]Не удалось найти решение[/red]", border_style="red")
+        optimized_theta, energy = simulated_annealing(
+            initial_theta=initial_theta,
+            pauli_operators=pauli_operators,
+            initial_temp=100.0,
+            cooling_rate=0.95,
+            min_temp=1e-3,
+            num_iterations_per_temp=100,
+            step_size=0.1,
         )
-        return
+
+        all_results.append(
+            {
+                "m": m,
+                "theta": optimized_theta,
+                "energy": energy,
+            }
+        )
+
+        # Обновляем лучший результат
+        if energy < best_energy:
+            best_energy = energy
+            best_result = all_results[-1]
 
     _, ansatz_symbolic, ansatz_numeric = calculate_ansatz(
-        best_result["theta"], best_result["operators"]
+        best_result["theta"], pauli_operators[: best_result["m"]]
     )
 
     console_and_print(
@@ -2014,12 +1645,11 @@ def main() -> None:
         ),
     )
 
-    input("Нажмите Enter для выхода...")
+    input('text')
 
 
 if __name__ == "__main__":
     main()
-
 \end{lstlisting}
 
 \end{document} 
