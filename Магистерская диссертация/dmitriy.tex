@@ -186,7 +186,7 @@
 	\vspace{1.4cm}
 	\begin{center}
 	
-		{МАГИСТЕРСКАЯ ДИССЕРТАЦИЯ}	
+		{ВЫПУСКНАЯ КВАЛИФИКАЦИОННАЯ РАБОТА\\(МАГИСТЕРСКАЯ ДИССЕРТАЦИЯ)}	
 		
 		\vspace{1.0cm}
     \large{Вариационный квантовый алгоритм с оптимизацией методом отжига}
@@ -200,12 +200,12 @@
 	\begin{flushright}
 		\begin{minipage}{80mm}
 			Автор:\\
-			Алешин Д.А.\\
+			Алешин Дмитрий Алексеевич\\
       Подпись:
 			
 			\vspace{1.0cm}
 			Научный руководитель:\\
-			д. ф.-м. н. Цирулёв А.Н.\\
+			д. ф.-м. н. Цирулёв Александр \mbox{Николаевич}\\
       Подпись:
 			
 		\end{minipage}
@@ -242,11 +242,11 @@
 
 Важной прикладной задачей в области вариационных квантовых алгоритмов является поиск основного состояния гамильтониана, что эквивалентно задаче минимизации средней энергии в пространстве квантовых состояний, генерируемых параметризованным анзацем. Сложность алгоритмов прямого вычисления собственных значений гамильтониана растет экспоненциально с ростом числа кубитов, поэтому для больших систем используются квантовые вариационные методы решения задачи оптимизации~\cite{Peruzzo2014, Farhi2014}. На практике решение такой задачи требует эффективных классических методов оптимизации, устойчивых к наличию большого числа локальных минимумов и не требующих вычисления производных целевой функции. Среди таких методов особое место занимает метод имитации отжига~\cite{Salamon2002, Lopatin2005}, который широко используется в задачах глобальной оптимизации и хорошо адаптируется к вариационным квантовым схемам.
 
-Целью работы является построение и исследование, с использованием имитационного моделирования на классическом компьютере, вариационного квантового алгоритма с оптимизацией методом имитации отжига для поиска основного состояния гамильтониана квантовой системы.
+Целью работы является построение вариационного квантового алгоритма с оптимизацией методом имитации отжига для поиска основного состояния гамильтониана квантовой системы и исследование с использованием имитационного моделирования на классическом компьютере.
 
 В рамках исследования были поставлены следующие задачи:
 \begin{enumerate}
-    \item Изучить теоретические основы вариационных квантовых алгоритмов, включая формализм базиса Паули и построение анзаца для многокубитных систем;
+    \item Изучить теоретические основы вариационных квантовых алгоритмов, включая формализм базиса Паули, и построение анзаца для многокубитных систем;
     \item Разработать и реализовать алгоритм вариационной квантовой оптимизации с использованием метода имитации отжига;
     \item Реализовать алгоритм в виде программного модуля на языке Python для практического моделирования процесса вариационной оптимизации;
     \item Провести сравнительный анализ эффективности различных параметров отжига и схем построения анзаца.
@@ -432,7 +432,6 @@ $${
     S_{(KL)} = \frac{S_{KL}}{2}\left(1 + (-1)^{\omega_{KL}}\right),\;\;\;
     S_{[KL]} = \frac{S_{KL}}{2}\left(1 - (-1)^{\omega_{KL}}\right),
 \end{equation}
-
 где $$S_{KL} = i^{\omega_{KL}}(-1)^{\omega^-_{KL}}.$$
 Здесь ${S_{(KL)}}$ и ${S_{[KL]}}$ — симметричная и антисимметричная части ${S_{KL}}$. Значения ${S_{KL}}$, ${S_{(KL)}}$ и ${S_{[KL]}}$ приведены в таблице \ref{table2}.
 
@@ -585,7 +584,7 @@ $${
 
 \subsection{Алгоритм в псевдокодах} %$\vphantom{\int\limits^a_a}$
 
-1.\; Ввод начального вектора параметров $\bm\theta$. $\vphantom{\int\limits^a}$ Полагаем $\bm\theta_0=\bm\theta$.\\
+\noindent1.\; Ввод начального вектора параметров $\bm\theta$. $\vphantom{\int\limits^a}$ Полагаем $\bm\theta_0=\bm\theta$.\\
 \textcolor{red}{2}.\; Генерация состояния ${\ket{u(\bm\theta)}= \hat{U}(\bm\theta)\ket0^{\!{\scriptscriptstyle\otimes}{n}}}$ $\vphantom{\int\limits^a}$ и случайного вектора $\delta\bm\theta$.\\
 3.\; Вычисление энергии$\vphantom{\int\limits^a}$ $E(\bm\theta)= \bra{u(\bm\theta)}\hat{H}\ket{u(\bm\theta)}$ с текущим вектором $\bm\theta$.\\
 4.\; Алгоритмический переход к вектору параметров $\bm\theta_1 = \bm\theta + \delta\bm\theta$. $\vphantom{\int\limits^a}$\\
@@ -1179,7 +1178,7 @@ def print_composition_table(console, pauli_compose, pauli_strings): ...
 
 \subsection{Сравнительный анализ параметров отжига}
 
-Для оценки эффективности вариационного квантового алгоритма с оптимизацией методом имитационного отжига были проведены серии тестов с различными наборами параметров отжига. В качестве эталонного значения использовалась энергия основного состояния, равная $-3.601$. В каждом тесте варьировались следующие параметры: начальная температура (\texttt{initial\_temp}), множитель охлаждения (\texttt{cooling\_rate}), минимальная температура (\texttt{min\_temp}), число итераций на каждой температуре (\texttt{num\_iterations\_per\_temp}), а также стандартное отклонение для шума параметров $\theta$ (\texttt{step\_size}).
+Для оценки эффективности вариационного квантового алгоритма с оптимизацией методом имитации отжига были проведены серии тестов с различными наборами параметров отжига. В качестве эталонного значения использовалась энергия основного состояния, равная $-3.601$. В каждом тесте варьировались следующие параметры: начальная температура (\texttt{initial\_temp}), множитель охлаждения (\texttt{cooling\_rate}), минимальная температура (\texttt{min\_temp}), число итераций на каждой температуре (\texttt{num\_iterations\_per\_temp}), а также стандартное отклонение для шума параметров $\theta$ (\texttt{step\_size}).
 
 Полученные результаты позволяют выделить основные закономерности:
 \begin{itemize}
@@ -1189,7 +1188,7 @@ def print_composition_table(console, pauli_compose, pauli_strings): ...
     \item Во всех тестах достигнутое значение энергии оставалось выше эталонного примерно на $0.20-0.24$ единицы, что может быть связано с ограничениями самого метода или особенностями выбора анзаца.
 \end{itemize}
 
-Таким образом, можно сделать вывод, что параметры $step\_size$ и $num\_iterations\_per\_temp$ оказывают наибольшее влияние на итоговую энергию, однако даже при их оптимизации достичь эталонного значения не удалось. Это свидетельствует о необходимости дальнейшей доработки схемы оптимизации: возможно, стоит рассмотреть более сложные схемы охлаждения, адаптивное изменение шага или комбинированные алгоритмы поиска. Полученные результаты подчеркивают важность тонкой настройки параметров имитационного отжига для задач вариационной квантовой оптимизации.
+Таким образом, можно сделать вывод, что параметры $step\_size$ и $num\_iterations\_per\_temp$ оказывают наибольшее влияние на итоговую энергию, однако даже при их оптимизации достичь эталонного значения не удалось. Это свидетельствует о необходимости дальнейшей доработки схемы оптимизации: возможно, стоит рассмотреть более сложные схемы охлаждения, адаптивное изменение шага или комбинированные алгоритмы поиска. Полученные результаты подчеркивают важность тонкой настройки параметров имитации отжига для задач вариационной квантовой оптимизации.
 
 
 
@@ -1235,12 +1234,12 @@ def print_composition_table(console, pauli_compose, pauli_strings): ...
     \bibitem{Moll2018}
     N. Moll, P. Barkoutsos, L. Bishop, J. M. Chow, A. Cross, D. J. Egger, S. Filipp, A. Fuhrer, J. M. Gambetta, M. Ganzhorn, et al. \textit{Quantum optimization using variational algorithms on near-term quantum devices}. Quantum Science and Technology, vol. 3, no. 3, p. 030503, 2018.\\
     (\href{https://iopscience.iop.org/article/10.1088/2058-9565/aab822} {\textit{iopscience:2058-9565/aab822}})
-    
+
     \bibitem{Havlicek2019}
     V. Havlicek, A. D. Córcoles, K. Temme, A. W. Harrow, A. Kandala, J. M. Chow, J. M. Gambetta. \textit{Supervised learning with quantum-enhanced feature spaces}. Nature, vol. 567, pp. 209-212, 2019.\\
     (\href{https://www.nature.com/articles/s41586-019-0980-2}
     {\textit{nature:s41586-019-0980-2}})
-        
+
     \bibitem{Cerezo2021}
     M. Cerezo, et al. \textit{Variational Quantum Algorithms}. Nature Reviews Physics, vol. 3, pp. 625-644, 2021.\\
     (\href{https://www.nature.com/articles/s42254-021-00348-9}{\textit{nature:42254-021-00348-9}})
@@ -1254,21 +1253,24 @@ def print_composition_table(console, pauli_compose, pauli_strings): ...
     (\href{https://arxiv.org/abs/1411.4028}{\textit{arXiv:1411.4028}})
 
     \bibitem{Salamon2002}
-    P. Salamon, P. Sibani, R. Frost. \textit{Facts, Conjectures, and Improvements for Simulated Annealing}. SIAM: Society for Industrial and Applied Mathematics, Philadelphia, 2002.
+    P. Salamon, P. Sibani, R. Frost. \textit{Facts, Conjectures, and Improvements for Simulated Annealing}. SIAM: Society for Industrial and Applied Mathematics, Philadelphia, 2002.\\
+    (\href{https://epubs.siam.org/doi/epdf/10.1137/1.9780898718300.fm}{\textit{epubs.siam.org/doi/epdf/10.1137/1.9780898718300}})
 
     \bibitem{Lopatin2005}
     A. A. Lopatin. \textit{Метод отжига}. Санкт-Петербургский Государственный Университет, 2005.\\
     (\href{https://math.spbu.ru/user/gran/sb1/lopatin.pdf}{\textit{math.spbu:user/gran/sb1/lopatin}})
 
     \bibitem{Nilsen2006}
-    Нильсен М., Чанг И. \textit{Квантовые вычисления и квантовая информация}. Пер. с англ - М: Мир, 2006г. - 824 с.
+    Нильсен М., Чанг И. \textit{Квантовые вычисления и квантовая информация}. Пер. с англ - М: Мир, 2006г. - 824 с.\\
+    (\href{https://djvu.online/file/cO8qDRGAwOIe2}{\textit{djvu.online/file/cO8qDRGAwOIe2}})
 
     \bibitem{Tsirulev2020}
     V. V. Nikonov, A. N. Tsirulev. \textit{Pauli basis formalism in quantum computations}. Volume 8, No 3, pp. 1 – 14, 2020.\\
     (\href{https:doi.org/10.26456/mmg/2020-831} {\textit{doi:10.26456/mmg/2020-831}})
 
-    \bibitem{Kandala2017} 
-    A. Kandala, et al. \textit{Hardware-efficient variational quantum eigensolver for small molecules and quantum magnets}. Nature, vol. 549, pp. 242-246, 2017.\;    (\href{https://www.nature.com/articles/nature23879}{\textit{nature:nature23879}})
+    \bibitem{Kandala2017}
+    A. Kandala, et al. \textit{Hardware-efficient variational quantum eigensolver for small molecules and quantum magnets}. Nature, vol. 549, pp. 242-246, 2017.\\
+    (\href{https://www.nature.com/articles/nature23879}{\textit{nature:nature23879}})
 
     \bibitem{Aspuru-Guzik2005}
     A. Aspuru-Guzik, A. D. Dutoi, P. J. Love, M. Head-Gordon. \textit{Simulated Quantum Computation of Molecular Energies}. Science, vol. 309, no. 5741, pp. 1704-1707, 2005.\\
@@ -1283,8 +1285,8 @@ def print_composition_table(console, pauli_compose, pauli_strings): ...
     (\href{https://iopscience.iop.org/article/10.1088/2058-9565/aad3e4} {\textit{iopscience:2058-9565/aad3e4}})
 
     \bibitem{Cawley2013}\label{Cawley2013}
-    N. Cawley, Z. Howard, M. Kleinert et al. \textit{Analytical study of level crossings in the Stark-Zeeman spectrum of ground state OH}. Eur. Phys. J. D, vol. 67, 233, 2013.\;--\; M. Bhattacharya. S. Marin, M. Kleinert. \textit{Coherent cancellation of geometric phase for the OH molecule in external fields}, 2014.
-    (\url{https://doi.org/10.48550/arXiv.1404.6285})
+    N. Cawley, Z. Howard, M. Kleinert et al. \textit{Analytical study of level crossings in the Stark-Zeeman spectrum of ground state OH}. Eur. Phys. J. D, vol. 67, 233, 2013.\;--\; M. Bhattacharya. S. Marin, M. Kleinert. \textit{Coherent cancellation of geometric phase for the OH molecule in external fields}, 2014.\\
+    (\href{https://doi.org/10.48550/arXiv.1404.6285}{\textit{arXiv.1404.6285}})
 
 \end{thebibliography}
 
@@ -2139,5 +2141,4 @@ def main() -> None:
 if __name__ == "__main__":
     main()
 \end{lstlisting}
-
 \end{document}
